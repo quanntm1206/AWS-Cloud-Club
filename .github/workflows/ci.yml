@@ -23,4 +23,4 @@ jobs:
       - run: python -m ruff check .
       - run: python -m mypy
       - name: Assert CI has no AWS deployment
-        run: '! grep -R "aws cloudformation deploy" .github/workflows'
+        run: python scripts/validate_ci_safety.py
