@@ -1,5 +1,8 @@
 import subprocess
+import sys
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -44,6 +47,7 @@ def test_residual_scan_covers_every_resource_allowlist_service() -> None:
         assert "AWS scan error" in text
 
 
+@pytest.mark.skipif(sys.platform != "win32", reason="PowerShell PATH/PATHEXT contract is Windows-only")
 def test_powershell_residual_scan_fails_closed_on_cli_error(tmp_path: Path) -> None:
     fake_aws = tmp_path / "aws.ps1"
     fake_aws.write_text("[Console]::Error.WriteLine('AccessDenied')\nexit 7\n", encoding="ascii")

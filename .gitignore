@@ -12,7 +12,7 @@ credentials
 data/raw/
 data/processed/
 artifacts/
-checkpoints/
+/checkpoints/
 *.joblib
 *.pt
 *.pth
