@@ -53,7 +53,7 @@ Giữ từ `checkpoint` khi đó là thuật ngữ kỹ thuật ML, ví dụ mod
 - `README.md`
   - Nói rõ repo này là bộ khung mẫu do chủ repo phát hành.
   - GitHub chỉ dùng để clone/download source.
-  - Thêm lệnh clone dạng placeholder `<REPO_URL>`; không đoán URL thật.
+  - Thêm lệnh clone bằng URL repo chính thức đã xác minh; không đoán URL.
   - Xóa ngôn ngữ ngụ ý người học phải xây GitHub portfolio.
 - `labs/**/README.md`, `labs/**/expected/README.md`, capstone docs
   - Giữ acceptance/self-check và artifact local.
@@ -130,7 +130,7 @@ Thêm tests deterministic:
 
 - GitHub duy nhất: clone/download repo mẫu của chủ repo.
 - Artifact, log, test evidence lưu local; không gửi ai.
-- Không thêm URL repo giả; dùng `<REPO_URL>` và ghi chủ repo thay trước publish.
+- Không thêm URL repo giả; chỉ ghi URL repo chính thức sau khi xác minh.
 
 ### Task 5 - Cập nhật DOCX builder
 

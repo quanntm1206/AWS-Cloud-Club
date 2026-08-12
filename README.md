@@ -14,14 +14,14 @@ serverless trên AWS.
 
 ## Bắt đầu
 
-GitHub chỉ là nơi chủ repo phát hành bộ khung. Clone bằng URL do chủ repo cung cấp:
+GitHub chỉ là nơi chủ repo phát hành bộ khung. Clone repo mẫu:
 
 ```text
-git clone <REPO_URL>
+git clone https://github.com/quanntm1206/AWS-Cloud-Club.git
 ```
 
-Chủ repo thay `<REPO_URL>` trước khi phát hành. Nếu không dùng Git, tải archive từ cùng repository rồi
-giải nén cục bộ. Người học không fork, commit, push, mở pull request hoặc nộp bài. Artifact, learning log
+Nếu không dùng Git, tải source archive từ `https://github.com/quanntm1206/AWS-Cloud-Club` rồi giải nén
+cục bộ. Người học không fork, commit, push, mở pull request hoặc nộp bài. Artifact, learning log
 và minh chứng test được lưu cục bộ để tự đánh giá; không gửi cho ai và không cần public repository.
 
 ```powershell

@@ -67,8 +67,8 @@ def test_getting_started_defines_github_as_clone_only() -> None:
 
 def test_readme_defines_owner_template_clone_and_local_artifacts() -> None:
     text = (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "git clone <REPO_URL>" in text
-    assert "Chủ repo thay `<REPO_URL>` trước khi phát hành" in text
+    assert "git clone https://github.com/quanntm1206/AWS-Cloud-Club.git" in text
+    assert "<REPO_URL>" not in text
     assert "không fork, commit, push, mở pull request hoặc nộp bài" in text.lower()
     assert "lưu cục bộ" in text.lower()
 

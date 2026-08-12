@@ -177,8 +177,8 @@ Preset: `compact_reference_guide`; khổ Letter, lề 1 inch, Calibri 11 pt, lin
 
 ## 9. Phát hành bộ khung và workflow local
 
-Chủ repo phát hành bộ khung trên GitHub. Người học chỉ clone bằng `git clone <REPO_URL>` hoặc tải archive;
-chủ repo phải thay `<REPO_URL>` trước khi publish. Repository phải setup được trên Windows/macOS/Linux và
+Chủ repo phát hành bộ khung trên GitHub. Người học chỉ clone bằng
+`git clone https://github.com/quanntm1206/AWS-Cloud-Club.git` hoặc tải archive. Repository phải setup được trên Windows/macOS/Linux và
 chạy quick validation không cần AWS credentials. Workflow người học không có bước đóng góp lại repository,
 gửi bài hoặc xuất bản hồ sơ công khai. Artifact, learning log và test evidence lưu local để tự đánh giá.
 

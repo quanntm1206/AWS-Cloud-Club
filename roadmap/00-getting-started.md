@@ -8,7 +8,8 @@
 
 ## Quy tắc học
 
-1. Clone repo mẫu của chủ repo bằng `git clone <REPO_URL>` hoặc download source archive một lần.
+1. Clone repo mẫu bằng `git clone https://github.com/quanntm1206/AWS-Cloud-Club.git` hoặc download
+   source archive một lần.
 2. Chạy baseline trước model phức tạp.
 3. Split dữ liệu trước mọi bước học từ dữ liệu.
 4. Ghi config, seed, metric, runtime và kết quả âm.
