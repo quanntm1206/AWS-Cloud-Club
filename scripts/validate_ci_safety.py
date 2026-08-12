@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 WORKFLOW_DIR = Path(".github/workflows")
 DEPLOY_COMMAND = "aws" + " cloudformation deploy"
 
