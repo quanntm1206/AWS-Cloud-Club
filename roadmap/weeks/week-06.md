@@ -4,6 +4,12 @@
 
 Xử lý missing/category bằng pipeline không leakage.
 
+## Vì sao tuần này quan trọng
+
+Preprocessing cũng học từ dữ liệu. Đặt nó trong pipeline giữ ranh giới train/validation sạch và tránh model chạy khác lúc inference.
+
+**Ví dụ gần gũi:** Giá trị trung bình dùng để điền missing phải đến từ train, không được nhìn trước khách hàng trong test.
+
 ## Kiến thức cốt lõi
 
 - Imputer, scaler, encoder đều học trạng thái và chỉ được fit trên train.
@@ -24,6 +30,7 @@ Xử lý missing/category bằng pipeline không leakage.
 
 ## Guided practice
 
+
 1. Tạo pipeline impute-scale và impute-one-hot.
 2. Inject unseen category vào validation.
 3. Test scaler mean không lấy test data.
@@ -31,6 +38,10 @@ Xử lý missing/category bằng pipeline không leakage.
 ## Lab
 
 **lab-05:** Leakage-safe preprocessing. Môi trường chính: `local`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn xử lý được missing và category chưa từng thấy, đồng thời chứng minh scaler không học từ test.
 
 ## Tự kiểm tra
 
@@ -40,18 +51,22 @@ Xử lý missing/category bằng pipeline không leakage.
 
 ## Kết quả hướng tới
 
-pipeline + schema; kèm config, command, metric, runtime và một failure/limitation.
+pipeline + schema; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Dựng pipeline impute/scale/encode chỉ fit train; kiểm category chưa thấy.
+- **Mở rộng:** Thêm một schema failure như thiếu cột hoặc sai dtype và biến nó thành test.
 
 ## Lỗi thường gặp
 
 - Lưu model nhưng quên transformer.
 - Impute theo test distribution.
 
+## Khi mắc kẹt
+
+Tạo một validation row có category lạ. Nếu pipeline vỡ, sửa encoder và thêm kiểm tra trước khi train lại.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: scikit-learn Pipeline, ColumnTransformer, SimpleImputer và OneHotEncoder.

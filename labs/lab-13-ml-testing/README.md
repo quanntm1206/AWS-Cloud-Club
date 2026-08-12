@@ -1,41 +1,45 @@
-# lab-13: ML testing
+# Lab 13 - Viết test cho dữ liệu, model và artifact
 
-## Goal
+## Mục tiêu
 
-Test schema, missing, unknown category, reload parity và metric boundaries.
+Test ML cần kiểm dữ liệu và artifact, không chỉ function trả đúng type. Lab này tập trung vào những lỗi thường xuất hiện sau khi model đã được đóng gói.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-14.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. Test schema đúng và các case thiếu cột, sai dtype, NaN/Inf, empty batch.
+2. Đưa unseen category qua đúng preprocessing pipeline.
+3. Fit-save-load-predict rồi kiểm parity trong tolerance.
+4. Tạo data synthetic có signal, xác nhận model vượt dummy bằng gate hợp lý.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 13
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 13
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-13-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-13-evidence.json`. Trong `result`, bạn sẽ thấy `artifact_reload_parity=true` cùng negative cases tự bổ sung.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- `artifact_reload_parity=true`; negative cases tự bổ sung đều cho lỗi có chủ đích.
+- Test nhỏ, deterministic; metric assertion có tolerance thay vì khóa số stochastic mong manh.
+
+## Khi mắc kẹt
+
+Chạy từng test riêng với synthetic data nhỏ. Nếu flaky, liệt kê nguồn randomness và khóa seed trước khi nới assertion.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

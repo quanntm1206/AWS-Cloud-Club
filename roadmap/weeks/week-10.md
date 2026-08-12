@@ -4,6 +4,12 @@
 
 Feature engineering có giả thuyết; ablation một biến.
 
+## Vì sao tuần này quan trọng
+
+Feature engineering biến hiểu biết về bài toán thành tín hiệu model dùng được. Ablation giúp kiểm xem feature mới thật sự có ích hay chỉ trùng với nhiễu.
+
+**Ví dụ gần gũi:** Tỉ lệ chi tiêu trên thời gian gắn bó có thể hữu ích, nhưng phải xử lý mẫu số 0 và chỉ dùng dữ liệu có tại prediction time.
+
 ## Kiến thức cốt lõi
 
 - Feature phải tồn tại tại prediction time, ổn định, tái tạo được và có ý nghĩa.
@@ -24,6 +30,7 @@ Feature engineering có giả thuyết; ablation một biến.
 
 ## Guided practice
 
+
 1. Viết feature hypothesis và availability time.
 2. So all-features với without-monthly-charge.
 3. Ghi metric/runtime delta và keep/drop decision.
@@ -31,6 +38,10 @@ Feature engineering có giả thuyết; ablation một biến.
 ## Lab
 
 **lab-09:** Feature ablation log. Môi trường chính: `local`.
+
+## Dấu hiệu bạn đã hiểu
+
+Mỗi feature có giả thuyết và thời điểm sẵn có; quyết định giữ/bỏ dựa trên cùng harness cùng variability.
 
 ## Tự kiểm tra
 
@@ -40,18 +51,22 @@ Feature engineering có giả thuyết; ablation một biến.
 
 ## Kết quả hướng tới
 
-ablation report; kèm config, command, metric, runtime và một failure/limitation.
+ablation report; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Chạy một ablation có giả thuyết, availability time rõ và test chưa bị chạm.
+- **Mở rộng:** Thử một feature ratio an toàn với zero/missing rồi đo cả metric lẫn runtime.
 
 ## Lỗi thường gặp
 
 - Dùng future/target-proxy feature.
 - Đổi feature lẫn hyperparameter cùng lúc.
 
+## Khi mắc kẹt
+
+Viết feature bằng lời trước code. Nếu không nói được nó có sẵn khi nào, tạm loại khỏi model.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: phần feature engineering/model inspection trong tài liệu chính thức ở `docs/sources.yml`.

@@ -1,41 +1,45 @@
-# lab-01: NumPy vectorization
+# Lab 01 - Đọc shape bằng NumPy và đối chiếu vectorization
 
-## Goal
+## Mục tiêu
 
-Cài dot-product prediction, MAE và standardization; test shape/boundary.
+Phép nhân ma trận chỉ hữu ích khi bạn biết mỗi chiều đại diện cho gì. Lab này giúp bạn nối công thức `X @ w` với dữ liệu nhiều hàng, thay vì học vectorization như một mẹo viết code ngắn.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-02.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. Viết shape dự kiến của `X`, `w` và `X @ w` trước khi chạy.
+2. Tính score của một hàng bằng tay, sau đó chạy loop và phép nhân vectorized.
+3. Dùng `np.allclose` để đối chiếu; cố ý đổi một shape hoặc axis và đọc lỗi.
+4. Tự tính MAE/standardization trên mảng nhỏ, kiểm zero variance hoặc input rỗng.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 1
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 1
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-01-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-01-evidence.json`. Trong `result`, bạn sẽ thấy `vectorization_matches_loop=true` và năm score đầu.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- `vectorization_matches_loop=true`; một hàng tính tay khớp output trong tolerance.
+- Bạn giải thích được broadcasting nào hợp lệ và vì sao `reshape` tùy tiện có thể che lỗi nghiệp vụ.
+
+## Khi mắc kẹt
+
+Thu nhỏ còn hai hàng, in `shape` và gắn tên cho từng axis. Đừng thêm `reshape` cho tới khi nói được chiều mới có ý nghĩa gì.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

@@ -1,41 +1,45 @@
-# lab-12: Notebook to package
+# Lab 12 - Tách logic khỏi notebook thành config và CLI
 
-## Goal
+## Mục tiêu
 
-CLI train từ YAML; code không phụ thuộc notebook state.
+Bạn sẽ tháo training logic khỏi notebook mà không thay đổi hành vi. Mục tiêu không phải nhiều file hơn, mà là input/output rõ và một nguồn logic duy nhất.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-13.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. Đánh dấu cell nào thuộc data, features, train, evaluate và artifact I/O.
+2. Di chuyển core logic vào module; notebook chỉ import và gọi.
+3. Tạo config có schema cùng CLI nhận config/data/output.
+4. Chạy cùng config từ notebook và clean shell, so metric/artifact trong tolerance.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 12
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 12
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-12-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-12-evidence.json`. Trong `result`, bạn sẽ thấy danh sách config keys và `notebook_state_required=false`.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- Output cho thấy config keys rõ và `notebook_state_required=false`.
+- Không còn logic training copy ở hai nơi; CLI trả lỗi hữu ích khi config sai.
+
+## Khi mắc kẹt
+
+Restart kernel và mở clean shell. Biến hoặc file chỉ tồn tại sau một cell cũ chính là hidden dependency cần loại.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

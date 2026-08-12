@@ -1,18 +1,33 @@
-# Colab Free - hướng dẫn an toàn tài nguyên
+# Colab Free - chạy CV mà không cần mua compute
 
-**Kiểm chứng:** 2026-08-12 tại `https://research.google.com/colaboratory/faq.html`.
+**Kiểm chứng:** 2026-08-12 tại [Google Colab FAQ](https://research.google.com/colaboratory/faq.html).
 
-Colab cung cấp notebook hosted miễn phí, có thể có GPU/TPU. Resource không được đảm bảo; usage limit,
-idle timeout, maximum VM lifetime và accelerator type thay đổi. Free notebook có thể chạy tối đa 12 giờ
-phụ thuộc availability/usage pattern, nhưng roadmap không dựa vào con số này để hoàn thành lab.
+Colab Free có thể cấp GPU/TPU, nhưng loại accelerator, giới hạn sử dụng, idle timeout và tuổi thọ VM thay
+đổi theo availability và usage pattern. Roadmap luôn có `cpu-mini`, vì vậy việc không được cấp GPU không
+chặn bạn hoàn thành phần cốt lõi.
 
-## Quy trình
+## Mở notebook
 
-1. Mở notebook từ GitHub hoặc upload `.ipynb`; chọn **Copy to Drive** nếu muốn lưu bản riêng.
-2. Chạy `Environment check`; chỉ chọn GPU khi notebook thực sự dùng GPU.
-3. Chạy `cpu-mini` trước; sau đó mới chọn `gpu-free` nếu accelerator có sẵn.
-4. Lưu checkpoint mỗi epoch; tải `artifacts.zip` sau run.
-5. Dùng `Runtime > Disconnect and delete runtime` khi xong; không xem VM là storage bền vững.
+1. Tải hoặc mở [`notebooks/colab/cv_transfer_learning_colab.ipynb`](../../notebooks/colab/cv_transfer_learning_colab.ipynb).
+2. Trong Colab, dùng `File > Upload notebook`; nếu muốn giữ bản chỉnh sửa, chọn `Copy to Drive`.
+3. Chạy cell `Environment check`. Chỉ chọn `Runtime > Change runtime type > GPU` khi bạn chuẩn bị train.
+4. Chạy từ trên xuống với `cpu-mini`; sau đó mới thử `gpu-free` nếu accelerator có sẵn.
+5. Sau mỗi epoch, xác nhận checkpoint được cập nhật. Tải `artifacts.zip` về máy sau run.
+6. Chọn `Runtime > Disconnect and delete runtime` khi xong.
 
-Không dùng SSH/remote desktop, không chạy background service và không tạo nhiều account để lách quota.
+## Khi runtime bị ngắt
 
+Runtime không phải ổ lưu trữ bền vững. Tạo checkpoint mỗi epoch và download artifact sớm. Khi mở phiên mới,
+chạy lại environment/config, upload checkpoint, kiểm cùng architecture/label mapping rồi resume. Nếu chỉ có
+weights, gọi đó là inference checkpoint; không khẳng định optimizer đã được khôi phục.
+
+## Khắc phục nhanh
+
+- `torch.cuda.is_available()` là `False`: dùng CPU-mini hoặc thử lại lúc khác; không mua Colab Pro cho roadmap.
+- CIFAR10 tải lỗi: dùng FakeData fallback để smoke, ghi limitation, không dùng accuracy để kết luận.
+- Pretrained weights tải lỗi: random-weight fallback chỉ kiểm code; chưa đạt gate transfer learning.
+- `CUDA out of memory`: restart runtime rồi giảm batch size/image size/sample count.
+- Cài package xong vẫn import lỗi: restart runtime một lần và chạy lại từ environment check.
+- Không thấy file: kiểm panel Files; download trước khi `Disconnect and delete runtime`.
+
+Không dùng SSH/remote desktop, background service hoặc nhiều account để lách quota. Không lưu token trong cell.

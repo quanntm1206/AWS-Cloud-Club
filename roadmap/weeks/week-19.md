@@ -4,6 +4,12 @@
 
 Checkpoint/resume; fine-tune tiết kiệm.
 
+## Vì sao tuần này quan trọng
+
+Free runtime có thể ngắt bất cứ lúc nào. Checkpoint tốt biến một lần ngắt thành gián đoạn nhỏ thay vì mất toàn bộ buổi train.
+
+**Ví dụ gần gũi:** Best checkpoint giữ epoch validation tốt nhất; last checkpoint chỉ phản ánh lần cập nhật gần nhất và có thể kém hơn.
+
 ## Kiến thức cốt lõi
 
 - Train head trước; chỉ unfreeze block cuối nếu validation và runtime budget biện minh.
@@ -25,6 +31,7 @@ Checkpoint/resume; fine-tune tiết kiệm.
 
 ## Guided practice
 
+
 1. Train tối đa 3-5 epoch, save best validation checkpoint.
 2. Dừng-load-resume thêm một epoch.
 3. Tạo ZIP self-contained, manifest và checksum ngay trong notebook.
@@ -32,6 +39,10 @@ Checkpoint/resume; fine-tune tiết kiệm.
 ## Lab
 
 **lab-18:** 3-5 epoch, early stopping, export artifact. Môi trường chính: `colab, kaggle`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn lưu đủ model, optimizer, epoch, config và label mapping; dừng rồi resume thêm một epoch thành công.
 
 ## Tự kiểm tra
 
@@ -41,18 +52,22 @@ Checkpoint/resume; fine-tune tiết kiệm.
 
 ## Kết quả hướng tới
 
-checkpoint artifact; kèm config, command, metric, runtime và một failure/limitation.
+checkpoint artifact; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Lưu checkpoint đủ state, chủ động dừng/resume và export artifact trước khi đóng runtime.
+- **Mở rộng:** Unfreeze block cuối chỉ khi validation/runtime có lý do; dùng learning rate thấp hơn head.
 
 ## Lỗi thường gặp
 
 - Chỉ lưu weights nhưng gọi resumable.
 - Giữ accelerator session chạy sau lab.
 
+## Khi mắc kẹt
+
+Giảm data và epoch trước. Nếu resume sai, so architecture, label mapping và optimizer state thay vì chỉ load weights.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: PyTorch saving/loading checkpoint tutorial và notebook contract trong repo.

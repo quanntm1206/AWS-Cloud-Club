@@ -1,41 +1,45 @@
-# lab-05: Leakage-safe preprocessing
+# Lab 05 - Dựng preprocessing không nhìn test
 
-## Goal
+## Mục tiêu
 
-ColumnTransformer/Pipeline chỉ fit train; unknown category không crash.
+Imputer, scaler và encoder đều học từ dữ liệu. Lab này buộc chúng sống trong cùng pipeline để test set không âm thầm tham gia training.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-06.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. Xác định numeric/categorical columns và chia dữ liệu trước preprocessing.
+2. Dựng `ColumnTransformer` cho missing, scaling và one-hot encoding.
+3. Thêm một validation row có category chưa từng thấy; chạy inference mà không fit lại.
+4. Kiểm statistic của scaler/imputer chỉ đến từ train.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 5
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 5
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-05-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-05-evidence.json`. Trong `result`, bạn sẽ thấy prediction cho unknown category và `leakage_guard=true`.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- Unknown category vẫn được xử lý và `leakage_guard=true`.
+- Pipeline lưu cả transform lẫn model; không có bước `fit` nào dùng validation/test.
+
+## Khi mắc kẹt
+
+Nếu encoder vỡ, kiểm `handle_unknown`. Nếu metric đẹp bất thường, tìm mọi `fit`/`fit_transform` và dữ liệu chúng nhận.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

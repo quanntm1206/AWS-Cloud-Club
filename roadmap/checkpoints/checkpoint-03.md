@@ -2,22 +2,35 @@
 
 ## Mục tiêu
 
-Tự đánh giá `applied-tabular` bằng sản phẩm chạy được và bằng chứng tái lập.
+Tự đánh giá một dự án tabular hoàn chỉnh, từ dữ liệu đến phân tích lỗi.
+
+## Bạn đã đạt mốc nếu
+
+- Pipeline xử lý schema, missing/category và model trong cùng contract chống leakage.
+- Baseline và các candidate dùng cùng split, seed, metric và runtime budget.
+- Feature engineering có giả thuyết; ablation chỉ thay một quyết định mỗi lần.
+- Error analysis dẫn tới hành động tiếp theo, đồng thời nêu subgroup hoặc failure mode còn yếu.
 
 ## Minh chứng đạt mốc
 
-- README: problem, data, command, environment, metric, limitations.
-- Code/notebook đã xóa secret và output lớn.
-- Test hoặc checklist oracle; learning log; lưu cục bộ trong thư mục do người học chọn.
-- Nếu có AWS: deployment manifest, cleanup output và residual scan.
+- Data/model card ngắn, split manifest, pipeline config và reproduction command lưu cục bộ.
+- Bảng baseline/candidate/ablation, gồm cả một kết quả âm có ý nghĩa.
+- Metric tổng, metric subgroup phù hợp và danh sách failure cases đã phân nhóm.
+- Artifact manifest cùng test schema, prediction parity hoặc invariant quan trọng.
 
 ## Rubric
 
 | Tiêu chí | Điểm |
 |---|---:|
-| Correctness và data contract | 30 |
-| Reproducibility và tests | 25 |
-| Evaluation/error analysis | 25 |
-| Communication và limitations | 20 |
+| Pipeline và data contract | 30 |
+| Baseline và thí nghiệm có kiểm soát | 25 |
+| Error analysis | 25 |
+| Tái lập và giao tiếp | 20 |
 
-Điểm đạt: 70/100. Gate: không leakage, không secret, mini run tái lập; AWS phải sạch tài nguyên.
+Điểm đạt: 70/100. Gate: không leakage, không secret, mini run tái lập; test cuối không bị dùng để sửa quyết định.
+
+## Câu hỏi tự nhìn lại
+
+- Candidate tốt hơn baseline vì tín hiệu thật hay vì quy trình đánh giá thay đổi?
+- Failure cluster nào đáng xử lý trước, dựa trên tác động nào?
+- Nếu có thêm hai giờ, thí nghiệm nhỏ nhất giúp giảm bất định là gì?

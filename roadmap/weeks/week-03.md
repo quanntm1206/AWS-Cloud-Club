@@ -4,6 +4,12 @@
 
 Làm sạch dữ liệu; phân biệt observed và suy diễn.
 
+## Vì sao tuần này quan trọng
+
+EDA không phải cuộc thi vẽ nhiều biểu đồ. Đây là lúc bạn tìm xem dữ liệu có đáng tin để model học hay không.
+
+**Ví dụ gần gũi:** Một cột tuổi âm hoặc customer ID bị lặp có thể làm metric đẹp giả, dù biểu đồ trông hoàn toàn bình thường.
+
 ## Kiến thức cốt lõi
 
 - EDA bắt đầu bằng schema, row/key, target distribution, missing, duplicate và range; biểu đồ đứng sau quality table.
@@ -24,6 +30,7 @@ Làm sạch dữ liệu; phân biệt observed và suy diễn.
 
 ## Guided practice
 
+
 1. Tạo data-quality table theo cột.
 2. Kiểm duplicate theo khóa nghiệp vụ.
 3. Viết ba insight dạng evidence -> hypothesis -> next check.
@@ -31,6 +38,10 @@ Làm sạch dữ liệu; phân biệt observed và suy diễn.
 ## Lab
 
 **lab-02:** EDA có data-quality table và ba insight. Môi trường chính: `local`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn phân biệt được điều quan sát thấy với giả thuyết cần kiểm tra thêm và không dùng test để thiết kế transform.
 
 ## Tự kiểm tra
 
@@ -40,18 +51,22 @@ Làm sạch dữ liệu; phân biệt observed và suy diễn.
 
 ## Kết quả hướng tới
 
-EDA notebook/report; kèm config, command, metric, runtime và một failure/limitation.
+EDA notebook/report; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Tạo data-quality table và ba ghi chú evidence - hypothesis - next check.
+- **Mở rộng:** Khảo sát một subgroup hoặc quy tắc duplicate khác; không dùng test để thiết kế cleaning.
 
 ## Lỗi thường gặp
 
 - Xóa outlier chỉ vì boxplot.
 - Nhìn test để thiết kế transform.
 
+## Khi mắc kẹt
+
+Bắt đầu bằng bảng schema, missing, duplicate và range. Chỉ vẽ biểu đồ sau khi biết mỗi hàng đại diện cho gì.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: pandas documentation về missing data, duplicates và dtypes trong `docs/sources.yml`.

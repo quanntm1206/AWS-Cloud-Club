@@ -20,10 +20,11 @@ def test_policy_contains_required_cost_guards() -> None:
     assert "not a hard spending cap" in policy["budget_caveat"]
 
 
-def test_optional_http_api_is_wired_not_orphaned() -> None:
+def test_template_exposes_private_invoke_only() -> None:
     text = (ROOT / "aws/cloudformation/tabular-inference.yml").read_text(encoding="utf-8")
-    for resource in ("HttpApiIntegration", "HttpApiRoute", "HttpApiStage", "HttpApiPermission"):
-        assert resource in text
+    assert "AWS::ApiGatewayV2" not in text
+    assert "EnablePublicApi" not in text
+    assert "PublicApiUrl" not in text
 
 
 def test_inline_lambda_uses_index_handler() -> None:
@@ -46,6 +47,18 @@ def test_powershell_deploy_checks_every_aws_exit_code() -> None:
     assert text.count("aws s3 cp") == 1
     assert text.count("$LASTEXITCODE -ne 0") == 4
     assert "Stack did not return BucketName" in text
+    assert "RECOVERY REQUIRED" in text
+    assert "cleanup.ps1" in text
+
+
+def test_deploy_scripts_do_not_accept_public_api_and_print_recovery() -> None:
+    for suffix in ("ps1", "sh"):
+        text = (ROOT / f"aws/scripts/deploy.{suffix}").read_text(encoding="utf-8")
+        assert "EnablePublicApi" not in text
+        assert "enable-public-api" not in text
+        assert text.count("RECOVERY REQUIRED") >= 3
+        assert "ExpiresAt is metadata, not automatic deletion" in text
+        assert "2026-08-13" not in text
 
 
 def test_powershell_preflight_and_cleanup_fail_closed() -> None:

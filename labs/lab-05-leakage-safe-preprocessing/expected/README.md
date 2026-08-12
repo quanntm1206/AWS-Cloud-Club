@@ -1,12 +1,19 @@
-# Expected evidence - lab-05-leakage-safe-preprocessing
+# Kết quả tham khảo - lab-05-leakage-safe-preprocessing
 
 ## Oracle
 
-ColumnTransformer/Pipeline chỉ fit train; unknown category không crash.
+Thêm một category chưa thấy; pipeline vẫn predict được mà không fit lại.
 
 ## Required receipt
 
-- Command: `python scripts/run_lab.py --lab 5`.
-- Evidence must include the lab-specific metric/oracle, seed/config, runtime, and at least one limitation or failure.
-- `status=starter-example-completed` proves only that the starter ran; acceptance remains a manual/rubric gate.
-- Store this evidence locally for self-assessment; do not commit or send it. Exclude secrets, personal data, large raw datasets, and paid-cloud output.
+- Chạy `python scripts/run_lab.py --lab 5` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
+- JSON phải có `status=starter-example-completed`; trong `result` cần thấy prediction cho unknown category và `leakage_guard=true`.
+- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
+- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+
+## Gợi ý nếu kết quả khác
+
+Nếu vỡ ở encoder, kiểm `handle_unknown`; nếu score đẹp bất thường, tìm bước fit trước split.
+
+Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
+hoặc output cloud trả phí.

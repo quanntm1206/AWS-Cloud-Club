@@ -2,7 +2,13 @@
 
 ## Mục tiêu tuần
 
-Hiểu dot product, loss, gradient và xác suất cơ bản.
+Tự viết linear regression nhỏ; đọc loss curve và dùng xác suất cơ bản để diễn giải kết quả.
+
+## Vì sao tuần này quan trọng
+
+Loss cho model biết đang sai bao nhiêu; gradient cho biết nên đổi tham số theo hướng nào. Nắm trực giác này giúp bạn debug mọi mô hình về sau.
+
+**Ví dụ gần gũi:** Nếu learning rate quá lớn, mỗi bước có thể nhảy qua đáy loss như người xuống dốc nhưng bước dài quá mức.
 
 ## Kiến thức cốt lõi
 
@@ -10,6 +16,7 @@ Hiểu dot product, loss, gradient và xác suất cơ bản.
 - Gradient chỉ hướng tăng nhanh của loss; gradient descent cập nhật ngược hướng với learning rate.
 - Central finite difference kiểm analytic gradient bằng thay đổi nhỏ của tham số.
 - Feature scale ảnh hưởng hội tụ; hệ số chỉ diễn giải cùng scale, encoding và assumptions.
+- Xác suất nằm trong `[0, 1]`; xác suất có điều kiện luôn gắn với một điều kiện, còn tần suất trên mẫu chỉ là ước lượng có sai số.
 
 ## Lịch 8-10 giờ
 
@@ -24,6 +31,7 @@ Hiểu dot product, loss, gradient và xác suất cơ bản.
 
 ## Guided practice
 
+
 1. Tính forward, MSE, gradient bằng tay trên bốn điểm.
 2. So analytic gradient với finite difference qua nhiều epsilon.
 3. So loss curve khi learning rate nhỏ, hợp lý, quá lớn.
@@ -31,6 +39,10 @@ Hiểu dot product, loss, gradient và xác suất cơ bản.
 ## Lab
 
 **lab-03:** Linear regression từ đầu và gradient check. Môi trường chính: `local`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn tự viết linear regression nhỏ, gradient check khớp và đọc loss curve để nói model đang học hay diverge.
 
 ## Tự kiểm tra
 
@@ -40,18 +52,22 @@ Hiểu dot product, loss, gradient và xác suất cơ bản.
 
 ## Kết quả hướng tới
 
-mốc năng lực 1; kèm config, command, metric, runtime và một failure/limitation.
+mốc năng lực 1; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Tự viết linear regression, gradient check và giải thích ba dạng loss curve.
+- **Mở rộng:** Thử MAE thay MSE hoặc đổi feature scale, nhưng giữ nguyên một yếu tố tại mỗi lần chạy.
 
 ## Lỗi thường gặp
 
 - Tin gradient đúng chỉ vì loss giảm.
 - Tăng epoch để che learning rate quá lớn.
 
+## Khi mắc kẹt
+
+Tính một bước trên bốn điểm bằng tay. Nếu gradient lệch, kiểm dấu, hệ số trung bình và nhiều giá trị `epsilon`.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: phần optimization/linear models trong tài liệu scikit-learn và textbook được đăng ký ở `docs/sources.yml`.

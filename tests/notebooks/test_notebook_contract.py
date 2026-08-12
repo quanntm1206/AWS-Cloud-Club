@@ -36,6 +36,30 @@ def test_cv_notebooks_contain_real_training_and_evaluation() -> None:
         assert "ImageDraw" in text
         assert "failure_evidence" in text
         assert "exported all instead of padding to 20" in text
+        assert "weights=WEIGHTS" in text
+        assert "best_checkpoint_path" in text
+        assert "last_checkpoint_path" in text
+        assert "torch.save(checkpoint,last_checkpoint_path)" in text
+        assert "RandomHorizontalFlip" in text
+        assert "train_transform" in text and "eval_transform" in text
+        assert "weighted_f1" in text
+        assert "confusion_matrix_normalized" in text
+        assert "failure_candidates" in text
+        assert "error_type" in text
+        assert "confident-wrong" in text
+        assert "RUN_EPOCHS" in text
+        assert "target_epoch=start_epoch+RUN_EPOCHS" in text
+        assert "range(start_epoch,target_epoch)" in text
+        assert "'max_epochs'" not in text
+        assert "build_transforms" in text
+        assert "RUN_EPOCHS=1; SAMPLES=160; BATCH_SIZE=8; IMAGE_SIZE=96" in text
+        assert "shutil.unpack_archive" in text
+        assert "resume_checkpoint_path" in text
+        assert "raise FileNotFoundError" in text
+        assert "best_model_state" in text
+        assert "checkpoint['best_model']" in text
+        assert "shutil.unpack_archive(uploaded_archive_path,Path('artifacts'))" in text
+        assert "torch.save(checkpoint,best_checkpoint_path)" in text
 
 
 def test_capstone_notebooks_match_canonical_copies() -> None:

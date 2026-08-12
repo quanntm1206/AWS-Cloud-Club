@@ -10,7 +10,7 @@ scan s3 s3api list-buckets --query "Buckets[?starts_with(Name, 'ml-roadmap-$proj
 scan lambda lambda list-functions --region "$region" --query "Functions[?starts_with(FunctionName, 'ml-roadmap-$project_id')].FunctionName" --output text
 scan logs logs describe-log-groups --region "$region" --log-group-name-prefix "/aws/lambda/ml-roadmap-$project_id" --query 'logGroups[].logGroupName' --output text
 scan iam iam list-roles --query "Roles[?starts_with(RoleName, 'ml-roadmap-$project_id')].RoleName" --output text
-scan apigateway apigatewayv2 get-apis --region "$region" --query "Items[?starts_with(Name, 'ml-roadmap-$project_id')].ApiId" --output text
 residual=false;[[ ${#findings[@]} -gt 0 ]]&&residual=true
-if [[ "$json" == "true" ]];then printf '{"project":"%s","region":"%s","scan_status":"complete","residual":%s,"resources":"%s"}\n' "$project_id" "$region" "$residual" "${findings[*]-}";else printf 'project=%s region=%s scan_status=complete residual=%s resources=%s\n' "$project_id" "$region" "$residual" "${findings[*]-}";fi
+budget_note="Budget alerts are kept intentionally; review or delete them manually after the course."
+if [[ "$json" == "true" ]];then printf '{"project":"%s","region":"%s","scan_status":"complete","residual":%s,"resources":"%s","budget_note":"%s"}\n' "$project_id" "$region" "$residual" "${findings[*]-}" "$budget_note";else printf 'project=%s region=%s scan_status=complete residual=%s resources=%s budget_note=%s\n' "$project_id" "$region" "$residual" "${findings[*]-}" "$budget_note";fi
 [[ "$residual" == "false" ]]

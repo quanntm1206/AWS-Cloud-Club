@@ -4,6 +4,12 @@
 
 Hiểu tensor, autograd, loop và device.
 
+## Vì sao tuần này quan trọng
+
+PyTorch làm rõ điều thư viện cổ điển thường giấu: tensor đi qua model, loss tạo gradient và optimizer cập nhật parameter.
+
+**Ví dụ gần gũi:** Quên `zero_grad()` khiến gradient của batch mới cộng lên batch cũ; quên `eval()` làm validation hành xử khác dự kiến.
+
 ## Kiến thức cốt lõi
 
 - Tensor có shape, dtype, device; model, input và target phải ở device tương thích. `.to(device)` trả tensor/module cần được gán lại.
@@ -25,6 +31,7 @@ Hiểu tensor, autograd, loop và device.
 
 ## Guided practice
 
+
 1. In shape/dtype/device của batch và output trước train.
 2. Viết loop 3 epoch, lưu train/validation loss.
 3. Thử bỏ zero_grad; khôi phục rồi validation bằng eval/no_grad.
@@ -32,6 +39,10 @@ Hiểu tensor, autograd, loop và device.
 ## Lab
 
 **lab-16:** MLP device-aware trên mini data. Môi trường chính: `local, colab, kaggle`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn giải thích được shape/dtype/device, viết loop nhỏ và thấy loss giảm mà không phụ thuộc GPU.
 
 ## Tự kiểm tra
 
@@ -42,18 +53,22 @@ Hiểu tensor, autograd, loop và device.
 
 ## Kết quả hướng tới
 
-seeded run; kèm config, command, metric, runtime và một failure/limitation.
+seeded run; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Chạy MLP mini trên CPU, giải thích tensor/device và đúng train/eval loop.
+- **Mở rộng:** Thử một learning rate khác hoặc bỏ `zero_grad` có chủ đích rồi khôi phục.
 
 ## Lỗi thường gặp
 
 - Input lên GPU nhưng model/target ở CPU.
 - Validation trong train mode hoặc giữ graph.
 
+## Khi mắc kẹt
+
+Chạy local one-epoch smoke. Nếu lỗi, in device của model, input, target và kiểm target dtype trước.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: PyTorch tutorials về tensors, autograd, optimization và `train`/`eval`.

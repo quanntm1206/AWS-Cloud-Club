@@ -109,3 +109,49 @@ def test_expected_receipts_are_lab_specific() -> None:
         assert directory.name in text
         assert "## Oracle" in text and "## Required receipt" in text
         assert "mô tả oracle và dạng bằng chứng mong đợi" not in text
+
+
+def test_repo_documents_all_21_labs() -> None:
+    lab_directories = sorted((ROOT / "labs").glob("lab-[0-9][0-9]-*"))
+    assert len(lab_directories) == 21
+    assert lab_directories[0].name.startswith("lab-00-")
+    assert lab_directories[-1].name.startswith("lab-20-")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    labs_readme = (ROOT / "labs/README.md").read_text(encoding="utf-8")
+    assert "21 lab" in readme
+    assert "lab-00" in labs_readme and "lab-20" in labs_readme
+
+
+def test_week_guides_fit_the_stated_weekly_budget() -> None:
+    for week in range(1, 25):
+        text = (ROOT / f"roadmap/weeks/week-{week:02d}.md").read_text(encoding="utf-8")
+        rows = []
+        for line in text.splitlines():
+            if line.startswith("|") and line.count("|") >= 3:
+                value = line.split("|")[-2].strip()
+                if value.isdigit():
+                    rows.append(int(value))
+        assert 8 <= sum(rows) <= 10, f"week {week}: schedule totals {sum(rows)} hours"
+
+
+def test_week_guides_offer_context_and_recovery() -> None:
+    for week in range(1, 25):
+        text = (ROOT / f"roadmap/weeks/week-{week:02d}.md").read_text(encoding="utf-8")
+        assert "## Vì sao tuần này quan trọng" in text, f"week {week}"
+        assert "## Khi mắc kẹt" in text, f"week {week}"
+        assert "## Dấu hiệu bạn đã hiểu" in text, f"week {week}"
+
+
+def test_lab_guides_use_truthful_vietnamese_learning_contract() -> None:
+    for lab in range(20):
+        guide = next((ROOT / "labs").glob(f"lab-{lab:02d}-*/README.md"))
+        text = guide.read_text(encoding="utf-8")
+        for heading in (
+            "## Mục tiêu",
+            "## Trước khi bắt đầu",
+            "## Các bước thực hiện",
+            "## Khi nào xem như hoàn thành",
+            "## Khi mắc kẹt",
+        ):
+            assert heading in text, f"{guide.parent.name}: {heading}"
+        assert "Hoàn thiện phần `starter/`" not in text

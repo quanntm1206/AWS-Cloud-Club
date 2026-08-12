@@ -4,6 +4,12 @@
 
 Thiết kế inference contract và error boundary.
 
+## Vì sao tuần này quan trọng
+
+Inference API là ranh giới giữa model và sản phẩm. Contract tốt giúp lỗi của client, lỗi artifact và giới hạn vận hành được xử lý khác nhau.
+
+**Ví dụ gần gũi:** Payload thiếu cột nên trả 422; model chưa load là lỗi dịch vụ 503, không phải lỗi người gọi.
+
 ## Kiến thức cốt lõi
 
 - Inference contract khóa request/response schema, model version, threshold, error codes và limits.
@@ -24,6 +30,7 @@ Thiết kế inference contract và error boundary.
 
 ## Guided practice
 
+
 1. Gửi valid, missing, wrong-type, unknown-category payload.
 2. Kiểm success/422/503 theo contract.
 3. Đo warm latency mini batch và ghi giới hạn phép đo.
@@ -31,6 +38,10 @@ Thiết kế inference contract và error boundary.
 ## Lab
 
 **lab-14:** Local API valid/invalid payload. Môi trường chính: `local`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn gửi được payload đúng/sai, nhận status phù hợp và xác nhận API dùng chính preprocessing đã lưu.
 
 ## Tự kiểm tra
 
@@ -40,18 +51,22 @@ Thiết kế inference contract và error boundary.
 
 ## Kết quả hướng tới
 
-API demo; kèm config, command, metric, runtime và một failure/limitation.
+API demo; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Kiểm valid/invalid API contract, health/readiness và log không chứa raw feature.
+- **Mở rộng:** Đo latency mini batch hoặc thêm payload limit với test rõ.
 
 ## Lỗi thường gặp
 
 - Lộ stack trace cho client.
 - API tự viết preprocessing khác training.
 
+## Khi mắc kẹt
+
+Gọi handler hoặc API với một request tối thiểu. Khi có 500, đọc server log nhưng không đưa stack trace vào response.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: FastAPI request validation/error handling và HTTP status semantics trong tài liệu chính thức.

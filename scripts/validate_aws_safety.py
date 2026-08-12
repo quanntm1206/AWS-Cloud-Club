@@ -35,7 +35,7 @@ def validate_aws(root: Path = ROOT) -> list[str]:
     unexpected = resource_types & forbidden
     if unexpected:
         errors.append(f"forbidden resources: {sorted(unexpected)}")
-    allowed_prefixes = ("AWS::S3::", "AWS::Lambda::", "AWS::Logs::", "AWS::IAM::", "AWS::ApiGatewayV2::")
+    allowed_prefixes = ("AWS::S3::", "AWS::Lambda::", "AWS::Logs::", "AWS::IAM::")
     for name, resource in resources.items():
         resource_type = resource.get("Type", "")
         if not resource_type.startswith(allowed_prefixes):
@@ -46,11 +46,8 @@ def validate_aws(root: Path = ROOT) -> list[str]:
         errors.append("CloudWatch log retention must be one day")
     if "ReservedConcurrentExecutions: 1" not in template_text:
         errors.append("Lambda reserved concurrency must be one")
-    if "Default: 'false'" not in template_text or "EnablePublicApi" not in template_text:
-        errors.append("public API must be disabled by default")
-    for component in ("HttpApiIntegration", "HttpApiRoute", "HttpApiStage", "HttpApiPermission"):
-        if component not in resources:
-            errors.append(f"optional HTTP API is incomplete: missing {component}")
+    if "AWS::ApiGatewayV2" in template_text or "EnablePublicApi" in template_text:
+        errors.append("learner template must use private Lambda invocation only")
     for tag in policy["required_tags"]:
         if not re.search(rf"(?:Key:\s*{re.escape(tag)}\b|^\s*{re.escape(tag)}:)", template_text, re.M):
             errors.append(f"missing required tag: {tag}")

@@ -4,6 +4,12 @@
 
 Test schema, transform, model và artifact.
 
+## Vì sao tuần này quan trọng
+
+Hệ thống ML hỏng không chỉ vì model kém. Schema đổi, category lạ hoặc artifact lỗi thường xuất hiện trước khi metric tụt.
+
+**Ví dụ gần gũi:** Một API nhận tuổi dạng chuỗi nên bị từ chối rõ ràng, thay vì âm thầm biến đổi rồi trả prediction khó tin.
+
 ## Kiến thức cốt lõi
 
 - ML tests bao phủ schema, transforms, determinism, metric sanity, reload và API boundary.
@@ -24,6 +30,7 @@ Test schema, transform, model và artifact.
 
 ## Guided practice
 
+
 1. Test valid/invalid schema và unseen category.
 2. Fit-save-load-predict, kiểm parity.
 3. Kiểm model vượt dummy trên data có signal.
@@ -31,6 +38,10 @@ Test schema, transform, model và artifact.
 ## Lab
 
 **lab-13:** ML tests với edge cases. Môi trường chính: `local`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn có test cho happy path lẫn missing, wrong dtype, unseen category, NaN/Inf và save-load parity.
 
 ## Tự kiểm tra
 
@@ -40,18 +51,22 @@ Test schema, transform, model và artifact.
 
 ## Kết quả hướng tới
 
-test evidence; kèm config, command, metric, runtime và một failure/limitation.
+test evidence; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Test schema, negative cases, reload parity và model-vượt-dummy trên data synthetic nhỏ.
+- **Mở rộng:** Thêm test artifact checksum hỏng hoặc batch rỗng; tránh exact metric dễ flaky.
 
 ## Lỗi thường gặp
 
 - Chỉ test happy path.
 - CI dùng production dataset lớn/nhạy cảm.
 
+## Khi mắc kẹt
+
+Dùng synthetic data nhỏ và sửa một test mỗi lần. Tránh khóa exact metric nếu thuật toán có ngẫu nhiên.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: pytest documentation và scikit-learn guidance về common pitfalls/reproducibility.

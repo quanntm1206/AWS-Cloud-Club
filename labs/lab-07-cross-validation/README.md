@@ -1,41 +1,45 @@
-# lab-07: Cross-validation
+# Lab 07 - Đo độ ổn định bằng cross-validation
 
-## Goal
+## Mục tiêu
 
-Stratified folds, mean/std/runtime và learning curve.
+Một split may mắn có thể làm model trông ổn định hơn thực tế. Cross-validation cho bạn thấy kết quả thay đổi ra sao khi dữ liệu được chia lại có kiểm soát.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-08.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. Đặt pipeline đầy đủ bên trong 3-fold CV; khóa seed và scoring.
+2. Ghi từng fold score cùng runtime, sau đó tính mean/std.
+3. So với một preprocessing sai nằm ngoài CV và mô tả leakage risk.
+4. Vẽ learning curve ở ba train sizes; nêu dấu hiệu bias/variance.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 7
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 7
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-07-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-07-evidence.json`. Trong `result`, bạn sẽ thấy fold scores, `cv_mean`, `cv_std`.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- JSON có fold scores, mean và std; mọi transform được fit lại trong từng fold.
+- Bạn chọn được Stratified/Group/time split theo quan hệ giữa mẫu, không mặc định shuffle.
+
+## Khi mắc kẹt
+
+Nếu fold dao động mạnh, xem class/group/time distribution của từng fold. Đừng tăng số fold trước khi hiểu nguyên nhân.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

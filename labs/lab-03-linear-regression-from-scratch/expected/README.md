@@ -1,12 +1,19 @@
-# Expected evidence - lab-03-linear-regression-from-scratch
+# Kết quả tham khảo - lab-03-linear-regression-from-scratch
 
 ## Oracle
 
-Gradient descent trên synthetic data; finite-difference gradient check.
+Thử nhiều `epsilon`; hai gradient phải gần nhau trong tolerance đã ghi.
 
 ## Required receipt
 
-- Command: `python scripts/run_lab.py --lab 3`.
-- Evidence must include the lab-specific metric/oracle, seed/config, runtime, and at least one limitation or failure.
-- `status=starter-example-completed` proves only that the starter ran; acceptance remains a manual/rubric gate.
-- Store this evidence locally for self-assessment; do not commit or send it. Exclude secrets, personal data, large raw datasets, and paid-cloud output.
+- Chạy `python scripts/run_lab.py --lab 3` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
+- JSON phải có `status=starter-example-completed`; trong `result` cần thấy analytic gradient, finite-difference gradient và `gradient_check=true`.
+- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
+- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+
+## Gợi ý nếu kết quả khác
+
+Nếu lệch, kiểm dấu, phép lấy trung bình và công thức central difference.
+
+Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
+hoặc output cloud trả phí.

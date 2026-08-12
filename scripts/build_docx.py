@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 
 import yaml
@@ -18,6 +19,7 @@ DARK_BLUE = "1F4D78"
 TABLE_FILL = "E8EEF5"
 WARNING_FILL = "FFF2CC"
 WARNING_BORDER = "C65911"
+REPO_URL = "https://github.com/quanntm1206/AWS-Cloud-Club"
 
 
 def set_cell_shading(cell: object, fill: str) -> None:
@@ -196,6 +198,76 @@ def add_hyperlink(paragraph: object, label: str, url: str) -> None:
     paragraph._p.append(hyperlink)  # type: ignore[attr-defined]
 
 
+def add_bookmark(paragraph: object, name: str, bookmark_id: int) -> None:
+    start = OxmlElement("w:bookmarkStart")
+    start.set(qn("w:id"), str(bookmark_id))
+    start.set(qn("w:name"), name)
+    end = OxmlElement("w:bookmarkEnd")
+    end.set(qn("w:id"), str(bookmark_id))
+    paragraph._p.insert(0, start)  # type: ignore[attr-defined]
+    paragraph._p.append(end)  # type: ignore[attr-defined]
+
+
+def add_internal_link(paragraph: object, label: str, anchor: str) -> None:
+    hyperlink = OxmlElement("w:hyperlink")
+    hyperlink.set(qn("w:anchor"), anchor)
+    run = OxmlElement("w:r")
+    properties = OxmlElement("w:rPr")
+    color = OxmlElement("w:color")
+    color.set(qn("w:val"), BLUE)
+    underline = OxmlElement("w:u")
+    underline.set(qn("w:val"), "single")
+    properties.extend([color, underline])
+    text = OxmlElement("w:t")
+    text.text = label
+    run.extend([properties, text])
+    hyperlink.append(run)
+    paragraph._p.append(hyperlink)  # type: ignore[attr-defined]
+
+
+def add_section_heading(document: Document, text: str, level: int, anchor: str, bookmark_id: int) -> object:
+    heading = document.add_heading(text, level=level)
+    add_bookmark(heading, anchor, bookmark_id)
+    return heading
+
+
+def extract_markdown_section(markdown: str, heading: str) -> str:
+    return markdown.split(f"## {heading}", 1)[1].split("##", 1)[0].strip()
+
+
+def markdown_items(section: str) -> list[str]:
+    items: list[str] = []
+    for line in section.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("- "):
+            items.append(stripped[2:].replace("`", ""))
+        elif re.match(r"^\d+\. ", stripped):
+            items.append(stripped.split(". ", 1)[1].replace("`", ""))
+        elif stripped and items:
+            items[-1] = f"{items[-1]} {stripped.replace('`', '')}"
+    return items
+
+
+def add_command(document: Document, command: str) -> None:
+    paragraph = document.add_paragraph()
+    paragraph.style = document.styles["Normal"]
+    paragraph.paragraph_format.left_indent = Inches(0.22)
+    paragraph.paragraph_format.right_indent = Inches(0.1)
+    set_paragraph_shading(paragraph, "F3F6F8")
+    run = paragraph.add_run(command)
+    run.font.name = "Consolas"
+    run.font.size = Pt(9)
+
+
+def set_paragraph_shading(paragraph: object, fill: str) -> None:
+    properties = paragraph._p.get_or_add_pPr()  # type: ignore[attr-defined]
+    shading = properties.find(qn("w:shd"))
+    if shading is None:
+        shading = OxmlElement("w:shd")
+        properties.append(shading)
+    shading.set(qn("w:fill"), fill)
+
+
 def build(output: Path) -> None:
     curriculum = yaml.safe_load((ROOT / "curriculum/curriculum.yml").read_text(encoding="utf-8"))
     assessments = yaml.safe_load((ROOT / "curriculum/assessment.yml").read_text(encoding="utf-8"))
@@ -209,6 +281,7 @@ def build(output: Path) -> None:
     language.set(qn("w:val"), "vi-VN")
     document.settings.element.append(language)
     configure_styles(document)
+    bookmark_id = 1
     document.add_heading("Machine Learning Engineer Roadmap", 0)
     subtitle = document.add_paragraph("AWS CLOUD CLUB  |  24 TUẦN  |  8-10 GIỜ/TUẦN")
     subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -227,24 +300,56 @@ def build(output: Path) -> None:
             ["Đối tượng", "Đã biết lập trình, chưa học Machine Learning"],
             ["Hình thức", "Tự học cá nhân trong AWS Cloud Club"],
             ["Training", "Local CPU; chọn Colab Free hoặc Kaggle Free cho CV"],
-            ["Capstone", "Tabular AWS bắt buộc; CV transfer learning mở rộng"],
+            ["Capstone", "Tabular local-first; AWS deploy tùy plan/credit; CV transfer learning mở rộng"],
             ["Ngày kiểm nguồn volatile", "12/08/2026; kiểm lại trước mỗi cohort"],
         ],
         [1.875, 4.625],
     )
     document.add_page_break()
     document.add_heading("Mục lục", level=1)
-    for item in (
-        "1. Cách dùng và chuẩn đầu ra",
-        "2. Roadmap 24 tuần",
-        "3. Colab Free và Kaggle Free",
-        "4. AWS cost-safe capstone",
-        "5. Lab, mốc năng lực và rubric",
-        "6. Tổng kết năng lực",
-        "7. Glossary và nguồn",
+    for label, anchor in (
+        ("Bắt đầu trong 15 phút", "quick-start"),
+        ("1. Cách dùng và chuẩn đầu ra", "how-to-use"),
+        ("2. Roadmap 24 tuần", "roadmap"),
+        ("3. Colab Free và Kaggle Free", "free-compute"),
+        ("4. AWS cost-safe capstone", "aws-capstone"),
+        ("5. Lab, mốc năng lực và rubric", "assessment"),
+        ("6. Tổng kết năng lực", "capability-summary"),
+        ("7. Danh mục lab", "lab-directory"),
+        ("8. Glossary và nguồn", "glossary"),
     ):
-        document.add_paragraph(item)
-    document.add_heading("1. Cách dùng và chuẩn đầu ra", level=1)
+        paragraph = document.add_paragraph()
+        add_internal_link(paragraph, label, anchor)
+
+    add_section_heading(document, "Bắt đầu trong 15 phút", 1, "quick-start", bookmark_id)
+    bookmark_id += 1
+    document.add_paragraph(
+        "Nếu đây là lần đầu bạn mở tài liệu, đừng cố đọc hết. Hãy tải bộ khung, kiểm tra môi trường "
+        "và chạy lab đầu tiên. Khi thấy báo cáo môi trường xuất hiện, bạn đã sẵn sàng bước vào tuần 1."
+    )
+    paragraph = document.add_paragraph("Repo mẫu: ")
+    add_hyperlink(paragraph, "Mở repository AWS-Cloud-Club", REPO_URL)
+    document.add_paragraph(f"Địa chỉ: {REPO_URL}")
+    add_command(document, f"git clone {REPO_URL}.git")
+    document.add_paragraph("Windows PowerShell:")
+    add_command(document, "pwsh scripts/setup.ps1 -Profile core")
+    add_command(document, "pwsh scripts/check.ps1 -Scope bootstrap")
+    add_command(document, ".venv\\Scripts\\python.exe scripts/run_lab.py --lab 0")
+    document.add_paragraph("macOS hoặc Linux:")
+    add_command(document, "bash scripts/setup.sh --profile core")
+    add_command(document, "bash scripts/check.sh --scope bootstrap")
+    add_command(document, ".venv/bin/python scripts/run_lab.py --lab 0")
+    add_bullets(
+        document,
+        [
+            "Đọc roadmap/weeks/week-01.md để biết mục tiêu và nhịp học tuần đầu.",
+            "Mở labs/lab-00-environment-and-reproducibility/README.md để làm đúng từng bước.",
+            "Không cần fork, commit, push hay nộp bài. Mọi kết quả được lưu cục bộ để bạn tự đối chiếu.",
+        ],
+    )
+
+    add_section_heading(document, "1. Cách dùng và chuẩn đầu ra", 1, "how-to-use", bookmark_id)
+    bookmark_id += 1
     document.add_paragraph(
         "GitHub chỉ dùng để clone/download repo mẫu do chủ repo phát hành. Kết quả học tập và minh chứng "
         "được lưu cục bộ để người học tự đánh giá."
@@ -252,9 +357,12 @@ def build(output: Path) -> None:
     add_bullets(
         document,
         [
-            "Mỗi tuần: 2 giờ lý thuyết, 2 giờ guided practice, 3-4 giờ lab, 1 giờ assessment, 1 giờ learning log.",
-            "Core hoàn thành trước Stretch; không sweep và không mua compute để pass.",
-            "Mọi experiment ghi question, baseline, split, seed, metric, runtime, artifact và limitation.",
+            "Mỗi tuần: khoảng 2 giờ đọc có mục tiêu, 2 giờ thực hành có hướng dẫn, 3-4 giờ lab, "
+            "1 giờ tự kiểm tra và 1 giờ ghi nhật ký học tập.",
+            "Làm phần cốt lõi trước phần mở rộng. Bạn không cần sweep tham số hay mua compute "
+            "để hoàn thành roadmap.",
+            "Mỗi thí nghiệm nên lưu câu hỏi, baseline, cách chia dữ liệu, seed, metric, runtime, "
+            "artifact và điều còn hạn chế.",
             "Mốc năng lực dùng sản phẩm chạy được để tự đánh giá; accuracy đơn lẻ không đủ.",
         ],
     )
@@ -269,21 +377,33 @@ def build(output: Path) -> None:
             "Trình bày hai bộ tổng kết năng lực có model card và reproduction guide.",
         ],
     )
-    document.add_heading("2. Roadmap 24 tuần", level=1)
+    add_warning(
+        document,
+        "Khi bị kẹt / Khi mắc kẹt",
+        "Thu nhỏ dữ liệu, chạy lại baseline, đọc lỗi từ dòng đầu và quay về mini profile. Nếu vẫn chưa rõ, "
+        "ghi lại điều bạn kỳ vọng, điều thực tế xảy ra và thử nghiệm nhỏ nhất tiếp theo. "
+        "Đừng mua thêm compute để che một lỗi chưa hiểu.",
+    )
+
+    add_section_heading(document, "2. Roadmap 24 tuần", 1, "roadmap", bookmark_id)
+    bookmark_id += 1
+    document.add_heading("Bản đồ 6 chặng", level=2)
     phase_rows: list[list[str]] = []
-    for phase, label in (
-        ("foundation", "Nền tảng dữ liệu và toán"),
-        ("classical-ml", "ML cổ điển"),
-        ("applied-ml", "ML thực hành"),
-        ("engineering", "Engineering"),
-        ("deep-learning", "Deep Learning và CV"),
-        ("aws-capstone", "AWS capstone"),
+    for phase, label, purpose in (
+        ("foundation", "Nền tảng dữ liệu và toán", "Hiểu dữ liệu, vector và gradient qua ví dụ nhỏ."),
+        ("classical-ml", "ML cổ điển", "Xây baseline, chống leakage và đánh giá đáng tin cậy."),
+        ("applied-ml", "ML thực hành", "So sánh model, phân tích lỗi, hoàn thiện mini-project."),
+        ("engineering", "ML engineering", "Đưa notebook thành package, test, API và CI."),
+        ("deep-learning", "Deep Learning và CV", "Train tiết kiệm, lưu checkpoint, hiểu failure cases."),
+        ("aws-capstone", "AWS capstone", "Tích hợp serverless ngắn hạn, dọn sạch, kiểm chi phí."),
     ):
         phase_weeks = [str(week["id"]) for week in curriculum["weeks"] if week["phase"] == phase]
-        phase_rows.append([label, f"{phase_weeks[0]}-{phase_weeks[-1]}", "Xem mục tiêu và kết quả từng tuần"])
-    add_table(document, ["Giai đoạn", "Tuần", "Đầu ra"], phase_rows, [2.5, 0.75, 3.25])
+        phase_rows.append([label, f"{phase_weeks[0]}-{phase_weeks[-1]}", purpose])
+    add_table(document, ["Chặng", "Tuần", "Bạn sẽ đi được đến đâu"], phase_rows, [2.0, 0.65, 3.85])
     for week in curriculum["weeks"]:
-        document.add_heading(f"Tuần {week['id']:02d} - {week['title']}", level=2)
+        heading = document.add_heading(f"Tuần {week['id']:02d} - {week['title']}", level=2)
+        add_bookmark(heading, f"week-{week['id']:02d}", bookmark_id)
+        bookmark_id += 1
         environment = ", ".join(week["environments"])
         add_table(
             document,
@@ -298,38 +418,37 @@ def build(output: Path) -> None:
             [1.181, 5.319],
         )
         week_doc = (ROOT / f"roadmap/weeks/week-{week['id']:02d}.md").read_text(encoding="utf-8")
-        goal = week_doc.split("## Mục tiêu tuần", 1)[1].split("##", 1)[0].strip()
-        document.add_paragraph(goal)
-        core = week_doc.split("## Kiến thức cốt lõi", 1)[1].split("##", 1)[0].strip()
-        document.add_heading("Kiến thức cốt lõi", level=3)
-        add_bullets(
-            document,
-            [line[2:].strip().replace("`", "") for line in core.splitlines() if line.startswith("- ")],
-        )
-        guided = week_doc.split("## Guided practice", 1)[1].split("##", 1)[0].strip()
-        document.add_heading("Guided practice", level=3)
-        add_bullets(
-            document,
-            [line.split(". ", 1)[1] for line in guided.splitlines() if ". " in line],
-        )
-        lab_section = week_doc.split("## Lab", 1)[1].split("##", 1)[0].strip()
+        goal = extract_markdown_section(week_doc, "Mục tiêu tuần")
+        lead = document.add_paragraph()
+        lead.add_run("Tuần này bạn sẽ ").bold = True
+        lead.add_run(goal[:1].lower() + goal[1:])
+        core = extract_markdown_section(week_doc, "Kiến thức cốt lõi")
+        why = extract_markdown_section(week_doc, "Vì sao tuần này quan trọng")
+        document.add_heading("Vì sao phần này quan trọng", level=3)
+        document.add_paragraph(why.replace("**", ""))
+        document.add_heading("Điều cần hiểu", level=3)
+        add_bullets(document, markdown_items(core))
+        guided = extract_markdown_section(week_doc, "Guided practice")
+        document.add_heading("Thực hành có hướng dẫn", level=3)
+        add_bullets(document, markdown_items(guided))
+        lab_section = extract_markdown_section(week_doc, "Lab")
         paragraph = document.add_paragraph()
         paragraph.add_run("Thực hành: ").bold = True
         paragraph.add_run(lab_section.replace("**", ""))
-        outcome = week_doc.split("## Kết quả hướng tới", 1)[1].split("##", 1)[0].strip()
+        outcome = extract_markdown_section(week_doc, "Kết quả hướng tới")
         paragraph = document.add_paragraph()
         paragraph.add_run("Kết quả hướng tới: ").bold = True
         paragraph.add_run(outcome)
-        self_check = week_doc.split("## Tự kiểm tra", 1)[1].split("##", 1)[0].strip()
-        document.add_heading("Tự kiểm tra", level=3)
-        add_bullets(
-            document,
-            [line.split(". ", 1)[1] for line in self_check.splitlines() if ". " in line],
-        )
-        mistakes = week_doc.split("## Lỗi thường gặp", 1)[1].split("##", 1)[0].strip()
+        self_check = extract_markdown_section(week_doc, "Tự kiểm tra")
+        document.add_heading("Bạn đã sẵn sàng chuyển tuần khi", level=3)
+        checks = markdown_items(self_check)
+        add_bullets(document, [f"Bạn có thể trả lời bằng lời của mình: {item}" for item in checks])
+        understood = extract_markdown_section(week_doc, "Dấu hiệu bạn đã hiểu")
+        document.add_paragraph(f"Dấu hiệu bạn đã hiểu: {understood}")
+        stuck = extract_markdown_section(week_doc, "Khi mắc kẹt")
         paragraph = document.add_paragraph()
-        paragraph.add_run("Lỗi thường gặp: ").bold = True
-        paragraph.add_run("; ".join(line[2:].strip() for line in mistakes.splitlines() if line.startswith("- ")))
+        paragraph.add_run("Nếu bạn bị kẹt: ").bold = True
+        paragraph.add_run(stuck)
         if week["id"] >= 21:
             add_warning(
                 document,
@@ -337,10 +456,16 @@ def build(output: Path) -> None:
                 "Pre-check -> Estimate -> Dry-run -> Deploy -> Verify -> Cleanup -> Residual scan -> Cost audit. "
                 "Không đánh dấu hoàn thành nếu còn resource.",
             )
-    document.add_heading("3. Colab Free và Kaggle Free", level=1)
+    add_section_heading(document, "3. Colab Free và Kaggle Free", 1, "free-compute", bookmark_id)
+    bookmark_id += 1
     document.add_paragraph(
-        "Người học chọn một nền tảng. Resource miễn phí không được bảo đảm; accelerator, quota và runtime "
-        "có thể thay đổi. Notebook tự phát hiện CUDA, dùng cpu-mini nếu GPU không có."
+        "Bạn chỉ cần chọn một nền tảng, không cần dùng cả hai. Tài nguyên miễn phí không được bảo đảm; "
+        "accelerator, quota và runtime có thể thay đổi. Notebook tự phát hiện CUDA và chuyển sang "
+        "cpu-mini khi GPU không có."
+    )
+    document.add_paragraph(
+        "Bắt đầu từ notebooks/colab-training.ipynb hoặc notebooks/kaggle-training.ipynb. Nếu tên notebook "
+        "trong repo thay đổi, mở notebooks/README.md để chọn bản dành cho transfer learning."
     )
     add_table(
         document,
@@ -365,12 +490,44 @@ def build(output: Path) -> None:
             "Artifact manifest, checkpoint export và release runtime.",
         ],
     )
-    document.add_heading("4. AWS cost-safe capstone", level=1)
+    document.add_heading("Khi runtime bị ngắt hoặc hết GPU", level=2)
+    add_bullets(
+        document,
+        [
+            "Giảm về cpu-mini để kiểm tra luồng chạy; đây là đường hoàn thành hợp lệ, không phải phương án kém hơn.",
+            "Resume từ checkpoint gần nhất thay vì train lại từ đầu; tải checkpoint về máy sau mỗi phiên quan trọng.",
+            "Nếu quota chưa quay lại, tiếp tục error analysis và model card trên CPU. Không mua gói trả phí "
+            "chỉ để theo kịp lịch.",
+        ],
+    )
+    document.add_heading("Bạn có thể kết thúc phiên khi", level=2)
+    add_bullets(
+        document,
+        [
+            "Artifact và checkpoint đã tải về máy; config, seed, metric và runtime đã được ghi lại.",
+            "Colab đã Disconnect and delete runtime hoặc Kaggle đã tắt accelerator/session.",
+            "Không có token hay credential nằm trong cell, output hoặc artifact tải xuống.",
+        ],
+    )
+
+    add_section_heading(document, "4. AWS cost-safe capstone", 1, "aws-capstone", bookmark_id)
+    bookmark_id += 1
     add_warning(
         document,
         "HARD GUARDRAILS",
         "Core chỉ IAM, S3, Lambda, CloudWatch Logs và Budgets. HTTP API optional, tắt mặc định. "
-        "Cấm GPU, EC2, NAT Gateway, SageMaker notebook/training/endpoint và resource chạy nền ngoài allowlist.",
+        "Không bật public HTTP API trong đường học cốt lõi. Cấm GPU, EC2, NAT Gateway, SageMaker "
+        "notebook/training/endpoint và resource chạy nền ngoài allowlist.",
+    )
+    document.add_paragraph(
+        "Trước khi tạo tài nguyên, đọc aws/README.md và xác nhận đúng account, Region, plan cùng số dư credit. "
+        "Chương trình không giả định bạn có USD 200. Một số ưu đãi mới có thể cấp USD 100 ban đầu và cho phép "
+        "kiếm thêm tối đa USD 100 qua hoạt động; điều kiện có thể đổi, vì vậy màn hình Billing "
+        "của chính tài khoản là nguồn quyết định."
+    )
+    document.add_paragraph(
+        "AWS Organizations và Control Tower không thuộc đường lab cốt lõi. Đừng bật chỉ để học capstone này: "
+        "chúng mở rộng phạm vi quản trị, không giúp model tốt hơn và có thể kéo theo cấu hình ngoài allowlist."
     )
     add_table(
         document,
@@ -388,10 +545,41 @@ def build(output: Path) -> None:
     )
     document.add_heading("AWS lab - lệnh thực thi", level=2)
     document.add_paragraph(
-        "1) Tạo actual + forecast Budget alerts trên Billing console. 2) Chạy preflight với "
-        "AcknowledgeBudgetConfigured. 3) Deploy private Lambda bằng portable_model.json. "
-        "4) Invoke valid/invalid events. 5) Kiểm logs. 6) Cleanup dry-run rồi execute. "
-        "7) Residual scan CloudFormation/S3/Lambda/Logs/IAM/API Gateway và audit Billing."
+        "1) Tạo actual + forecast Budget alerts trên Billing console. 2) Chạy cost check. "
+        "3) Chạy preflight với AcknowledgeBudgetConfigured. 4) Deploy private Lambda bằng "
+        "portable_model.json. 5) Invoke valid/invalid events và kiểm log. 6) Cleanup. "
+        "7) Residual scan CloudFormation/S3/Lambda/Logs/IAM và audit Billing."
+    )
+    document.add_paragraph(
+        "Mở aws/README.md để lấy tham số hiện hành. Chạy lệnh theo đúng thứ tự, cùng một ProjectId:"
+    )
+    add_command(
+        document,
+        "$project='student01'\n"
+        "$region='us-east-1'\n"
+        "$artifact='.artifacts/churn-model/portable_model.json'\n"
+        "$expires=(Get-Date).AddDays(1).ToString('yyyy-MM-dd')",
+    )
+    add_command(document, "pwsh aws/scripts/cost-check.ps1 -ProjectId $project -Region $region")
+    add_command(
+        document,
+        "pwsh aws/scripts/preflight.ps1 -ProjectId $project -Region $region "
+        "-ArtifactPath $artifact -AcknowledgeBudgetConfigured",
+    )
+    add_command(
+        document,
+        "pwsh aws/scripts/deploy.ps1 -ProjectId $project -Owner $project -ExpiresAt $expires "
+        "-ArtifactPath $artifact -Region $region -AcknowledgeBudgetConfigured",
+    )
+    add_command(document, "pwsh aws/scripts/cleanup.ps1 -ProjectId $project -Region $region")
+    add_command(
+        document,
+        "pwsh aws/scripts/cleanup.ps1 -ProjectId $project -Region $region -Execute "
+        "-ConfirmProjectId $project",
+    )
+    add_command(
+        document,
+        "pwsh aws/scripts/residual-scan.ps1 -ProjectId $project -Region $region -Json",
     )
     add_warning(
         document,
@@ -405,7 +593,8 @@ def build(output: Path) -> None:
         [
             "Train local CPU; export sklearn artifact và portable logistic JSON.",
             "Upload portable_model.json lên S3; Lambda chỉ dùng Python stdlib + boto3.",
-            "Private invoke là core; public HTTP API chỉ optional trong một phiên lab.",
+            "Private invoke là đường thực hành duy nhất; public HTTP API chỉ được phân tích trên sơ đồ, "
+            "không triển khai.",
             "Cleanup và residual scan là gate bắt buộc.",
         ],
     )
@@ -414,25 +603,49 @@ def build(output: Path) -> None:
         document,
         [
             "Train trên một trong Colab/Kaggle; frozen backbone baseline; optional unfreeze block cuối; "
-            "CPU mini fallback.",
-            "Pretrained normalization phải lấy từ ResNet18 weights; FakeData/random weights chỉ là execution smoke.",
-            "Checkpoint gồm model, optimizer, epoch, best metric, history, config, seed và class mapping; "
-            "có resume path.",
+            "CPU mini path.",
+            "Pretrained normalization phải lấy từ ResNet18 weights; FakeData/random weights "
+            "chỉ là execution smoke.",
+            "Notebook lưu last checkpoint sau mọi epoch để resume và best checkpoint khi validation loss tốt hơn "
+            "để đánh giá. Checkpoint gồm model, optimizer, epoch, best metric, history, config, seed và class mapping. "
+            "Checkpoint/resume là cơ chế kỹ thuật để tiếp tục training, không phải mốc năng lực.",
             "Macro/per-class metric, confusion matrix và tối đa 20 failure cases; nếu ít hơn, "
             "export toàn bộ và ghi limitation.",
             "AWS chỉ artifact checksum/upload optional và architecture ADR; không endpoint CV.",
         ],
     )
-    document.add_heading("5. Lab, mốc năng lực và rubric", level=1)
+    add_section_heading(document, "5. Lab, mốc năng lực và rubric", 1, "assessment", bookmark_id)
+    bookmark_id += 1
     add_table(
         document,
         ["Nhóm", "Số lượng", "Gate"],
         [
-            ["Lab", "20 + setup lab", "Mini path, config, test, failure evidence"],
+            ["Lab", "21 lab", "Mini path, config, test, failure evidence"],
             ["Mốc năng lực", "6", "70/100; cuối kỳ 75/100"],
             ["Capstone", "2", "Không leakage/secret; AWS cleanup nếu áp dụng"],
         ],
         [1.5, 1.0, 4.0],
+    )
+    document.add_heading("Cách tự chấm", level=2)
+    document.add_paragraph(
+        "Bạn tự chấm từng tiêu chí theo bốn mức bên dưới, rồi nhân trọng số tiêu chí với hệ số của mức. "
+        "Tổng tối đa được giới hạn ở 100. Điểm số giúp nhìn ra phần cần ôn; gate bắt buộc vẫn có quyền dừng mốc."
+    )
+    scale_rows = []
+    for level in ("emerging", "developing", "proficient", "exemplary"):
+        value = assessments["scale"][level]
+        scale_rows.append([value["label"], str(value["factor"]), value["description"]])
+    add_table(document, ["Mức", "Hệ số", "Cách hiểu"], scale_rows, [1.25, 0.65, 4.6])
+    document.add_heading("Gate bắt buộc", level=2)
+    add_bullets(
+        document,
+        [
+            "Không data leakage: mọi transform học từ dữ liệu phải fit trên train.",
+            "Không secret: credential, token, account ID và dữ liệu nhạy cảm không nằm trong "
+            "code hay artifact.",
+            "Mini run tái lập: một lệnh chạy lại được với config, seed và tolerance đã ghi.",
+            "Nếu dùng AWS: cleanup hoàn tất và residual scan không còn tài nguyên đã biết.",
+        ],
     )
     for index, milestone in enumerate(assessments["milestones"], start=1):
         document.add_heading(f"Mốc năng lực {index:02d} - tuần {milestone['week']}", level=2)
@@ -441,7 +654,15 @@ def build(output: Path) -> None:
             "Minh chứng đạt mốc: README, code/notebook, test evidence, metric, learning log và limitations; "
             "lưu cục bộ để tự kiểm tra."
         )
-    document.add_heading("6. Tổng kết năng lực", level=1)
+        add_table(
+            document,
+            ["Tiêu chí", "Trọng số"],
+            [[criterion, f"{weight}%"] for criterion, weight in milestone["criteria"].items()],
+            [5.25, 1.25],
+        )
+
+    add_section_heading(document, "6. Tổng kết năng lực", 1, "capability-summary", bookmark_id)
+    bookmark_id += 1
     add_bullets(
         document,
         [
@@ -453,7 +674,32 @@ def build(output: Path) -> None:
             "AWS evidence gồm preflight, cost manifest, deployment manifest, cleanup và zero-residual report.",
         ],
     )
-    document.add_heading("7. Glossary và nguồn", level=1)
+    document.add_heading("Ba hướng đi tiếp trong 90 ngày", level=2)
+    document.add_paragraph(
+        "Model Engineering phù hợp nếu bạn thích dữ liệu và thí nghiệm; ML Platform/MLOps phù hợp nếu bạn "
+        "thích package, test, CI và monitoring; Applied Computer Vision phù hợp nếu bạn muốn đào sâu transfer "
+        "learning và phân tích lỗi ảnh. Xem roadmap/sau-24-tuan.md để dùng lịch 30-60-90 ngày."
+    )
+    add_section_heading(document, "7. Danh mục lab", 1, "lab-directory", bookmark_id)
+    bookmark_id += 1
+    document.add_paragraph(
+        "Mỗi tuần, mở README của lab trước khi chạy. Lệnh chung dùng số lab trong bảng; output chỉ là "
+        "bằng chứng tự kiểm tra, không phải bài nộp."
+    )
+    lab_rows: list[list[str]] = []
+    for week in curriculum["weeks"]:
+        lab_id = week["lab"]
+        lab_dirs = sorted((ROOT / "labs").glob(f"{lab_id}-*"))
+        path = (
+            lab_dirs[0].relative_to(ROOT).as_posix() + "/README.md"
+            if lab_dirs
+            else f"labs/{lab_id}/README.md"
+        )
+        lab_number = int(lab_id.split("-")[1])
+        lab_rows.append([f"{week['id']:02d}", lab_id, path, f"scripts/run_lab.py --lab {lab_number}"])
+    add_table(document, ["Tuần", "Lab", "Đọc trước", "Lệnh"], lab_rows, [0.5, 0.8, 3.35, 1.85])
+
+    add_section_heading(document, "8. Glossary và nguồn", 1, "glossary", bookmark_id)
     glossary = yaml.safe_load((ROOT / "curriculum/glossary.yml").read_text(encoding="utf-8"))["terms"]
     add_table(document, ["Thuật ngữ", "Nghĩa"], [[item["term"], item["meaning"]] for item in glossary], [1.875, 4.625])
     document.add_heading("Nguồn chính thức", level=2)

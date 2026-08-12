@@ -15,14 +15,12 @@ $queries=@(
     @{service='s3';args=@('s3api','list-buckets','--query',"Buckets[?starts_with(Name, 'ml-roadmap-$ProjectId')].Name",'--output','text')},
     @{service='lambda';args=@('lambda','list-functions','--region',$Region,'--query',"Functions[?starts_with(FunctionName, 'ml-roadmap-$ProjectId')].FunctionName",'--output','text')},
     @{service='logs';args=@('logs','describe-log-groups','--region',$Region,'--log-group-name-prefix',"/aws/lambda/ml-roadmap-$ProjectId",'--query','logGroups[].logGroupName','--output','text')},
-    @{service='iam';args=@('iam','list-roles','--query',"Roles[?starts_with(RoleName, 'ml-roadmap-$ProjectId')].RoleName",'--output','text')},
-    @{service='apigateway';args=@('apigatewayv2','get-apis','--region',$Region,'--query',"Items[?starts_with(Name, 'ml-roadmap-$ProjectId')].ApiId",'--output','text')}
+    @{service='iam';args=@('iam','list-roles','--query',"Roles[?starts_with(RoleName, 'ml-roadmap-$ProjectId')].RoleName",'--output','text')}
 )
 foreach($query in $queries){
     $output=Invoke-AwsText $query.args
     foreach($name in ($output -split '\s+'|Where-Object{$_ -and $_ -ne 'None'})){$findings += [pscustomobject]@{service=$query.service;resource=$name}}
 }
-$result=[pscustomobject]@{project=$ProjectId;region=$Region;scan_status='complete';residual=($findings.Count -gt 0);resources=$findings}
+$result=[pscustomobject]@{project=$ProjectId;region=$Region;scan_status='complete';residual=($findings.Count -gt 0);resources=$findings;budget_note='Budget alerts are kept intentionally; review or delete them manually after the course.'}
 if($Json){$result|ConvertTo-Json -Depth 4 -Compress}else{$result|Format-List}
 if($findings.Count -gt 0){exit 1}
-

@@ -23,11 +23,43 @@ sources:
     verified_on: 2026-08-12
     recheck_after: 2027-02-12
     volatile: true
+  - id: aws-free-tier-faq
+    title: AWS Free Tier FAQ
+    url: https://aws.amazon.com/free/free-tier-faqs/
+    authority: primary
+    supports: [credit-amount, credit-expiry, eligibility, organizations-risk]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: aws-free-tier-tracking
+    title: Tracking AWS Free Tier usage
+    url: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/tracking-free-tier-usage.html
+    authority: primary
+    supports: [credit-balance, free-tier-usage-alerts]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
   - id: aws-budgets
     title: Managing your costs with AWS Budgets
     url: https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html
     authority: primary
     supports: [budget-alerts, billing-delay]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: aws-budgets-pricing
+    title: AWS Budgets Pricing
+    url: https://aws.amazon.com/aws-cost-management/aws-budgets/pricing/
+    authority: primary
+    supports: [budget-monitoring-price, budget-action-price, budget-report-price]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: aws-pricing-calculator
+    title: AWS Pricing Calculator
+    url: https://calculator.aws/
+    authority: primary
+    supports: [aws-cost-estimate]
     verified_on: 2026-08-12
     recheck_after: 2027-02-12
     volatile: true
@@ -71,4 +103,3 @@ sources:
     verified_on: 2026-08-12
     recheck_after: 2027-08-12
     volatile: false
-

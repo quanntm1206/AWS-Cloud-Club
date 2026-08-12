@@ -4,6 +4,12 @@
 
 Tách notebook thành module, config và CLI.
 
+## Vì sao tuần này quan trọng
+
+Notebook giúp khám phá nhanh; package giúp logic có đầu vào rõ, tái sử dụng được và dễ test. ML Engineer cần biết chuyển từ cái đầu sang cái sau.
+
+**Ví dụ gần gũi:** Cell chạy đúng nhờ biến còn trong memory sẽ thất bại khi mở notebook mới; CLI buộc dependency phải hiện rõ.
+
 ## Kiến thức cốt lõi
 
 - Notebook để khám phá; production path là module có explicit input/output và CLI.
@@ -24,6 +30,7 @@ Tách notebook thành module, config và CLI.
 
 ## Guided practice
 
+
 1. Di chuyển train logic vào src nhưng giữ parity.
 2. Thêm CLI nhận config/output/seed.
 3. Chạy cùng config hai lần, so manifest và metric tolerance.
@@ -31,6 +38,10 @@ Tách notebook thành module, config và CLI.
 ## Lab
 
 **lab-12:** Notebook-to-package refactor. Môi trường chính: `local`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn chạy cùng logic từ CLI và notebook, không copy hai phiên bản, và có config thay cho global state.
 
 ## Tự kiểm tra
 
@@ -40,18 +51,22 @@ Tách notebook thành module, config và CLI.
 
 ## Kết quả hướng tới
 
-installable package; kèm config, command, metric, runtime và một failure/limitation.
+installable package; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Giữ một nguồn training logic trong package; notebook và CLI cho kết quả tương đương.
+- **Mở rộng:** Thêm một config validation hoặc error message hữu ích cho input sai.
 
 ## Lỗi thường gặp
 
 - Copy logic ở hai nơi gây drift.
 - Ẩn input trong working directory.
 
+## Khi mắc kẹt
+
+Restart kernel hoặc mở clean shell. Nếu chỉ notebook cũ chạy, lần theo biến ẩn và đường dẫn phụ thuộc working directory.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: Python packaging/argparse và project structure references đã liệt kê trong `docs/sources.yml`.

@@ -1,9 +1,23 @@
 terms:
   - {term: baseline, meaning: Mốc đơn giản để biết model phức tạp có thực sự cải thiện hay không.}
+  - {term: feature, meaning: Thông tin đầu vào mà model dùng để tạo dự đoán.}
+  - {term: label / target, meaning: Kết quả cần dự đoán và dùng để học hoặc đánh giá model.}
+  - {term: train / validation / test, meaning: Ba phần dữ liệu lần lượt dùng để học, chọn quyết định và kiểm tra cuối cùng.}
+  - {term: overfitting, meaning: Model nhớ dữ liệu train nhưng hoạt động kém trên dữ liệu mới.}
   - {term: data leakage, meaning: Thông tin không hợp lệ từ validation/test hoặc tương lai lọt vào training.}
+  - {term: metric, meaning: Con số đo một khía cạnh chất lượng; phải chọn theo mục tiêu và chi phí lỗi.}
+  - {term: precision / recall / F1, meaning: Nhóm metric cho classification; precision chú trọng dự đoán dương đúng, recall chú trọng tìm đủ mẫu dương, F1 cân bằng cả hai.}
+  - {term: cross-validation, meaning: Đánh giá lặp qua nhiều fold để ước lượng độ ổn định của model.}
+  - {term: pipeline, meaning: Chuỗi preprocessing và model chạy theo thứ tự cố định để giảm lỗi và leakage.}
   - {term: artifact, meaning: Model, config, metric và metadata cần để tái tạo hoặc phục vụ dự đoán.}
+  - {term: checkpoint, meaning: Trạng thái training đã lưu để có thể tiếp tục sau khi runtime bị ngắt.}
   - {term: inference, meaning: Dùng model đã train để tạo dự đoán cho input mới.}
   - {term: threshold, meaning: Ngưỡng chuyển score/xác suất thành nhãn quyết định.}
   - {term: drift, meaning: Phân phối dữ liệu hoặc quan hệ input-target thay đổi theo thời gian.}
+  - {term: API contract, meaning: Quy ước rõ về input, output và lỗi mà dịch vụ inference phải tuân theo.}
+  - {term: container, meaning: Gói ứng dụng cùng dependency và cấu hình chạy trong môi trường tách biệt.}
+  - {term: IAM, meaning: Dịch vụ AWS quản danh tính và quyền truy cập; dùng nguyên tắc quyền tối thiểu.}
+  - {term: S3, meaning: Dịch vụ object storage của AWS dùng cho artifact nhỏ trong capstone.}
+  - {term: Lambda, meaning: Dịch vụ chạy hàm serverless; roadmap chỉ dùng private invoke với giới hạn chặt.}
+  - {term: CloudWatch Logs, meaning: Nơi lưu log runtime trên AWS; phải đặt retention và dọn sau lab.}
   - {term: idempotent cleanup, meaning: Dọn tài nguyên nhiều lần vẫn cho trạng thái sạch, không gây lỗi nguy hiểm.}
-

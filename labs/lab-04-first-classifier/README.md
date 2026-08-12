@@ -1,41 +1,45 @@
-# lab-04: First classifier
+# Lab 04 - So dummy baseline với logistic regression
 
-## Goal
+## Mục tiêu
 
-Dummy baseline và logistic classifier trên split cố định.
+Một classifier chỉ đáng quan tâm khi vượt cách đoán đơn giản trên cùng luật chơi. Lab này biến baseline thành điều kiện bắt buộc, không phải dòng phụ trong báo cáo.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-05.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. Kiểm class balance, chia train/validation/test với stratification và xác nhận ID không trùng.
+2. Train dummy classifier; ghi F1 cùng confusion matrix.
+3. Train logistic regression trên đúng split và metric đó.
+4. Nêu model có vượt baseline không; không đổi threshold sau khi xem test.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 4
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 4
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-04-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-04-evidence.json`. Trong `result`, bạn sẽ thấy `dummy_f1` và `logistic_f1`.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- JSON có `dummy_f1` và `logistic_f1`; phép so dùng cùng split, seed và metric.
+- Bạn giải thích được vì sao accuracy cao chưa chắc hữu ích khi positive hiếm.
+
+## Khi mắc kẹt
+
+Nếu cả hai model gần nhau, kiểm signal và target trước. Đừng thêm model phức tạp chỉ để tìm một số cao hơn.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

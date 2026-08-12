@@ -1,41 +1,45 @@
-# lab-14: Local inference API
+# Lab 14 - Kiểm contract của inference API local
 
-## Goal
+## Mục tiêu
 
-Health, valid/invalid payload, stable response và safe error.
+API là nơi dữ liệu ngoài hệ thống gặp model. Bạn sẽ làm cho lỗi client, lỗi artifact và response thành công có contract khác nhau, thay vì mọi thứ thành 500.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-15.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. Gọi `/health` và `/predict` với payload hợp lệ.
+2. Thử missing field, wrong type và unknown category; kiểm response 4xx có thông tin vừa đủ.
+3. Mô phỏng model chưa sẵn sàng; kiểm 503 mà không lộ stack trace.
+4. Đo warm latency mini batch, ghi payload/batch limit và giới hạn phép đo.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 14
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 14
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-14-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-14-evidence.json`. Trong `result`, bạn sẽ thấy contract `/health`, `/predict`, 422 và 503.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- Contract có `/health`, `/predict`, 422 và 503; preprocessing đúng artifact training.
+- Log không chứa raw feature nhạy cảm; health không train hoặc sửa model.
+
+## Khi mắc kẹt
+
+Gọi handler với payload tối thiểu trước. Nếu lỗi client thành 500, đưa validation ra boundary và giữ exception nội bộ trong log.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

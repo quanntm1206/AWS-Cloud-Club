@@ -4,6 +4,12 @@
 
 Mô tả một ML workflow hoàn chỉnh; tạo môi trường tái lập.
 
+## Vì sao tuần này quan trọng
+
+Một workflow rõ ràng giúp bạn biết model phục vụ quyết định nào, thay vì bắt đầu bằng thuật toán rồi mới đi tìm bài toán.
+
+**Ví dụ gần gũi:** Hãy hình dung model churn dự đoán khách nào có thể rời đi vào đầu tháng; đội chăm sóc chỉ hành động sau thời điểm đó.
+
 ## Kiến thức cốt lõi
 
 - Tách business question khỏi prediction task: xác định đối tượng, nhãn, prediction time và hành động sau dự đoán.
@@ -24,6 +30,7 @@ Mô tả một ML workflow hoàn chỉnh; tạo môi trường tái lập.
 
 ## Guided practice
 
+
 1. Viết problem statement cho churn theo mẫu ai-khi nào-để làm gì.
 2. Vẽ data -> split -> fit -> validate -> test -> artifact; đánh dấu điểm leakage.
 3. Chạy lab, lưu environment report và một limitation.
@@ -31,6 +38,10 @@ Mô tả một ML workflow hoàn chỉnh; tạo môi trường tái lập.
 ## Lab
 
 **lab-00:** Cài môi trường, chạy kiểm tra, lập learning log. Môi trường chính: `local`.
+
+## Dấu hiệu bạn đã hiểu
+
+Bạn có thể kể lại đường đi từ câu hỏi đến artifact và chỉ ra test set được mở khi nào.
 
 ## Tự kiểm tra
 
@@ -40,18 +51,22 @@ Mô tả một ML workflow hoàn chỉnh; tạo môi trường tái lập.
 
 ## Kết quả hướng tới
 
-environment report lưu cục bộ; kèm config, command, metric, runtime và một failure/limitation.
+environment report lưu cục bộ; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Core:** hoàn thành mini profile, test và kết quả cốt lõi.
-- **Stretch:** thử đúng một cải tiến có giả thuyết; không hyperparameter sweep.
+- **Cốt lõi:** Chạy lab 00, giữ environment report và vẽ workflow churn bằng lời của bạn.
+- **Mở rộng:** Nếu còn thời gian, thử thay đổi seed/input rồi giải thích phần nào nên giữ ổn định.
 
 ## Lỗi thường gặp
 
 - Bắt đầu từ thuật toán thay vì câu hỏi.
 - Không khóa prediction time nên feature nhìn tương lai.
 
+## Khi mắc kẹt
+
+Nếu các khái niệm còn trừu tượng, lấy một app quen thuộc rồi viết rõ: dự đoán ai, vào lúc nào, để làm gì.
+
 ## Nguồn
 
-Xem `docs/sources.yml`; ưu tiên textbook và tài liệu chính thức được ghi trong lab.
+Nguồn nên đọc: `docs/sources.yml` - mục scikit-learn model persistence và tài liệu tái lập môi trường.

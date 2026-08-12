@@ -1,41 +1,45 @@
-# lab-10: Error analysis
+# Lab 10 - Biến lỗi model thành việc cần làm tiếp
 
-## Goal
+## Mục tiêu
 
-Slice metrics, tối đa 20 failures (ít hơn thì lấy toàn bộ) và taxonomy có hành động tiếp theo.
+Error analysis không phải sưu tập vài lỗi thú vị. Bạn sẽ lấy mẫu theo quy tắc rồi biến các lỗi thành giả thuyết có hành động tiếp theo.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-11.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. Tính FP/FN theo ít nhất hai slice, luôn ghi support.
+2. Lấy tối đa 20 failure records theo sampling rule đã viết.
+3. Gán taxonomy: data, boundary, missing signal, label noise hoặc shift.
+4. Đề xuất một data fix và một model fix; nêu phép kiểm có thể bác bỏ mỗi giả thuyết.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 10
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 10
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-10-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-10-evidence.json`. Trong `result`, bạn sẽ thấy slice metrics, failure records có cap và taxonomy.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- Output có slice metrics, failure cap, records và taxonomy; không chọn mẫu bằng cảm tính.
+- Bạn không gọi feature importance là causality và không kết luận fairness từ nhóm quá nhỏ.
+
+## Khi mắc kẹt
+
+Nếu không thấy pattern, đổi sampling để phủ nhiều nhóm/confidence. Mô tả điều quan sát trước, giải thích nguyên nhân sau.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

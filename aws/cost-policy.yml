@@ -1,8 +1,8 @@
 default_region: us-east-1
 project_prefix: ml-roadmap-
 required_tags: [Project, Owner, Environment, ExpiresAt]
-allowed_services: [s3, lambda, logs, iam, budgets, apigateway]
-optional_services: [apigateway]
+allowed_services: [s3, lambda, logs, iam, budgets]
+optional_services: []
 forbidden_resources:
   - AWS::EC2::NatGateway
   - AWS::EC2::Instance
@@ -13,6 +13,7 @@ forbidden_resources:
   - AWS::OpenSearchService::Domain
   - AWS::RDS::DBInstance
   - AWS::EKS::Cluster
+  - AWS::ApiGatewayV2::Api
 limits:
   lambda_memory_mb: 512
   lambda_timeout_seconds: 15
@@ -24,4 +25,3 @@ limits:
   upload_target_mb: 100
   upload_hard_limit_mb: 500
 budget_caveat: AWS Budgets is an alerting mechanism, not a hard spending cap; billing data can be delayed.
-

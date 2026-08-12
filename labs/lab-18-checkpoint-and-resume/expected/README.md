@@ -1,12 +1,19 @@
-# Expected evidence - lab-18-checkpoint-and-resume
+# Kết quả tham khảo - lab-18-checkpoint-and-resume
 
 ## Oracle
 
-Resume history; 3-5 epoch cap; early stopping.
+Dừng sau một epoch, load checkpoint rồi chạy tiếp; phân biệt best với last.
 
 ## Required receipt
 
-- Command: `python scripts/run_lab.py --lab 18`.
-- Evidence must include the lab-specific metric/oracle, seed/config, runtime, and at least one limitation or failure.
-- `status=starter-example-completed` proves only that the starter ran; acceptance remains a manual/rubric gate.
-- Store this evidence locally for self-assessment; do not commit or send it. Exclude secrets, personal data, large raw datasets, and paid-cloud output.
+- Chạy `python scripts/run_lab.py --lab 18` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
+- JSON phải có `status=starter-example-completed`; trong `result` cần thấy smoke metadata; notebook thật lưu model/optimizer/epoch/config.
+- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
+- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+
+## Gợi ý nếu kết quả khác
+
+Nếu load lỗi, so architecture, label mapping, config và optimizer state.
+
+Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
+hoặc output cloud trả phí.

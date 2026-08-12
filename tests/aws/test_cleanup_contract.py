@@ -39,12 +39,13 @@ def test_residual_scan_covers_every_resource_allowlist_service() -> None:
             ("lambda", "list-functions"),
             ("logs", "describe-log-groups"),
             ("iam", "list-roles"),
-            ("apigatewayv2", "get-apis"),
         )
         for service, action in commands:
             assert service in text and action in text
         assert "scan_status" in text
         assert "AWS scan error" in text
+        assert "budget" in text.lower()
+        assert "kept intentionally" in text.lower()
 
 
 @pytest.mark.skipif(sys.platform != "win32", reason="PowerShell PATH/PATHEXT contract is Windows-only")

@@ -3,6 +3,4 @@ resources:
   - {service: lambda, kind: function, required: true, cleanup_order: 10}
   - {service: logs, kind: log-group, required: true, cleanup_order: 20}
   - {service: iam, kind: role-and-policy, required: true, cleanup_order: 40}
-  - {service: apigateway, kind: http-api, required: false, cleanup_order: 5}
 all_resources_require_project_prefix_and_tags: true
-

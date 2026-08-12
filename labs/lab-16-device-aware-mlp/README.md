@@ -1,41 +1,45 @@
-# lab-16: Device-aware MLP
+# Lab 16 - Nhìn rõ tensor, gradient và device
 
-## Goal
+## Mục tiêu
 
-Seeded one-epoch mini run; CPU/GPU detection.
+Lab local này làm lộ vòng học của neural network mà không phụ thuộc GPU. Smoke demo dùng NumPy; bạn dùng nó để kiểm loss trước khi chuyển sang loop PyTorch của tuần 17.
 
-## Preconditions
+## Trước khi bắt đầu
 
-- Đọc tuần tương ứng; dùng mini profile trước.
-- Không đưa token, credential, data cá nhân hoặc artifact lớn vào Git.
+Đọc `roadmap/weeks/week-17.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
+credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
-## Steps
+## Các bước thực hiện
 
-1. Ghi giả thuyết, input/output contract và baseline.
-2. Chạy tests/checks trước thay đổi; lưu failure có ý nghĩa.
-3. Hoàn thiện phần `starter/`; ghi command, seed, runtime, metric.
-4. Phân tích ít nhất một failure case; cập nhật README.
-5. Chạy acceptance checks và lưu output tóm tắt.
+1. In shape của input, hidden, logits và target; dự đoán số parameter.
+2. Chạy mini MLP có seed, ghi loss qua các bước và xác nhận xu hướng.
+3. Thử bỏ bước reset gradient trong loop PyTorch nhỏ, quan sát rồi khôi phục.
+4. Chạy validation bằng `eval()` và `no_grad()`; in device/dtype.
 
-## Command
+## Chạy smoke demo
 
-Chạy từ repository root:
+PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe scripts/run_lab.py --lab 16
 ```
 
-
-Bash (macOS/Linux), từ repository root:
+Bash (macOS/Linux):
 
 ```bash
 .venv/bin/python scripts/run_lab.py --lab 16
 ```
 
-Code mẫu domain nằm trong `src/ml_roadmap/lab_examples.py`; output `.artifacts/lab-16-evidence.json` có `status=starter-example-completed`: starter chạy xong, **không** có nghĩa toàn bộ acceptance của lab đã đạt. Hoàn thành các bước, lưu evidence/rubric cục bộ để tự đánh giá rồi mới đánh dấu lab complete; không gửi các file này cho ai.
+Kết quả được lưu tại `.artifacts/lab-16-evidence.json`. Trong `result`, bạn sẽ thấy losses giảm, device và số parameter.
+`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
 
-## Acceptance
+## Khi nào xem như hoàn thành?
 
-- Mini path chạy được; kết quả tái lập trong tolerance đã ghi.
-- Không leakage/secret; config và artifact manifest đầy đủ.
-- Stretch tách riêng, không cần để pass.
+- Output có loss giảm, device và parameter count; bạn giải thích được từng bước zero-grad/forward/backward/step.
+- Loop chạy CPU; model/input/target cùng device và target đúng dtype cho loss.
+
+## Khi mắc kẹt
+
+In shape, dtype, device ngay trước forward/loss. Sửa mismatch đầu tiên; không chuyển GPU để né lỗi logic.
+
+Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
