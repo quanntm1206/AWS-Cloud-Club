@@ -1,0 +1,11 @@
+.git
+.venv
+.env
+.aws
+data
+artifacts
+checkpoints
+.artifacts
+dist
+**/__pycache__
+

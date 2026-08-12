@@ -1,0 +1,9 @@
+profile: gpu-free
+seed: 42
+image_size: 160
+batch_size: 32
+epochs: 5
+max_samples: 3000
+freeze_backbone: true
+early_stopping_patience: 2
+

@@ -1,0 +1,15 @@
+name: Nội dung hoặc lab
+description: Báo lỗi kiến thức, tái lập hoặc chi phí
+body:
+  - type: textarea
+    attributes: {label: Vị trí và vấn đề}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: Bằng chứng hoặc command}
+  - type: checkboxes
+    attributes:
+      label: An toàn
+      options:
+        - label: Tôi đã xóa credential và dữ liệu nhạy cảm
+          required: true
+

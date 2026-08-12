@@ -1,0 +1,9 @@
+total: 100
+criteria:
+  - {name: data_quality_and_split_integrity, points: 20}
+  - {name: reproducible_efficient_baseline, points: 25}
+  - {name: per_class_and_failure_analysis, points: 25}
+  - {name: checkpoint_artifact_and_model_card, points: 20}
+  - {name: aws_architecture_and_cost_reasoning, points: 10}
+gates: [cpu_mini_path, no_secret, no_aws_training_or_endpoint]
+

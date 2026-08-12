@@ -1,0 +1,15 @@
+# Verified against PyPI on 2026-08-12. Runtime setup installs these exact versions.
+joblib==1.5.3
+numpy==2.5.2
+pandas==3.0.5
+PyYAML==6.0.3
+scikit-learn==1.9.0
+fastapi==0.141.1
+pydantic==2.13.4
+uvicorn==0.52.1
+pytest==9.1.1
+ruff==0.16.2
+mypy==2.3.0
+nbformat==5.11.0
+python-docx==1.2.0
+Pillow==12.3.0

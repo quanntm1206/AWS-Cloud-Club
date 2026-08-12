@@ -1,0 +1,10 @@
+total: 100
+criteria:
+  - {name: problem_and_data_contract, points: 10}
+  - {name: reproducible_baseline_and_pipeline, points: 20}
+  - {name: evaluation_threshold_and_error_analysis, points: 20}
+  - {name: code_tests_and_artifacts, points: 20}
+  - {name: aws_lifecycle_and_cost_safety, points: 20}
+  - {name: model_card_demo_and_limitations, points: 10}
+gates: [no_data_leakage, no_secret, no_forbidden_aws_resource, cleanup_evidence]
+

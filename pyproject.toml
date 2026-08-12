@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aws-cloud-club-ml-roadmap"
+version = "0.1.0"
+description = "Local-first 24-week Machine Learning Engineer curriculum"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = {text = "MIT"}
+dependencies = [
+  "joblib>=1.5,<2",
+  "numpy>=2.3,<3",
+  "pandas>=3,<4",
+  "PyYAML>=6,<7",
+  "scikit-learn>=1.8,<2",
+]
+
+[project.optional-dependencies]
+serve = ["fastapi>=0.135,<1", "pydantic>=2.12,<3", "uvicorn>=0.41,<1"]
+cv = ["Pillow>=12,<13", "torch>=2.10,<3", "torchvision>=0.25,<1"]
+docs = ["python-docx>=1.2,<2"]
+dev = [
+  "mypy>=1.19,<3",
+  "nbformat>=5.10,<6",
+  "pytest>=9,<10",
+  "ruff>=0.15,<1",
+]
+
+[project.scripts]
+ml-roadmap-train = "ml_roadmap.train_tabular:main"
+ml-roadmap-check = "ml_roadmap.validation:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["ml_roadmap"]
+explicit_package_bases = true
+ignore_missing_imports = true

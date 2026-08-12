@@ -1,0 +1,74 @@
+sources:
+  - id: aws-free-tier-overview
+    title: AWS Free Tier
+    url: https://aws.amazon.com/free/
+    authority: primary
+    supports: [aws-credit, aws-free-plan, always-free]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: aws-free-tier-guide
+    title: Explore AWS services with AWS Free Tier
+    url: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier.html
+    authority: primary
+    supports: [aws-account-plans, aws-credit-application]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: aws-free-tier-plans
+    title: Choosing an AWS account plan
+    url: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html
+    authority: primary
+    supports: [free-plan-expiry, paid-plan-risk]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: aws-budgets
+    title: Managing your costs with AWS Budgets
+    url: https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html
+    authority: primary
+    supports: [budget-alerts, billing-delay]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: aws-sagemaker-pricing
+    title: Amazon SageMaker AI Pricing
+    url: https://aws.amazon.com/sagemaker-ai/pricing/
+    authority: primary
+    supports: [sagemaker-optional-only]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: colab-faq
+    title: Google Colab FAQ
+    url: https://research.google.com/colaboratory/faq.html
+    authority: primary
+    supports: [colab-free, dynamic-limits, cpu-fallback, runtime-lifecycle]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: kaggle-notebooks
+    title: Kaggle Notebooks documentation
+    url: https://www.kaggle.com/docs/notebooks
+    authority: primary
+    supports: [kaggle-notebooks, accelerator-option]
+    verified_on: 2026-08-12
+    recheck_after: 2027-02-12
+    volatile: true
+  - id: sklearn-user-guide
+    title: scikit-learn User Guide
+    url: https://scikit-learn.org/stable/user_guide.html
+    authority: primary
+    supports: [classical-ml, model-evaluation, pipelines]
+    verified_on: 2026-08-12
+    recheck_after: 2027-08-12
+    volatile: false
+  - id: pytorch-transfer-learning
+    title: Transfer Learning for Computer Vision Tutorial
+    url: https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
+    authority: primary
+    supports: [transfer-learning, cv-training]
+    verified_on: 2026-08-12
+    recheck_after: 2027-08-12
+    volatile: false
+

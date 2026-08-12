@@ -1,0 +1,20 @@
+scale:
+  emerging: Chưa tạo được đầu ra đúng contract
+  developing: Chạy được nhưng thiếu bằng chứng hoặc tái lập
+  proficient: Đúng, tái lập, có đánh giá và giải thích
+  exemplary: Có error analysis sâu, trade-off và cải tiến có kiểm soát
+
+milestones:
+  - {id: milestone-01, week: 4, focus: data-and-math, pass_score: 70}
+  - {id: milestone-02, week: 8, focus: evaluation, pass_score: 70}
+  - {id: milestone-03, week: 12, focus: applied-tabular, pass_score: 70}
+  - {id: milestone-04, week: 16, focus: ml-engineering, pass_score: 70}
+  - {id: milestone-05, week: 20, focus: computer-vision, pass_score: 70}
+  - {id: milestone-06, week: 24, focus: capability-summary-and-cost-safety, pass_score: 75}
+
+global_gates:
+  - no_data_leakage
+  - no_secrets
+  - reproducible_mini_run
+  - aws_cleanup_evidence_when_applicable
+

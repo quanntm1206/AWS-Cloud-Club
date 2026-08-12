@@ -1,0 +1,14 @@
+repos:
+  - repo: local
+    hooks:
+      - id: roadmap-check
+        name: roadmap-check
+        entry: python scripts/validate_curriculum.py
+        language: system
+        pass_filenames: false
+      - id: aws-safety
+        name: aws-safety
+        entry: python scripts/validate_aws_safety.py
+        language: system
+        pass_filenames: false
+
