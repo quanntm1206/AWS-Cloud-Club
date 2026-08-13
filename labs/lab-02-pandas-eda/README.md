@@ -4,10 +4,20 @@
 
 EDA tốt bắt đầu bằng câu hỏi “mỗi hàng có đáng tin không?”, không phải “vẽ biểu đồ nào đẹp?”. Bạn sẽ tạo một bản kiểm kê đủ để quyết định dữ liệu cần sửa gì trước modeling.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `data validation`, `EDA`, `missing value`, `outlier`
+
+**Ôn lại:** `dataset`, `sample`, `feature`, `label / target`
+
+**Áp dụng trong lab:** Chạy `data validation` trên `dataset`: kiểm `schema`, `missing value`, `outlier`; dùng EDA mô tả feature và label / target ở cấp sample.
+
+**Tự giải thích:** Data validation khác EDA thế nào; vì sao outlier chưa chắc là lỗi?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-03.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 

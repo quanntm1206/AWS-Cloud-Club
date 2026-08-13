@@ -11,6 +11,11 @@ Thêm kiểm tra missing column, wrong dtype, unseen category và artifact hỏn
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Data contract chặn schema lỗi; artifact reload parity đạt tolerance; negative test có lỗi chủ đích.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Dùng synthetic data nhỏ; tránh assert exact metric khi randomness chưa được khóa.

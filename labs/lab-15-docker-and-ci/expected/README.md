@@ -11,6 +11,11 @@ Chạy đủ build/start/log/health/predict/stop theo hướng dẫn riêng tron
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Container chạy non-root; CI chạy test/package/API contract offline; cleanup container; không deploy AWS.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu build chậm hoặc image lớn, kiểm `.dockerignore` và thứ tự dependency layer.

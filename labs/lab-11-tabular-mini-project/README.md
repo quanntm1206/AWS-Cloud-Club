@@ -4,6 +4,16 @@
 
 Mini-project này kiểm xem toàn bộ đường đi từ dữ liệu đến artifact có chạy lại được hay không. Model tốt nhưng chỉ sống trong notebook chưa phải sản phẩm tái lập.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `artifact`, `manifest`, `inference`
+
+**Ôn lại:** `schema`, `data split`, `pipeline`
+
+**Áp dụng trong lab:** Khóa schema và data split, chạy pipeline; lưu `artifact` kèm `manifest`, load ở process mới để inference, rồi so baseline/metric và checksum.
+
+**Tự giải thích:** Artifact, manifest và inference liên kết thế nào để chạy lại pipeline?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-12.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
@@ -13,7 +23,7 @@ credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
 1. Khóa problem, schema, split, baseline và success criteria trước training.
 2. Chạy pipeline churn mini end-to-end; lưu metrics, model và manifest.
-3. Load artifact ở process mới, kiểm prediction parity và checksum.
+3. Load artifact ở process mới, kiểm prediction output agreement và checksum.
 4. Điền model card/experiment report với misuse, failure và limitation.
 
 ## Chạy smoke demo
@@ -40,6 +50,6 @@ Kết quả được lưu tại `.artifacts/lab-11-evidence.json`. Trong `result
 
 ## Khi mắc kẹt
 
-Nếu parity sai, so feature order, preprocessing và threshold. Nếu clean shell thất bại, tìm hidden state hoặc đường dẫn tương đối.
+Nếu output agreement sai, so feature order, preprocessing và threshold. Nếu clean shell thất bại, tìm hidden state hoặc đường dẫn tương đối.
 
 Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.

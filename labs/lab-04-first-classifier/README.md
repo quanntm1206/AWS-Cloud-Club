@@ -4,17 +4,27 @@
 
 Một classifier chỉ đáng quan tâm khi vượt cách đoán đơn giản trên cùng luật chơi. Lab này biến baseline thành điều kiện bắt buộc, không phải dòng phụ trong báo cáo.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `baseline`, `confusion matrix`, `data split`, `fit`, `metric`, `model validation`, `precision / recall / F1`, `test set`, `training set`, `validation set`
+
+**Ôn lại:** `dataset`, `sample`, `feature`, `label / target`, `prediction`
+
+**Áp dụng trong lab:** Tạo `data split` từ `dataset` không trùng sample thành `training set`, `validation set`, `test set`; `fit` baseline trên feature, dùng `metric` precision / recall / F1 và `confusion matrix` để thực hiện `model validation`, so prediction với label / target.
+
+**Tự giải thích:** Data validation, validation set và model validation khác nhau ở điểm nào?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-05.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 
 1. Kiểm class balance, chia train/validation/test với stratification và xác nhận ID không trùng.
 2. Train dummy classifier; ghi F1 cùng confusion matrix.
 3. Train logistic regression trên đúng split và metric đó.
-4. Nêu model có vượt baseline không; không đổi threshold sau khi xem test.
+4. Nêu model có vượt baseline không; không đổi ngưỡng quyết định sau khi xem test.
 
 ## Chạy smoke demo
 

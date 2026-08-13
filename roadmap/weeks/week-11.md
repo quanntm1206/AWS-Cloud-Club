@@ -14,9 +14,17 @@ Model tốt trung bình vẫn có thể tệ với một nhóm nhỏ. Error anal
 
 - Global importance mô tả trung bình; local explanation mô tả một prediction; không cái nào chứng minh causality.
 - Permutation importance bị ảnh hưởng khi feature tương quan.
-- Slice metric luôn kèm support để tránh kết luận từ nhóm quá nhỏ; xem chênh lệch như tín hiệu điều tra fairness, không vội kết luận nguyên nhân.
+- Slice metric luôn kèm sample count để tránh kết luận từ nhóm quá nhỏ; xem chênh lệch như tín hiệu điều tra fairness, không vội kết luận nguyên nhân.
 - Khi nhãn đến muộn, theo dõi schema, missing rate, prediction distribution và feature drift trước khi có quality metric.
 - Failure taxonomy nhóm lỗi thành data quality, boundary, missing signal, label noise hoặc shift.
+
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `error analysis`, `slice`, `failure taxonomy`
+
+**Ôn lại:** `metric`, `validation set`, `feature engineering`
+
+**Áp dụng:** Chạy `error analysis` theo từng `slice`, luôn ghi sample count; tạo `failure taxonomy` từ prediction sai, liên hệ feature engineering và metric trên validation set.
 
 ## Lịch 8-10 giờ
 
@@ -42,12 +50,12 @@ Model tốt trung bình vẫn có thể tệ với một nhóm nhỏ. Error anal
 
 ## Dấu hiệu bạn đã hiểu
 
-Bạn báo slice metric kèm support, phân nhóm lỗi và đề xuất một data fix cùng một model fix có phép kiểm.
+Bạn báo slice metric kèm sample count, phân nhóm lỗi và đề xuất một data fix cùng một model fix có phép kiểm.
 
 ## Tự kiểm tra
 
 1. Importance khác causality?
-2. Support nhỏ gây rủi ro gì?
+2. Sample Count nhỏ gây rủi ro gì?
 3. Error analysis cần dẫn tới action nào?
 
 ## Kết quả hướng tới
@@ -56,7 +64,7 @@ error analysis; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian c
 
 ## Core vs stretch
 
-- **Cốt lõi:** Báo slice metrics kèm support, review lỗi theo rule và đề xuất next experiment.
+- **Cốt lõi:** Báo slice metrics kèm sample count, review lỗi theo rule và đề xuất next experiment.
 - **Mở rộng:** Thêm một subgroup-risk check hoặc một monitoring signal như missing rate/prediction distribution.
 
 ## Lỗi thường gặp

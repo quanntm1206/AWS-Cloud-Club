@@ -19,6 +19,14 @@ Transfer learning tận dụng biểu diễn đã học để giảm dữ liệu
   không tải được, random-weight fallback chỉ smoke code và chưa đạt gate transfer learning. FakeData không
   chứng minh accuracy.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `augmentation`, `backbone`, `freeze`, `transfer learning`
+
+**Ôn lại:** `tensor`, `batch`, `epoch`, `device`, `overfitting`
+
+**Áp dụng:** Dùng `augmentation` chỉ cho training `batch`, giữ validation transform deterministic; tải `backbone` pretrained lên đúng `device`, `freeze` parameter rồi chạy `transfer learning` trên tensor, theo dõi epoch/loss để phát hiện overfitting.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

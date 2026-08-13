@@ -18,6 +18,14 @@ Free runtime có thể ngắt bất cứ lúc nào. Checkpoint tốt biến mộ
 - Early stopping theo validation với patience; best checkpoint khác last; test không tham gia mỗi epoch.
 - Free runtime có thể ngắt/quota đổi; export ZIP bền vững trước khi release session.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `fine-tuning`, `checkpoint`, `early stopping`
+
+**Ôn lại:** `transfer learning`, `freeze`, `optimizer`, `epoch`, `validation set`
+
+**Áp dụng:** Chạy frozen `transfer learning` baseline với backbone đã freeze, sau đó optional `fine-tuning`; lưu `checkpoint` gồm optimizer/epoch và dùng `early stopping` theo validation set; resume để chứng minh state không mất.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

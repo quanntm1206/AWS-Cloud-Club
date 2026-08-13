@@ -4,10 +4,20 @@
 
 Một split may mắn có thể làm model trông ổn định hơn thực tế. Cross-validation cho bạn thấy kết quả thay đổi ra sao khi dữ liệu được chia lại có kiểm soát.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `cross-validation`, `fold`, `overfitting`, `bias / variance`
+
+**Ôn lại:** `data split`, `pipeline`, `metric`
+
+**Áp dụng trong lab:** Đặt toàn bộ pipeline trong `cross-validation`; đọc từng `fold`, mean/std và learning curve để phân biệt overfitting với bias / variance; giữ metric và data split nhất quán.
+
+**Tự giải thích:** Fold khác test set thế nào; learning curve gợi ý overfitting hay bias / variance ra sao?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-08.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 

@@ -17,6 +17,14 @@ Mini-project là lúc ghép các mảnh thành một quy trình người khác c
 - Reproduction guide bắt đầu từ clean environment, ghi command/config/seed/input/output.
 - Model card nêu intended/out-of-scope use, data, metrics, subgroup, limitation và rollback signal.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `artifact`, `manifest`, `inference`
+
+**Ôn lại:** `schema`, `data split`, `pipeline`
+
+**Áp dụng:** Khóa schema và data split, chạy pipeline; lưu `artifact` kèm `manifest`, load ở process mới để inference, rồi so baseline/metric và checksum.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -32,7 +40,7 @@ Mini-project là lúc ghép các mảnh thành một quy trình người khác c
 
 
 1. Chạy churn pipeline mini end-to-end.
-2. Reload artifact ở process mới và kiểm prediction parity.
+2. Reload artifact ở process mới và kiểm prediction output agreement.
 3. Chạy reproduction guide từ clean shell.
 
 ## Lab
@@ -65,7 +73,7 @@ mốc năng lực 3 + model card; lưu kèm lệnh đã chạy, cấu hình, met
 
 ## Khi mắc kẹt
 
-Chạy `mini` trước, kiểm từng artifact. Khi parity sai, so config và feature order trước khi train lại.
+Chạy `mini` trước, kiểm từng artifact. Khi output agreement sai, so config và feature order trước khi train lại.
 
 ## Nguồn
 

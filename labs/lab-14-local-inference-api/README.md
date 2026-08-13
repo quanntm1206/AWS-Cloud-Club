@@ -4,6 +4,16 @@
 
 API là nơi dữ liệu ngoài hệ thống gặp model. Bạn sẽ làm cho lỗi client, lỗi artifact và response thành công có contract khác nhau, thay vì mọi thứ thành 500.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `API contract`, `latency`
+
+**Ôn lại:** `data contract`, `artifact`, `inference`, `schema`
+
+**Áp dụng trong lab:** Định nghĩa `API contract`, đo `latency`, gửi sample hợp lệ/sai qua inference; data contract chặn schema lỗi trước artifact và response không lộ raw feature.
+
+**Tự giải thích:** API contract khác data contract thế nào; latency đo được chưa chứng minh điều gì?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-15.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
@@ -14,7 +24,7 @@ credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 1. Gọi `/health` và `/predict` với payload hợp lệ.
 2. Thử missing field, wrong type và unknown category; kiểm response 4xx có thông tin vừa đủ.
 3. Mô phỏng model chưa sẵn sàng; kiểm 503 mà không lộ stack trace.
-4. Đo warm latency mini batch, ghi payload/batch limit và giới hạn phép đo.
+4. Đo warm latency mini input group, ghi payload/input group limit và giới hạn phép đo.
 
 ## Chạy smoke demo
 

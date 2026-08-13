@@ -11,6 +11,11 @@ Chọn đúng một notebook Colab hoặc Kaggle, chạy `cpu-mini` trước r�
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Train dùng augmentation, validation deterministic; backbone freeze đúng; transfer learning dùng pretrained weights; checkpoint được export.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 FakeData chỉ chứng minh pipeline chạy; không báo accuracy đó như chất lượng model.

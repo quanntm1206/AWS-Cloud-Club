@@ -17,6 +17,14 @@ Feature engineering biến hiểu biết về bài toán thành tín hiệu mode
 - Ablation thay đúng một feature group trong cùng harness.
 - Metric delta nhỏ hơn CV variability chưa chứng minh feature có ích.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `feature engineering`, `ablation`
+
+**Ôn lại:** `feature`, `baseline`, `validation set`, `hyperparameter`
+
+**Áp dụng:** Viết giả thuyết `feature engineering`, chạy `ablation` thêm/bỏ một feature; khóa baseline, validation set, hyperparameter và data split để metric delta có nghĩa.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -24,7 +32,7 @@ Feature engineering biến hiểu biết về bài toán thành tín hiệu mode
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 

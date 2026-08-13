@@ -4,6 +4,16 @@
 
 Test ML cần kiểm dữ liệu và artifact, không chỉ function trả đúng type. Lab này tập trung vào những lỗi thường xuất hiện sau khi model đã được đóng gói.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `data contract`, `parity`
+
+**Ôn lại:** `schema`, `pipeline`, `artifact`, `reproducibility`
+
+**Áp dụng trong lab:** Viết `data contract` cho schema; test `parity` fit-save-load-predict của pipeline/artifact, negative case cho sample sai và tolerance cho reproducibility.
+
+**Tự giải thích:** Data contract khác schema thuần túy thế nào; parity bảo vệ artifact ra sao?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-14.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
@@ -11,7 +21,7 @@ credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
 
 ## Các bước thực hiện
 
-1. Test schema đúng và các case thiếu cột, sai dtype, NaN/Inf, empty batch.
+1. Test schema đúng và các case thiếu cột, sai dtype, NaN/Inf, empty input group.
 2. Đưa unseen category qua đúng preprocessing pipeline.
 3. Fit-save-load-predict rồi kiểm parity trong tolerance.
 4. Tạo data synthetic có signal, xác nhận model vượt dummy bằng gate hợp lý.

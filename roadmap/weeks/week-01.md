@@ -12,10 +12,18 @@ Một workflow rõ ràng giúp bạn biết model phục vụ quyết định n�
 
 ## Kiến thức cốt lõi
 
-- Tách business question khỏi prediction task: xác định đối tượng, nhãn, prediction time và hành động sau dự đoán.
-- Workflow tối thiểu: validate data, split, baseline, fit, validate, khóa quyết định, test một lần, phân tích lỗi, đóng gói.
-- Data contract khóa schema/target; experiment contract lưu seed, config, code revision, metric, runtime và limitation.
+- Tách business question khỏi model output task: xác định đối tượng, nhãn, model output time và hành động sau dự đoán.
+- Workflow tối thiểu: validate data, split, simple reference, học, đánh giá, khóa quyết định, test một lần, phân tích lỗi, đóng gói.
+- Quy ước dữ liệu khóa schema/target; experiment contract lưu seed, config, code revision, quality measure, runtime và limitation.
 - Reproducibility yêu cầu tái tạo input, procedure, environment và tolerance; không hứa mọi phần cứng cho bit-identical result.
+
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `dataset`, `sample`, `schema`, `reproducibility`, `seed`
+
+**Ôn lại:** Chưa có - đây là lab đầu tiên.
+
+**Áp dụng:** Mở `dataset` smoke, đếm từng `sample`, đối chiếu `schema`, cố định `seed` rồi chạy hai lần để kiểm `reproducibility`.
 
 ## Lịch 8-10 giờ
 
@@ -24,7 +32,7 @@ Một workflow rõ ràng giúp bạn biết model phục vụ quyết định n�
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 
@@ -32,7 +40,7 @@ Một workflow rõ ràng giúp bạn biết model phục vụ quyết định n�
 
 
 1. Viết problem statement cho churn theo mẫu ai-khi nào-để làm gì.
-2. Vẽ data -> split -> fit -> validate -> test -> artifact; đánh dấu điểm leakage.
+2. Vẽ data -> split -> học -> đánh giá -> test -> saved model bundle; đánh dấu điểm leakage.
 3. Chạy lab, lưu environment report và một limitation.
 
 ## Lab
@@ -41,17 +49,17 @@ Một workflow rõ ràng giúp bạn biết model phục vụ quyết định n�
 
 ## Dấu hiệu bạn đã hiểu
 
-Bạn có thể kể lại đường đi từ câu hỏi đến artifact và chỉ ra test set được mở khi nào.
+Bạn có thể kể lại đường đi từ câu hỏi đến saved model bundle và chỉ ra final holdout được mở khi nào.
 
 ## Tự kiểm tra
 
 1. Model output khác quyết định sản phẩm thế nào?
-2. Vì sao test không dùng chọn model/threshold?
+2. Vì sao test không dùng chọn model/decision cutoff?
 3. Experiment log tối thiểu gồm gì?
 
 ## Kết quả hướng tới
 
-environment report lưu cục bộ; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+environment report lưu cục bộ; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
@@ -61,7 +69,7 @@ environment report lưu cục bộ; lưu kèm lệnh đã chạy, cấu hình, m
 ## Lỗi thường gặp
 
 - Bắt đầu từ thuật toán thay vì câu hỏi.
-- Không khóa prediction time nên feature nhìn tương lai.
+- Không khóa model output time nên input signal nhìn tương lai.
 
 ## Khi mắc kẹt
 

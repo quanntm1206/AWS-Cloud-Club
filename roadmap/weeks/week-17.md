@@ -18,6 +18,14 @@ PyTorch làm rõ điều thư viện cổ điển thường giấu: tensor đi q
 - `model.train()` khác `model.eval()`; validation dùng cả `model.eval()` và `torch.no_grad()` để đúng hành vi và tiết kiệm memory.
 - Device auto ưu tiên CUDA, fallback CPU-mini. Seed hỗ trợ tái lập nhưng hardware/kernel vẫn có sai khác nhỏ.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `tensor`, `batch`, `epoch`, `optimizer`, `device`
+
+**Ôn lại:** `parameter`, `gradient`, `loss`, `validation set`
+
+**Áp dụng:** Tạo `tensor` theo `batch`, chạy nhiều `epoch`; dùng `optimizer` cập nhật parameter từ gradient/loss, kiểm model và input cùng `device`, đánh giá trên validation set.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

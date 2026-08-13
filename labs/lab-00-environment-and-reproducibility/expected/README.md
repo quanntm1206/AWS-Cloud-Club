@@ -11,6 +11,11 @@ Chạy lại hai lần; số hàng, schema và seed phải giống nhau.
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Hai environment report có cùng `schema`, `seed` và số `sample`; learning log giải thích `dataset` nào được kiểm và giới hạn `reproducibility`.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu import lỗi, chạy lại bootstrap check và xác nhận đang dùng Python trong `.venv`.

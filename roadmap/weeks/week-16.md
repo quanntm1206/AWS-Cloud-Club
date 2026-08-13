@@ -18,6 +18,14 @@ Docker đóng gói runtime; CI kiểm các quy tắc mỗi lần code đổi. C�
 - Artifact manifest có schema/version/checksum/config/metrics; checksum không thay provenance.
 - Production monitoring cần cả service signals (latency/error) và ML signals (schema, drift, prediction distribution); drift là cảnh báo điều tra, không tự chứng minh model đã sai.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `container`, `CI`
+
+**Ôn lại:** `API contract`, `artifact`, `reproducibility`, `latency`
+
+**Áp dụng:** Đóng package/API contract vào `container`, dùng `CI` chạy data validation, parity và test artifact; đo latency nhỏ rồi cleanup container để giữ reproducibility.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

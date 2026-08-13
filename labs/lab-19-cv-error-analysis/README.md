@@ -4,6 +4,16 @@
 
 Lab cuối phần CV chuyển metric thành hiểu biết về failure. Smoke local cho format; phân tích có ý nghĩa phải dùng prediction từ notebook thật.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `macro average`, `weighted average`
+
+**Ôn lại:** `confusion matrix`, `support`, `metric`, `validation set`, `error analysis`, `failure taxonomy`
+
+**Áp dụng trong lab:** Tạo confusion matrix, `macro average`, `weighted average` và metric theo class với support; làm error analysis trên prediction ở validation set, gán failure taxonomy cho sample thật, không dùng FakeData làm model validation.
+
+**Tự giải thích:** Macro average khác weighted average thế nào; confusion matrix và support giúp đọc chênh lệch đó ra sao?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-20.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa

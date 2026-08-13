@@ -4,6 +4,16 @@
 
 Lab local này làm lộ vòng học của neural network mà không phụ thuộc GPU. Smoke demo dùng NumPy; bạn dùng nó để kiểm loss trước khi chuyển sang loop PyTorch của tuần 17.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `tensor`, `batch`, `epoch`, `optimizer`, `device`
+
+**Ôn lại:** `parameter`, `gradient`, `loss`, `validation set`
+
+**Áp dụng trong lab:** Tạo `tensor` theo `batch`, chạy nhiều `epoch`; dùng `optimizer` cập nhật parameter từ gradient/loss, kiểm model và input cùng `device`, đánh giá trên validation set.
+
+**Tự giải thích:** Batch, epoch, loss và optimizer tạo thành một vòng training như thế nào?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-17.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa

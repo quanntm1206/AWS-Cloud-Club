@@ -18,6 +18,14 @@ Metric tổng hợp không cho biết model sai ở đâu. Failure analysis giú
 - Review theo sampling rule rồi phân nhóm data, label, ambiguity, transform, model hoặc shift.
 - Model card gắn metric với dataset/split/config và cấm dùng fallback data để kết luận quality.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `confusion matrix`, `support`
+
+**Ôn lại:** `metric`, `validation set`, `error analysis`, `failure taxonomy`
+
+**Áp dụng:** Tạo `confusion matrix`, metric precision / recall / F1 và `support`; làm `error analysis` trên prediction ở validation set, gán failure taxonomy cho sample thật, không dùng FakeData làm model validation.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

@@ -19,6 +19,14 @@ cần mở endpoint ra Internet.
 - CloudWatch log không chứa raw payload/secret và có retention một ngày.
 - Tag `ExpiresAt` chỉ là metadata nhắc cleanup, không tự xóa stack.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `Lambda`, `CloudWatch Logs`, `API contract`
+
+**Ôn lại:** `IAM`, `S3`, `budget alert`
+
+**Áp dụng:** Dùng `Lambda` thực hiện inference theo `API contract`, kiểm `CloudWatch Logs` không lộ sample nhạy cảm; ôn IAM và S3 từ tuần trước.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

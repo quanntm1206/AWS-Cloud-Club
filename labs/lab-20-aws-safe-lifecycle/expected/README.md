@@ -19,5 +19,7 @@ Một lần làm đạt yêu cầu có các dấu hiệu sau:
 Giữ cục bộ checksum, valid/invalid response, cleanup output, residual JSON và ba timestamp cost audit.
 Không commit hoặc gửi account ID, billing email hay credential.
 
-Nếu AWS account không đủ điều kiện hoặc buộc nâng Paid Plan, kết quả local handler + artifact contract +
-cleanup dry-run là đường hoàn thành an toàn. Không cần mua dịch vụ để đạt lab.
+## Oracle thuật ngữ
+
+- Evidence nối IAM, S3, Lambda, CloudWatch Logs, budget alert; idempotent cleanup và residual scan chứng minh project sạch hoặc local fallback an toàn.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.

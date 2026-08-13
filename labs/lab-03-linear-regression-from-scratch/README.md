@@ -4,10 +4,20 @@
 
 Thay vì tin gradient vì loss có giảm, bạn sẽ kiểm nó bằng một phép xấp xỉ độc lập. Đây là thói quen debug quan trọng trước khi mô hình trở nên lớn hơn.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `prediction`, `loss`, `gradient`, `learning rate`
+
+**Ôn lại:** `feature`, `label / target`, `data validation`
+
+**Áp dụng trong lab:** Tính `prediction`, `loss`, `gradient` và cập nhật parameter bằng `learning rate`; giữ feature, label / target và ghi lỗi data validation nếu input sai.
+
+**Tự giải thích:** Loss, gradient và learning rate liên hệ thế nào khi parameter được cập nhật?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-04.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 

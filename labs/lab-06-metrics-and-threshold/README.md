@@ -4,10 +4,20 @@
 
 Threshold 0.5 không hiểu chi phí kinh doanh. Bạn sẽ chọn một ngưỡng bằng validation evidence, sau đó khóa quyết định trước khi chạm test.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `class imbalance`, `threshold`
+
+**Ôn lại:** `validation set`, `model validation`, `baseline`, `metric`, `precision / recall / F1`
+
+**Áp dụng trong lab:** Dùng `validation set` cho `model validation`: chọn metric precision / recall / F1 và threshold theo class imbalance, so với baseline; giữ test set đóng đến cuối.
+
+**Tự giải thích:** Metric và threshold nào phù hợp khi class imbalance; validation set được dùng ra sao?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-07.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 

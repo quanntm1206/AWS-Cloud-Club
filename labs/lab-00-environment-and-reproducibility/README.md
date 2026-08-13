@@ -4,10 +4,20 @@
 
 Buổi đầu chưa cần train model. Mục tiêu là tạo một điểm xuất phát đáng tin: cùng code, cùng seed và cùng môi trường phải cho cùng một báo cáo nhỏ.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `dataset`, `sample`, `schema`, `reproducibility`, `seed`
+
+**Ôn lại:** Chưa có - đây là lab đầu tiên.
+
+**Áp dụng trong lab:** Mở `dataset` smoke, đếm từng `sample`, đối chiếu `schema`, cố định `seed` rồi chạy hai lần để kiểm `reproducibility`.
+
+**Tự giải thích:** Dataset khác sample thế nào; schema và seed giúp reproducibility đến đâu?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-01.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 

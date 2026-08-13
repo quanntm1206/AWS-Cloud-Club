@@ -11,6 +11,11 @@ Giữ cùng split/metric; giải thích model có vượt baseline hay không.
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Receipt ghi `data split`, training/validation/test set; baseline và model dùng cùng metric; confusion matrix cùng precision / recall / F1 phục vụ model validation.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu F1 đều thấp, kiểm class balance và signal trước khi đổi thuật toán.

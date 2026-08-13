@@ -11,6 +11,11 @@ Gửi payload đúng, thiếu cột và sai kiểu; không log raw feature nhạ
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- API contract phân biệt success/422/503; inference dùng artifact đúng; latency ghi sample/batch limit.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu nhận 500 cho lỗi client, đưa validation ra boundary trước khi gọi model.

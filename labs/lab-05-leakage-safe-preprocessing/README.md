@@ -4,16 +4,26 @@
 
 Imputer, scaler và encoder đều học từ dữ liệu. Lab này buộc chúng sống trong cùng pipeline để test set không âm thầm tham gia training.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `data leakage`, `pipeline`, `preprocessing`, `transform`
+
+**Ôn lại:** `data split`, `fit`, `training set`, `validation set`, `test set`
+
+**Áp dụng trong lab:** Chia bằng `data split` trước, fit từng bước `preprocessing`/`transform` chỉ trên `training set`, ghép thành `pipeline`; dùng schema để chứng minh không có `data leakage` sang validation set/test set.
+
+**Tự giải thích:** Vì sao preprocessing/transform phải fit sau data split và chỉ trên training set?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-06.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 
 1. Xác định numeric/categorical columns và chia dữ liệu trước preprocessing.
 2. Dựng `ColumnTransformer` cho missing, scaling và one-hot encoding.
-3. Thêm một validation row có category chưa từng thấy; chạy inference mà không fit lại.
+3. Thêm một validation row có category chưa từng thấy; chạy prediction on new input mà không fit lại.
 4. Kiểm statistic của scaler/imputer chỉ đến từ train.
 
 ## Chạy smoke demo

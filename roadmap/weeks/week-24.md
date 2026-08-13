@@ -17,6 +17,14 @@ tái lập được, giới hạn được nói thật, demo có fallback và h�
 - Budget alert được giữ có chủ đích không phải residual infrastructure. Review hoặc xóa thủ công cuối khóa.
 - “Done” nghĩa tests pass, model card cập nhật, secret scan sạch, limitation rõ và zero known residual.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `idempotent cleanup`, `budget alert`, `manifest`
+
+**Ôn lại:** `artifact`, `inference`, `residual scan`
+
+**Áp dụng:** Chứng minh `idempotent cleanup`, đọc lại `budget alert`, đối chiếu `manifest`; ôn artifact, inference và residual scan trong demo cuối.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

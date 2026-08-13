@@ -11,6 +11,11 @@ Review theo sampling rule, kèm support; đề xuất một data fix và một m
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Mỗi slice có metric và support; failure taxonomy gắn với failure record; error analysis tạo next experiment.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu không thấy pattern, tăng tính đa dạng mẫu lỗi thay vì chỉ chọn confident-wrong.

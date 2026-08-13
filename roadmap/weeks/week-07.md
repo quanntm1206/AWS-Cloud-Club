@@ -18,6 +18,14 @@ Metric phải phản ánh loại sai lầm bạn thật sự quan tâm. Threshol
 - Chọn threshold trên validation, khóa lại, rồi đánh giá test; 0.5 không mặc định tối ưu.
 - Log loss phạt dự đoán tự tin nhưng sai; calibration hỏi liệu nhóm được dự đoán khoảng 0.7 có positive gần 70% hay không.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `metric`, `precision / recall / F1`, `threshold`, `class imbalance`
+
+**Ôn lại:** `validation set`, `model validation`, `baseline`
+
+**Áp dụng:** Dùng `validation set` cho `model validation`: chọn metric precision / recall / F1 và threshold theo class imbalance, so với baseline; giữ test set đóng đến cuối.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -25,7 +33,7 @@ Metric phải phản ánh loại sai lầm bạn thật sự quan tâm. Threshol
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 

@@ -11,6 +11,11 @@ Viết rule chọn threshold trước khi xem test; so ít nhất ba threshold.
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Receipt ghi class imbalance, metric, threshold chọn trên validation set; test set không dùng chỉnh quyết định.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu chưa hiểu AUC, quay về confusion matrix và số lượng FP/FN ở từng threshold.

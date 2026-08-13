@@ -17,6 +17,14 @@ Notebook giúp khám phá nhanh; package giúp logic có đầu vào rõ, tái s
 - Config có schema; CLI trả exit code và error message hữu ích.
 - Đặt file/network side effects tại boundary, giữ core functions dễ test.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `package`, `configuration`
+
+**Ôn lại:** `reproducibility`, `pipeline`, `artifact`
+
+**Áp dụng:** Tách pipeline thành `package`; đưa seed và hyperparameter vào `configuration`, chạy lại để giữ reproducibility, artifact và inference không phụ thuộc notebook state.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -31,7 +39,7 @@ Notebook giúp khám phá nhanh; package giúp logic có đầu vào rõ, tái s
 ## Guided practice
 
 
-1. Di chuyển train logic vào src nhưng giữ parity.
+1. Di chuyển train logic vào src nhưng giữ output agreement.
 2. Thêm CLI nhận config/output/seed.
 3. Chạy cùng config hai lần, so manifest và metric tolerance.
 

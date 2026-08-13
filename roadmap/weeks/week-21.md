@@ -24,6 +24,14 @@ Nguồn AWS, kiểm ngày 2026-08-12:
 [FAQ](https://aws.amazon.com/free/free-tier-faqs/) và
 [tracking](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/tracking-free-tier-usage.html).
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `IAM`, `S3`, `Lambda`, `CloudWatch Logs`, `budget alert`, `residual scan`, `idempotent cleanup`
+
+**Ôn lại:** `artifact`, `inference`, `API contract`
+
+**Áp dụng:** Upload `artifact` lên `S3`, cấp quyền tối thiểu bằng `IAM`, gọi inference qua `Lambda`, đọc `CloudWatch Logs`; tạo `budget alert`, chạy idempotent cleanup và `residual scan` theo API contract.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

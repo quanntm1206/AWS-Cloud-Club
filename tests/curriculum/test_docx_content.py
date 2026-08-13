@@ -65,6 +65,10 @@ def test_docx_contains_all_weeks_and_safety_language(tmp_path: Path) -> None:
     assert "nhưng không phải hard spending cap" in text
     assert "Tabular local-first; AWS deploy tùy plan/credit" in text
     assert "Tabular AWS bắt buộc" not in text
+    assert "Từ khóa tuần này" in text
+    assert "Thuật ngữ mới" in text and "Ôn lại" in text
+    assert "dataset" in text and "augmentation" in text
+    assert "Ví dụ" in text and "Giới thiệu ở" in text
     for command in (
         "pwsh aws/scripts/cost-check.ps1 -ProjectId $project -Region $region",
         "pwsh aws/scripts/preflight.ps1 -ProjectId $project -Region $region",

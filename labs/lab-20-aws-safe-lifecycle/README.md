@@ -5,6 +5,16 @@
 Đưa portable tabular model lên S3, gọi Lambda riêng tư với input đúng/sai, xem log, cleanup và chứng minh
 không còn infrastructure của project. Không dùng EC2, SageMaker, Bedrock, NAT Gateway hoặc public API.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `IAM`, `S3`, `Lambda`, `CloudWatch Logs`, `budget alert`, `residual scan`, `idempotent cleanup`
+
+**Ôn lại:** `artifact`, `inference`, `API contract`
+
+**Áp dụng trong lab:** Upload `artifact` lên `S3`, cấp quyền tối thiểu bằng `IAM`, gọi inference qua `Lambda`, đọc `CloudWatch Logs`; tạo `budget alert`, chạy idempotent cleanup và `residual scan` theo API contract.
+
+**Tự giải thích:** Budget alert không phải hard cap; idempotent cleanup và residual scan bảo vệ điều gì?
+
 ## Trước khi bắt đầu
 
 - Đọc `aws/README.md`; xác nhận plan, credit, ngày hết hạn và đúng account/Region.

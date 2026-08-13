@@ -4,10 +4,20 @@
 
 Feature mới nên bắt đầu bằng một giả thuyết, không phải bằng danh sách phép biến đổi. Ablation giúp bạn biết thay đổi nào thật sự tạo khác biệt.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `feature engineering`, `ablation`
+
+**Ôn lại:** `feature`, `baseline`, `validation set`, `hyperparameter`
+
+**Áp dụng trong lab:** Viết giả thuyết `feature engineering`, chạy `ablation` thêm/bỏ một feature; khóa baseline, validation set, hyperparameter và data split để metric delta có nghĩa.
+
+**Tự giải thích:** Feature engineering khác ablation thế nào; vì sao chỉ thay một yếu tố?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-10.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 

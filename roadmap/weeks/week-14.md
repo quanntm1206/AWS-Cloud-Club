@@ -14,8 +14,16 @@ Hệ thống ML hỏng không chỉ vì model kém. Schema đổi, category lạ
 
 - ML tests bao phủ schema, transforms, determinism, metric sanity, reload và API boundary.
 - Unit dùng synthetic nhỏ; integration chạy pipeline ngắn.
-- Negative cases: thiếu cột, sai dtype, unseen category, NaN/Inf, empty batch, artifact hỏng.
+- Negative cases: thiếu cột, sai dtype, unseen category, NaN/Inf, empty input group, artifact hỏng.
 - Metric assertion dùng threshold/tolerance có lý do, không khóa số stochastic mong manh.
+
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `data contract`, `parity`
+
+**Ôn lại:** `schema`, `pipeline`, `artifact`, `reproducibility`
+
+**Áp dụng:** Viết `data contract` cho schema; test `parity` fit-save-load-predict của pipeline/artifact, negative case cho sample sai và tolerance cho reproducibility.
 
 ## Lịch 8-10 giờ
 
@@ -56,12 +64,12 @@ test evidence; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian ch
 ## Core vs stretch
 
 - **Cốt lõi:** Test schema, negative cases, reload parity và model-vượt-dummy trên data synthetic nhỏ.
-- **Mở rộng:** Thêm test artifact checksum hỏng hoặc batch rỗng; tránh exact metric dễ flaky.
+- **Mở rộng:** Thêm test artifact checksum hỏng hoặc input group rỗng; tránh exact metric dễ flaky.
 
 ## Lỗi thường gặp
 
 - Chỉ test happy path.
-- CI dùng production dataset lớn/nhạy cảm.
+- automated checks dùng production dataset lớn/nhạy cảm.
 
 ## Khi mắc kẹt
 

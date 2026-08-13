@@ -54,6 +54,17 @@ bash scripts/check.sh --scope bootstrap
 Sau tuần 24, dùng [bản đồ 90 ngày](roadmap/sau-24-tuan.md) để chọn hướng Model Engineering, ML Platform/MLOps
 hoặc Applied Computer Vision.
 
+## Học thuật ngữ mà không cần học vẹt
+
+Mỗi lab giới thiệu một nhóm từ mới, gọi lại những từ đã dùng ở lab trước rồi yêu cầu bạn áp dụng chúng vào
+thao tác và output thật. Ví dụ, bạn gặp `dataset` ở lab 00, dùng lại khi tạo `data split` ở lab 04, rồi tiếp
+tục kiểm `data leakage` ở lab 05. Mục `Tự giải thích` giúp bạn nói lại bằng lời của mình; glossary cuối tài liệu
+là chỗ tra cứu, không phải danh sách cần thuộc ngay. Ba cụm dễ nhầm được tách rõ:
+
+- `data validation`: kiểm dữ liệu có đúng schema/quy tắc hay không;
+- `validation set`: phần dữ liệu dùng chọn quyết định, không dùng fit parameter;
+- `model validation`: quá trình đánh giá model trên dữ liệu chưa dùng để fit.
+
 ## Nguyên tắc giữ chi phí thấp
 
 - Local CPU là đường mặc định; Colab Free hoặc Kaggle Free chỉ dùng cho phần CV.

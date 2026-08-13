@@ -11,6 +11,11 @@ Thêm một category chưa thấy; pipeline vẫn predict được mà không fi
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Evidence chứng minh preprocessing/transform chỉ fit training set trong pipeline; category mới không vỡ; không có data leakage.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu vỡ ở encoder, kiểm `handle_unknown`; nếu score đẹp bất thường, tìm bước fit trước split.

@@ -11,6 +11,11 @@ Thử nhiều `epsilon`; hai gradient phải gần nhau trong tolerance đã ghi
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- History cho thấy `loss`; gradient check so `gradient`; learning log giải thích `learning rate` cập nhật parameter và tác động prediction.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu lệch, kiểm dấu, phép lấy trung bình và công thức central difference.

@@ -4,6 +4,16 @@
 
 Container giúp runtime nhất quán, nhưng một image build thành công chưa chứng minh service an toàn. Bạn sẽ kiểm user, health, predict và cleanup container.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `container`, `CI`
+
+**Ôn lại:** `API contract`, `artifact`, `reproducibility`, `latency`
+
+**Áp dụng trong lab:** Đóng package/API contract vào `container`, dùng `CI` chạy data validation, parity và test artifact; đo latency nhỏ rồi cleanup container để giữ reproducibility.
+
+**Tự giải thích:** Container và CI giúp reproducibility ở phần nào nhưng không thay thế test nào?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-16.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa

@@ -11,6 +11,11 @@ Chỉ thay một nhóm feature; ghi giả thuyết, metric delta và quyết đ�
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Ablation chỉ thay một nhóm feature engineering; giữ data split/baseline; receipt ghi metric delta và quyết định.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu kết quả khó giải thích, khóa seed/model rồi kiểm availability time và missing handling.

@@ -18,6 +18,14 @@ Tree ensembles cho bạn lựa chọn mạnh với dữ liệu bảng, nhưng m�
 - Giới hạn depth/leaves hoặc thêm regularization giúp model bớt học thuộc nhiễu; kiểm bằng khoảng cách train-validation, không chỉ train score.
 - So candidate bằng cùng split, pipeline, metric và runtime budget.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `hyperparameter`, `ensemble`, `bagging / boosting`
+
+**Ôn lại:** `baseline`, `validation set`, `metric`, `overfitting`
+
+**Áp dụng:** Giữ dataset, validation set, metric và budget cố định; so `ensemble` dùng bagging / boosting, đổi đúng một hyperparameter rồi đối chiếu baseline và dấu hiệu overfitting.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -25,7 +33,7 @@ Tree ensembles cho bạn lựa chọn mạnh với dữ liệu bảng, nhưng m�
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 
@@ -33,7 +41,7 @@ Tree ensembles cho bạn lựa chọn mạnh với dữ liệu bảng, nhưng m�
 
 
 1. Train logistic, random forest, gradient boosting trên một split.
-2. So ROC-AUC, F1, runtime, artifact size.
+2. So ROC-AUC, F1, runtime, saved-model size.
 3. Đổi max_depth đúng một lần và giải thích bias/variance.
 
 ## Lab
@@ -42,7 +50,7 @@ Tree ensembles cho bạn lựa chọn mạnh với dữ liệu bảng, nhưng m�
 
 ## Dấu hiệu bạn đã hiểu
 
-Bạn so ba candidate trên cùng harness, nêu được đổi chác giữa metric, runtime và artifact size.
+Bạn so ba candidate trên cùng harness, nêu được đổi chác giữa metric, runtime và saved-model size.
 
 ## Tự kiểm tra
 

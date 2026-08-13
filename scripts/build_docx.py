@@ -428,6 +428,19 @@ def build(output: Path) -> None:
         document.add_paragraph(why.replace("**", ""))
         document.add_heading("Điều cần hiểu", level=3)
         add_bullets(document, markdown_items(core))
+        vocabulary = extract_markdown_section(week_doc, "Từ khóa tuần này")
+        document.add_heading("Từ khóa tuần này", level=3)
+        for line in vocabulary.splitlines():
+            stripped = line.strip()
+            if not stripped:
+                continue
+            paragraph = document.add_paragraph()
+            if stripped.startswith("**") and ":**" in stripped:
+                label, value = stripped.split(":**", 1)
+                paragraph.add_run(label.removeprefix("**") + ": ").bold = True
+                paragraph.add_run(value.strip().replace("`", ""))
+            else:
+                paragraph.add_run(stripped.replace("`", "").replace("**", ""))
         guided = extract_markdown_section(week_doc, "Guided practice")
         document.add_heading("Thực hành có hướng dẫn", level=3)
         add_bullets(document, markdown_items(guided))
@@ -701,7 +714,20 @@ def build(output: Path) -> None:
 
     add_section_heading(document, "8. Glossary và nguồn", 1, "glossary", bookmark_id)
     glossary = yaml.safe_load((ROOT / "curriculum/glossary.yml").read_text(encoding="utf-8"))["terms"]
-    add_table(document, ["Thuật ngữ", "Nghĩa"], [[item["term"], item["meaning"]] for item in glossary], [1.875, 4.625])
+    document.add_paragraph(
+        "Đừng học thuộc bảng này một lượt. Mỗi thuật ngữ được giới thiệu trong lab, dùng lại ở các lab sau và "
+        "gắn với một evidence cụ thể. Ba khái niệm dễ nhầm: data validation kiểm dữ liệu, validation set là "
+        "một phần dữ liệu, model validation là quá trình đánh giá/chọn quyết định."
+    )
+    add_table(
+        document,
+        ["Thuật ngữ", "Nghĩa dễ hiểu", "Ví dụ", "Giới thiệu ở"],
+        [
+            [item["term"], item["meaning"], item["example"], f"Lab {int(item['introduced_in']):02d}"]
+            for item in glossary
+        ],
+        [1.3, 2.55, 2.05, 0.6],
+    )
     document.add_heading("Nguồn chính thức", level=2)
     for source in sources:
         paragraph = document.add_paragraph()

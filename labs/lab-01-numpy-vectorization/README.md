@@ -4,10 +4,20 @@
 
 Phép nhân ma trận chỉ hữu ích khi bạn biết mỗi chiều đại diện cho gì. Lab này giúp bạn nối công thức `X @ w` với dữ liệu nhiều hàng, thay vì học vectorization như một mẹo viết code ngắn.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `feature`, `label / target`, `parameter`, `vectorization`
+
+**Ôn lại:** `dataset`, `sample`, `schema`
+
+**Áp dụng trong lab:** Biểu diễn mỗi `sample` thành vector `feature`, giữ `label / target` để diễn giải bài toán, dùng vectorization tính model output từ `parameter`; ghi `dataset` và `schema` của mảng.
+
+**Tự giải thích:** Feature, label / target và parameter đóng vai trò gì trong phép X @ w?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-02.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 

@@ -4,6 +4,16 @@
 
 Bạn sẽ tháo training logic khỏi notebook mà không thay đổi hành vi. Mục tiêu không phải nhiều file hơn, mà là input/output rõ và một nguồn logic duy nhất.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `package`, `configuration`
+
+**Ôn lại:** `reproducibility`, `pipeline`, `artifact`
+
+**Áp dụng trong lab:** Tách pipeline thành `package`; đưa seed và hyperparameter vào `configuration`, chạy lại để giữ reproducibility, artifact và inference không phụ thuộc notebook state.
+
+**Tự giải thích:** Package và configuration loại bỏ hidden notebook state thế nào?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-13.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa

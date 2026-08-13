@@ -18,6 +18,14 @@ Một lần chia dữ liệu có thể may hoặc rủi. Cross-validation giúp 
 - Learning curve so train/validation theo lượng data: cùng thấp gợi ý underfitting/high bias; train cao nhưng validation thấp gợi ý overfitting/high variance.
 - Fold score là mẫu hữu hạn, không phải sự thật tuyệt đối; luôn báo độ phân tán và tránh kết luận mạnh từ chênh lệch nhỏ.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `cross-validation`, `fold`, `overfitting`, `bias / variance`
+
+**Ôn lại:** `data split`, `pipeline`, `metric`
+
+**Áp dụng:** Đặt toàn bộ pipeline trong `cross-validation`; đọc từng `fold`, mean/std và learning curve để phân biệt overfitting với bias / variance; giữ metric và data split nhất quán.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -25,7 +33,7 @@ Một lần chia dữ liệu có thể may hoặc rủi. Cross-validation giúp 
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 

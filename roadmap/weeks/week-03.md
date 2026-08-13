@@ -8,14 +8,22 @@ Làm sạch dữ liệu; phân biệt observed và suy diễn.
 
 EDA không phải cuộc thi vẽ nhiều biểu đồ. Đây là lúc bạn tìm xem dữ liệu có đáng tin để model học hay không.
 
-**Ví dụ gần gũi:** Một cột tuổi âm hoặc customer ID bị lặp có thể làm metric đẹp giả, dù biểu đồ trông hoàn toàn bình thường.
+**Ví dụ gần gũi:** Một cột tuổi âm hoặc customer ID bị lặp có thể làm quality measure đẹp giả, dù biểu đồ trông hoàn toàn bình thường.
 
 ## Kiến thức cốt lõi
 
 - EDA bắt đầu bằng schema, row/key, target distribution, missing, duplicate và range; biểu đồ đứng sau quality table.
 - Missing có thể mang thông tin; không drop/impute trước khi hiểu cơ chế.
 - Observation từ sample không chứng minh causal explanation.
-- Thống kê đi vào transform phải học sau split và chỉ trên train.
+- Thống kê đi vào data operation phải học sau split và chỉ trên train.
+
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `data validation`, `EDA`, `missing value`, `outlier`
+
+**Ôn lại:** `dataset`, `sample`, `feature`, `label / target`
+
+**Áp dụng:** Chạy `data validation` trên `dataset`: kiểm `schema`, `missing value`, `outlier`; dùng EDA mô tả feature và label / target ở cấp sample.
 
 ## Lịch 8-10 giờ
 
@@ -24,7 +32,7 @@ EDA không phải cuộc thi vẽ nhiều biểu đồ. Đây là lúc bạn tì
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 
@@ -41,7 +49,7 @@ EDA không phải cuộc thi vẽ nhiều biểu đồ. Đây là lúc bạn tì
 
 ## Dấu hiệu bạn đã hiểu
 
-Bạn phân biệt được điều quan sát thấy với giả thuyết cần kiểm tra thêm và không dùng test để thiết kế transform.
+Bạn phân biệt được điều quan sát thấy với giả thuyết cần kiểm tra thêm và không dùng test để thiết kế data operation.
 
 ## Tự kiểm tra
 
@@ -51,7 +59,7 @@ Bạn phân biệt được điều quan sát thấy với giả thuyết cần 
 
 ## Kết quả hướng tới
 
-EDA notebook/report; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+EDA notebook/report; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
@@ -61,7 +69,7 @@ EDA notebook/report; lưu kèm lệnh đã chạy, cấu hình, metric, thời g
 ## Lỗi thường gặp
 
 - Xóa outlier chỉ vì boxplot.
-- Nhìn test để thiết kế transform.
+- Nhìn test để thiết kế data operation.
 
 ## Khi mắc kẹt
 

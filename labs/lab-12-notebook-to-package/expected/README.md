@@ -11,6 +11,11 @@ Chạy từ clean shell; notebook chỉ gọi package, không chứa bản sao t
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Package/CLI dùng configuration rõ; cùng config tạo output tương đương; notebook không giữ logic ẩn.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu chỉ notebook chạy, tìm global state, working directory và cell chạy sai thứ tự.

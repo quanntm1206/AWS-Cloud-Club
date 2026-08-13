@@ -53,6 +53,13 @@ Phần `Stretch` không tính vào 8-10 giờ. Bận một tuần? Giữ bài đ
 4. Với AWS, chỉ đánh dấu xong sau cleanup và residual scan. Không mua Colab/Kaggle hoặc nâng cấp AWS Paid
    Plan chỉ để hoàn thành phần bắt buộc.
 
+## Cách học thuật ngữ
+
+Không cần đọc thuộc glossary trước tuần 01. Trong mỗi lab, đi theo bốn dòng `Thuật ngữ mới`, `Ôn lại`,
+`Áp dụng trong lab`, `Tự giải thích`. Khi ghi learning log, chọn ít nhất một từ mới và một từ ôn lại, nối chúng
+với command, metric hoặc lỗi bạn vừa quan sát. Nếu chỉ chép định nghĩa mà chưa chỉ ra nó xuất hiện ở đâu trong
+lab, hãy xem khái niệm đó chưa thật sự vững.
+
 ## Bạn sẽ lưu gì?
 
 Tạo một thư mục cục bộ thuận tiện cho learning log, ghi chú, biểu đồ và artifact. Mỗi tuần giữ lại:

@@ -18,6 +18,14 @@ Loss cho model biết đang sai bao nhiêu; gradient cho biết nên đổi tham
 - Feature scale ảnh hưởng hội tụ; hệ số chỉ diễn giải cùng scale, encoding và assumptions.
 - Xác suất nằm trong `[0, 1]`; xác suất có điều kiện luôn gắn với một điều kiện, còn tần suất trên mẫu chỉ là ước lượng có sai số.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `prediction`, `loss`, `gradient`, `learning rate`
+
+**Ôn lại:** `feature`, `label / target`, `data validation`
+
+**Áp dụng:** Tính `prediction`, `loss`, `gradient` và cập nhật parameter bằng `learning rate`; giữ feature, label / target và ghi lỗi data validation nếu input sai.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -25,7 +33,7 @@ Loss cho model biết đang sai bao nhiêu; gradient cho biết nên đổi tham
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 
@@ -52,7 +60,7 @@ Bạn tự viết linear regression nhỏ, gradient check khớp và đọc loss
 
 ## Kết quả hướng tới
 
-mốc năng lực 1; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+mốc năng lực 1; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
@@ -62,7 +70,7 @@ mốc năng lực 1; lưu kèm lệnh đã chạy, cấu hình, metric, thời g
 ## Lỗi thường gặp
 
 - Tin gradient đúng chỉ vì loss giảm.
-- Tăng epoch để che learning rate quá lớn.
+- Tăng training pass để che learning rate quá lớn.
 
 ## Khi mắc kẹt
 

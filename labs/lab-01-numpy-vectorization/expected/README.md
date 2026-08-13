@@ -11,6 +11,11 @@ Tự tính một hàng, so loop với `X @ w` bằng `np.allclose`.
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Evidence có shape của `feature`, `label / target`, `parameter`; `vectorization` khớp phép lặp trong tolerance trên cùng dataset/sample.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu shape không khớp, in `X.shape`, `w.shape`; không sửa bằng `reshape` khi chưa biết axis.

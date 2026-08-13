@@ -4,10 +4,20 @@
 
 Error analysis không phải sưu tập vài lỗi thú vị. Bạn sẽ lấy mẫu theo quy tắc rồi biến các lỗi thành giả thuyết có hành động tiếp theo.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `error analysis`, `slice`, `failure taxonomy`, `support`
+
+**Ôn lại:** `metric`, `validation set`, `feature engineering`
+
+**Áp dụng trong lab:** Chạy `error analysis` theo từng `slice`, luôn ghi support; tạo `failure taxonomy` từ prediction sai, liên hệ feature engineering và metric trên validation set.
+
+**Tự giải thích:** Slice, support và failure taxonomy giúp error analysis tránh chọn lỗi cảm tính thế nào?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-11.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 

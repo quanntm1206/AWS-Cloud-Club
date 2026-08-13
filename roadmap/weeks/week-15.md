@@ -15,7 +15,15 @@ Inference API là ranh giới giữa model và sản phẩm. Contract tốt giú
 - Inference contract khóa request/response schema, model version, threshold, error codes và limits.
 - Validation lỗi client trả 4xx; artifact/service failure trả 5xx, chi tiết nội bộ chỉ vào log an toàn.
 - Health/readiness không train; predict dùng đúng preprocessing artifact và không nhận target.
-- Batch/payload/timeout limits là guardrail; không log raw sensitive features.
+- Input Group/payload/timeout limits là guardrail; không log raw sensitive features.
+
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `API contract`, `latency`
+
+**Ôn lại:** `data contract`, `artifact`, `inference`, `schema`
+
+**Áp dụng:** Định nghĩa `API contract`, đo `latency`, gửi sample hợp lệ/sai qua inference; data contract chặn schema lỗi trước artifact và response không lộ raw feature.
 
 ## Lịch 8-10 giờ
 
@@ -33,7 +41,7 @@ Inference API là ranh giới giữa model và sản phẩm. Contract tốt giú
 
 1. Gửi valid, missing, wrong-type, unknown-category payload.
 2. Kiểm success/422/503 theo contract.
-3. Đo warm latency mini batch và ghi giới hạn phép đo.
+3. Đo warm latency mini input group và ghi giới hạn phép đo.
 
 ## Lab
 
@@ -56,7 +64,7 @@ API demo; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy 
 ## Core vs stretch
 
 - **Cốt lõi:** Kiểm valid/invalid API contract, health/readiness và log không chứa raw feature.
-- **Mở rộng:** Đo latency mini batch hoặc thêm payload limit với test rõ.
+- **Mở rộng:** Đo latency mini input group hoặc thêm payload limit với test rõ.
 
 ## Lỗi thường gặp
 

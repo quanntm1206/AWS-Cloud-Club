@@ -4,15 +4,25 @@
 
 Tree, random forest và boosting có cách học khác nhau; phép so chỉ có ý nghĩa khi dữ liệu, metric và budget giống nhau.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `hyperparameter`, `ensemble`, `bagging / boosting`
+
+**Ôn lại:** `baseline`, `validation set`, `metric`, `overfitting`
+
+**Áp dụng trong lab:** Giữ dataset, validation set, metric và budget cố định; so `ensemble` dùng bagging / boosting, đổi đúng một hyperparameter rồi đối chiếu baseline và dấu hiệu overfitting.
+
+**Tự giải thích:** Parameter khác hyperparameter thế nào; bagging khác boosting ở trực giác nào?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-09.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
 
 ## Các bước thực hiện
 
 1. Train logistic, random forest và gradient boosting trên cùng train/validation split.
-2. Ghi validation AUC, runtime và artifact size cho từng candidate.
+2. Ghi validation AUC, runtime và saved-model size cho từng candidate.
 3. Chọn candidate bằng rule đã viết; chỉ sau đó đánh giá final test.
 4. Đổi đúng một giới hạn độ phức tạp, giải thích tác động train-validation.
 

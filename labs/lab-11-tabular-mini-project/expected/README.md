@@ -11,6 +11,11 @@ Train, save, load ở process mới; hoàn thiện experiment report và model c
 - Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
 - Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
 
+## Oracle thuật ngữ
+
+- Manifest liệt kê artifact/checksum/config; inference sau load giữ output; mini-project ghi limitation.
+- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+
 ## Gợi ý nếu kết quả khác
 
 Nếu reproduction sai, so config, feature order, threshold và dependency trước.

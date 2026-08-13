@@ -17,6 +17,14 @@ threshold nào, được train từ run nào và artifact có bị thay đổi h
 - Learner path chỉ có private `aws lambda invoke`. Public API là chủ đề kiến trúc để đọc, không thực hành.
 - Nếu deploy/upload/output lookup lỗi, stack có thể đã tồn tại; recovery cleanup là bắt buộc.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `artifact`, `inference`, `residual scan`
+
+**Ôn lại:** `Lambda`, `CloudWatch Logs`, `API contract`
+
+**Áp dụng:** Ghép `artifact` với private `inference`, sau cleanup chạy `residual scan`; ôn Lambda, CloudWatch Logs và API contract.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |

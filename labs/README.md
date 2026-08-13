@@ -11,6 +11,10 @@ là chuỗi AWS có guardrail và được dùng lại trong tuần 21-24.
 4. Đối chiếu `expected/README.md`, ghi kết quả và một lỗi có ý nghĩa vào learning log cục bộ.
 5. Chỉ xem như hoàn thành khi bạn giải thích được kết quả, không chỉ khi command exit 0.
 
+Mỗi lab còn có một vòng học từ vựng: đọc từ mới, gọi lại ít nhất hai từ cũ, dùng cả hai nhóm trong nhiệm vụ,
+rồi trả lời câu `Tự giải thích`. `expected/README.md` kiểm cách bạn nối thuật ngữ với evidence, không yêu cầu
+chép nguyên định nghĩa.
+
 `status=starter-example-completed` chỉ có nghĩa demo chạy xong. Nó không chứng minh bạn đã đạt mục tiêu học tập.
 Không commit hoặc gửi evidence cho ai; tránh secret, dữ liệu cá nhân và output lớn.
 

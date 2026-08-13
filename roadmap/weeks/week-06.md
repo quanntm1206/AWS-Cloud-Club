@@ -6,7 +6,7 @@ Xử lý missing/category bằng pipeline không leakage.
 
 ## Vì sao tuần này quan trọng
 
-Preprocessing cũng học từ dữ liệu. Đặt nó trong pipeline giữ ranh giới train/validation sạch và tránh model chạy khác lúc inference.
+Preprocessing cũng học từ dữ liệu. Đặt nó trong pipeline giữ ranh giới train/validation sạch và tránh model chạy khác lúc tạo dự đoán mới.
 
 **Ví dụ gần gũi:** Giá trị trung bình dùng để điền missing phải đến từ train, không được nhìn trước khách hàng trong test.
 
@@ -14,8 +14,16 @@ Preprocessing cũng học từ dữ liệu. Đặt nó trong pipeline giữ ranh
 
 - Imputer, scaler, encoder đều học trạng thái và chỉ được fit trên train.
 - ColumnTransformer tách numeric/categorical; Pipeline giữ preprocess và model cùng lifecycle.
-- OneHotEncoder cần xử lý category chưa thấy để inference không vỡ.
+- OneHotEncoder cần xử lý category chưa thấy để dự đoán input mới không vỡ.
 - Schema validation bắt thiếu cột, sai dtype/range và target lẫn vào input trước transform.
+
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `preprocessing`, `transform`, `pipeline`, `data leakage`, `fit`
+
+**Ôn lại:** `data split`, `training set`, `validation set`, `test set`, `schema`
+
+**Áp dụng:** Chia bằng `data split` trước, fit từng bước `preprocessing`/`transform` chỉ trên `training set`, ghép thành `pipeline`; dùng schema để chứng minh không có `data leakage` sang validation set/test set.
 
 ## Lịch 8-10 giờ
 
@@ -24,7 +32,7 @@ Preprocessing cũng học từ dữ liệu. Đặt nó trong pipeline giữ ranh
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 

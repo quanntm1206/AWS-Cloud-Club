@@ -17,6 +17,14 @@ Baseline tạo một vạch xuất phát trung thực. Nếu model chưa vượt
 - Train để fit, validation để chọn, test chỉ dùng khi quyết định đã khóa.
 - Dùng stratified split cho class; dùng group/time split khi mẫu liên quan hoặc có thời gian.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `data split`, `training set`, `validation set`, `test set`, `baseline`, `model validation`
+
+**Ôn lại:** `dataset`, `sample`, `feature`, `label / target`, `prediction`
+
+**Áp dụng:** Tạo `data split` từ `dataset` không trùng sample thành `training set`, `validation set`, `test set`; fit `baseline` trên feature, thực hiện `model validation`, so prediction với label / target.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -24,16 +32,16 @@ Baseline tạo một vạch xuất phát trung thực. Nếu model chưa vượt
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 
 ## Guided practice
 
 
-1. So dummy và logistic trên đúng cùng split/pipeline/metric.
+1. So dummy và logistic trên đúng cùng split/workflow/quality measure.
 2. Kiểm class balance và ID không trùng giữa tập.
-3. Viết metric gate model phải vượt baseline.
+3. Viết quality measure gate model phải vượt baseline.
 
 ## Lab
 
@@ -41,7 +49,7 @@ Baseline tạo một vạch xuất phát trung thực. Nếu model chưa vượt
 
 ## Dấu hiệu bạn đã hiểu
 
-Bạn dùng cùng split và metric để so dummy với logistic regression; test set vẫn chưa tham gia chọn model.
+Bạn dùng cùng split và quality measure để so dummy với logistic regression; test set vẫn chưa tham gia chọn model.
 
 ## Tự kiểm tra
 
@@ -51,11 +59,11 @@ Bạn dùng cùng split và metric để so dummy với logistic regression; tes
 
 ## Kết quả hướng tới
 
-baseline report; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+baseline report; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
-- **Cốt lõi:** So dummy với logistic trên cùng split, metric và seed; giữ test chưa tham gia lựa chọn.
+- **Cốt lõi:** So dummy với logistic trên cùng split, quality measure và seed; giữ test chưa tham gia lựa chọn.
 - **Mở rộng:** Thử group/time split trên một tình huống giả định và nêu vì sao random split có thể sai.
 
 ## Lỗi thường gặp

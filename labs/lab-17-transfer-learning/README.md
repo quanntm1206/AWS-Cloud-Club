@@ -4,6 +4,16 @@
 
 Smoke local chỉ minh họa layer nào được freeze. Bài chính là notebook PyTorch thật: dùng pretrained backbone như bộ trích đặc trưng và chỉ train classifier head.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `augmentation`, `backbone`, `checkpoint`, `freeze`, `transfer learning`
+
+**Ôn lại:** `tensor`, `batch`, `epoch`, `device`, `overfitting`
+
+**Áp dụng trong lab:** Dùng `augmentation` chỉ cho training `batch`, giữ validation transform deterministic; tải `backbone` pretrained lên đúng `device`, `freeze` parameter rồi chạy `transfer learning` trên tensor, lưu `checkpoint`, theo dõi epoch/loss để phát hiện overfitting.
+
+**Tự giải thích:** Augmentation khác preprocessing deterministic thế nào; freeze backbone giúp gì?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-18.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa

@@ -4,6 +4,16 @@
 
 Checkpoint tốt là hợp đồng để tiếp tục training, không chỉ là file weights. Bạn sẽ chủ động dừng một run rồi khôi phục đủ trạng thái.
 
+## Thuật ngữ trong lab
+
+**Thuật ngữ mới:** `early stopping`, `fine-tuning`
+
+**Ôn lại:** `transfer learning`, `freeze`, `checkpoint`, `optimizer`, `epoch`, `validation set`
+
+**Áp dụng trong lab:** Chạy frozen `transfer learning` baseline với backbone đã freeze, sau đó optional `fine-tuning`; lưu `checkpoint` gồm optimizer/epoch và dùng `early stopping` theo validation set; resume để chứng minh state không mất.
+
+**Tự giải thích:** Checkpoint khác model weights thế nào; fine-tuning và early stopping dùng validation set ra sao?
+
 ## Trước khi bắt đầu
 
 Đọc `roadmap/weeks/week-19.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa

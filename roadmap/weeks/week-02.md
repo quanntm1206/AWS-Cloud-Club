@@ -17,6 +17,14 @@ NumPy là ngôn ngữ chung của dữ liệu dạng số. Hiểu shape và axis
 - Dot product tạo weighted score; matrix multiplication tính đồng thời nhiều mẫu.
 - Float cần tolerance; chú ý chia 0, overflow exp/log và mảng trung gian quá lớn.
 
+## Từ khóa tuần này
+
+**Thuật ngữ mới hoặc trọng tâm:** `feature`, `label / target`, `parameter`, `vectorization`
+
+**Ôn lại:** `dataset`, `sample`, `schema`
+
+**Áp dụng:** Biểu diễn mỗi `sample` thành vector `feature`, giữ `label / target` để diễn giải bài toán, dùng vectorization tính model output từ `parameter`; ghi `dataset` và `schema` của mảng.
+
 ## Lịch 8-10 giờ
 
 | Hoạt động | Giờ |
@@ -24,7 +32,7 @@ NumPy là ngôn ngữ chung của dữ liệu dạng số. Hiểu shape và axis
 | Đọc và ghi chú | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
-| Assessment/error analysis | 1 |
+| Assessment/failure review | 1 |
 | Learning log và tự đánh giá | 1 |
 | Review/hoàn thiện | 0 |
 
@@ -32,12 +40,12 @@ NumPy là ngôn ngữ chung của dữ liệu dạng số. Hiểu shape và axis
 
 
 1. Viết weighted score bằng loop và X @ w; đối chiếu np.allclose.
-2. Tính confusion matrix và precision/recall bằng NumPy.
+2. Tính error count table và precision/recall bằng NumPy.
 3. In shape từng bước, cố ý gây lỗi broadcasting rồi sửa.
 
 ## Lab
 
-**lab-01:** NumPy vectorization và metric từ đầu. Môi trường chính: `local`.
+**lab-01:** NumPy vectorization và quality measure từ đầu. Môi trường chính: `local`.
 
 ## Dấu hiệu bạn đã hiểu
 
@@ -51,7 +59,7 @@ Bạn dự đoán được shape trước khi chạy code và giải thích vì 
 
 ## Kết quả hướng tới
 
-tested NumPy module; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+tested NumPy module; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
 
 ## Core vs stretch
 
