@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-16-device-aware-mlp
+# Reference result - lab-16-device-aware-mlp
 
 ## Oracle
 
-Smoke demo là NumPy CPU; sau đó viết/chạy loop PyTorch nhỏ của tuần 17.
+The smoke demo uses NumPy on CPU. Then write and run the small PyTorch loop from week 17.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 16` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy losses giảm, device và số parameter.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 16` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for decreasing losses, the device, and the parameter count.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Receipt ghi tensor shape, batch, epoch, optimizer, device; loss giảm và parameter count đúng.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The receipt records tensor shapes, batch, epoch, optimizer, and device. Loss decreases, and the parameter count is correct.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-In shape/dtype/device của model, input và target; kiểm `zero_grad`, `eval`, `no_grad`.
+Print model, input, and target shape, dtype, and device. Check `zero_grad`, `eval`, and `no_grad`.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

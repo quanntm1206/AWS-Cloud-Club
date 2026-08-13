@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-01-numpy-vectorization
+# Reference result - lab-01-numpy-vectorization
 
 ## Oracle
 
-Tự tính một hàng, so loop với `X @ w` bằng `np.allclose`.
+Calculate one row by hand, then compare the loop with `X @ w` using `np.allclose`.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 1` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy `vectorization_matches_loop=true` và năm score đầu.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 1` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for `vectorization_matches_loop=true` and the first five scores.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Evidence có shape của `feature`, `label / target`, `parameter`; `vectorization` khớp phép lặp trong tolerance trên cùng dataset/sample.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The evidence records the shapes of `feature`, `label / target`, and `parameter`. `vectorization` matches the loop within tolerance on the same dataset and samples.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu shape không khớp, in `X.shape`, `w.shape`; không sửa bằng `reshape` khi chưa biết axis.
+If the shapes do not match, print `X.shape` and `w.shape`. Do not use `reshape` until you understand the axis.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

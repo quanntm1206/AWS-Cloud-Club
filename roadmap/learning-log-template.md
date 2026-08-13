@@ -1,25 +1,25 @@
-# Nhật ký học tập - Tuần NN
+# Study diary - NN Week
 
-Nhật ký này dành cho bạn, không phải bài nộp. Viết ngắn nhưng cụ thể: một command hoặc một quan sát thật hữu
-ích hơn câu “đã hiểu bài”.
+This journal is for you, not a submission. Write short but specific: a command or a real observation
+more useful than saying “I understood the lesson”.
 
-## Mẫu trống
+## Blank template
 
-- **Mục tiêu tuần:** Tôi muốn tự giải thích hoặc tự làm được điều gì?
-- **Điều đã chạy:** Command, notebook, config và môi trường nào?
-- **Bằng chứng:** Metric, test, biểu đồ hoặc kiểm tra nào hỗ trợ kết luận?
-- **Một lỗi đáng nhớ:** Triệu chứng, nguyên nhân, cách tôi kiểm tra và sửa.
-- **Điều chưa chắc:** Câu hỏi nào vẫn cần quay lại?
-- **Quyết định kỹ thuật:** Tôi giữ hoặc loại cách làm nào? Vì sao?
-- **Bước nhỏ tiếp theo:** Việc đầu tiên của tuần sau, đủ cụ thể để làm trong 30 phút.
+- **Weekly goal:** What do I want to explain or do on my own?
+- **What was run:** What command, notebook, config and environment?
+- **Evidence:** What metrics, tests, graphs, or tests support the conclusion?
+- **A memorable error:** Symptoms, causes, how I checked and fixed.
+- **Uncertainties:** Which questions still need to come back?
+- **Technical decision:** Which practice do I keep or type? Why?
+- **Next small step:** First thing next week, specific enough to do in 30 minutes.
 
-## Ví dụ ngắn - Tuần 07
+## Short example - Week 07
 
-- **Mục tiêu tuần:** Chọn threshold theo chi phí bỏ sót churn, không chọn theo F1 cao nhất một cách máy móc.
-- **Điều đã chạy:** `python scripts/run_lab.py --lab 6`, seed 42, local CPU.
-- **Bằng chứng:** Threshold 0.35 tăng recall từ 0.68 lên 0.81; precision giảm từ 0.74 xuống 0.61.
-- **Một lỗi đáng nhớ:** Ban đầu tôi chọn threshold trên test. Tôi phát hiện test metric thay đổi sau mỗi lần thử;
-  sửa bằng cách chọn trên validation rồi chỉ đánh giá test một lần.
-- **Điều chưa chắc:** Khi chi phí false positive thay đổi theo nhóm khách hàng, một threshold chung có còn hợp lý?
-- **Quyết định kỹ thuật:** Giữ threshold 0.35 cho giả định chi phí hiện tại; ghi rõ giả định trong report.
-- **Bước nhỏ tiếp theo:** Vẽ confusion matrix theo hai nhóm tenure ở lần chạy sau.
+- **Weekly goal:** Choose the threshold according to the cost of missing churn, do not choose the highest F1 mechanically.
+- **What ran:** `python scripts/run_lab.py --lab 6`, seed 42, local CPU.
+- **Evidence:** Threshold 0.35 increases recall from 0.68 to 0.81; precision decreased from 0.74 to 0.61.
+- **One memorable mistake:** I initially chose threshold on test. I found that the test metric changes after each test;
+  Fix it by selecting on validation and then only evaluate the test once.
+- **Uncertainty:** When false positive costs vary by customer group, is a common threshold still reasonable?
+- **Technical decision:** Keep threshold 0.35 for current cost assumptions; Clearly state assumptions in the report.
+- **Next small step:** Draw the confusion matrix according to the two tenure groups in the next run.

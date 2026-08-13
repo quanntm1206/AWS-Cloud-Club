@@ -1,101 +1,101 @@
-# Tuần 21 - Bước lên AWS mà vẫn kiểm soát được chi phí
+# Week 21 - Step up to AWS while keeping costs under control
 
-## Mục tiêu tuần
+## Weekly goals
 
-Hiểu account plan, credit, IAM, Budget và S3 trước khi tạo bất kỳ tài nguyên nào.
+Understand account plans, credits, IAM, Budget, and S3 before creating any resources.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Một ML Engineer không chỉ biết deploy; họ còn biết lúc nào **không nên deploy**. Tuần này giúp bạn đọc
-màn hình Billing, nhận ra ranh giới Free/Paid Plan và dựng hàng rào an toàn trước khi chạm cloud.
+An ML Engineer not only knows how to deploy; They also know when **not to deploy**. This week's reading help
+Billing screen, recognize Free/Paid Plan boundaries and set up safety fences before touching the cloud.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- “Up to USD 200” là USD 100 khi đăng ký và có thể kiếm thêm tối đa USD 100 qua activity; không phải
-  USD 200 được cấp hết ngay. Free Plan kết thúc sau 6 tháng hoặc khi hết credit.
-- Paid Plan là pay-as-you-go. Credit chỉ bù khoản đủ điều kiện; Budget alert không phải hard cap.
-- Join AWS Organizations hoặc setup Control Tower có thể làm credit hết hiệu lực và Free Plan tự nâng
-  Paid Plan. Không dùng hai tính năng này trong account học tập.
-- IAM least privilege, MFA root, không root access key; luôn xác nhận account ID và Region trước lệnh.
-- S3 tính theo storage, request và transfer. Artifact nhỏ, block public access, lifecycle ngắn.
+- “Up to USD 200” is USD 100 when registering and can earn up to USD 100 more through activities; no
+  USD 200 will be issued immediately. Free Plan ends after 6 months or when credits run out.
+- Paid Plan is pay-as-you-go. Credit only offsets qualifying amounts; Budget alert is not a hard cap.
+- Joining AWS Organizations or setting up Control Tower may cause credits to expire and Free Plan to automatically increase
+  Paid Plan. Do not use these two features in your learning account.
+- IAM least privilege, MFA root, no root access key; Always confirm account ID and Region before ordering.
+- S3 is calculated by storage, request and transfer. Small artifact, block public access, short lifecycle.
 
-Nguồn AWS, kiểm ngày 2026-08-12:
+Source AWS, checked on 2026-08-12:
 [plans](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html),
-[FAQ](https://aws.amazon.com/free/free-tier-faqs/) và
+[FAQ](https://aws.amazon.com/free/free-tier-faqs/) and
 [tracking](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/tracking-free-tier-usage.html).
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `IAM`, `S3`, `Lambda`, `CloudWatch Logs`, `budget alert`, `residual scan`, `idempotent cleanup`
+**New or focus terms:** `IAM`, `S3`, `Lambda`, `CloudWatch Logs`, `budget alert`, `residual scan`, `idempotent cleanup`
 
-**Ôn lại:** `artifact`, `inference`, `API contract`
+**Review:** `artifact`, `inference`, `API contract`
 
-**Áp dụng:** Upload `artifact` lên `S3`, cấp quyền tối thiểu bằng `IAM`, gọi inference qua `Lambda`, đọc `CloudWatch Logs`; tạo `budget alert`, chạy idempotent cleanup và `residual scan` theo API contract.
+**Use:** Upload `artifact` to `S3`, grant minimum permissions with `IAM`, call inference via `Lambda`, read `CloudWatch Logs`; create `budget alert`, run idempotent cleanup and `residual scan` according to API contract.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc plans, credits và cost policy | 2 |
-| Xem Billing, IAM và Budget có hướng dẫn | 2 |
-| Chạy local preflight, checksum và cleanup dry-run | 3 |
-| Learning log và tự đánh giá | 2 |
+| Read plans, credits and cost policy | 2 |
+| See Billing, IAM and Budget with instructions | 2 |
+| Run local preflight, checksum and cleanup dry-run | 3 |
+| Learning log and self-assessment | 2 |
 
 ## Guided practice
 
-1. Nếu chưa có account, chỉ tạo ở tuần 20/21 để không lãng phí cửa sổ 6 tháng. Không tạo nhiều account
-   để săn credit.
-2. Mở Billing; ghi `plan`, credit còn lại, ngày hết hạn và days remaining. Nếu thông tin không rõ hoặc
-   console bắt nâng Paid Plan, chọn local-only.
-3. Tạo Cost budget với Actual và Forecasted email alerts ở ngưỡng thấp. Không tạo Budget Report hoặc
-   Budget Action. Alert có độ trễ, không thay cleanup.
-4. Chạy `cost-check` và `preflight` local. Tập đọc lý do dừng thay vì vội bỏ qua guard.
+1. If you don't have an account, only create it in week 20/21 so as not to waste the 6 month window. Do not create multiple accounts
+   to hunt for credits.
+2. Open Billing; Enter `plan`, remaining credits, expiration date and days remaining. If the information is unclear or
+   Console starts to upgrade Paid Plan, select local-only.
+3. Create Cost budget with Actual and Forecasted email alerts at low thresholds. Do not create a Budget Report either
+   Budget Action. Alert has a delay, does not replace cleanup.
+4. Run `cost-check` and `preflight` locally. Practice reading the reason for stopping instead of quickly ignoring the guard.
 
 ## Lab
 
-**lab-20, phần chuẩn bị:** checksum artifact, cost planning, preflight và cleanup dry-run. Chưa deploy.
+**lab-20, preparation:** checksum artifact, cost planning, preflight and cleanup dry-run. Not deployed yet.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Vì sao “up to USD 200” không phải USD 200 có sẵn?
-2. Free Plan khác Paid Plan ở rủi ro charge như thế nào?
-3. Vì sao Budget không thể thay cleanup?
+1. Why is “up to USD 200” not available USD 200?
+2. How is the Free Plan different from the Paid Plan in terms of charge risk?
+3. Why can't Budget replace cleanup?
 
-## Kết quả hướng tới
+## Result oriented
 
-Bạn tự giải thích được plan/credit của account, tạo alert đúng loại và nhận ra các điều kiện buộc dừng.
+You can explain your account's plan/credit, create the right type of alert and recognize the stopping conditions.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn phân biệt được credit, Free Plan, Paid Plan và Budget mà không gọi chung tất cả là “miễn phí”.
+You can distinguish between credit, Free Plan, Paid Plan and Budget without calling them all "free".
 
 ## Core vs stretch
 
-- **Core:** local preflight + đọc Billing/plan rõ ràng.
-- **Stretch:** đọc AWS Pricing Calculator cho S3/Lambda; không deploy thử chỉ để xem.
+- **Core:** local preflight + read Billing/plan clearly.
+- **Stretch:** reads AWS Pricing Calculator for S3/Lambda; Don't try deploying just to see.
 
-## Lỗi thường gặp
+## Common errors
 
-- Tin credit hoặc Budget tự chặn mọi chi phí.
-- Join Organizations/Control Tower vì lời mời của club.
-- Tạo account từ đầu lộ trình rồi để Free Plan gần hết hạn trước capstone.
+- Tin credit or Budget automatically blocks all costs.
+- Join Organizations/Control Tower because of the club's invitation.
+- Create an account from the beginning of the route and let the Free Plan expire before the capstone.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Không đoán trạng thái account. Chụp lại thông tin không nhạy cảm hoặc hỏi người quản lý club; tiếp tục
-local-only. Không gửi account ID, email billing hoặc credential.
+Do not guess account status. Capture non-sensitive information or ask the club manager; continue
+local-only. Do not send account ID, billing email or credential.
 
-## Bạn đã sẵn sàng chuyển tuần khi
+## Are you ready to move weeks when
 
-- Bạn biết account đang ở Free hay Paid Plan và ngày hết hạn.
-- Bạn có Actual + Forecasted notifications; hiểu chúng có thể báo muộn.
-- Bạn có thể nói “không deploy” khi eligibility, estimate hoặc cleanup path chưa rõ.
+- You know whether your account is in Free or Paid Plan and the expiration date.
+- You have Actual + Forecasted notifications; understand that they may report late.
+- You can say “don't deploy” when eligibility, estimate or cleanup path is unclear.
 
 ## AWS cost gate
 
-Không chạy nếu sai account/Region, chưa đọc `aws/README.md`, chưa có cleanup path hoặc estimate vượt
-USD 0.10. Không dùng EC2, NAT Gateway, SageMaker, Bedrock, database, container cluster hay Marketplace.
+Do not run if account/Region is wrong, `aws/README.md` has not been read, there is no cleanup path or the estimate has been exceeded
+USD 0.10. Do not use EC2, NAT Gateway, SageMaker, Bedrock, database, container cluster or Marketplace.
 
-## Nguồn
+## Source
 
-Xem `docs/sources.yml` và `docs/source-notes/aws-free-tier.md`.
+See `docs/sources.yml` and `docs/source-notes/aws-free-tier.md`.

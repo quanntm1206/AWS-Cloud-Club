@@ -1,32 +1,31 @@
-# Lab 03 - Tự kiểm gradient của linear regression
+# Lab 03 - Check a linear regression gradient
 
-## Mục tiêu
+## Goal
 
-Thay vì tin gradient vì loss có giảm, bạn sẽ kiểm nó bằng một phép xấp xỉ độc lập. Đây là thói quen debug quan trọng trước khi mô hình trở nên lớn hơn.
+Do not trust a gradient only because the loss decreases. Check it with an independent approximation. This debugging habit becomes more important as models grow.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `prediction`, `loss`, `gradient`, `learning rate`
+**New terms:** `prediction`, `loss`, `gradient`, `learning rate`
 
-**Ôn lại:** `feature`, `label / target`, `data validation`
+**Review:** `feature`, `label / target`, `data validation`
 
-**Áp dụng trong lab:** Tính `prediction`, `loss`, `gradient` và cập nhật parameter bằng `learning rate`; giữ feature, label / target và ghi lỗi data validation nếu input sai.
+**Use in this lab:** Calculate the `prediction`, `loss`, and `gradient`, then update the parameter with the `learning rate`. Keep the `feature` and `label / target` visible, and record any data validation error for invalid input.
 
-**Tự giải thích:** Loss, gradient và learning rate liên hệ thế nào khi parameter được cập nhật?
+**Explain it yourself:** How are loss, gradient, and learning rate connected when a parameter is updated?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-04.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
+Read `roadmap/weeks/week-04.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Tính prediction, MSE và analytic gradient trên bốn điểm bằng tay.
-2. Cài gradient descent; ghi loss ở từng bước với learning rate nhỏ.
-3. Tính central finite difference qua vài `epsilon`, so với analytic gradient.
-4. Thử learning rate quá lớn, mô tả đường loss rồi khôi phục cấu hình ổn định.
+1. Calculate predictions, MSE, and the analytic gradient for four points by hand.
+2. Implement gradient descent. Record the loss at every step with a small learning rate.
+3. Calculate central finite differences for several `epsilon` values and compare them with the analytic gradient.
+4. Try a learning rate that is too large. Describe the loss path, then restore stable settings.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 3
 ```
 
-Kết quả được lưu tại `.artifacts/lab-03-evidence.json`. Trong `result`, bạn sẽ thấy analytic gradient, finite-difference gradient và `gradient_check=true`.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-03-evidence.json`. In `result`, you will see the analytic gradient, finite-difference gradient, and `gradient_check=true`.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Analytic và finite-difference gradient gần nhau trong tolerance; `gradient_check=true`.
-- Bạn phân biệt được convergence chậm, divergence và lỗi công thức gradient.
+- The analytic and finite-difference gradients are close within tolerance, and `gradient_check=true`.
+- You can distinguish slow convergence, divergence, and an incorrect gradient formula.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Kiểm dấu, hệ số `2/n` và việc cập nhật parameter sau khi tính gradient. Với finite difference, thử `epsilon` ở nhiều bậc độ lớn.
+Check the sign, the `2/n` factor, and whether you update the parameter after calculating the gradient. For finite differences, try `epsilon` values at several orders of magnitude.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

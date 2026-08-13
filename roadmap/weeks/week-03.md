@@ -1,80 +1,80 @@
-# Tuần 03 - pandas, cleaning và EDA
+# Week 03 - pandas, cleaning and EDA
 
-## Mục tiêu tuần
+## Weekly goals
 
-Làm sạch dữ liệu; phân biệt observed và suy diễn.
+Data cleaning; Distinguish between observed and inferred.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-EDA không phải cuộc thi vẽ nhiều biểu đồ. Đây là lúc bạn tìm xem dữ liệu có đáng tin để model học hay không.
+EDA is not a drawing contest. This is when you find out if the data is reliable for the model to learn from.
 
-**Ví dụ gần gũi:** Một cột tuổi âm hoặc customer ID bị lặp có thể làm quality measure đẹp giả, dù biểu đồ trông hoàn toàn bình thường.
+**Close example:** A negative age column or duplicate customer ID can make the quality measure look fake, even though the chart looks completely normal.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- EDA bắt đầu bằng schema, row/key, target distribution, missing, duplicate và range; biểu đồ đứng sau quality table.
-- Missing có thể mang thông tin; không drop/impute trước khi hiểu cơ chế.
-- Observation từ sample không chứng minh causal explanation.
-- Thống kê đi vào data operation phải học sau split và chỉ trên train.
+- EDA starts with schema, row/key, target distribution, missing, duplicate and range; the chart behind the quality table.
+- Missing can carry information; Do not drop/impute before understanding the mechanism.
+- Observation from sample does not prove causal explanation.
+- Statistics that go into data operations must be learned after split and only on train.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `data validation`, `EDA`, `missing value`, `outlier`
+**New or focus terms:** `data validation`, `EDA`, `missing value`, `outlier`
 
-**Ôn lại:** `dataset`, `sample`, `feature`, `label / target`
+**Review:** `dataset`, `sample`, `feature`, `label / target`
 
-**Áp dụng:** Chạy `data validation` trên `dataset`: kiểm `schema`, `missing value`, `outlier`; dùng EDA mô tả feature và label / target ở cấp sample.
+**Use:** Run `data validation` on `dataset`: check `schema`, `missing value`, `outlier`; Use EDA to describe features and labels/targets at the sample level.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Tạo data-quality table theo cột.
-2. Kiểm duplicate theo khóa nghiệp vụ.
-3. Viết ba insight dạng evidence -> hypothesis -> next check.
+1. Create a data-quality table by column.
+2. Check duplicates by business key.
+3. Write three insights in the form of evidence -> hypothesis -> next check.
 
 ## Lab
 
-**lab-02:** EDA có data-quality table và ba insight. Môi trường chính: `local`.
+**lab-02:** EDA has a data-quality table and three insights. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn phân biệt được điều quan sát thấy với giả thuyết cần kiểm tra thêm và không dùng test để thiết kế data operation.
+You distinguish observations from hypotheses that need further testing and do not use testing to design data operations.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Dtype suy ra có thể sai nghiệp vụ khi nào?
-2. Missing tổng thể che subgroup ra sao?
-3. EDA gây target leakage thế nào?
+1. When can the inferred Dtype be wrong in business?
+2. How does overall missingness cover subgroups?
+3. How does EDA cause target leakage?
 
-## Kết quả hướng tới
+## Result oriented
 
-EDA notebook/report; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
+EDA notebook/report; Saves the executed command, configuration, quality measure, run time and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Tạo data-quality table và ba ghi chú evidence - hypothesis - next check.
-- **Mở rộng:** Khảo sát một subgroup hoặc quy tắc duplicate khác; không dùng test để thiết kế cleaning.
+- **Core:** Create data-quality table and three notes evidence - hypothesis - next check.
+- **Expand:** Examine another subgroup or duplicate rule; Do not use testing to design cleaning.
 
-## Lỗi thường gặp
+## Common errors
 
-- Xóa outlier chỉ vì boxplot.
-- Nhìn test để thiết kế data operation.
+- Remove outlier just because of boxplot.
+- Look at tests to design data operations.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Bắt đầu bằng bảng schema, missing, duplicate và range. Chỉ vẽ biểu đồ sau khi biết mỗi hàng đại diện cho gì.
+Start with the schema, missing, duplicate and range tables. Only draw a graph after knowing what each row represents.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: pandas documentation về missing data, duplicates và dtypes trong `docs/sources.yml`.
+Recommended source: pandas documentation on missing data, duplicates and dtypes in `docs/sources.yml`.

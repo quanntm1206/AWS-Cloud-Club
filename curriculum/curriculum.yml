@@ -2,32 +2,31 @@ program:
   title: Machine Learning Engineer Roadmap - AWS Cloud Club
   duration_weeks: 24
   hours_per_week: 9
-  audience: Người đã biết lập trình, chưa học Machine Learning
+  audience: People who know programming but have not learned Machine Learning
   principles: [local-first, free-compute-first, reproducible, cost-safe]
 
 weeks:
-  - {id: 1, title: "ML workflow và môi trường tái lập", phase: foundation, hours: 9, lab: lab-00, milestone: null, environments: [local], cost_class: zero}
-  - {id: 2, title: "NumPy và vectorization", phase: foundation, hours: 9, lab: lab-01, milestone: null, environments: [local], cost_class: zero}
-  - {id: 3, title: "pandas, cleaning và EDA", phase: foundation, hours: 9, lab: lab-02, milestone: null, environments: [local], cost_class: zero}
-  - {id: 4, title: "Toán trực giác và linear regression", phase: foundation, hours: 9, lab: lab-03, milestone: milestone-01, environments: [local], cost_class: zero}
-  - {id: 5, title: "Supervised learning và baseline", phase: classical-ml, hours: 9, lab: lab-04, milestone: null, environments: [local], cost_class: zero}
-  - {id: 6, title: "Preprocessing và chống leakage", phase: classical-ml, hours: 9, lab: lab-05, milestone: null, environments: [local], cost_class: zero}
-  - {id: 7, title: "Metrics, imbalance và threshold", phase: classical-ml, hours: 9, lab: lab-06, milestone: null, environments: [local], cost_class: zero}
-  - {id: 8, title: "Cross-validation và learning curve", phase: classical-ml, hours: 9, lab: lab-07, milestone: milestone-02, environments: [local], cost_class: zero}
+  - {id: 1, title: "ML workflow and replication environment", phase: foundation, hours: 9, lab: lab-00, milestone: null, environments: [local], cost_class: zero}
+  - {id: 2, title: "NumPy and vectorization", phase: foundation, hours: 9, lab: lab-01, milestone: null, environments: [local], cost_class: zero}
+  - {id: 3, title: "pandas, cleaning and EDA", phase: foundation, hours: 9, lab: lab-02, milestone: null, environments: [local], cost_class: zero}
+  - {id: 4, title: "Intuitive mathematics and linear regression", phase: foundation, hours: 9, lab: lab-03, milestone: milestone-01, environments: [local], cost_class: zero}
+  - {id: 5, title: "Supervised learning and baseline", phase: classical-ml, hours: 9, lab: lab-04, milestone: null, environments: [local], cost_class: zero}
+  - {id: 6, title: "Preprocessing and anti-leakage", phase: classical-ml, hours: 9, lab: lab-05, milestone: null, environments: [local], cost_class: zero}
+  - {id: 7, title: "Metrics, imbalance and threshold", phase: classical-ml, hours: 9, lab: lab-06, milestone: null, environments: [local], cost_class: zero}
+  - {id: 8, title: "Cross-validation and learning curve", phase: classical-ml, hours: 9, lab: lab-07, milestone: milestone-02, environments: [local], cost_class: zero}
   - {id: 9, title: "Tree ensembles", phase: applied-ml, hours: 9, lab: lab-08, milestone: null, environments: [local], cost_class: zero}
-  - {id: 10, title: "Feature engineering và ablation", phase: applied-ml, hours: 9, lab: lab-09, milestone: null, environments: [local], cost_class: zero}
-  - {id: 11, title: "Interpretability và error analysis", phase: applied-ml, hours: 9, lab: lab-10, milestone: null, environments: [local], cost_class: zero}
+  - {id: 10, title: "Feature engineering and ablation", phase: applied-ml, hours: 9, lab: lab-09, milestone: null, environments: [local], cost_class: zero}
+  - {id: 11, title: "Interpretability and error analysis", phase: applied-ml, hours: 9, lab: lab-10, milestone: null, environments: [local], cost_class: zero}
   - {id: 12, title: "Mini-project tabular", phase: applied-ml, hours: 10, lab: lab-11, milestone: milestone-03, environments: [local], cost_class: zero}
-  - {id: 13, title: "Notebook thành Python package", phase: engineering, hours: 9, lab: lab-12, milestone: null, environments: [local], cost_class: zero}
-  - {id: 14, title: "Testing cho hệ thống ML", phase: engineering, hours: 9, lab: lab-13, milestone: null, environments: [local], cost_class: zero}
-  - {id: 15, title: "Inference API và contracts", phase: engineering, hours: 9, lab: lab-14, milestone: null, environments: [local], cost_class: zero}
-  - {id: 16, title: "Docker, CI và artifact versioning", phase: engineering, hours: 9, lab: lab-15, milestone: milestone-04, environments: [local], cost_class: zero}
-  - {id: 17, title: "Neural networks và PyTorch", phase: deep-learning, hours: 9, lab: lab-16, milestone: null, environments: [local, colab, kaggle], cost_class: free-compute}
-  - {id: 18, title: "CNN và transfer learning", phase: deep-learning, hours: 9, lab: lab-17, milestone: null, environments: [colab, kaggle], cost_class: free-compute}
-  - {id: 19, title: "Fine-tuning tiết kiệm và checkpoint", phase: deep-learning, hours: 9, lab: lab-18, milestone: null, environments: [colab, kaggle], cost_class: free-compute}
-  - {id: 20, title: "CV evaluation và failure analysis", phase: deep-learning, hours: 10, lab: lab-19, milestone: milestone-05, environments: [local, colab, kaggle], cost_class: free-compute}
-  - {id: 21, title: "AWS Free Plan, IAM, Budgets và S3", phase: aws-capstone, hours: 9, lab: lab-20, milestone: null, environments: [local, aws], cost_class: guarded-aws}
-  - {id: 22, title: "Lambda inference và logging", phase: aws-capstone, hours: 9, lab: lab-20, milestone: null, environments: [local, aws], cost_class: guarded-aws}
+  - {id: 13, title: "Notebook to Python package", phase: engineering, hours: 9, lab: lab-12, milestone: null, environments: [local], cost_class: zero}
+  - {id: 14, title: "Testing for ML systems", phase: engineering, hours: 9, lab: lab-13, milestone: null, environments: [local], cost_class: zero}
+  - {id: 15, title: "Inference API and contracts", phase: engineering, hours: 9, lab: lab-14, milestone: null, environments: [local], cost_class: zero}
+  - {id: 16, title: "Docker, CI and artifact versioning", phase: engineering, hours: 9, lab: lab-15, milestone: milestone-04, environments: [local], cost_class: zero}
+  - {id: 17, title: "Neural networks and PyTorch", phase: deep-learning, hours: 9, lab: lab-16, milestone: null, environments: [local, colab, kaggle], cost_class: free-compute}
+  - {id: 18, title: "CNN and transfer learning", phase: deep-learning, hours: 9, lab: lab-17, milestone: null, environments: [colab, kaggle], cost_class: free-compute}
+  - {id: 19, title: "Fine-tuning savings and checkpoints", phase: deep-learning, hours: 9, lab: lab-18, milestone: null, environments: [colab, kaggle], cost_class: free-compute}
+  - {id: 20, title: "CV evaluation and failure analysis", phase: deep-learning, hours: 10, lab: lab-19, milestone: milestone-05, environments: [local, colab, kaggle], cost_class: free-compute}
+  - {id: 21, title: "AWS Free Plan, IAM, Budgets and S3", phase: aws-capstone, hours: 9, lab: lab-20, milestone: null, environments: [local, aws], cost_class: guarded-aws}
+  - {id: 22, title: "Lambda inference and logging", phase: aws-capstone, hours: 9, lab: lab-20, milestone: null, environments: [local, aws], cost_class: guarded-aws}
   - {id: 23, title: "Capstone integration", phase: aws-capstone, hours: 10, lab: lab-20, milestone: null, environments: [local, aws], cost_class: guarded-aws}
-  - {id: 24, title: "Tổng kết năng lực, cost audit và demo", phase: aws-capstone, hours: 9, lab: lab-20, milestone: milestone-06, environments: [local, aws], cost_class: guarded-aws}
-
+  - {id: 24, title: "Capacity summary, cost audit and demo", phase: aws-capstone, hours: 9, lab: lab-20, milestone: milestone-06, environments: [local, aws], cost_class: guarded-aws}

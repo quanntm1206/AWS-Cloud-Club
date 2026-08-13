@@ -1,81 +1,81 @@
-# Tuần 09 - Tree ensembles
+# Week 09 - Tree ensembles
 
-## Mục tiêu tuần
+## Weekly goals
 
-So sánh tree, random forest và boosting có giới hạn.
+Compare tree, random forest and limited boosting.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Tree ensembles cho bạn lựa chọn mạnh với dữ liệu bảng, nhưng mục tiêu vẫn là so sánh công bằng chứ không săn model thắng bằng mọi giá.
+Tree ensembles give you strong options with panel data, but the goal is still to make a fair comparison, not hunt for a winning model at all costs.
 
-**Ví dụ gần gũi:** Random forest giảm dao động bằng nhiều cây; boosting để cây sau tập trung sửa lỗi cây trước.
+**Close example:** Random forest reduces fluctuations with many trees; boosting so that the next tree can focus on fixing errors in the previous tree.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Tree chia feature để giảm impurity; depth/leaves lớn dễ học nhiễu.
-- Random forest bagging tree trên bootstrap/feature subset để giảm variance.
-- Gradient boosting thêm learner tuần tự để sửa lỗi; learning_rate tương tác số estimator.
-- Giới hạn depth/leaves hoặc thêm regularization giúp model bớt học thuộc nhiễu; kiểm bằng khoảng cách train-validation, không chỉ train score.
-- So candidate bằng cùng split, pipeline, metric và runtime budget.
+- Tree splits features to reduce impurity; Large depth/leaves make it easier to learn noise.
+- Random forest bagging tree on bootstrap/feature subset to reduce variance.
+- Gradient boosting adds sequential learners to correct errors; learning_rate interactive number estimator.
+- Limit depth/leaves or add regularization to help the model reduce noisy learning; Check by train-validation distance, not just train score.
+- Compare candidates using the same split, pipeline, metrics and runtime budget.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `hyperparameter`, `ensemble`, `bagging / boosting`
+**New or focus terms:** `hyperparameter`, `ensemble`, `bagging / boosting`
 
-**Ôn lại:** `baseline`, `validation set`, `metric`, `overfitting`
+**Review:** `baseline`, `validation set`, `metric`, `overfitting`
 
-**Áp dụng:** Giữ dataset, validation set, metric và budget cố định; so `ensemble` dùng bagging / boosting, đổi đúng một hyperparameter rồi đối chiếu baseline và dấu hiệu overfitting.
+**Use:** Keep dataset, validation set, metrics and budget fixed; so `ensemble` uses bagging / boosting, changes the exact hyperparameter and compares the baseline and overfitting signs.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Train logistic, random forest, gradient boosting trên một split.
-2. So ROC-AUC, F1, runtime, saved-model size.
-3. Đổi max_depth đúng một lần và giải thích bias/variance.
+1. Train logistic, random forest, gradient boosting on a split.
+2. Compare ROC-AUC, F1, runtime, saved-model size.
+3. Change max_depth exactly once and explain bias/variance.
 
 ## Lab
 
-**lab-08:** Ba candidate, cùng split và metric. Môi trường chính: `local`.
+**lab-08:** Three candidates, same split and metric. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn so ba candidate trên cùng harness, nêu được đổi chác giữa metric, runtime và saved-model size.
+You compare three candidates on the same harness, if you can trade between metric, runtime and saved-model size.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Bagging khác boosting thế nào?
-2. Tree cần preprocessing gì?
-3. Depth tác động train/validation ra sao?
+1. How is Bagging different from boosting?
+2. What preprocessing does Tree need?
+3. How does Depth impact training/validation?
 
-## Kết quả hướng tới
+## Result oriented
 
-model comparison; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+model comparison; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** So logistic, random forest và boosting theo cùng harness và runtime budget.
-- **Mở rộng:** Đổi đúng một depth/leaf constraint, liên hệ khoảng cách train-validation với regularization.
+- **Core:** So logistics, random forest and boosting follow the same harness and runtime budget.
+- **Extension:** Correctly change a depth/leaf constraint, relating train-validation distance to regularization.
 
-## Lỗi thường gặp
+## Common errors
 
-- Hyperparameter sweep lớn.
-- Mỗi model dùng split khác.
+- Large hyperparameter sweep.
+- Each model uses a different split.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Khóa split, seed và metric. Chỉ đổi một tham số như `max_depth`; đừng mở sweep khi chưa hiểu kết quả đầu tiên.
+Split, seed and metric keys. Just change one parameter like `max_depth`; Don't open a sweep without first understanding the results.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: scikit-learn ensemble guide về random forests và gradient boosting.
+Recommended source: scikit-learn ensemble guide on random forests and gradient boosting.

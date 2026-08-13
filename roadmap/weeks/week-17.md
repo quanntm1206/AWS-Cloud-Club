@@ -1,82 +1,82 @@
-# Tuần 17 - Neural networks và PyTorch
+# Week 17 - Neural networks and PyTorch
 
-## Mục tiêu tuần
+## Weekly goals
 
-Hiểu tensor, autograd, loop và device.
+Understand tensor, autograd, loop and device.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-PyTorch làm rõ điều thư viện cổ điển thường giấu: tensor đi qua model, loss tạo gradient và optimizer cập nhật parameter.
+PyTorch makes clear what classic libraries often hide: tensors pass through the model, losses create gradients, and optimizers update parameters.
 
-**Ví dụ gần gũi:** Quên `zero_grad()` khiến gradient của batch mới cộng lên batch cũ; quên `eval()` làm validation hành xử khác dự kiến.
+**Close example:** Forgetting `zero_grad()` causes the gradient of the new batch to be added to the old batch; Forgetting `eval()` causes validation to behave differently than expected.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Tensor có shape, dtype, device; model, input và target phải ở device tương thích. `.to(device)` trả tensor/module cần được gán lại.
-- `nn.Module` giữ parameter và `forward`; Linear nhận `[batch, features]`, loss cần prediction/target đúng shape-dtype.
-- Autograd dựng graph. Mỗi batch: `zero_grad()` -> forward -> loss -> `backward()` -> `step()`; bỏ zero_grad làm gradient cộng dồn.
-- `model.train()` khác `model.eval()`; validation dùng cả `model.eval()` và `torch.no_grad()` để đúng hành vi và tiết kiệm memory.
-- Device auto ưu tiên CUDA, fallback CPU-mini. Seed hỗ trợ tái lập nhưng hardware/kernel vẫn có sai khác nhỏ.
+- Tensor has shape, dtype, device; model, input and target must be on a compatible device. `.to(device)` returns the tensor/module that needs to be reassigned.
+- `nn.Module` holds parameters and `forward`; Linear receives `[batch, features]`, loss needs prediction/target of correct shape-dtype.
+- Autograd graph construction. Each batch: `zero_grad()` -> forward -> loss -> `backward()` -> `step()`; remove zero_grad as cumulative gradient.
+- `model.train()` is different from `model.eval()`; Validation uses both `model.eval()` and `torch.no_grad()` to correct behavior and save memory.
+- Device auto prioritizes CUDA, fallback CPU-mini. Seed supports reconfiguration but the hardware/kernel still has minor differences.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `tensor`, `batch`, `epoch`, `optimizer`, `device`
+**New or focus terms:** `tensor`, `batch`, `epoch`, `optimizer`, `device`
 
-**Ôn lại:** `parameter`, `gradient`, `loss`, `validation set`
+**Review:** `parameter`, `gradient`, `loss`, `validation set`
 
-**Áp dụng:** Tạo `tensor` theo `batch`, chạy nhiều `epoch`; dùng `optimizer` cập nhật parameter từ gradient/loss, kiểm model và input cùng `device`, đánh giá trên validation set.
+**Use:** Create `tensor` in `batch`, run multiple `epoch`; Use `optimizer` to update parameters from gradient/loss, check model and input with `device`, evaluate on validation set.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. In shape/dtype/device của batch và output trước train.
-2. Viết loop 3 epoch, lưu train/validation loss.
-3. Thử bỏ zero_grad; khôi phục rồi validation bằng eval/no_grad.
+1. Print shape/dtype/device of batch and output before training.
+2. Write a 3-epoch loop, save the training/validation loss.
+3. Try removing zero_grad; Restore then validate using eval/no_grad.
 
 ## Lab
 
-**lab-16:** MLP device-aware trên mini data. Môi trường chính: `local, colab, kaggle`.
+**lab-16:** MLP device-aware on mini data. Main environment: `local, colab, kaggle`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn giải thích được shape/dtype/device, viết loop nhỏ và thấy loss giảm mà không phụ thuộc GPU.
+You can explain the shape/dtype/device, write a small loop and see the loss decrease without depending on the GPU.
 
-## Tự kiểm tra
+## Test yourself
 
-1. requires_grad khác grad?
-2. eval có thay no_grad không?
-3. CrossEntropyLoss cần shape/dtype gì?
-4. Device mismatch phát sinh thế nào?
+1. requires_grad is different from grad?
+2. Does eval replace no_grad?
+3. What shape/dtype does CrossEntropyLoss need?
+4. How does Device mismatch arise?
 
-## Kết quả hướng tới
+## Result oriented
 
-seeded run; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+seeded run; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Chạy MLP mini trên CPU, giải thích tensor/device và đúng train/eval loop.
-- **Mở rộng:** Thử một learning rate khác hoặc bỏ `zero_grad` có chủ đích rồi khôi phục.
+- **Core:** Run mini MLP on CPU, explain tensor/device and correct train/eval loop.
+- **Expansion:** Try a different learning rate or intentionally drop `zero_grad` and restore.
 
-## Lỗi thường gặp
+## Common errors
 
-- Input lên GPU nhưng model/target ở CPU.
-- Validation trong train mode hoặc giữ graph.
+- Input to GPU but model/target to CPU.
+- Validation in train mode or keep graph.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Chạy local one-epoch smoke. Nếu lỗi, in device của model, input, target và kiểm target dtype trước.
+Run local one-epoch smoke. If error, print device of model, input, target and check target dtype first.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: PyTorch tutorials về tensors, autograd, optimization và `train`/`eval`.
+Recommended source: PyTorch tutorials on tensors, autograd, optimization and `train`/`eval`.

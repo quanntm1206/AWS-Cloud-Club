@@ -1,35 +1,35 @@
-# Mốc năng lực 01 - Tuần 4
+# Competency milestone 01 - Week 4
 
-## Mục tiêu
+## Target
 
-Tự đánh giá nền tảng dữ liệu và toán bằng một bài toán nhỏ chạy được, không cần model phức tạp.
+Self-assess the data and math platform with a small executable problem, no complex models needed.
 
-## Bạn đã đạt mốc nếu
+## You have reached the if mark
 
-- Viết rõ đối tượng dự đoán, nhãn, thời điểm dự đoán và hành động sau dự đoán.
-- Kiểm tra được shape, dtype, missing, duplicate và range trước khi tính toán.
-- Giải thích bằng lời của bạn dot product, loss và gradient đang làm gì trong ví dụ đã chạy.
-- Chạy lại mini path từ môi trường sạch và nhận kết quả trong tolerance đã ghi.
+- Clearly write the prediction object, label, prediction time and action after prediction.
+- Check shape, dtype, missing, duplicate and range before calculating.
+- Explain in your own words what dot product, loss and gradient are doing in the run example.
+- Rerun the mini path from a clean environment and get the results within the recorded tolerance.
 
-## Minh chứng đạt mốc
+## Proof of reaching the milestone
 
-- Problem statement và data-quality table lưu cục bộ.
-- Notebook/code tính linear regression, gradient check và lệnh chạy lại.
-- Environment report, seed, tolerance, test output cùng một ví dụ từng thất bại rồi được sửa.
+- Problem statement and data-quality table saved locally.
+- Notebook/code calculates linear regression, gradient check and rerun command.
+- Environment report, seed, tolerance, test output and an example of each failure and then fix.
 
 ## Rubric
 
-| Tiêu chí | Điểm |
+| Criteria | Score |
 |---|---:|
-| Hiểu dữ liệu và đặt bài toán | 30 |
-| Tính đúng và kiểm tra kết quả | 30 |
-| Tái lập môi trường | 25 |
-| Giải thích giới hạn | 15 |
+| Understanding data and formulating problems | 30 |
+| Calculate and check the results | 30 |
+| Environmental regeneration | 25 |
+| Limit explanation | 15 |
 
-Điểm đạt: 70/100. Gate: không leakage, không secret, mini run tái lập. Nếu gradient check sai hoặc chưa giải thích được prediction time, quay lại phần cốt lõi.
+Passing score: 70/100. Gate: no leakage, no secret, mini run re-established. If the gradient check is wrong or the prediction time is not explained, go back to the core.
 
-## Câu hỏi tự nhìn lại
+## Self-reflection question
 
-- Nếu đổi scale của feature, loss và gradient thay đổi ra sao?
-- Kiểm tra nào đã bắt được lỗi thật thay vì chỉ xác nhận code chạy?
-- Phần nào bạn vẫn phải nhìn tài liệu mới giải thích được?
+- If you change the scale of the feature, how will the loss and gradient change?
+- Which test caught the actual error instead of just validating that the code ran?
+- Which part do you still have to look at the document to explain?

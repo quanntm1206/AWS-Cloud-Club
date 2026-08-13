@@ -1,80 +1,80 @@
-# Tuần 01 - ML workflow và môi trường tái lập
+# Week 01 - ML workflow and reproducible environment
 
-## Mục tiêu tuần
+## Weekly goals
 
-Mô tả một ML workflow hoàn chỉnh; tạo môi trường tái lập.
+Describes a complete ML workflow; create a regenerative environment.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Một workflow rõ ràng giúp bạn biết model phục vụ quyết định nào, thay vì bắt đầu bằng thuật toán rồi mới đi tìm bài toán.
+A clear workflow helps you know which decision the model serves, instead of starting with the algorithm and then finding the problem.
 
-**Ví dụ gần gũi:** Hãy hình dung model churn dự đoán khách nào có thể rời đi vào đầu tháng; đội chăm sóc chỉ hành động sau thời điểm đó.
+**Close example:** Imagine a churn model that predicts which customers are likely to leave at the beginning of the month; The care team only takes action after that point.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Tách business question khỏi model output task: xác định đối tượng, nhãn, model output time và hành động sau dự đoán.
-- Workflow tối thiểu: validate data, split, simple reference, học, đánh giá, khóa quyết định, test một lần, phân tích lỗi, đóng gói.
-- Quy ước dữ liệu khóa schema/target; experiment contract lưu seed, config, code revision, quality measure, runtime và limitation.
-- Reproducibility yêu cầu tái tạo input, procedure, environment và tolerance; không hứa mọi phần cứng cho bit-identical result.
+- Separate the business question from the model output task: define objects, labels, model output time and actions after prediction.
+- Minimum workflow: validate data, split, simple reference, learn, evaluate, lock decision, test once, analyze errors, package.
+- Schema/target key data convention; The experiment contract saves seed, config, code revision, quality measure, runtime and limitation.
+- Reproducibility requires regenerating input, procedures, environment and tolerance; does not promise every hardware for bit-identical result.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `dataset`, `sample`, `schema`, `reproducibility`, `seed`
+**New or focus terms:** `dataset`, `sample`, `schema`, `reproducibility`, `seed`
 
-**Ôn lại:** Chưa có - đây là lab đầu tiên.
+**Review:** None - this is the first lab.
 
-**Áp dụng:** Mở `dataset` smoke, đếm từng `sample`, đối chiếu `schema`, cố định `seed` rồi chạy hai lần để kiểm `reproducibility`.
+**Use:** Open smoke `dataset`, count each `sample`, compare `schema`, fix `seed` then run twice to check `reproducibility`.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Viết problem statement cho churn theo mẫu ai-khi nào-để làm gì.
-2. Vẽ data -> split -> học -> đánh giá -> test -> saved model bundle; đánh dấu điểm leakage.
-3. Chạy lab, lưu environment report và một limitation.
+1. Write a problem statement for churn in the form of who-when-for what.
+2. Draw data -> split -> learn -> evaluate -> test -> saved model bundle; Mark the leakage point.
+3. Run the lab, save the environment report and a limitation.
 
 ## Lab
 
-**lab-00:** Cài môi trường, chạy kiểm tra, lập learning log. Môi trường chính: `local`.
+**lab-00:** Set up the environment, run tests, create learning log. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn có thể kể lại đường đi từ câu hỏi đến saved model bundle và chỉ ra final holdout được mở khi nào.
+Can you recount the path from the question to the saved model bundle and indicate when the final holdout is opened.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Model output khác quyết định sản phẩm thế nào?
-2. Vì sao test không dùng chọn model/decision cutoff?
-3. Experiment log tối thiểu gồm gì?
+1. How does a different output model determine the product?
+2. Why don't tests use model selection/decision cutoff?
+3. What does the minimum experimental log include?
 
-## Kết quả hướng tới
+## Result oriented
 
-environment report lưu cục bộ; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
+environment report saved locally; Saves the executed command, configuration, quality measure, run time and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Chạy lab 00, giữ environment report và vẽ workflow churn bằng lời của bạn.
-- **Mở rộng:** Nếu còn thời gian, thử thay đổi seed/input rồi giải thích phần nào nên giữ ổn định.
+- **Core:** Run lab 00, keep the environment report and draw the churn workflow in your own words.
+- **Expansion:** If you have time, try changing the seed/input and then explain which part should stay stable.
 
-## Lỗi thường gặp
+## Common errors
 
-- Bắt đầu từ thuật toán thay vì câu hỏi.
-- Không khóa model output time nên input signal nhìn tương lai.
+- Start from the algorithm instead of the question.
+- Do not lock model output time so input signal looks into the future.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu các khái niệm còn trừu tượng, lấy một app quen thuộc rồi viết rõ: dự đoán ai, vào lúc nào, để làm gì.
+If the concepts are still abstract, take a familiar app and write clearly: predict who, when, and for what purpose.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: `docs/sources.yml` - mục scikit-learn model persistence và tài liệu tái lập môi trường.
+Recommended source: `docs/sources.yml` - scikit-learn model persistence section and environment reconstruction documentation.

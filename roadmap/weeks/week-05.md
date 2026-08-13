@@ -1,80 +1,80 @@
-# Tuần 05 - Supervised learning và baseline
+# Week 05 - Supervised learning and baseline
 
-## Mục tiêu tuần
+## Weekly goals
 
-Đặt baseline; split train/validation/test đúng.
+Set baseline; split train/validation/test is correct.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Baseline tạo một vạch xuất phát trung thực. Nếu model chưa vượt cách đoán đơn giản, tăng độ phức tạp chưa mang lại giá trị.
+Baseline creates an honest starting line. If the model is not yet beyond simple guessing, increasing complexity will not bring value.
 
-**Ví dụ gần gũi:** Dataset có 90% khách không churn sẽ cho dummy accuracy 90%, nhưng gần như vô dụng khi cần tìm người sắp rời đi.
+**Close example:** A data set with 90% of customers not churning will give a dummy accuracy of 90%, but is almost useless when looking for people who are about to leave.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Classification dự đoán class/probability; regression dự đoán giá trị liên tục.
-- Dummy baseline đo mức tối thiểu; logistic regression tạo linear logit rồi sigmoid.
-- Train để fit, validation để chọn, test chỉ dùng khi quyết định đã khóa.
-- Dùng stratified split cho class; dùng group/time split khi mẫu liên quan hoặc có thời gian.
+- Classification predicts class/probability; regression predicts continuous values.
+- Dummy baseline measures the minimum level; Logistic regression creates linear logit then sigmoid.
+- Train to fit, validate to select, test only when the decision is locked.
+- Use stratified split for classes; Use group/time split when the pattern involves or has time.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `data split`, `training set`, `validation set`, `test set`, `baseline`, `model validation`
+**New or focus terms:** `data split`, `training set`, `validation set`, `test set`, `baseline`, `model validation`
 
-**Ôn lại:** `dataset`, `sample`, `feature`, `label / target`, `prediction`
+**Review:** `dataset`, `sample`, `feature`, `label / target`, `prediction`
 
-**Áp dụng:** Tạo `data split` từ `dataset` không trùng sample thành `training set`, `validation set`, `test set`; fit `baseline` trên feature, thực hiện `model validation`, so prediction với label / target.
+**Use:** Create `data split` from `dataset` without duplicate samples into `training set`, `validation set`, `test set`; fit `baseline` on feature, perform `model validation`, compare prediction with label / target.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. So dummy và logistic trên đúng cùng split/workflow/quality measure.
-2. Kiểm class balance và ID không trùng giữa tập.
-3. Viết quality measure gate model phải vượt baseline.
+1. So dummy and logistic above are exactly the same split/workflow/quality measure.
+2. Check class balance and ID do not overlap between sets.
+3. Write a quality measure gate model that must exceed the baseline.
 
 ## Lab
 
-**lab-04:** Dummy và logistic classifier. Môi trường chính: `local`.
+**lab-04:** Dummy and logistic classifier. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn dùng cùng split và quality measure để so dummy với logistic regression; test set vẫn chưa tham gia chọn model.
+You use the same split and quality measure to compare dummy with logistic regression; Test set has not yet participated in model selection.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Dummy accuracy cao khi nào?
-2. Logistic tuyến tính ở không gian nào?
-3. Random split gây leakage khi nào?
+1. When is Dummy accuracy high?
+2. In which space is linear logistics?
+3. When does random split cause leakage?
 
-## Kết quả hướng tới
+## Result oriented
 
-baseline report; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
+baseline report; Saves the executed command, configuration, quality measure, run time and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** So dummy với logistic trên cùng split, quality measure và seed; giữ test chưa tham gia lựa chọn.
-- **Mở rộng:** Thử group/time split trên một tình huống giả định và nêu vì sao random split có thể sai.
+- **Core:** So dummy with logistic on top split, quality measure and seed; keep the test without participating in the selection.
+- **Extension:** Try group/time split on a hypothetical situation and state why random split might be wrong.
 
-## Lỗi thường gặp
+## Common errors
 
-- So model trên split khác nhau.
-- Bỏ baseline để chạy model phức tạp.
+- Compare models on different splits.
+- Remove baseline to run complex models.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Kiểm phân bố nhãn, ID trùng và thời gian trước. Khi nghi ngờ split, vẽ sơ đồ các tập thay vì đổi model.
+Check label distribution, duplicate IDs and previous times. When in doubt, plot the sets instead of changing the model.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: scikit-learn documentation về model selection, train-test split và DummyClassifier.
+Recommended source: scikit-learn documentation on model selection, train-test split and DummyClassifier.

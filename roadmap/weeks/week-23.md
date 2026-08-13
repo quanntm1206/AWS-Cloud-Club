@@ -1,93 +1,93 @@
-# Tuần 23 - Nối capstone thành một hệ thống nhỏ có thể giải thích
+# Week 23 - Connect the capstone into a small explainable system
 
-## Mục tiêu tuần
+## Weekly goals
 
-Nối training local/Colab/Kaggle với artifact, manifest và private Lambda inference.
+Connect training local/Colab/Kaggle with artifact, manifest and private Lambda inference.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Một demo đáng tin không phải chuỗi lệnh chạy may mắn. Manifest giúp bạn trả lời: model nào, schema nào,
-threshold nào, được train từ run nào và artifact có bị thay đổi hay không.
+A reliable demo is not a lucky run of commands. Manifest helps you answer: which model, which schema,
+what threshold, what run it was trained from and whether the artifact has been changed or not.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Training vẫn ở local/Colab/Kaggle. AWS chỉ lưu portable logistic model và chạy inference ngắn.
-- Manifest liên kết model version, feature schema, threshold, checksum và source run.
-- CloudFormation quản toàn bộ resource của lab; ownership tags hỗ trợ audit, không tự cleanup.
-- Learner path chỉ có private `aws lambda invoke`. Public API là chủ đề kiến trúc để đọc, không thực hành.
-- Nếu deploy/upload/output lookup lỗi, stack có thể đã tồn tại; recovery cleanup là bắt buộc.
+- Training is still at local/Colab/Kaggle. AWS only stores the portable logistic model and runs short inference.
+- Manifest links model version, feature schema, threshold, checksum and source run.
+- CloudFormation manages all lab resources; ownership tags support audit, not self-cleanup.
+- Learner path only has private `aws lambda invoke`. Public API is an architecture topic for reading, not practice.
+- If deploy/upload/output lookup fails, the stack may already exist; recovery cleanup is required.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `artifact`, `inference`, `residual scan`
+**New or focus terms:** `artifact`, `inference`, `residual scan`
 
-**Ôn lại:** `Lambda`, `CloudWatch Logs`, `API contract`
+**Review:** `Lambda`, `CloudWatch Logs`, `API contract`
 
-**Áp dụng:** Ghép `artifact` với private `inference`, sau cleanup chạy `residual scan`; ôn Lambda, CloudWatch Logs và API contract.
+**Use:** Pair `artifact` with private `inference`, after cleanup run `residual scan`; Review Lambda, CloudWatch Logs and API contracts.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Ôn artifact contract và manifest | 2 |
-| Train mini profile, kiểm parity | 2 |
-| Chạy end-to-end private invoke | 3 |
-| Failure drill và cleanup | 1 |
-| Learning log và tự đánh giá | 1 |
+| Review artifact contract and manifest | 2 |
+| Train mini profile, check parity | 2 |
+| Run end-to-end private invoke | 3 |
+| Failure drill and cleanup | 1 |
+| Learning log and self-assessment | 1 |
 
 ## Guided practice
 
-1. Train mini profile ngoài AWS; so portable model với sklearn trên cùng known requests.
-2. Kiểm checksum, schema và threshold trước upload.
-3. Chạy end-to-end private invoke; không load test, không tạo public endpoint.
-4. Diễn tập một failure sau deploy và đọc recovery command trước khi cleanup.
+1. Train mini profile outside AWS; so portable model with sklearn on top of known requests.
+2. Check checksum, schema and threshold before uploading.
+3. Run end-to-end private invoke; Do not load test, do not create public endpoint.
+4. Rehearse a failure after deploying and read the recovery command before cleanup.
 
 ## Lab
 
-**lab-20:** capstone end-to-end qua private Lambda. API Gateway chỉ được phân tích trên sơ đồ/pricing.
+**lab-20:** end-to-end capstone via private Lambda. API Gateway is only analyzed on the diagram/pricing.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Vì sao không ship thẳng `joblib` phụ thuộc runtime?
-2. Manifest ngăn loại drift nào?
-3. Sau upload lỗi, vì sao vẫn phải kiểm stack?
+1. Why not directly ship `joblib` runtime dependencies?
+2. What type of drift does Manifest prevent?
+3. After uploading an error, why do we still need to check the stack?
 
-## Kết quả hướng tới
+## Result oriented
 
-Bạn demo được luồng train -> portable artifact -> S3 -> private Lambda -> cleanup, đồng thời giải thích
-được từng guard thay vì chỉ đọc output xanh.
+You can demo the train -> portable artifact -> S3 -> private Lambda -> cleanup flow, and explain
+get each guard instead of just reading the green output.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn lần ngược được một prediction về đúng artifact, schema, threshold và source run.
+You trace back a prediction to the correct artifact, schema, threshold and source run.
 
 ## Core vs stretch
 
-- **Core:** end-to-end private invoke, tối đa vài request.
-- **Stretch:** vẽ kiến trúc authenticated/throttled API và liệt kê guard cần có; không deploy.
+- **Core:** end-to-end private invoke, up to several requests.
+- **Stretch:** draws the authenticated/throttled API architecture and lists required guards; do not deploy.
 
-## Lỗi thường gặp
+## Common errors
 
-- Train trên SageMaker/EC2 chỉ vì còn credit.
-- Thêm public URL để demo trông “thật” hơn.
-- Để stack qua đêm vì tin `ExpiresAt` tự xóa.
+- Train on SageMaker/EC2 only for credits.
+- Add public URL to make the demo look more "real".
+- Leave the stack overnight because the `ExpiresAt` message deletes itself.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Quay về handler local và known request. Nếu AWS đã tạo stack, ưu tiên cleanup trước debugging. Một demo
-local có giải thích tốt an toàn hơn một stack sống mà bạn không kiểm soát.
+Return to the local handler and known request. If AWS has created a stack, prioritize cleanup before debugging. A demo
+local has a good explanation which is safer than a live stack that you don't control.
 
-## Bạn đã sẵn sàng chuyển tuần khi
+## Are you ready to move weeks when
 
-- Portable/sklearn parity đạt trên known requests.
-- Bạn chứng minh được checksum + schema + source run.
-- Residual scan hoàn tất, không có known infrastructure còn sót.
+- Portable/sklearn parity reached on known requests.
+- You can prove checksum + schema + source run.
+- Residual scan completed, no known infrastructure remaining.
 
 ## AWS cost gate
 
-Không nâng Paid Plan để hoàn thành core. Không SageMaker, EC2, NAT Gateway, API Gateway hoặc Bedrock.
-Nếu pricing/eligibility không xác minh được, dùng local simulation.
+Do not raise Paid Plan to complete core. No SageMaker, EC2, NAT Gateway, API Gateway or Bedrock.
+If pricing/eligibility cannot be verified, use local simulation.
 
-## Nguồn
+## Source
 
-[AWS Pricing Calculator](https://calculator.aws/) và `docs/sources.yml`.
+[AWS Pricing Calculator](https://calculator.aws/) and `docs/sources.yml`.

@@ -1,96 +1,96 @@
-# Tuần 22 - Đưa model lên Lambda, giữ mọi thứ riêng tư
+# Week 22 - Upload model to Lambda, keep everything private
 
-## Mục tiêu tuần
+## Weekly goals
 
-Triển khai inference serverless nhỏ, gọi riêng tư, đọc log rồi dọn sạch trong cùng phiên.
+Deploy small serverless inference, call privately, read logs and clean up in the same session.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Training model chỉ là nửa đầu công việc. Khi model chạy sau một service boundary, input sai, artifact
-lỗi và log nhạy cảm đều trở thành vấn đề engineering. Private invoke cho bạn học đúng phần này mà không
-cần mở endpoint ra Internet.
+Training model is only the first half of the job. When the model runs behind a service boundary, wrong input, artifact
+Errors and sensitive logs all become engineering problems. Private invoke allows you to learn this part correctly without
+need to open the endpoint to the Internet.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Lambda handler có contract rõ; lỗi JSON/type trả response có chủ đích.
-- Artifact portable nằm trong S3; checksum và schema được kiểm trước khi score.
-- Memory 512 MB, timeout 15 giây, reserved concurrency 1 giúp thu hẹp blast radius, nhưng không phải
+- Lambda handler has a clear contract; error JSON/type returned response intentionally.
+- Artifact portable resides in S3; checksum and schema are checked before scoring.
+- Memory 512 MB, timeout 15 seconds, reserved concurrency 1 helps narrow blast radius, but not
   hard spending cap.
-- CloudWatch log không chứa raw payload/secret và có retention một ngày.
-- Tag `ExpiresAt` chỉ là metadata nhắc cleanup, không tự xóa stack.
+- CloudWatch log does not contain raw payload/secret and has one day retention.
+- Tag `ExpiresAt` is only metadata that prompts cleanup, does not clear the stack itself.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `Lambda`, `CloudWatch Logs`, `API contract`
+**New or focus terms:** `Lambda`, `CloudWatch Logs`, `API contract`
 
-**Ôn lại:** `IAM`, `S3`, `budget alert`
+**Review:** `IAM`, `S3`, `budget alert`
 
-**Áp dụng:** Dùng `Lambda` thực hiện inference theo `API contract`, kiểm `CloudWatch Logs` không lộ sample nhạy cảm; ôn IAM và S3 từ tuần trước.
+**Use:** Use `Lambda` to perform inference according to `API contract`, check `CloudWatch Logs` does not reveal sensitive samples; review IAM and S3 from last week.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc handler, template và policy | 2 |
-| Test handler local với input đúng/sai | 2 |
-| Deploy, private invoke, xem log | 3 |
-| Cleanup và residual scan | 1 |
-| Learning log và tự đánh giá | 1 |
+| Read handler, template and policy | 2 |
+| Test local handler with true/false input | 2 |
+| Deploy, private invoke, see log | 3 |
+| Cleanup and residual scan | 1 |
+| Learning log and self-assessment | 1 |
 
 ## Guided practice
 
-1. Gọi handler local với valid JSON, malformed JSON, thiếu field và sai type.
-2. Mở terminal riêng, đặt timer cleanup; chạy cost check và preflight trước deploy.
-3. Deploy stack, invoke Lambda bằng AWS CLI tối đa vài lần, đọc log.
-4. Cleanup ngay; scan phải fail-closed nếu AWS CLI lỗi hoặc thiếu quyền.
+1. Call local handler with valid JSON, malformed JSON, missing fields and wrong type.
+2. Open a separate terminal, set the cleanup timer; Run cost check and preflight before deploying.
+3. Deploy stack, invoke Lambda using AWS CLI at most a few times, read log.
+4. Clean up now; scan must fail-closed if AWS CLI fails or lacks permissions.
 
 ## Lab
 
-**lab-20:** S3 + private Lambda invoke + Logs + cleanup. Không tạo API Gateway hay public URL.
+**lab-20:** S3 + private Lambda invoke + Logs + cleanup. Do not create API Gateway or public URL.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Private invoke loại bỏ rủi ro/thành phần nào?
-2. Vì sao concurrency 1 không phải giới hạn tổng chi phí?
-3. `ExpiresAt` khác TTL tự động ở điểm nào?
+1. What risks/components does Private Invoke eliminate?
+2. Why is concurrency 1 not a limit on total costs?
+3. How does `ExpiresAt` differ from automatic TTL?
 
-## Kết quả hướng tới
+## Result oriented
 
-Một inference lifecycle nhỏ nhưng đầy đủ: artifact có checksum, contract chạy đúng, log sạch, residual
-scan sạch và có lịch kiểm Billing lại.
+A small but complete inference lifecycle: artifact has checksum, contract runs correctly, clean log, residual
+Scan cleanly and have a schedule to check Billing again.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn giải thích được vì sao private invoke vẫn cần contract, logs, giới hạn runtime và cleanup.
+Can you explain why private invoke still needs contracts, logs, runtime limits and cleanup.
 
 ## Core vs stretch
 
-- **Core:** private invoke valid/invalid rồi cleanup.
-- **Stretch:** giải thích trên giấy cách API Gateway thêm attack surface và request cost; không triển khai.
+- **Core:** private invoke valid/invalid then cleanup.
+- **Stretch:** explains on paper how API Gateway adds attack surface and request cost; not deployed.
 
-## Lỗi thường gặp
+## Common errors
 
-- Đóng terminal sau deploy rồi quên cleanup.
-- Nghĩ tag hết hạn sẽ tự xóa tài nguyên.
-- Thấy residual scan lỗi quyền nhưng vẫn kết luận “zero residual”.
+- Close the terminal after deploying and forget about cleanup.
+- Think expired tags will automatically delete resources.
+- Saw residual scan error but still concluded "zero residual".
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu bất kỳ lệnh nào lỗi sau khi deploy bắt đầu, dừng và chạy cleanup dry-run ngay. Đọc exact names, chạy
-execute, rồi residual scan. Nếu scan không hoàn tất, kiểm Console hoặc nhờ quản trị account; đừng đoán.
+If any command fails after deploy starts, stop and run cleanup dry-run immediately. Read exact names, run
+execute, then residual scan. If the scan is not completed, check the Console or ask your account administrator; Don't guess.
 
-## Bạn đã sẵn sàng chuyển tuần khi
+## Are you ready to move weeks when
 
-- Private Lambda trả đúng contract cho cả request hợp lệ và không hợp lệ.
-- Log không có credential hoặc raw record.
-- Stack, bucket, function, log group và role không còn sau cleanup.
+- Private Lambda returns the correct contract for both valid and invalid requests.
+- Log has no credential or raw record.
+- Stack, bucket, function, log group and role are no longer there after cleanup.
 
 ## AWS cost gate
 
-Lifecycle bắt buộc: `Pre-check -> Estimate -> Dry-run -> Deploy -> Verify -> Cleanup -> Residual scan -> Cost audit`.
-Budget có thể trễ; planning envelope không phải bill guarantee.
+Required lifecycle: `Pre-check -> Estimate -> Dry-run -> Deploy -> Verify -> Cleanup -> Residual scan -> Cost audit`.
+Budget may be late; Planning envelope is not bill guarantee.
 
-## Nguồn
+## Source
 
 [Lambda pricing](https://aws.amazon.com/lambda/pricing/),
-[S3 pricing](https://aws.amazon.com/s3/pricing/) và `docs/sources.yml`.
+[S3 pricing](https://aws.amazon.com/s3/pricing/) and `docs/sources.yml`.

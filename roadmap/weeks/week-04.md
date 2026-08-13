@@ -1,81 +1,81 @@
-# Tuần 04 - Toán trực giác và linear regression
+# Week 04 - Intuitive math and linear regression
 
-## Mục tiêu tuần
+## Weekly goals
 
-Tự viết linear regression nhỏ; đọc loss curve và dùng xác suất cơ bản để diễn giải kết quả.
+Write your own small linear regression; Read the loss curve and use basic probability to interpret the results.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Loss cho model biết đang sai bao nhiêu; gradient cho biết nên đổi tham số theo hướng nào. Nắm trực giác này giúp bạn debug mọi mô hình về sau.
+Loss tells the model how much it is wrong; The gradient indicates which direction the parameter should be changed. Grasping this intuition will help you debug any model later.
 
-**Ví dụ gần gũi:** Nếu learning rate quá lớn, mỗi bước có thể nhảy qua đáy loss như người xuống dốc nhưng bước dài quá mức.
+**Close example:** If the learning rate is too large, each step can jump over the bottom of the loss like a person going downhill but taking steps that are too long.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Linear regression dùng y_hat=Xw+b; MSE phạt sai số theo bình phương và nhạy outlier.
-- Gradient chỉ hướng tăng nhanh của loss; gradient descent cập nhật ngược hướng với learning rate.
-- Central finite difference kiểm analytic gradient bằng thay đổi nhỏ của tham số.
-- Feature scale ảnh hưởng hội tụ; hệ số chỉ diễn giải cùng scale, encoding và assumptions.
-- Xác suất nằm trong `[0, 1]`; xác suất có điều kiện luôn gắn với một điều kiện, còn tần suất trên mẫu chỉ là ước lượng có sai số.
+- Linear regression uses y_hat=Xw+b; MSE penalizes the squared error and is outlier sensitive.
+- Gradient indicates the direction of rapid increase of loss; The gradient updates in the opposite direction of the learning rate descent.
+- Central finite difference checks analytic gradient by small changes of parameters.
+- Feature scale influences convergence; The coefficients are only interpreted along with scale, encoding and assumptions.
+- Probability within `[0, 1]`; Conditional probability is always associated with a condition, while sample frequency is only an estimate with error.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `prediction`, `loss`, `gradient`, `learning rate`
+**New or focus terms:** `prediction`, `loss`, `gradient`, `learning rate`
 
-**Ôn lại:** `feature`, `label / target`, `data validation`
+**Review:** `feature`, `label / target`, `data validation`
 
-**Áp dụng:** Tính `prediction`, `loss`, `gradient` và cập nhật parameter bằng `learning rate`; giữ feature, label / target và ghi lỗi data validation nếu input sai.
+**Use:** Calculate `prediction`, `loss`, `gradient` and update parameters with `learning rate`; keep feature, label / target and log data validation error if input is wrong.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Tính forward, MSE, gradient bằng tay trên bốn điểm.
-2. So analytic gradient với finite difference qua nhiều epsilon.
-3. So loss curve khi learning rate nhỏ, hợp lý, quá lớn.
+1. Calculate forward, MSE, gradient manually on four points.
+2. So analytic gradient with finite difference over many epsilons.
+3. So loss curve when learning rate is small, reasonable, too large.
 
 ## Lab
 
-**lab-03:** Linear regression từ đầu và gradient check. Môi trường chính: `local`.
+**lab-03:** Linear regression from the beginning and gradient check. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn tự viết linear regression nhỏ, gradient check khớp và đọc loss curve để nói model đang học hay diverge.
+You write your own small linear regression, check gradient matching and read the loss curve to tell whether the model is learning or diverging.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Gradient bằng 0 nói gì?
-2. Epsilon quá nhỏ gây lỗi số nào?
-3. MSE khác MAE với outlier ra sao?
+1. What does a gradient of 0 say?
+2. What number error does Epsilon too small cause?
+3. How is MSE different from MAE and outlier?
 
-## Kết quả hướng tới
+## Result oriented
 
-mốc năng lực 1; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
+competency milestone 1; Saves the executed command, configuration, quality measure, run time and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Tự viết linear regression, gradient check và giải thích ba dạng loss curve.
-- **Mở rộng:** Thử MAE thay MSE hoặc đổi feature scale, nhưng giữ nguyên một yếu tố tại mỗi lần chạy.
+- **Core:** Write your own linear regression, gradient check and explain three types of loss curves.
+- **Extension:** Try MAE instead of MSE or change the feature scale, but keep the same factor at each run.
 
-## Lỗi thường gặp
+## Common errors
 
-- Tin gradient đúng chỉ vì loss giảm.
-- Tăng training pass để che learning rate quá lớn.
+- Believe the gradient is correct only because the loss is reduced.
+- Increase training pass to cover learning rate that is too high.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Tính một bước trên bốn điểm bằng tay. Nếu gradient lệch, kiểm dấu, hệ số trung bình và nhiều giá trị `epsilon`.
+Calculate one step per four points by hand. If the gradient is skewed, check the sign, mean coefficient and multiple `epsilon` values.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: phần optimization/linear models trong tài liệu scikit-learn và textbook được đăng ký ở `docs/sources.yml`.
+Recommended source: the optimization/linear models section in the scikit-learn documentation and textbook is registered in `docs/sources.yml`.

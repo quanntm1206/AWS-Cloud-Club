@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-00-environment-and-reproducibility
+# Reference result - lab-00-environment-and-reproducibility
 
 ## Oracle
 
-Chạy lại hai lần; số hàng, schema và seed phải giống nhau.
+Run it twice; the row count, schema, and seed must match.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 0` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy `rows`, `dtypes`, `seed`.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 0` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for `rows`, `dtypes`, and `seed`.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Hai environment report có cùng `schema`, `seed` và số `sample`; learning log giải thích `dataset` nào được kiểm và giới hạn `reproducibility`.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- Both environment reports have the same `schema`, `seed`, and number of `sample` rows. The learning log identifies the `dataset` and explains the limits of `reproducibility`.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu import lỗi, chạy lại bootstrap check và xác nhận đang dùng Python trong `.venv`.
+If an import fails, rerun the bootstrap check and confirm that Python comes from `.venv`.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

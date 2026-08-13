@@ -1,80 +1,80 @@
-# Tuần 06 - Preprocessing và chống leakage
+# Week 06 - Preprocessing and preventing leakage
 
-## Mục tiêu tuần
+## Weekly goals
 
-Xử lý missing/category bằng pipeline không leakage.
+Handle missing/categories with a leakage-free pipeline.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Preprocessing cũng học từ dữ liệu. Đặt nó trong pipeline giữ ranh giới train/validation sạch và tránh model chạy khác lúc tạo dự đoán mới.
+Preprocessing also learns from data. Placing it in the pipeline keeps the train/validation boundaries clean and avoids the model from running differently when generating new predictions.
 
-**Ví dụ gần gũi:** Giá trị trung bình dùng để điền missing phải đến từ train, không được nhìn trước khách hàng trong test.
+**Close example:** The average value used to fill in the missing must come from the train, not before the customers in the test.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Imputer, scaler, encoder đều học trạng thái và chỉ được fit trên train.
-- ColumnTransformer tách numeric/categorical; Pipeline giữ preprocess và model cùng lifecycle.
-- OneHotEncoder cần xử lý category chưa thấy để dự đoán input mới không vỡ.
-- Schema validation bắt thiếu cột, sai dtype/range và target lẫn vào input trước transform.
+- Imputer, scaler, encoder all learn state and can only be fitted on the train.
+- ColumnTransformer separates numeric/categorical; Pipeline holds the preprocess and model along the lifecycle.
+- OneHotEncoder needs to handle unseen categories to predict new input without breaking.
+- Schema validation catches missing columns, wrong dtype/range and target mixed in as input before transform.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `preprocessing`, `transform`, `pipeline`, `data leakage`, `fit`
+**New or focus terms:** `preprocessing`, `transform`, `pipeline`, `data leakage`, `fit`
 
-**Ôn lại:** `data split`, `training set`, `validation set`, `test set`, `schema`
+**Review:** `data split`, `training set`, `validation set`, `test set`, `schema`
 
-**Áp dụng:** Chia bằng `data split` trước, fit từng bước `preprocessing`/`transform` chỉ trên `training set`, ghép thành `pipeline`; dùng schema để chứng minh không có `data leakage` sang validation set/test set.
+**Use:** Divide by `data split` first, fit each `preprocessing`/`transform` step only on `training set`, merge into `pipeline`; Use schema to prove there is no `data leakage` to validation set/test set.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Tạo pipeline impute-scale và impute-one-hot.
-2. Inject unseen category vào validation.
-3. Test scaler mean không lấy test data.
+1. Create impute-scale and impute-one-hot pipelines.
+2. Inject unseen categories into validation.
+3. Test scaler mean does not take test data.
 
 ## Lab
 
-**lab-05:** Leakage-safe preprocessing. Môi trường chính: `local`.
+**lab-05:** Leakage-safe preprocessing. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn xử lý được missing và category chưa từng thấy, đồng thời chứng minh scaler không học từ test.
+You handle unprecedented missing and categories, and prove that the scaler doesn't learn from testing.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Vì sao fit_transform trước split là leakage?
-2. handle_unknown có trade-off gì?
-3. Pipeline giảm train/serve skew thế nào?
+1. Why is fit_transform before split is leakage?
+2. What trade-offs does handle_unknown have?
+3. How does Pipeline reduce train/serve skew?
 
-## Kết quả hướng tới
+## Result oriented
 
-pipeline + schema; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+pipeline + schema; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Dựng pipeline impute/scale/encode chỉ fit train; kiểm category chưa thấy.
-- **Mở rộng:** Thêm một schema failure như thiếu cột hoặc sai dtype và biến nó thành test.
+- **Core:** Build an impute/scale/encode pipeline that only fits the train; Check the category but don't see it.
+- **Extension:** Add a schema failure like missing columns or wrong dtype and turn it into a test.
 
-## Lỗi thường gặp
+## Common errors
 
-- Lưu model nhưng quên transformer.
-- Impute theo test distribution.
+- Save the model but forget the transformer.
+- Impute according to test distribution.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Tạo một validation row có category lạ. Nếu pipeline vỡ, sửa encoder và thêm kiểm tra trước khi train lại.
+Create a validation row with a strange category. If the pipeline breaks, fix the encoder and add more tests before retraining.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: scikit-learn Pipeline, ColumnTransformer, SimpleImputer và OneHotEncoder.
+Recommended sources: scikit-learn Pipeline, ColumnTransformer, SimpleImputer and OneHotEncoder.

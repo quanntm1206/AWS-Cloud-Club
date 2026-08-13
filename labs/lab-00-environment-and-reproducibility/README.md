@@ -1,32 +1,31 @@
-# Lab 00 - Kiểm tra môi trường và khả năng tái lập
+# Lab 00 - Check the environment and reproducibility
 
-## Mục tiêu
+## Goal
 
-Buổi đầu chưa cần train model. Mục tiêu là tạo một điểm xuất phát đáng tin: cùng code, cùng seed và cùng môi trường phải cho cùng một báo cáo nhỏ.
+You do not need to train a model in the first session. Build a trustworthy starting point: the same code, seed, and environment should produce the same small report.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `dataset`, `sample`, `schema`, `reproducibility`, `seed`
+**New terms:** `dataset`, `sample`, `schema`, `reproducibility`, `seed`
 
-**Ôn lại:** Chưa có - đây là lab đầu tiên.
+**Review:** None - this is the first lab.
 
-**Áp dụng trong lab:** Mở `dataset` smoke, đếm từng `sample`, đối chiếu `schema`, cố định `seed` rồi chạy hai lần để kiểm `reproducibility`.
+**Use in this lab:** Open the smoke `dataset`, count its `sample` rows, check its `schema`, fix the `seed`, then run twice to test `reproducibility`.
 
-**Tự giải thích:** Dataset khác sample thế nào; schema và seed giúp reproducibility đến đâu?
+**Explain it yourself:** How is a dataset different from a sample? How far do schema and seed support reproducibility? Here, support means provide evidence for the claim.
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-01.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
+Read `roadmap/weeks/week-01.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Chạy bootstrap check, ghi Python version, dependency và hệ điều hành đang dùng.
-2. Mở JSON smoke demo; đối chiếu số hàng, dtype và seed với dữ liệu mẫu.
-3. Chạy lại từ một terminal mới, so hai báo cáo và ghi tolerance hoặc khác biệt quan sát được.
-4. Tạo learning log tuần 01, ghi một giới hạn của phép kiểm hiện tại.
+1. Run the bootstrap check. Record the Python version, dependencies, and operating system.
+2. Open the smoke-demo JSON. Compare its row count, dtypes, and seed with the sample data.
+3. Run it again from a new terminal. Compare both reports and record any tolerance or observed difference.
+4. Create the week 01 learning log. Record one limitation of this check.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 0
 ```
 
-Kết quả được lưu tại `.artifacts/lab-00-evidence.json`. Trong `result`, bạn sẽ thấy `rows`, `dtypes`, `seed`.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-00-evidence.json`. In `result`, you will see `rows`, `dtypes`, and `seed`.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Hai lần chạy cho cùng số hàng, schema và seed; khác biệt môi trường được ghi rõ.
-- Bạn giải thích được vì sao seed hỗ trợ tái lập nhưng không bảo đảm bit-identical trên mọi phần cứng.
+- Two runs have the same row count, schema, and seed. You record any environment difference.
+- You can explain why a seed supports reproducibility but does not guarantee bit-identical results on all hardware.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu import lỗi, xác nhận terminal đang dùng Python trong `.venv`, rồi chạy lại bootstrap check. Nếu hai run khác nhau, so version và input trước khi đổi code.
+If an import fails, confirm that the terminal uses Python from `.venv`, then rerun the bootstrap check. If the runs differ, compare versions and inputs before changing code.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

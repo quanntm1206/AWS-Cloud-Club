@@ -1,81 +1,81 @@
-# Tuần 11 - Interpretability và error analysis
+# Week 11 - Interpretability and error analysis
 
-## Mục tiêu tuần
+## Weekly goals
 
-Giải thích model thận trọng; phân tích subgroup/failure.
+Interpret the model with caution; subgroup/failure analysis.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Model tốt trung bình vẫn có thể tệ với một nhóm nhỏ. Error analysis biến các lỗi riêng lẻ thành việc tiếp theo có thể kiểm chứng.
+The average good model can still be bad for a small group. Error analysis turns individual errors into verifiable follow-ups.
 
-**Ví dụ gần gũi:** Accuracy chung ổn nhưng khách hợp đồng tháng có nhiều false negative; đây là tín hiệu cần xem dữ liệu hoặc threshold theo nhóm.
+**Close example:** Accuracy is generally good but monthly contract customers have many false negatives; This is a signal that requires viewing data or thresholds in groups.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Global importance mô tả trung bình; local explanation mô tả một prediction; không cái nào chứng minh causality.
-- Permutation importance bị ảnh hưởng khi feature tương quan.
-- Slice metric luôn kèm sample count để tránh kết luận từ nhóm quá nhỏ; xem chênh lệch như tín hiệu điều tra fairness, không vội kết luận nguyên nhân.
-- Khi nhãn đến muộn, theo dõi schema, missing rate, prediction distribution và feature drift trước khi có quality metric.
-- Failure taxonomy nhóm lỗi thành data quality, boundary, missing signal, label noise hoặc shift.
+- Global importance describes the average; local explanation describes a prediction; none of them prove causality.
+- Permutation importance is affected when features are correlated.
+- Slice metric always includes sample count to avoid drawing conclusions from too small a group; View the difference as a signal to investigate fairness, do not rush to conclude the cause.
+- When labels arrive late, monitor schema, missing rate, prediction distribution and feature drift before having quality metrics.
+- Failure taxonomy groups errors into data quality, boundary, missing signal, label noise or shift.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `error analysis`, `slice`, `failure taxonomy`
+**New or focus terms:** `error analysis`, `slice`, `failure taxonomy`
 
-**Ôn lại:** `metric`, `validation set`, `feature engineering`
+**Review:** `metric`, `validation set`, `feature engineering`
 
-**Áp dụng:** Chạy `error analysis` theo từng `slice`, luôn ghi sample count; tạo `failure taxonomy` từ prediction sai, liên hệ feature engineering và metric trên validation set.
+**Use:** Run `error analysis` for each `slice`, always recording sample count; Create `failure taxonomy` from wrong prediction, contact feature engineering and metrics on validation set.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Lập FP/FN counts theo region/contract.
-2. Review tối đa 20 lỗi theo sampling rule.
-3. Đề xuất một data fix và một model fix có phép kiểm.
+1. Set up FP/FN counts by region/contract.
+2. Review up to 20 errors according to sampling rule.
+3. Propose a data fix and a model fix with tests.
 
 ## Lab
 
-**lab-10:** Slice metrics và failure taxonomy. Môi trường chính: `local`.
+**lab-10:** Slice metrics and failure taxonomy. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn báo slice metric kèm sample count, phân nhóm lỗi và đề xuất một data fix cùng một model fix có phép kiểm.
+You report the slice metric with sample count, group errors and propose a data fix and a model fix with tests.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Importance khác causality?
-2. Sample Count nhỏ gây rủi ro gì?
-3. Error analysis cần dẫn tới action nào?
+1. Is importance different from causality?
+2. What risks does a small Sample Count pose?
+3. What action should error analysis lead to?
 
-## Kết quả hướng tới
+## Result oriented
 
-error analysis; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+error analysis; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Báo slice metrics kèm sample count, review lỗi theo rule và đề xuất next experiment.
-- **Mở rộng:** Thêm một subgroup-risk check hoặc một monitoring signal như missing rate/prediction distribution.
+- **Core:** Report slice metrics with sample count, review errors according to rules and suggest next experiment.
+- **Expansion:** Add a subgroup-risk check or a monitoring signal such as missing rate/prediction distribution.
 
-## Lỗi thường gặp
+## Common errors
 
-- Chọn lỗi thuận mắt.
-- Dùng explanation hợp thức hóa lỗi.
+- Choose errors that are convenient to the eye.
+- Use an explanation to validate the error.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Đừng chọn lỗi thuận mắt. Lấy mẫu theo quy tắc cố định và mô tả điều thấy trước khi giải thích nguyên nhân.
+Don't choose eye-catching errors. Take samples according to fixed rules and describe what you see before explaining the cause.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: scikit-learn permutation importance và model inspection; model-card guidance trong `docs/sources.yml`.
+Recommended sources: scikit-learn permutation importance and model inspection; model-card guidance in `docs/sources.yml`.

@@ -1,33 +1,37 @@
-# Colab Free - chạy CV mà không cần mua compute
+# Colab Free - run CV without buying compute
 
-**Kiểm chứng:** 2026-08-12 tại [Google Colab FAQ](https://research.google.com/colaboratory/faq.html).
+**Verified:** 2026-08-12 against the [Google Colab FAQ](https://research.google.com/colaboratory/faq.html).
 
-Colab Free có thể cấp GPU/TPU, nhưng loại accelerator, giới hạn sử dụng, idle timeout và tuổi thọ VM thay
-đổi theo availability và usage pattern. Roadmap luôn có `cpu-mini`, vì vậy việc không được cấp GPU không
-chặn bạn hoàn thành phần cốt lõi.
+Colab Free may provide a GPU or TPU, but accelerator types, usage limits, idle timeouts, and VM lifetimes vary
+with availability and usage patterns. The roadmap always includes `cpu-mini`, so a missing GPU will not block
+you from completing the core work.
 
-## Mở notebook
+## Open the notebook
 
-1. Tải hoặc mở [`notebooks/colab/cv_transfer_learning_colab.ipynb`](../../notebooks/colab/cv_transfer_learning_colab.ipynb).
-2. Trong Colab, dùng `File > Upload notebook`; nếu muốn giữ bản chỉnh sửa, chọn `Copy to Drive`.
-3. Chạy cell `Environment check`. Chỉ chọn `Runtime > Change runtime type > GPU` khi bạn chuẩn bị train.
-4. Chạy từ trên xuống với `cpu-mini`; sau đó mới thử `gpu-free` nếu accelerator có sẵn.
-5. Sau mỗi epoch, xác nhận checkpoint được cập nhật. Tải `artifacts.zip` về máy sau run.
-6. Chọn `Runtime > Disconnect and delete runtime` khi xong.
+1. Download or open [`notebooks/colab/cv_transfer_learning_colab.ipynb`](../../notebooks/colab/cv_transfer_learning_colab.ipynb).
+2. In Colab, select `File > Upload notebook`. To keep your edits, select `Copy to Drive`.
+3. Run the `Environment check` cell. Select `Runtime > Change runtime type > GPU` only when you are ready to train.
+4. Run the notebook from top to bottom with `cpu-mini`. Try `gpu-free` later if an accelerator is available.
+5. After each epoch, confirm that the checkpoint was updated. Download `artifacts.zip` after the run.
+6. Select `Runtime > Disconnect and delete runtime` when you finish.
 
-## Khi runtime bị ngắt
+## If the runtime stops
 
-Runtime không phải ổ lưu trữ bền vững. Tạo checkpoint mỗi epoch và download artifact sớm. Khi mở phiên mới,
-chạy lại environment/config, upload checkpoint, kiểm cùng architecture/label mapping rồi resume. Nếu chỉ có
-weights, gọi đó là inference checkpoint; không khẳng định optimizer đã được khôi phục.
+A runtime is not permanent storage. Create a checkpoint after every epoch and download artifacts early. In a
+new session, rerun the environment and configuration sections, upload the checkpoint, confirm the same
+architecture and label mapping, then resume. If you only have weights, call the file an inference checkpoint;
+do not claim that the optimizer state was restored.
 
-## Khắc phục nhanh
+## Quick fixes
 
-- `torch.cuda.is_available()` là `False`: dùng CPU-mini hoặc thử lại lúc khác; không mua Colab Pro cho roadmap.
-- CIFAR10 tải lỗi: dùng FakeData fallback để smoke, ghi limitation, không dùng accuracy để kết luận.
-- Pretrained weights tải lỗi: random-weight fallback chỉ kiểm code; chưa đạt gate transfer learning.
-- `CUDA out of memory`: restart runtime rồi giảm batch size/image size/sample count.
-- Cài package xong vẫn import lỗi: restart runtime một lần và chạy lại từ environment check.
-- Không thấy file: kiểm panel Files; download trước khi `Disconnect and delete runtime`.
+- `torch.cuda.is_available()` is `False`: use CPU-mini or try again later. Do not buy Colab Pro for this roadmap.
+- CIFAR10 download fails: use the FakeData fallback for a smoke test, record the limitation, and do not use its
+  accuracy to support a quality claim.
+- Pretrained weights do not download: the random-weight fallback only checks the code. It does not pass the
+  transfer-learning gate.
+- `CUDA out of memory`: restart the runtime, then reduce the batch size, image size, or sample count.
+- Imports still fail after installation: restart the runtime once, then rerun from the environment check.
+- A file is missing: check the Files panel and download your output before `Disconnect and delete runtime`.
 
-Không dùng SSH/remote desktop, background service hoặc nhiều account để lách quota. Không lưu token trong cell.
+Do not use SSH, remote desktop, background services, or multiple accounts to bypass quotas. Never store a token
+in a cell.

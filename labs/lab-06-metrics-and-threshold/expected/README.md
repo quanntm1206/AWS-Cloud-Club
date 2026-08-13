@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-06-metrics-and-threshold
+# Reference result - lab-06-metrics-and-threshold
 
 ## Oracle
 
-Viết rule chọn threshold trước khi xem test; so ít nhất ba threshold.
+Write the threshold rule before viewing the test set. Compare at least three thresholds.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 6` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy validation threshold/F1/PR-AUC, FP/FN cost và test metrics.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 6` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for the validation threshold, F1, PR-AUC, FP/FN cost, and test metrics.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Receipt ghi class imbalance, metric, threshold chọn trên validation set; test set không dùng chỉnh quyết định.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The receipt records class imbalance, the metric, and the threshold selected on the validation set. The test set does not tune the decision.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu chưa hiểu AUC, quay về confusion matrix và số lượng FP/FN ở từng threshold.
+If AUC is unclear, return to the confusion matrix and FP/FN counts at each threshold.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

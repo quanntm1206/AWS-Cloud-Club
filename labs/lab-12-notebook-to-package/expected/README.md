@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-12-notebook-to-package
+# Reference result - lab-12-notebook-to-package
 
 ## Oracle
 
-Chạy từ clean shell; notebook chỉ gọi package, không chứa bản sao training logic.
+Run from a clean shell. The notebook calls the package and does not copy training logic.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 12` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy danh sách config keys và `notebook_state_required=false`.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 12` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for the config key list and `notebook_state_required=false`.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Package/CLI dùng configuration rõ; cùng config tạo output tương đương; notebook không giữ logic ẩn.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The package and CLI use clear configuration. The same config gives equivalent output, and the notebook keeps no hidden logic.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu chỉ notebook chạy, tìm global state, working directory và cell chạy sai thứ tự.
+If only the notebook runs, look for global state, the working directory, and cells executed out of order.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

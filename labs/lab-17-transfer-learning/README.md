@@ -1,32 +1,31 @@
-# Lab 17 - Chạy transfer learning thật trên free runtime
+# Lab 17 - Run real transfer learning on free compute
 
-## Mục tiêu
+## Goal
 
-Smoke local chỉ minh họa layer nào được freeze. Bài chính là notebook PyTorch thật: dùng pretrained backbone như bộ trích đặc trưng và chỉ train classifier head.
+The local smoke demo only shows which layers are frozen. The main exercise is a real PyTorch notebook: use a pretrained backbone as a feature extractor and train only the classifier head.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `augmentation`, `backbone`, `checkpoint`, `freeze`, `transfer learning`
+**New terms:** `augmentation`, `backbone`, `checkpoint`, `freeze`, `transfer learning`
 
-**Ôn lại:** `tensor`, `batch`, `epoch`, `device`, `overfitting`
+**Review:** `tensor`, `batch`, `epoch`, `device`, `overfitting`
 
-**Áp dụng trong lab:** Dùng `augmentation` chỉ cho training `batch`, giữ validation transform deterministic; tải `backbone` pretrained lên đúng `device`, `freeze` parameter rồi chạy `transfer learning` trên tensor, lưu `checkpoint`, theo dõi epoch/loss để phát hiện overfitting.
+**Use in this lab:** Apply `augmentation` only to each training `batch` and keep validation transforms deterministic. Load the pretrained `backbone` on the correct `device`, `freeze` its parameters, run `transfer learning` on tensors, save a `checkpoint`, and track epoch and loss for overfitting.
 
-**Tự giải thích:** Augmentation khác preprocessing deterministic thế nào; freeze backbone giúp gì?
+**Explain it yourself:** How is augmentation different from deterministic preprocessing? What does freezing the backbone achieve?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-18.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+Read `roadmap/weeks/week-18.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Chạy local smoke, giải thích `requires_grad` của backbone và head.
-2. Chọn một notebook Colab hoặc Kaggle; chạy `cpu-mini` từ đầu và xác nhận pretrained weights đã tải.
-3. Xác nhận pretrained normalization, frozen parameters và trainable head.
-4. Nếu GPU miễn phí có sẵn, chạy `gpu-free`; export checkpoint, metrics và manifest.
+1. Run the local smoke demo. Explain `requires_grad` for the backbone and head.
+2. Choose one Colab or Kaggle notebook. Run `cpu-mini` from the start and confirm that pretrained weights load.
+3. Confirm pretrained normalization, frozen parameters, and a trainable head.
+4. If a free GPU is available, run `gpu-free`. Export the checkpoint, metrics, and manifest.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,29 +39,27 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 17
 ```
 
-Kết quả được lưu tại `.artifacts/lab-17-evidence.json`. Trong `result`, bạn sẽ thấy smoke dict về frozen layers; notebook thật xuất checkpoint và metrics.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-17-evidence.json`. In `result`, you will see a smoke dictionary of frozen layers; the real notebook exports a checkpoint and metrics.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
 
-## Bài thực hành đầy đủ trên PyTorch
+## Complete exercise in PyTorch
 
-Command local ở trên chỉ là smoke demo nhanh. Phần training/evaluation thật nằm trong notebook:
+The local command is only a quick smoke demo. Real training and evaluation are in these notebooks:
 
 - Colab: [`notebooks/colab/cv_transfer_learning_colab.ipynb`](../../notebooks/colab/cv_transfer_learning_colab.ipynb)
 - Kaggle: [`notebooks/kaggle/cv_transfer_learning_kaggle.ipynb`](../../notebooks/kaggle/cv_transfer_learning_kaggle.ipynb)
 
-Chọn **một** nền tảng. Chạy `cpu-mini` trước; chỉ chuyển sang `gpu-free` khi accelerator có sẵn. Tải
-`artifacts.zip` về máy trước khi kết thúc session.
+Choose **one** platform. Run `cpu-mini` first and move to `gpu-free` only when an accelerator is available. Download `artifacts.zip` before the session ends.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Smoke output chỉ head trainable; notebook thật hoàn tất ít nhất CPU-mini và xuất artifact local.
-- Nếu dùng FakeData, kết quả được gọi là pipeline smoke, không phải model quality.
-- Nếu notebook phải dùng random weights, kết quả chỉ là execution smoke và chưa đạt gate transfer learning.
+- Only the head is trainable in the smoke output. The real notebook completes at least CPU-mini and exports a local artifact.
+- If you use FakeData, call the result a pipeline smoke test, not model quality.
+- If the notebook uses random weights, the result is only an execution smoke test and does not pass the transfer-learning gate.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu data không tải, dùng FakeData fallback và ghi limitation. Nếu pretrained weights không tải, chỉ kiểm luồng
-chạy rồi thử lại khi có internet/cache. Nếu loss không đổi, kiểm trainable parameters, optimizer và normalization.
+If data cannot download, use the FakeData fallback and record the limitation. If pretrained weights cannot download, check only the execution path and retry later with internet or cache. If loss does not change, check trainable parameters, the optimizer, and normalization.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

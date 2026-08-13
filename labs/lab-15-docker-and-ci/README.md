@@ -1,32 +1,31 @@
-# Lab 15 - Đóng gói service và chạy CI smoke
+# Lab 15 - Package the service and run a CI smoke test
 
-## Mục tiêu
+## Goal
 
-Container giúp runtime nhất quán, nhưng một image build thành công chưa chứng minh service an toàn. Bạn sẽ kiểm user, health, predict và cleanup container.
+A container makes the runtime consistent, but a successful image build does not prove that the service is safe. Check the user, health endpoint, prediction path, and container cleanup.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `container`, `CI`
+**New terms:** `container`, `CI`
 
-**Ôn lại:** `API contract`, `artifact`, `reproducibility`, `latency`
+**Review:** `API contract`, `artifact`, `reproducibility`, `latency`
 
-**Áp dụng trong lab:** Đóng package/API contract vào `container`, dùng `CI` chạy data validation, parity và test artifact; đo latency nhỏ rồi cleanup container để giữ reproducibility.
+**Use in this lab:** Package the service and API contract in a `container`. Use `CI` for data validation, parity, and artifact tests. Measure a small latency sample, then clean up the container to preserve reproducibility.
 
-**Tự giải thích:** Container và CI giúp reproducibility ở phần nào nhưng không thay thế test nào?
+**Explain it yourself:** Which parts of reproducibility do containers and CI improve, and which tests do they not replace?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-16.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+Read `roadmap/weeks/week-16.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Chạy smoke demo Python để xem contract Docker/CI tĩnh.
-2. Build image, chạy `id` và xác nhận process không dùng root.
-3. Start container; gọi `/health`, payload valid/invalid `/predict`, rồi đọc logs.
-4. Stop container kể cả khi smoke lỗi; kiểm CI chỉ chạy offline checks, không deploy AWS.
+1. Run the Python smoke demo to inspect the static Docker and CI contract.
+2. Build the image, run `id`, and confirm that the process is not root.
+3. Start the container. Call `/health` and `/predict` with valid and invalid payloads, then read the logs.
+4. Stop the container even when the smoke test fails. Confirm that CI runs offline checks and does not deploy to AWS.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,24 +39,13 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 15
 ```
 
-Kết quả được lưu tại `.artifacts/lab-15-evidence.json`. Trong `result`, bạn sẽ thấy non-root user, health/predict smoke và CI không deploy AWS.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
-
-## Khi nào xem như hoàn thành?
-
-- Có evidence build/run/non-root/health/predict/log/stop; container không còn chạy nền.
-- Health degraded và predict 503 khi thiếu artifact; mount read-only giúp `model_loaded=true`.
-
-## Khi mắc kẹt
-
-Đọc build log đầu tiên, kiểm `.dockerignore` và build context. Nếu service lỗi, xem `docker logs` trước rồi vẫn `docker stop`.
-
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+The result is saved to `.artifacts/lab-15-evidence.json`. In `result`, you will see the non-root user, health and prediction smoke checks, and confirmation that CI does not deploy to AWS.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
 
-## Docker smoke thật
+## Run the real Docker smoke test
 
-Smoke demo Python chỉ kiểm contract tĩnh. Phần dưới cần Docker Desktop/Engine đang chạy:
+The Python smoke demo checks only the static contract. The commands below require Docker Desktop or Docker Engine:
 
 ```powershell
 docker build -t ml-roadmap:lab15 .
@@ -70,6 +58,15 @@ docker logs ml-roadmap-lab15
 docker stop ml-roadmap-lab15
 ```
 
-`id` phải cho thấy user khác root. Khi chưa mount artifact, health trả `degraded` và predict trả `503` an
-toàn. Với artifact local, mount thư mục read-only, đặt `ML_ROADMAP_ARTIFACT_DIR=/artifacts`, rồi kiểm
-`model_loaded=true`. Nếu một bước lỗi, vẫn chạy `docker logs` và `docker stop`; không để container chạy nền.
+`id` must show a non-root user. Without a mounted artifact, health returns `degraded` and prediction safely returns `503`. With a local artifact, mount its directory as read-only, set `ML_ROADMAP_ARTIFACT_DIR=/artifacts`, then check `model_loaded=true`. If any step fails, still run `docker logs` and `docker stop`; do not leave the container running.
+
+## When you are done
+
+- The evidence covers build, run, non-root, health, prediction, logs, and stop. No container remains running.
+- Health is degraded and prediction returns 503 when the artifact is missing. A read-only mount allows `model_loaded=true`.
+
+## When you get stuck
+
+Read the first build error, then check `.dockerignore` and the build context. If the service fails, read `docker logs` and still run `docker stop`.
+
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

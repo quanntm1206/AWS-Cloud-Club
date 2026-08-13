@@ -1,36 +1,36 @@
-# Mốc năng lực 03 - Tuần 12
+# Competency milestone 03 - Week 12
 
-## Mục tiêu
+## Target
 
-Tự đánh giá một dự án tabular hoàn chỉnh, từ dữ liệu đến phân tích lỗi.
+Evaluate a complete tabular project yourself, from data to error analysis.
 
-## Bạn đã đạt mốc nếu
+## You have reached the if mark
 
-- Pipeline xử lý schema, missing/category và model trong cùng contract chống leakage.
-- Baseline và các candidate dùng cùng split, seed, metric và runtime budget.
-- Feature engineering có giả thuyết; ablation chỉ thay một quyết định mỗi lần.
-- Error analysis dẫn tới hành động tiếp theo, đồng thời nêu subgroup hoặc failure mode còn yếu.
+- Pipeline handles schema, missing/category and model in the same contract to prevent leakage.
+- Baseline and candidates use the same split, seed, metric and runtime budget.
+- Feature engineering has a hypothesis; ablation only changes one decision at a time.
+- Error analysis leads to the next action, and also indicates that the subgroup or failure mode is weak.
 
-## Minh chứng đạt mốc
+## Proof of reaching the milestone
 
-- Data/model card ngắn, split manifest, pipeline config và reproduction command lưu cục bộ.
-- Bảng baseline/candidate/ablation, gồm cả một kết quả âm có ý nghĩa.
-- Metric tổng, metric subgroup phù hợp và danh sách failure cases đã phân nhóm.
-- Artifact manifest cùng test schema, prediction parity hoặc invariant quan trọng.
+- Short data/model card, split manifest, pipeline config and reproduction command saved locally.
+- Baseline/candidate/ablation table, including a significant negative result.
+- Total metric, appropriate subgroup metric and list of grouped failure cases.
+- Artifact manifest with test schema, prediction parity or important invariant.
 
 ## Rubric
 
-| Tiêu chí | Điểm |
+| Criteria | Score |
 |---|---:|
-| Pipeline và data contract | 30 |
-| Baseline và thí nghiệm có kiểm soát | 25 |
+| Pipelines and data contracts | 30 |
+| Baseline and controlled experiments | 25 |
 | Error analysis | 25 |
-| Tái lập và giao tiếp | 20 |
+| Reconstruction and communication | 20 |
 
-Điểm đạt: 70/100. Gate: không leakage, không secret, mini run tái lập; test cuối không bị dùng để sửa quyết định.
+Passing score: 70/100. Gate: no leakage, no secret, mini run re-established; The final test cannot be used to correct the decision.
 
-## Câu hỏi tự nhìn lại
+## Self-reflection question
 
-- Candidate tốt hơn baseline vì tín hiệu thật hay vì quy trình đánh giá thay đổi?
-- Failure cluster nào đáng xử lý trước, dựa trên tác động nào?
-- Nếu có thêm hai giờ, thí nghiệm nhỏ nhất giúp giảm bất định là gì?
+- Candidate is better than baseline because of real signals or because the evaluation process has changed?
+- Which failure cluster is worth addressing first, based on what impact?
+- If there were two more hours, what would be the smallest experiment that would reduce uncertainty?

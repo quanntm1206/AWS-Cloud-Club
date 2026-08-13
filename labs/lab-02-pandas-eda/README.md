@@ -1,32 +1,31 @@
-# Lab 02 - Lập hồ sơ chất lượng dữ liệu trước khi vẽ biểu đồ
+# Lab 02 - Profile data quality before plotting
 
-## Mục tiêu
+## Goal
 
-EDA tốt bắt đầu bằng câu hỏi “mỗi hàng có đáng tin không?”, không phải “vẽ biểu đồ nào đẹp?”. Bạn sẽ tạo một bản kiểm kê đủ để quyết định dữ liệu cần sửa gì trước modeling.
+Good EDA begins with 'Can I trust each row?', not 'Which chart looks best?'. Create an inventory that is detailed enough to decide what the data needs before modeling.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `data validation`, `EDA`, `missing value`, `outlier`
+**New terms:** `data validation`, `EDA`, `missing value`, `outlier`
 
-**Ôn lại:** `dataset`, `sample`, `feature`, `label / target`
+**Review:** `dataset`, `sample`, `feature`, `label / target`
 
-**Áp dụng trong lab:** Chạy `data validation` trên `dataset`: kiểm `schema`, `missing value`, `outlier`; dùng EDA mô tả feature và label / target ở cấp sample.
+**Use in this lab:** Run `data validation` on the `dataset`: check its schema, each `missing value`, and each `outlier`. Use `EDA` to describe each `feature`, the `label / target`, and the `sample` count.
 
-**Tự giải thích:** Data validation khác EDA thế nào; vì sao outlier chưa chắc là lỗi?
+**Explain it yourself:** How is data validation different from EDA? Why is an outlier not always an error?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-03.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
+Read `roadmap/weeks/week-03.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Lập bảng schema, missing, duplicate, range và phân bố target.
-2. Chọn một khóa nghiệp vụ, kiểm hàng trùng và mô tả hậu quả nếu để nguyên.
-3. So churn rate tổng thể với ít nhất một nhóm; tách quan sát khỏi lời giải thích.
-4. Viết ba ghi chú theo mẫu evidence - hypothesis - next check.
+1. Create a table of schema, missing values, duplicates, ranges, and target distribution.
+2. Choose one business key. Check duplicate rows and describe the impact of keeping them.
+3. Compare the overall churn rate with at least one group. Separate observations from explanations.
+4. Write three notes in this form: evidence - hypothesis - next check.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 2
 ```
 
-Kết quả được lưu tại `.artifacts/lab-02-evidence.json`. Trong `result`, bạn sẽ thấy missing count, duplicate count, churn rate và mean theo target.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-02-evidence.json`. In `result`, you will see the missing count, duplicate count, churn rate, and mean by target.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Báo cáo có missing count, duplicate count, target rate và một so sánh theo nhóm.
-- Không xóa outlier/missing chỉ vì biểu đồ; mọi quyết định cleaning có lý do và tác động dự kiến.
+- The report includes missing count, duplicate count, target rate, and one group comparison.
+- You do not remove an outlier or missing value just because of a chart. Every cleaning decision has a reason and an expected impact.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Quay về năm câu hỏi: một hàng là gì, key là gì, target là gì, giá trị nào không thể có, dữ liệu được ghi vào lúc nào.
+Return to five questions: What is one row? What is the key? What is the target? Which values are impossible? When was the data recorded?
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

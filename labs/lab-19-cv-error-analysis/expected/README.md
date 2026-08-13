@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-19-cv-error-analysis
+# Reference result - lab-19-cv-error-analysis
 
 ## Oracle
 
-Dùng output notebook thật để tạo confusion matrix, review tối đa 20 lỗi và ghi limitation.
+Use real notebook output to create the confusion matrix, review no more than 20 errors, and record a limitation.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 19` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy per-class metrics và failure records.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 19` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for per-class metrics and failure records.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Receipt có confusion matrix, support, macro average, weighted average; failure taxonomy nối sample ảnh thật và limitation.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The receipt includes the confusion matrix, support, macro average, and weighted average. The failure taxonomy connects real image samples to a limitation.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu có ít lỗi, lấy toàn bộ; nếu ảnh nhạy cảm, chỉ lưu ID và mô tả an toàn.
+If there are few errors, use all of them. For sensitive images, store only an ID and a safe description.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

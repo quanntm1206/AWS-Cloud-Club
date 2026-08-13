@@ -1,81 +1,81 @@
-# Tuần 08 - Cross-validation và learning curve
+# Week 08 - Cross-validation and learning curve
 
-## Mục tiêu tuần
+## Weekly goals
 
-Dùng cross-validation và learning curve.
+Use cross-validation and learning curves.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Một lần chia dữ liệu có thể may hoặc rủi. Cross-validation giúp bạn thấy model ổn định đến đâu, còn learning curve gợi ý nên thêm dữ liệu hay đổi cách học.
+A data split can be lucky or unlucky. Cross-validation helps you see how stable the model is, while the learning curve suggests whether you should add more data or change the way you learn.
 
-**Ví dụ gần gũi:** Mean CV giống điểm trung bình; độ lệch giữa các fold cho biết kết quả phụ thuộc mạnh đến mức nào vào cách chia.
+**Close example:** Mean CV is the same as GPA; The difference between folds indicates how strongly the result depends on the division.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Cross-validation ước lượng biến thiên qua nhiều fold; báo từng score, mean, std và runtime.
-- StratifiedKFold cho classification độc lập; GroupKFold/time split cho entity/time.
-- Transform phải nằm trong pipeline để fit lại bên trong từng fold.
-- Learning curve so train/validation theo lượng data: cùng thấp gợi ý underfitting/high bias; train cao nhưng validation thấp gợi ý overfitting/high variance.
-- Fold score là mẫu hữu hạn, không phải sự thật tuyệt đối; luôn báo độ phân tán và tránh kết luận mạnh từ chênh lệch nhỏ.
+- Cross-validation estimates variation over many folds; Report each score, mean, std and runtime.
+- StratifiedKFold for independent classification; GroupKFold/time split for entity/time.
+- Transform must be in the pipeline to fit inside each fold.
+- Learning curve compared to training/validation according to amount of data: both low suggests underfitting/high bias; High training but low validation suggests overfitting/high variance.
+- Fold score is a finite sample, not an absolute truth; Always report dispersion and avoid drawing strong conclusions from small differences.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `cross-validation`, `fold`, `overfitting`, `bias / variance`
+**New or focus terms:** `cross-validation`, `fold`, `overfitting`, `bias / variance`
 
-**Ôn lại:** `data split`, `pipeline`, `metric`
+**Review:** `data split`, `pipeline`, `metric`
 
-**Áp dụng:** Đặt toàn bộ pipeline trong `cross-validation`; đọc từng `fold`, mean/std và learning curve để phân biệt overfitting với bias / variance; giữ metric và data split nhất quán.
+**Use:** Put the entire pipeline in `cross-validation`; read each `fold`, mean/std and learning curve to distinguish overfitting from bias / variance; keep metrics and data splits consistent.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Chạy 3-fold CV fixed seed.
-2. So pipeline đúng với preprocessing ngoài CV.
-3. Vẽ learning curve ba train sizes.
+1. Run 3-fold CV fixed seed.
+2. Compare pipeline correctly with preprocessing outside CV.
+3. Draw the learning curve three train sizes.
 
 ## Lab
 
-**lab-07:** Evaluation harness có mean/std/runtime. Môi trường chính: `local`.
+**lab-07:** Evaluation harness has mean/std/runtime. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn báo từng fold, mean, std, runtime và biết chọn split theo entity hoặc thời gian khi cần.
+You report each fold, mean, std, runtime and know how to split by entity or time when needed.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Std giữa fold lớn gợi ý gì?
-2. CV có thay final test không?
-3. Shuffle time series sai vì sao?
+1. What does the big mid-fold std suggest?
+2. Does CV replace final test?
+3. Why is the Shuffle time series wrong?
 
-## Kết quả hướng tới
+## Result oriented
 
-mốc năng lực 2; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+competency milestone 2; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Chạy 3-fold CV cùng pipeline; báo từng fold, mean, std và learning curve.
-- **Mở rộng:** So StratifiedKFold với GroupKFold trên một grouping giả định; không tăng fold chỉ để có thêm số.
+- **Core:** Run 3-fold CV with pipeline; Report each fold, mean, std and learning curve.
+- **Extension:** Compare StratifiedKFold with GroupKFold on a hypothetical grouping; Don't increase folds just to get more numbers.
 
-## Lỗi thường gặp
+## Common errors
 
-- Tune rồi báo cùng CV như final test.
-- Dùng nhiều fold nhưng không thêm insight.
+- Tune and report with CV as final test.
+- Use many folds but do not add insight.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Giảm còn 3 fold và mini data. Nếu score dao động, kiểm class/group theo fold trước khi tune model.
+Reduced to 3 folds and mini data. If the score fluctuates, check the class/group by fold before tuning the model.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: scikit-learn cross-validation và learning curve documentation.
+Recommended sources: scikit-learn cross-validation and learning curve documentation.

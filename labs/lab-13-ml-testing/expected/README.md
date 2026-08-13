@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-13-ml-testing
+# Reference result - lab-13-ml-testing
 
 ## Oracle
 
-Thêm kiểm tra missing column, wrong dtype, unseen category và artifact hỏng.
+Add checks for a missing column, wrong dtype, unseen category, and damaged artifact.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 13` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy `artifact_reload_parity=true` cùng negative cases tự bổ sung.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 13` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for `artifact_reload_parity=true` and your added negative cases.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Data contract chặn schema lỗi; artifact reload parity đạt tolerance; negative test có lỗi chủ đích.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The data contract rejects an invalid schema. Artifact reload parity meets the tolerance, and negative tests produce intentional errors.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Dùng synthetic data nhỏ; tránh assert exact metric khi randomness chưa được khóa.
+Use small synthetic data. Avoid exact metric assertions while randomness remains unlocked.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

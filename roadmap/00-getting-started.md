@@ -1,24 +1,24 @@
-# Bắt đầu roadmap
+# Start roadmap
 
-Bạn không cần chuẩn bị một chiếc máy mạnh. Nếu đã quen với biến, hàm, vòng lặp và cấu trúc dữ liệu, bạn có
-đủ nền để bắt đầu. Toán sẽ được học đúng lúc nó xuất hiện trong bài, thay vì trở thành một cánh cửa phải vượt
-qua trước.
+You don't need to prepare a powerful machine. If you're familiar with variables, functions, loops, and data structures, you have it
+enough background to get started. Math will be learned right when it appears in the lesson, instead of becoming a door to overcome
+pass first.
 
-## Trước buổi học đầu tiên
+## Before the first class
 
-- Python 3.11-3.13; máy có tối thiểu 8 GB RAM. CPU đủ cho đường học cốt lõi.
-- Biết chạy lệnh trong terminal và đọc một lỗi Python cơ bản. Git chỉ cần ở mức clone.
-- Không cần tài khoản AWS, Colab hoặc Kaggle trước tuần 17.
+- Python 3.11-3.13; The device has at least 8 GB of RAM. The CPU is enough for the core learning curve.
+- Know how to run commands in the terminal and read a basic Python error. Git only needs to be at the clone level.
+- No need for an AWS, Colab or Kaggle account before week 17.
 
-GitHub chỉ dùng để clone/download repo mẫu do chủ repo phát hành. Người học không fork, không commit/push,
-không tạo PR và không nộp bài.
+GitHub is only used to clone/download sample repos released by the repo owner. Learners do not fork, do not commit/push,
+do not create PR and do not submit work.
 
 ```text
 git clone https://github.com/quanntm1206/AWS-Cloud-Club.git
 cd AWS-Cloud-Club
 ```
 
-Chọn đúng lệnh cho hệ điều hành:
+Choose the correct command for the operating system:
 
 ```powershell
 pwsh scripts/setup.ps1 -Profile core
@@ -32,55 +32,55 @@ bash scripts/check.sh --scope bootstrap
 .venv/bin/python scripts/run_lab.py --lab 0
 ```
 
-Nếu lệnh cuối in đường dẫn `.artifacts/lab-00-evidence.json`, môi trường mẫu đã chạy. Đây chỉ là smoke demo;
-bạn vẫn cần đọc [lab 00](../labs/lab-00-environment-and-reproducibility/README.md) để hiểu và tự kiểm tra kết quả.
+If the last command prints the path `.artifacts/lab-00-evidence.json`, the sample environment is already running. This is just a smoke demo;
+You still need to read [lab 00](../labs/lab-00-environment-and-reproducibility/README.md) to understand and check the results yourself.
 
-## Nhịp học gợi ý
+## Suggested learning rhythm
 
-- 2 giờ đọc và tự giải thích lại bằng lời của mình.
-- 2 giờ thực hành có hướng dẫn.
-- 3-4 giờ làm lab và quan sát lỗi.
-- 1 giờ tự kiểm tra; 1 giờ ghi learning log hoặc hoàn thiện.
+- 2 hours of reading and explaining in your own words.
+- 2 hours of guided practice.
+- 3-4 hours of lab work and error observation.
+- 1 hour self-test; 1 hour of learning log recording or completion.
 
-Phần `Stretch` không tính vào 8-10 giờ. Bận một tuần? Giữ bài đọc cốt lõi, chạy mini profile và ghi lại một
-điều đã hiểu; chuyển phần mở rộng sang tuần sau.
+The `Stretch` section does not count towards 8-10 hours. Busy for a week? Keep core readings, run mini profile and record one
+what is understood; Move the extension to next week.
 
-## Bốn thói quen nên giữ
+## Four habits you should keep
 
-1. Chạy baseline trước model phức tạp; nếu baseline chưa rõ, model phức tạp chỉ làm lỗi khó thấy hơn.
-2. Chia dữ liệu trước mọi phép biến đổi có học trạng thái từ dữ liệu.
-3. Ghi config, seed, metric, runtime và cả kết quả không như mong đợi.
-4. Với AWS, chỉ đánh dấu xong sau cleanup và residual scan. Không mua Colab/Kaggle hoặc nâng cấp AWS Paid
-   Plan chỉ để hoàn thành phần bắt buộc.
+1. Run baseline before complex models; If the baseline is not clear, a complex model will only make errors harder to see.
+2. Split the data before any transformation that learns the state from the data.
+3. Record config, seed, metrics, runtime and even unexpected results.
+4. With AWS, only mark done after cleanup and residual scan. Do not purchase Colab/Kaggle or AWS Paid upgrades
+   Plan is just to complete the required part.
 
-## Cách học thuật ngữ
+## How to learn terminology
 
-Không cần đọc thuộc glossary trước tuần 01. Trong mỗi lab, đi theo bốn dòng `Thuật ngữ mới`, `Ôn lại`,
-`Áp dụng trong lab`, `Tự giải thích`. Khi ghi learning log, chọn ít nhất một từ mới và một từ ôn lại, nối chúng
-với command, metric hoặc lỗi bạn vừa quan sát. Nếu chỉ chép định nghĩa mà chưa chỉ ra nó xuất hiện ở đâu trong
-lab, hãy xem khái niệm đó chưa thật sự vững.
+There is no need to recite the glossary before week 01. In each lab, follow the four lines `New Terminology`, `Review`,
+`Lab Applicable`, `Self-explanatory`. When recording your learning log, choose at least one new word and one review word and connect them
+with the command, metric or error you just observed. If you just copy the definition without indicating where it appears in the text
+lab, let's see if that concept is not really solid.
 
-## Bạn sẽ lưu gì?
+## What will you save?
 
-Tạo một thư mục cục bộ thuận tiện cho learning log, ghi chú, biểu đồ và artifact. Mỗi tuần giữ lại:
+Create a convenient local folder for learning logs, notes, charts, and artifacts. Each week keep:
 
-- command đã chạy và môi trường;
-- metric hoặc kiểm tra quan trọng nhất;
-- một lỗi đã gặp, nguyên nhân và cách sửa;
-- một điều còn chưa chắc;
-- quyết định sẽ giữ hoặc thay đổi ở lần chạy sau.
+- command was run and environment;
+- most important metric or test;
+- an error encountered, the cause and how to fix it;
+- one thing is still uncertain;
+- Decide whether to keep or change in the next run.
 
-Dùng [`learning-log-template.md`](learning-log-template.md) nếu chưa biết bắt đầu ghi từ đâu. Không gửi các
-file này cho ai; chúng là nhật ký giúp bạn thấy chính mình tiến bộ.
+Use [`learning-log-template.md`](learning-log-template.md) if you don't know where to start recording. Do not send these
+Who is this file for? they are journals that help you see yourself progress.
 
-## Khi lệnh không chạy
+## When the command does not run
 
-1. Xác nhận đang đứng ở repository root và virtual environment đã được tạo.
-2. Đọc lỗi đầu tiên, không chỉ dòng cuối; kiểm Python version và dependency.
-3. Chạy lại `scripts/check` với scope `bootstrap`.
-4. Nếu lỗi do GPU, internet hoặc quota, quay về local/`cpu-mini`; không cần trả phí.
-5. Chưa giải quyết được thì ghi command, lỗi và điều đã thử vào learning log trước khi hỏi trợ giúp.
+1. Confirm you are at the root repository and the virtual environment has been created.
+2. Read the error first, not just the last line; Check Python version and dependencies.
+3. Run `scripts/check` again with the scope `bootstrap`.
+4. If the error is due to GPU, internet or quota, return to local/`cpu-mini`; no need to pay fees.
+5. If you can't solve the problem, write down the commands, errors, and things you tried in the learning log before asking for help.
 
-Bây giờ mở [Tuần 01](weeks/week-01.md). Không cần đọc trước cả 24 tuần.
+Now open [Week 01](weeks/week-01.md). No need to read 24 weeks in advance.
 
-Khi hoàn thành tuần 24, mở [`sau-24-tuan.md`](sau-24-tuan.md) để chọn một hướng đào sâu trong 90 ngày tiếp theo.
+When completing week 24, open [`sau-24-tuan.md`](sau-24-tuan.md) to choose a direction to deepen for the next 90 days.

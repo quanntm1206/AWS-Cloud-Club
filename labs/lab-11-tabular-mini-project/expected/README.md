@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-11-tabular-mini-project
+# Reference result - lab-11-tabular-mini-project
 
 ## Oracle
 
-Train, save, load ở process mới; hoàn thiện experiment report và model card cục bộ.
+Train, save, and load in a new process. Complete the local experiment report and model card.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 11` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy metrics và artifact contract.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 11` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for metrics and the artifact contract.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Manifest liệt kê artifact/checksum/config; inference sau load giữ output; mini-project ghi limitation.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The manifest lists the artifact, checksum, and config. Inference after loading preserves the output, and the mini-project records a limitation.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu reproduction sai, so config, feature order, threshold và dependency trước.
+If reproduction differs, compare config, feature order, threshold, and dependencies first.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

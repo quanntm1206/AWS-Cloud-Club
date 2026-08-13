@@ -1,80 +1,80 @@
-# Tuần 15 - Inference API và contracts
+# Week 15 - Inference API and contracts
 
-## Mục tiêu tuần
+## Weekly goals
 
-Thiết kế inference contract và error boundary.
+Design inference contract and error boundary.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Inference API là ranh giới giữa model và sản phẩm. Contract tốt giúp lỗi của client, lỗi artifact và giới hạn vận hành được xử lý khác nhau.
+Inference API is the boundary between model and product. Good contracts help client errors, artifact errors, and operational limitations be handled differently.
 
-**Ví dụ gần gũi:** Payload thiếu cột nên trả 422; model chưa load là lỗi dịch vụ 503, không phải lỗi người gọi.
+**Close example:** Payload is missing a column so returns 422; Model not loaded is a 503 service error, not a caller error.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Inference contract khóa request/response schema, model version, threshold, error codes và limits.
-- Validation lỗi client trả 4xx; artifact/service failure trả 5xx, chi tiết nội bộ chỉ vào log an toàn.
-- Health/readiness không train; predict dùng đúng preprocessing artifact và không nhận target.
-- Input Group/payload/timeout limits là guardrail; không log raw sensitive features.
+- Inference contract locks request/response schema, model version, threshold, error codes and limits.
+- Validation error, client returns 4xx; artifact/service failure pays 5xx, internal details point to safe log.
+- Health/readiness does not train; predict uses the correct preprocessing artifact and does not recognize the target.
+- Input Group/payload/timeout limits are guardrail; do not log raw sensitive features.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `API contract`, `latency`
+**New or focus terms:** `API contract`, `latency`
 
-**Ôn lại:** `data contract`, `artifact`, `inference`, `schema`
+**Review:** `data contract`, `artifact`, `inference`, `schema`
 
-**Áp dụng:** Định nghĩa `API contract`, đo `latency`, gửi sample hợp lệ/sai qua inference; data contract chặn schema lỗi trước artifact và response không lộ raw feature.
+**Use:** Define `API contract`, measure `latency`, send valid/incorrect samples via inference; The data contract prevents schema errors before artifacts and responses do not expose raw features.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Gửi valid, missing, wrong-type, unknown-category payload.
-2. Kiểm success/422/503 theo contract.
-3. Đo warm latency mini input group và ghi giới hạn phép đo.
+1. Send valid, missing, wrong-type, unknown-category payload.
+2. Check success/422/503 according to contract.
+3. Measure warm latency mini input group and record measurement limits.
 
 ## Lab
 
-**lab-14:** Local API valid/invalid payload. Môi trường chính: `local`.
+**lab-14:** Local API valid/invalid payload. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn gửi được payload đúng/sai, nhận status phù hợp và xác nhận API dùng chính preprocessing đã lưu.
+You can send the correct/wrong payload, receive the appropriate status and confirm the API using the saved preprocessing.
 
-## Tự kiểm tra
+## Test yourself
 
-1. 422 khác 500 thế nào?
-2. Health khác readiness?
-3. Vì sao không log raw request?
+1. How is 422 different from 500?
+2. Health readiness differs?
+3. Why not log raw requests?
 
-## Kết quả hướng tới
+## Result oriented
 
-API demo; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+Demo API; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Kiểm valid/invalid API contract, health/readiness và log không chứa raw feature.
-- **Mở rộng:** Đo latency mini input group hoặc thêm payload limit với test rõ.
+- **Core:** Check valid/invalid API contract, health/readiness and log do not contain raw features.
+- **Expansion:** Measure mini input group latency or add payload limit with explicit testing.
 
-## Lỗi thường gặp
+## Common errors
 
-- Lộ stack trace cho client.
-- API tự viết preprocessing khác training.
+- Reveal the stack trace to the client.
+- Self-written API for preprocessing other than training.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Gọi handler hoặc API với một request tối thiểu. Khi có 500, đọc server log nhưng không đưa stack trace vào response.
+Call a handler or API with a minimal request. When there is 500, read the server log but do not include the stack trace in the response.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: FastAPI request validation/error handling và HTTP status semantics trong tài liệu chính thức.
+Recommended source: FastAPI request validation/error handling and HTTP status semantics in the official documentation.

@@ -1,33 +1,31 @@
-# Lab 19 - Đánh giá CV theo từng class và failure
+# Lab 19 - Evaluate computer vision by class and failure
 
-## Mục tiêu
+## Goal
 
-Lab cuối phần CV chuyển metric thành hiểu biết về failure. Smoke local cho format; phân tích có ý nghĩa phải dùng prediction từ notebook thật.
+The final computer-vision lab turns metrics into an understanding of failures. The local smoke demo gives the format; meaningful analysis must use predictions from the real notebook.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `macro average`, `weighted average`
+**New terms:** `macro average`, `weighted average`
 
-**Ôn lại:** `confusion matrix`, `support`, `metric`, `validation set`, `error analysis`, `failure taxonomy`
+**Review:** `confusion matrix`, `support`, `metric`, `validation set`, `error analysis`, `failure taxonomy`
 
-**Áp dụng trong lab:** Tạo confusion matrix, `macro average`, `weighted average` và metric theo class với support; làm error analysis trên prediction ở validation set, gán failure taxonomy cho sample thật, không dùng FakeData làm model validation.
+**Use in this lab:** Create a confusion matrix, `macro average`, `weighted average`, and per-class metrics with `support`. Run error analysis on the `validation set` predictions and assign a failure taxonomy to real samples. Do not use FakeData for model validation.
 
-**Tự giải thích:** Macro average khác weighted average thế nào; confusion matrix và support giúp đọc chênh lệch đó ra sao?
+**Explain it yourself:** How is macro average different from weighted average? How do the confusion matrix and support explain that difference?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-20.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+Read `roadmap/weeks/week-20.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Chạy smoke để xem cấu trúc per-class metrics và failure records.
-2. Từ run thật, tạo precision/recall/F1/support từng class và macro/weighted aggregate.
-3. Vẽ confusion matrix normalize theo true class; review tối đa 20 lỗi theo sampling rule confident-wrong.
-4. Notebook để `error_type='unreviewed'`; mở từng ảnh, gán nhóm lỗi dựa trên evidence, rồi viết limitation và
-   một next experiment có thể kiểm chứng. Placeholder chưa phải taxonomy hoàn thành.
+1. Run the smoke demo to inspect the structure of per-class metrics and failure records.
+2. From a real run, calculate precision, recall, F1, and support for every class, plus macro and weighted aggregates.
+3. Plot a confusion matrix normalized by true class. Review no more than 20 errors with a confident-wrong sampling rule.
+4. The notebook uses `error_type='unreviewed'`. Open each image, assign an evidence-based error group, then write a limitation and a testable next experiment. A placeholder is not a completed taxonomy.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -41,27 +39,26 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 19
 ```
 
-Kết quả được lưu tại `.artifacts/lab-19-evidence.json`. Trong `result`, bạn sẽ thấy per-class metrics và failure records.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-19-evidence.json`. In `result`, you will see per-class metrics and failure records.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
 
-## Bài thực hành đầy đủ trên PyTorch
+## Complete exercise in PyTorch
 
-Command local ở trên chỉ là smoke demo nhanh. Phần training/evaluation thật nằm trong notebook:
+The local command is only a quick smoke demo. Real training and evaluation are in these notebooks:
 
 - Colab: [`notebooks/colab/cv_transfer_learning_colab.ipynb`](../../notebooks/colab/cv_transfer_learning_colab.ipynb)
 - Kaggle: [`notebooks/kaggle/cv_transfer_learning_kaggle.ipynb`](../../notebooks/kaggle/cv_transfer_learning_kaggle.ipynb)
 
-Chọn **một** nền tảng. Chạy `cpu-mini` trước; chỉ chuyển sang `gpu-free` khi accelerator có sẵn. Tải
-`artifacts.zip` về máy trước khi kết thúc session.
+Choose **one** platform. Run `cpu-mini` first and move to `gpu-free` only when an accelerator is available. Download `artifacts.zip` before the session ends.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Bảng per-class, confusion matrix và failure taxonomy liên kết đúng dataset/split/config.
-- FakeData không được dùng kết luận quality; ảnh nhạy cảm chỉ lưu ID/mô tả an toàn local.
+- The per-class table, confusion matrix, and failure taxonomy point to the same dataset, split, and config.
+- FakeData does not support quality conclusions. For sensitive images, store only an ID and a safe local description.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Bắt đầu với 5-10 lỗi và kiểm label mapping. Nếu một class kém, xem support/split/transform trước khi fine-tune.
+Start with 5-10 errors and check the label mapping. If one class performs poorly, inspect support, the split, and transforms before fine-tuning.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

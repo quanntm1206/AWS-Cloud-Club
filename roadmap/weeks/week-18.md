@@ -1,83 +1,83 @@
-# Tuần 18 - CNN và transfer learning
+# Week 18 - CNN and transfer learning
 
-## Mục tiêu tuần
+## Weekly goals
 
-Hiểu CNN và transfer learning.
+Understand CNN and transfer learning.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Transfer learning tận dụng biểu diễn đã học để giảm dữ liệu và compute. Đây là con đường hợp lý cho người mới dùng free runtime.
+Transfer learning leverages learned representations for data reduction and compute. This is a reasonable path for new users of free runtime.
 
-**Ví dụ gần gũi:** Giữ backbone cố định giống dùng một bộ trích đặc trưng có sẵn; bạn chỉ dạy classifier head cho lớp mới.
+**Close example:** Keeping the backbone fixed is like using an existing feature extractor; you only teach classifier head to the new class.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Convolution học kernel cục bộ chia sẻ weight; stride/padding đổi spatial size, downsampling giảm compute.
-- Transfer learning dùng pretrained backbone và thay head; frozen-backbone chỉ train head nên nhẹ hơn full fine-tune.
-- Input normalization phải khớp pretrained weights; train augmentation khác validation transform deterministic.
-- Notebook có CPU-mini và FakeData khi GPU/dataset thiếu; CPU-mini vẫn cố dùng pretrained weights. Nếu weights
-  không tải được, random-weight fallback chỉ smoke code và chưa đạt gate transfer learning. FakeData không
-  chứng minh accuracy.
+- Convolution learns a local kernel with shared weights; stride/padding changes spatial size, downsampling reduces compute.
+- Transfer learning uses pretrained backbone and head replacement; frozen-backbone only trains head so it's lighter than full fine-tune.
+- Input normalization must match pretrained weights; train augmentation other validation transform deterministic.
+- Notebook has CPU-mini and FakeData when GPU/dataset is lacking; CPU-mini still tries to use pretrained weights. If weights
+  Unable to load, random-weight fallback only smoke code and does not pass gate transfer learning. FakeData does not
+  prove accuracy.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `augmentation`, `backbone`, `freeze`, `transfer learning`
+**New or focus terms:** `augmentation`, `backbone`, `freeze`, `transfer learning`
 
-**Ôn lại:** `tensor`, `batch`, `epoch`, `device`, `overfitting`
+**Review:** `tensor`, `batch`, `epoch`, `device`, `overfitting`
 
-**Áp dụng:** Dùng `augmentation` chỉ cho training `batch`, giữ validation transform deterministic; tải `backbone` pretrained lên đúng `device`, `freeze` parameter rồi chạy `transfer learning` trên tensor, theo dõi epoch/loss để phát hiện overfitting.
+**Use:** Use `augmentation` only for training `batch`, keep validation transform deterministic; upload the pretrained `backbone` to the correct `device`, `freeze` parameters and then run `transfer learning` on the tensor, monitoring epoch/loss to detect overfitting.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Tính conv output size và in shape qua model.
-2. Freeze backbone, xác nhận chỉ head trainable.
-3. Chạy CIFAR10 subset; ép FakeData fallback rồi ghi limitation.
+1. Calculate conv output size and print shape via model.
+2. Freeze backbone, confirm head trainable only.
+3. Run CIFAR10 subset; Force FakeData fallback then write limitation.
 
 ## Lab
 
-**lab-17:** Frozen-backbone baseline trên một free runtime. Môi trường chính: `colab, kaggle`.
+**lab-17:** Frozen-backbone baseline on a free runtime. Main environment: `colab, kaggle`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn chạy notebook thật, xác nhận chỉ head trainable và phân biệt FakeData smoke với kết quả CIFAR10.
+You run the real notebook, confirm only head trainable and distinguish FakeData smoke from CIFAR10 results.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Frozen backbone giảm compute vì sao?
-2. Normalization sai ảnh hưởng gì?
-3. FakeData chứng minh được gì?
+1. Why does Frozen backbone reduce compute?
+2. What are the effects of incorrect normalization?
+3. What can FakeData prove?
 
-## Kết quả hướng tới
+## Result oriented
 
-CV baseline; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+CV baseline; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Chạy notebook bằng `cpu-mini` với pretrained weights; chỉ báo quality khi dùng dữ liệu thật.
-- **Mở rộng:** Nếu có GPU miễn phí, chạy `gpu-free` một lần; không fine-tune hoặc sweep trong tuần này.
+- **Core:** Run notebook using `cpu-mini` with pretrained weights; quality indicator when using real data.
+- **Extension:** If there is a free GPU, run `gpu-free` once; no fine-tune or sweep this week.
 
-## Lỗi thường gặp
+## Common errors
 
-- Báo transfer learning dù pretrained weights không tải.
-- Báo FakeData accuracy như chất lượng thật.
+- Report transfer learning even though pretrained weights do not load.
+- Report FakeData accuracy as real quality.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Mở đúng notebook Colab/Kaggle, chạy `cpu-mini` trước. Nếu data không tải được, dùng FakeData smoke. Nếu
-pretrained weights không tải được, random-weight fallback chỉ kiểm code; ghi rõ chưa đạt transfer-learning gate.
+Open the correct Colab/Kaggle notebook, run `cpu-mini` first. If the data cannot be downloaded, use FakeData smoke. If
+pretrained weights cannot be loaded, random-weight fallback only checks the code; clearly state that transfer-learning gate has not been passed.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: PyTorch transfer learning tutorial, torchvision weights/transforms và hướng dẫn Colab/Kaggle của repo.
+Recommended reading: PyTorch transfer learning tutorial, torchvision weights/transforms, and the repo's Colab/Kaggle tutorial.

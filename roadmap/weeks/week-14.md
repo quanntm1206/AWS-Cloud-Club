@@ -1,80 +1,80 @@
-# Tuần 14 - Testing cho hệ thống ML
+# Week 14 - Testing for ML systems
 
-## Mục tiêu tuần
+## Weekly goals
 
-Test schema, transform, model và artifact.
+Test schema, transform, model and artifact.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Hệ thống ML hỏng không chỉ vì model kém. Schema đổi, category lạ hoặc artifact lỗi thường xuất hiện trước khi metric tụt.
+ML systems fail not just because of poor models. Schema changes, strange categories, or artifact errors often appear before metrics drop.
 
-**Ví dụ gần gũi:** Một API nhận tuổi dạng chuỗi nên bị từ chối rõ ràng, thay vì âm thầm biến đổi rồi trả prediction khó tin.
+**Close example:** An API that receives age as a string should be explicitly denied, instead of silently mutating and returning unbelievable prediction.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- ML tests bao phủ schema, transforms, determinism, metric sanity, reload và API boundary.
-- Unit dùng synthetic nhỏ; integration chạy pipeline ngắn.
-- Negative cases: thiếu cột, sai dtype, unseen category, NaN/Inf, empty input group, artifact hỏng.
-- Metric assertion dùng threshold/tolerance có lý do, không khóa số stochastic mong manh.
+- ML tests cover schema, transforms, determinism, metric sanity, reload and API boundary.
+- Unit uses small synthetic; integration runs a short pipeline.
+- Negative cases: missing column, wrong dtype, unseen category, NaN/Inf, empty input group, broken artifact.
+- Metric assertion uses threshold/tolerance for a reason, not blocking the fragile stochastic number.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `data contract`, `parity`
+**New or focus terms:** `data contract`, `parity`
 
-**Ôn lại:** `schema`, `pipeline`, `artifact`, `reproducibility`
+**Review:** `schema`, `pipeline`, `artifact`, `reproducibility`
 
-**Áp dụng:** Viết `data contract` cho schema; test `parity` fit-save-load-predict của pipeline/artifact, negative case cho sample sai và tolerance cho reproducibility.
+**Use:** Write `data contract` for schema; test `parity` fit-save-load-predict of pipeline/artifact, negative case for wrong sample and tolerance for reproducibility.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Test valid/invalid schema và unseen category.
-2. Fit-save-load-predict, kiểm parity.
-3. Kiểm model vượt dummy trên data có signal.
+1. Test valid/invalid schema and unseen category.
+2. Fit-save-load-predict, parity check.
+3. Check the model exceeds the dummy on data with signal.
 
 ## Lab
 
-**lab-13:** ML tests với edge cases. Môi trường chính: `local`.
+**lab-13:** ML tests with edge cases. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn có test cho happy path lẫn missing, wrong dtype, unseen category, NaN/Inf và save-load parity.
+You have tests for happy path and missing, wrong dtype, unseen category, NaN/Inf and save-load parity.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Nguồn randomness nào cần seed?
-2. Vì sao exact metric dễ flaky?
-3. Test nào bắt train/serve skew?
+1. Which randomness source needs seeding?
+2. Why is exact metric flaky?
+3. Which test captures train/serve skew?
 
-## Kết quả hướng tới
+## Result oriented
 
-test evidence; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+test evidence; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Test schema, negative cases, reload parity và model-vượt-dummy trên data synthetic nhỏ.
-- **Mở rộng:** Thêm test artifact checksum hỏng hoặc input group rỗng; tránh exact metric dễ flaky.
+- **Core:** Test schema, negative cases, reload parity and model-over-dummy on small synthetic data.
+- **Expansion:** Add test artifact checksum is broken or input group is empty; Avoid exact metrics that are easy to flaky.
 
-## Lỗi thường gặp
+## Common errors
 
-- Chỉ test happy path.
-- automated checks dùng production dataset lớn/nhạy cảm.
+- Only test happy paths.
+- Automated checks use large/sensitive production datasets.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Dùng synthetic data nhỏ và sửa một test mỗi lần. Tránh khóa exact metric nếu thuật toán có ngẫu nhiên.
+Use small synthetic data and edit one test at a time. Avoid exact metric locking if the algorithm involves randomization.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: pytest documentation và scikit-learn guidance về common pitfalls/reproducibility.
+Recommended sources: pytest documentation and scikit-learn guidance on common pitfalls/reproducibility.

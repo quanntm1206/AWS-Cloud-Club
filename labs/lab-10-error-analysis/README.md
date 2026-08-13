@@ -1,32 +1,31 @@
-# Lab 10 - Biến lỗi model thành việc cần làm tiếp
+# Lab 10 - Turn model errors into the next task
 
-## Mục tiêu
+## Goal
 
-Error analysis không phải sưu tập vài lỗi thú vị. Bạn sẽ lấy mẫu theo quy tắc rồi biến các lỗi thành giả thuyết có hành động tiếp theo.
+Error analysis is not a collection of interesting mistakes. Sample by a written rule, then turn the errors into hypotheses with clear next actions.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `error analysis`, `slice`, `failure taxonomy`, `support`
+**New terms:** `error analysis`, `slice`, `failure taxonomy`, `support`
 
-**Ôn lại:** `metric`, `validation set`, `feature engineering`
+**Review:** `metric`, `validation set`, `feature engineering`
 
-**Áp dụng trong lab:** Chạy `error analysis` theo từng `slice`, luôn ghi support; tạo `failure taxonomy` từ prediction sai, liên hệ feature engineering và metric trên validation set.
+**Use in this lab:** Run `error analysis` for each `slice` and always record support. Build a `failure taxonomy` from wrong predictions, then connect it to feature engineering and the metric on the validation set.
 
-**Tự giải thích:** Slice, support và failure taxonomy giúp error analysis tránh chọn lỗi cảm tính thế nào?
+**Explain it yourself:** How do slice, support, and a failure taxonomy prevent subjective error analysis?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-11.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
+Read `roadmap/weeks/week-11.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Tính FP/FN theo ít nhất hai slice, luôn ghi support.
-2. Lấy tối đa 20 failure records theo sampling rule đã viết.
-3. Gán taxonomy: data, boundary, missing signal, label noise hoặc shift.
-4. Đề xuất một data fix và một model fix; nêu phép kiểm có thể bác bỏ mỗi giả thuyết.
+1. Calculate FP and FN for at least two slices. Always record support.
+2. Select no more than 20 failure records using a written sampling rule.
+3. Assign a taxonomy: data, boundary, missing signal, label noise, or shift.
+4. Propose one data fix and one model fix. Give a test that could reject each hypothesis.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 10
 ```
 
-Kết quả được lưu tại `.artifacts/lab-10-evidence.json`. Trong `result`, bạn sẽ thấy slice metrics, failure records có cap và taxonomy.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-10-evidence.json`. In `result`, you will see slice metrics, capped failure records, and a taxonomy.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Output có slice metrics, failure cap, records và taxonomy; không chọn mẫu bằng cảm tính.
-- Bạn không gọi feature importance là causality và không kết luận fairness từ nhóm quá nhỏ.
+- The output includes slice metrics, a failure cap, records, and a taxonomy. Sampling is rule-based, not subjective.
+- You do not call feature importance causality or draw a fairness conclusion from a very small group.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu không thấy pattern, đổi sampling để phủ nhiều nhóm/confidence. Mô tả điều quan sát trước, giải thích nguyên nhân sau.
+If no pattern appears, change the sampling rule to cover more groups and confidence levels. Describe the observation before explaining its cause.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

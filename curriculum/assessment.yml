@@ -1,44 +1,43 @@
 scale:
-  emerging: {label: Chưa vững, factor: 0.4, description: Chưa tạo được đầu ra đúng contract hoặc cần làm lại phần cốt lõi.}
-  developing: {label: Đang tiến bộ, factor: 0.7, description: Chạy được nhưng bằng chứng, kiểm thử hoặc khả năng tái lập còn thiếu.}
-  proficient: {label: Đạt yêu cầu, factor: 1.0, description: Đúng, tái lập, có đánh giá và giải thích quyết định.}
-  exemplary: {label: Vượt mong đợi, factor: 1.1, description: Có phân tích lỗi sâu, trade-off rõ và một cải tiến có kiểm soát.}
+  emerging: {label: Unstable, factor: 0.4, description: Unable to create proper contract output or need to redo core part.}
+  developing: {label: In progress, factor: 0.7, description: "Works but evidence, testing or reproducibility is lacking."}
+  proficient: {label: Satisfactory, factor: 1.0, description: "Correct, reproducible, with evaluation and decision explanation."}
+  outstanding: {label: Exceeds expectations, factor: 1.1, description: "Has deep error analysis, clear trade-offs and a controlled improvement."}
 
 milestones:
   - id: milestone-01
-    week: 4
-    focus: Nền tảng dữ liệu và toán
+    weeks: 4
+    focus: Data and math foundation
     pass_score: 70
-    criteria: {Hiểu dữ liệu và đặt bài toán: 30, Tính đúng và kiểm tra kết quả: 30, Tái lập môi trường: 25, Giải thích giới hạn: 15}
+    criteria: {Understand the data and set the problem: 30, Calculate correctly and check the results: 30, Recreate the environment: 25, Explain the limits: 15}
   - id: milestone-02
-    week: 8
-    focus: Đánh giá model đáng tin cậy
+    weeks: 8
+    focus: Reliable model reviews
     pass_score: 70
-    criteria: {Chia dữ liệu và chống leakage: 30, Chọn metric theo bài toán: 30, Cross-validation và độ ổn định: 25, Kết luận có bằng chứng: 15}
+    criteria: {Dividing data and preventing leakage: 30, Choosing metrics according to the problem: 30, Cross-validation and stability: 25, Conclusion with evidence: 15}
   - id: milestone-03
-    week: 12
-    focus: Dự án tabular hoàn chỉnh
+    weeks: 12
+    focus: Complete tabular project
     pass_score: 70
-    criteria: {Pipeline và data contract: 30, Baseline và thí nghiệm có kiểm soát: 25, Error analysis: 25, Tái lập và giao tiếp: 20}
+    criteria: {Pipeline and data contract: 30, Baseline and controlled experiments: 25, Error analysis: 25, Replication and communication: 20}
   - id: milestone-04
-    week: 16
+    weeks: 16
     focus: ML engineering
     pass_score: 70
-    criteria: {Cấu trúc package và CLI: 25, Test và contract inference: 30, CI và artifact versioning: 25, Vận hành và giới hạn: 20}
+    criteria: {Package structure and CLI: 25, Test and contract inference: 30, CI and artifact versioning: 25, Operations and limitations: 20}
   - id: milestone-05
-    week: 20
-    focus: Computer Vision tiết kiệm compute
+    weeks: 20
+    focus: Computer Vision saves compute
     pass_score: 70
-    criteria: {Transfer learning đúng: 25, Checkpoint và resume: 25, Đánh giá per-class: 30, Failure analysis và giới hạn: 20}
+    criteria: {Transfer learning correct: 25, Checkpoint and resume: 25, Evaluation per-class: 30, Failure analysis and limits: 20}
   - id: milestone-06
-    week: 24
-    focus: Capstone và an toàn chi phí
+    weeks: 24
+    focus: Capstone and cost safety
     pass_score: 75
-    criteria: {Tích hợp end-to-end: 25, Kiểm thử và khả năng tái lập: 25, AWS cost safety và cleanup: 30, Demo và retrospective: 20}
+    criteria: {End-to-end integration: 25, Testing and reproducibility: 25, AWS cost safety and cleanup: 30, Demo and retrospective: 20}
 
 global_gates:
   - no_data_leakage
   - no_secrets
   - reproducible_mini_run
   - aws_cleanup_evidence_when_applicable
-

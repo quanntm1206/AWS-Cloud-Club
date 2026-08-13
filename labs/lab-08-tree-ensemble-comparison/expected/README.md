@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-08-tree-ensemble-comparison
+# Reference result - lab-08-tree-ensemble-comparison
 
 ## Oracle
 
-Mọi candidate dùng cùng split, metric và runtime budget; test chỉ mở sau khi chọn.
+Every candidate uses the same split, metric, and runtime budget. Open the test set only after selection.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 8` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy validation score từng candidate, model được chọn và final test AUC.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 8` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for each candidate's validation score, the selected model, and final test AUC.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Bảng so ensemble giữ cùng baseline/metric/budget; chỉ đổi một hyperparameter; giải thích bagging / boosting.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The ensemble comparison keeps the same baseline, metric, and budget. It changes one hyperparameter and explains bagging / boosting.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu model thắng rất ít, so độ biến thiên CV và artifact size trước khi kết luận.
+If one model wins by very little, compare CV variability and artifact size before deciding.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

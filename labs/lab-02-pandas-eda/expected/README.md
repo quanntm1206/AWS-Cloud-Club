@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-02-pandas-eda
+# Reference result - lab-02-pandas-eda
 
 ## Oracle
 
-Viết ba nhận xét theo mẫu quan sát - giả thuyết - bước kiểm tra tiếp.
+Write three findings in this form: observation - hypothesis - next check.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 2` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy missing count, duplicate count, churn rate và mean theo target.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 2` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for the missing count, duplicate count, churn rate, and mean by target.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Báo cáo `data validation` nêu lỗi schema, `missing value`, `outlier`; EDA tách evidence khỏi giả thuyết.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The `data validation` report identifies schema problems, each `missing value`, and each `outlier`. The EDA separates evidence from hypotheses.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu dtype gây hiểu nhầm, đối chiếu ý nghĩa nghiệp vụ thay vì tin pandas tự suy ra.
+If a dtype is misleading, check its business meaning instead of trusting pandas inference.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

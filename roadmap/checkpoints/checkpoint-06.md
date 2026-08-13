@@ -1,36 +1,36 @@
-# Mốc năng lực 06 - Tuần 24
+# Competency milestone 06 - Week 24
 
-## Mục tiêu
+## Target
 
-Tự đánh giá capstone end-to-end, khả năng trình bày và an toàn chi phí AWS.
+Self-assess AWS end-to-end capstone, presentation, and cost security.
 
-## Bạn đã đạt mốc nếu
+## You have reached the if mark
 
-- Demo từ input đến prediction bằng local fallback; AWS chỉ dùng private Lambda trong phiên có kiểm soát.
-- Manifest nối model version, schema, threshold, checksum và source run; handler từ chối contract sai.
-- Thực hiện đủ cost check, preflight, deploy, verify, cleanup, residual scan và cost audit.
-- Trình bày được problem, constraint, baseline, quyết định, failure, limitation và cách tái lập trong 5-7 phút.
+- Demo from input to prediction using local fallback; AWS only uses private Lambda in controlled sessions.
+- Manifest connects model version, schema, threshold, checksum and source run; The handler rejects the wrong contract.
+- Complete cost check, preflight, deploy, verify, cleanup, residual scan and cost audit.
+- Present the problem, constraint, baseline, decision, failure, limitation and how to re-establish it in 5-7 minutes.
 
-## Minh chứng đạt mốc
+## Proof of reaching the milestone
 
-- Capstone README, architecture note, model card, reproduction command và demo outline lưu cục bộ.
-- Test report cho valid/invalid inference cùng local/portable parity.
-- Cost manifest, deployment manifest, cleanup output và zero-residual report; không lưu account ID hay raw billing.
-- Retrospective ghi một incident drill hoặc điều sẽ làm khác nếu triển khai thật.
+- Capstone README, architecture note, model card, reproduction command and demo outline saved locally.
+- Test report for valid/invalid inference with local/portable parity.
+- Cost manifest, deployment manifest, cleanup output and zero-residual report; Does not save account ID or raw billing.
+- Retrospective records an incident drill or what would have been different if it were actually deployed.
 
 ## Rubric
 
-| Tiêu chí | Điểm |
+| Criteria | Score |
 |---|---:|
-| Tích hợp end-to-end | 25 |
-| Kiểm thử và khả năng tái lập | 25 |
-| AWS cost safety và cleanup | 30 |
-| Demo và retrospective | 20 |
+| End-to-end integration | 25 |
+| Testing and reproducibility | 25 |
+| AWS cost safety and cleanup | 30 |
+| Demo and retrospective | 20 |
 
-Điểm đạt: 75/100. Gate: không leakage/secret, private-only, mini run tái lập; cleanup và residual scan phải sạch. Nếu AWS không an toàn hoặc credit/plan không rõ, dùng local fallback và chưa chấm phần AWS đã triển khai.
+Passing score: 75/100. Gate: no leakage/secret, private-only, mini run reestablishment; cleanup and residual scan must be clean. If AWS is not secure or the credit/plan is unclear, use local fallback and do not grade the deployed AWS part.
 
-## Câu hỏi tự nhìn lại
+## Self-reflection question
 
-- Bằng chứng nào cho thấy hệ thống sạch tài nguyên, thay vì chỉ thấy lệnh cleanup trả về thành công?
-- Nếu billing cập nhật trễ, bạn sẽ kiểm lại khi nào và ghi nhận ra sao?
-- Quyết định kỹ thuật nào thể hiện rõ nhất tư duy ML Engineer của bạn?
+- What evidence shows that the system is clean of resources, instead of just seeing that the cleanup command returned successfully?
+- If the billing update is late, when will you check and how will you record it?
+- Which technical decision best represents your ML Engineer mindset?

@@ -1,25 +1,23 @@
-# Kết quả tham khảo - lab-17-transfer-learning
+# Reference result - lab-17-transfer-learning
 
 ## Oracle
 
-Chọn đúng một notebook Colab hoặc Kaggle, chạy `cpu-mini` trước rồi mới dùng GPU nếu có.
+Choose exactly one Colab or Kaggle notebook. Run `cpu-mini` before using a GPU, if one is available.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 17` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy smoke dict về frozen layers; notebook thật xuất checkpoint và metrics.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 17` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for a smoke dictionary of frozen layers; the real notebook exports a checkpoint and metrics.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Train dùng augmentation, validation deterministic; backbone freeze đúng; transfer learning dùng pretrained weights; checkpoint được export.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The receipt records augmentation, the pretrained backbone, frozen parameters, the device, and a checkpoint. The training history can be checked for overfitting.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-FakeData chỉ chứng minh pipeline chạy; không báo accuracy đó như chất lượng model.
-Random weights chỉ chứng minh code chạy; chưa được gọi là transfer learning.
+If results differ, check pretrained weights, normalization, seed, data split, and the number of trainable parameters.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

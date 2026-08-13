@@ -1,37 +1,36 @@
-# Lab 20 - Đưa model lên AWS rồi dọn sạch
+# Lab 20 - Deploy a model to AWS, then clean it up
 
-## Mục tiêu
+## Goal
 
-Đưa portable tabular model lên S3, gọi Lambda riêng tư với input đúng/sai, xem log, cleanup và chứng minh
-không còn infrastructure của project. Không dùng EC2, SageMaker, Bedrock, NAT Gateway hoặc public API.
+Upload a portable tabular model to S3, invoke a private Lambda with valid and invalid input, inspect logs, run cleanup, and prove that no project infrastructure remains. Do not use EC2, SageMaker, Bedrock, NAT Gateway, or a public API.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `IAM`, `S3`, `Lambda`, `CloudWatch Logs`, `budget alert`, `residual scan`, `idempotent cleanup`
+**New terms:** `IAM`, `S3`, `Lambda`, `CloudWatch Logs`, `budget alert`, `residual scan`, `idempotent cleanup`
 
-**Ôn lại:** `artifact`, `inference`, `API contract`
+**Review:** `artifact`, `inference`, `API contract`
 
-**Áp dụng trong lab:** Upload `artifact` lên `S3`, cấp quyền tối thiểu bằng `IAM`, gọi inference qua `Lambda`, đọc `CloudWatch Logs`; tạo `budget alert`, chạy idempotent cleanup và `residual scan` theo API contract.
+**Use in this lab:** Upload the `artifact` to `S3`, grant least-privilege access with `IAM`, call inference through `Lambda`, and read `CloudWatch Logs`. Create a `budget alert`, run `idempotent cleanup`, and complete a `residual scan` against the API contract.
 
-**Tự giải thích:** Budget alert không phải hard cap; idempotent cleanup và residual scan bảo vệ điều gì?
+**Explain it yourself:** A budget alert is not a hard cap. What do idempotent cleanup and a residual scan protect?
 
-## Trước khi bắt đầu
+## Before you start
 
-- Đọc `aws/README.md`; xác nhận plan, credit, ngày hết hạn và đúng account/Region.
-- Tạo Cost budget với Actual + Forecasted email notifications. Không dùng Budget Report/Action.
-- Chừa một phiên liền mạch khoảng 45-60 phút; đặt timer cleanup. Không deploy trước khi sắp rời máy.
-- Nhớ rằng `ExpiresAt` chỉ là metadata nhắc việc; AWS không tự xóa stack theo tag này.
-- Nếu Billing không rõ hoặc console bắt nâng Paid Plan, dừng ở local simulation. Bài vẫn hoàn thành.
+- Read `aws/README.md`. Confirm your plan, credits, expiry date, account, and Region.
+- Create a Cost budget with Actual and Forecasted email notifications. Do not use Budget Report or Budget Action.
+- Reserve one uninterrupted 45-60 minute session and set a cleanup timer. Do not deploy just before leaving your computer.
+- `ExpiresAt` is only reminder metadata; AWS does not delete a stack automatically from this tag.
+- If Billing is unclear or the console asks you to upgrade to a Paid Plan, stop at the local simulation. The lab is still complete.
 
-## Bạn sẽ làm gì
+## What you will do
 
-1. Train artifact local; ghi checksum.
-2. Chạy cost planning và preflight.
-3. Deploy S3, Lambda, CloudWatch Logs và IAM role bằng CloudFormation.
-4. Gọi Lambda riêng tư cho valid/invalid event.
-5. Cleanup, residual scan, rồi kiểm Billing theo ba mốc.
+1. Train the local artifact and record its checksum.
+2. Run cost planning and preflight.
+3. Deploy S3, Lambda, CloudWatch Logs, and an IAM role with CloudFormation.
+4. Invoke the private Lambda with valid and invalid events.
+5. Clean up, run a residual scan, and check Billing at three checkpoints.
 
-### 1. Chuẩn bị artifact local
+### 1. Prepare the local artifact
 
 ```powershell
 .venv\Scripts\python.exe -c "from ml_roadmap.data import make_demo_churn_data; make_demo_churn_data(300,42).to_csv('.artifacts/churn.csv',index=False)"
@@ -39,11 +38,9 @@ không còn infrastructure của project. Không dùng EC2, SageMaker, Bedrock, 
 Get-FileHash .artifacts/churn-model/portable_model.json -Algorithm SHA256
 ```
 
-### 2. Budget, estimate và preflight
+### 2. Budget, estimate, and preflight
 
-Trên Console, mở **Billing and Cost Management > Budgets > Create budget**. Chọn monthly Cost budget,
-thêm Actual và Forecasted email notifications ở ngưỡng thấp phù hợp account. Budget có thể báo muộn;
-nó không phải hard cap.
+In the Console, open **Billing and Cost Management > Budgets > Create budget**. Choose a monthly Cost budget, then add Actual and Forecasted email notifications at a low threshold suitable for your account. Budgets can report late; they are not hard caps.
 
 ```powershell
 $project = 'student01'
@@ -54,19 +51,17 @@ pwsh aws/scripts/cost-check.ps1 -ProjectId $project -Region $region
 pwsh aws/scripts/preflight.ps1 -ProjectId $project -Region $region -ArtifactPath .artifacts/churn-model/portable_model.json -AcknowledgeBudgetConfigured
 ```
 
-Dừng nếu account/Region sai, artifact vượt 200 MB, estimate vượt USD 0.10, pricing chưa xác minh được hoặc
-output nhắc tới resource ngoài policy. Planning envelope không phải live quote hay bill guarantee.
+Stop if the account or Region is wrong, the artifact exceeds 200 MB, the estimate exceeds USD 0.10, pricing cannot be verified, or output mentions a resource outside policy. The planning envelope is not a live quote or billing guarantee.
 
-### 3. Deploy private path
+### 3. Deploy the private path
 
 ```powershell
 pwsh aws/scripts/deploy.ps1 -ProjectId $project -Owner 'student01' -ExpiresAt $expiresAt -ArtifactPath .artifacts/churn-model/portable_model.json -Region $region -AcknowledgeBudgetConfigured
 ```
 
-Template không có API Gateway/Public URL. Nếu deploy, output lookup hoặc upload lỗi, stack có thể đã tồn
-tại. Đừng chạy lại ngay; chuyển thẳng sang mục **Khi mắc kẹt**.
+The template has no API Gateway or public URL. If deployment, output lookup, or upload fails, the stack may already exist. Do not retry immediately; go to **When you get stuck**.
 
-### 4. Verify artifact và private Lambda
+### 4. Verify the artifact and private Lambda
 
 ```powershell
 $stack = "ml-roadmap-$project"
@@ -79,52 +74,50 @@ Get-Content .artifacts/lambda-valid.json
 Get-Content .artifacts/lambda-invalid.json
 ```
 
-Valid trả label/probability/threshold. Invalid trả `statusCode=422` và missing fields. Chỉ gọi vài lần;
-đây không phải load test.
+A valid event returns label, probability, and threshold. An invalid event returns `statusCode=422` and missing fields. Invoke only a few times; this is not a load test.
 
-### 5. Kiểm log
+### 5. Check logs
 
 ```powershell
 aws logs tail "/aws/lambda/$function" --since 10m --region $region
 ```
 
-Log không được chứa credential hoặc raw sensitive record. Log retention phải là một ngày.
+Logs must not contain credentials or raw sensitive records. Log retention must be one day.
 
-### 6. Cleanup trong cùng phiên
+### 6. Clean up in the same session
 
 ```powershell
 pwsh aws/scripts/cleanup.ps1 -ProjectId $project -Region $region
-# Đọc exact resource names trước khi execute.
+# Read the exact resource names before executing.
 pwsh aws/scripts/cleanup.ps1 -ProjectId $project -Region $region -Execute -ConfirmProjectId $project
 pwsh aws/scripts/residual-scan.ps1 -ProjectId $project -Region $region -Json
 ```
 
-Scan kiểm CloudFormation, S3, Lambda, Logs và IAM. Exit khác 0 hoặc lỗi quyền nghĩa là **chưa chứng minh
-được sạch**. Budget alert không nằm trong stack và được giữ có chủ đích; review/xóa thủ công cuối khóa.
+The scan checks CloudFormation, S3, Lambda, Logs, and IAM. A non-zero exit or a permission error means **clean status is not proven**. A budget alert is not in the stack and may be kept deliberately; review or delete it manually at the end of the course.
 
 ### 7. Cost audit
 
-1. Kiểm Billing/Free Tier/credits ngay sau cleanup; ghi timestamp, không lưu account ID.
-2. Đặt lịch kiểm lại sau khoảng 12 giờ và vào ngày kế tiếp vì billing có độ trễ.
-3. Lưu output local trong `.artifacts/`; xóa credential, email và dữ liệu cá nhân khỏi learning log.
+1. Check Billing, Free Tier, and credits immediately after cleanup. Record a timestamp, not the account ID.
+2. Check again after about 12 hours and on the next day because billing can be delayed.
+3. Keep local output in `.artifacts/`. Remove credentials, email addresses, and personal data from the learning log.
 
-## Khi nào xem như hoàn thành
+## When you are done
 
-- Checksum có trước deploy; private invoke valid/invalid đúng contract.
-- Không có public endpoint hoặc forbidden service.
-- Cleanup dry-run được đọc trước execute; residual scan hoàn tất với `residual=false`.
-- Billing được kiểm theo ba mốc; Budget caveat được ghi thật, không tuyên bố “miễn phí tuyệt đối”.
+- The checksum exists before deployment. Private valid and invalid invokes follow the contract.
+- No public endpoint or forbidden service exists.
+- You read the cleanup dry-run before executing it. The residual scan finishes with `residual=false`.
+- Billing is checked at all three checkpoints. Record the budget caveat honestly; do not claim that the run is absolutely free.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu bất kỳ bước nào sau deploy lỗi:
+If any step fails after deployment:
 
-1. Dừng tạo/thử lại resource; xác nhận account, Region và project ID.
-2. Chạy cleanup dry-run, đọc exact names, rồi execute với exact project ID.
-3. Chạy residual scan. Nếu scan lỗi, kiểm Console hoặc nhờ quản trị account; không coi lỗi là “sạch”.
-4. Dùng handler local để tiếp tục học. Không giữ stack sống chỉ để debug hoặc demo.
+1. Stop creating or retrying resources. Confirm the account, Region, and project ID.
+2. Run cleanup in dry-run mode, read the exact names, then execute with the exact project ID.
+3. Run the residual scan. If the scan fails, check the Console or ask the account administrator; do not call the project clean.
+4. Use the local handler to continue learning. Do not keep a stack alive for debugging or demonstration.
 
-## Bash tương đương (macOS/Linux)
+## Bash equivalent (macOS/Linux)
 
 ```bash
 project="student01"; region="us-east-1"; artifact=".artifacts/churn-model/portable_model.json"
@@ -137,6 +130,4 @@ bash aws/scripts/cleanup.sh --project-id "$project" --region "$region" --execute
 bash aws/scripts/residual-scan.sh --project-id "$project" --region "$region" --json
 ```
 
-Nguồn AWS kiểm ngày 2026-08-12: [account plans](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html),
-[Free Tier FAQ](https://aws.amazon.com/free/free-tier-faqs/),
-[Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html).
+AWS sources checked on 2026-08-12: [account plans](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html), [Free Tier FAQ](https://aws.amazon.com/free/free-tier-faqs/), and [Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html).

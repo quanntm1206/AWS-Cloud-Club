@@ -1,32 +1,31 @@
-# Lab 01 - Đọc shape bằng NumPy và đối chiếu vectorization
+# Lab 01 - Read NumPy shapes and check vectorization
 
-## Mục tiêu
+## Goal
 
-Phép nhân ma trận chỉ hữu ích khi bạn biết mỗi chiều đại diện cho gì. Lab này giúp bạn nối công thức `X @ w` với dữ liệu nhiều hàng, thay vì học vectorization như một mẹo viết code ngắn.
+Matrix multiplication is useful only when you know what each dimension represents. Connect `X @ w` to a dataset with many rows instead of treating vectorization as a shortcut for shorter code.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `feature`, `label / target`, `parameter`, `vectorization`
+**New terms:** `feature`, `label / target`, `parameter`, `vectorization`
 
-**Ôn lại:** `dataset`, `sample`, `schema`
+**Review:** `dataset`, `sample`, `schema`
 
-**Áp dụng trong lab:** Biểu diễn mỗi `sample` thành vector `feature`, giữ `label / target` để diễn giải bài toán, dùng vectorization tính model output từ `parameter`; ghi `dataset` và `schema` của mảng.
+**Use in this lab:** Represent each `sample` as a `feature` vector and keep the `label / target` for interpretation. Use `vectorization` to calculate model output from a `parameter`, then record the array `dataset` and `schema`.
 
-**Tự giải thích:** Feature, label / target và parameter đóng vai trò gì trong phép X @ w?
+**Explain it yourself:** What roles do feature, label / target, and parameter play in `X @ w`?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-02.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
+Read `roadmap/weeks/week-02.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Viết shape dự kiến của `X`, `w` và `X @ w` trước khi chạy.
-2. Tính score của một hàng bằng tay, sau đó chạy loop và phép nhân vectorized.
-3. Dùng `np.allclose` để đối chiếu; cố ý đổi một shape hoặc axis và đọc lỗi.
-4. Tự tính MAE/standardization trên mảng nhỏ, kiểm zero variance hoặc input rỗng.
+1. Write the expected shapes of `X`, `w`, and `X @ w` before running the code.
+2. Calculate the score for one row by hand. Then run the loop and vectorized multiplication.
+3. Use `np.allclose` to compare them. Deliberately change one shape or axis and read the error.
+4. Calculate MAE and standardization on a small array. Check zero variance and empty input.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 1
 ```
 
-Kết quả được lưu tại `.artifacts/lab-01-evidence.json`. Trong `result`, bạn sẽ thấy `vectorization_matches_loop=true` và năm score đầu.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-01-evidence.json`. In `result`, you will see `vectorization_matches_loop=true` and the first five scores.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- `vectorization_matches_loop=true`; một hàng tính tay khớp output trong tolerance.
-- Bạn giải thích được broadcasting nào hợp lệ và vì sao `reshape` tùy tiện có thể che lỗi nghiệp vụ.
+- `vectorization_matches_loop=true`, and one hand-calculated row matches the output within tolerance.
+- You can explain valid broadcasting and why an arbitrary `reshape` can hide a business-logic error.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Thu nhỏ còn hai hàng, in `shape` và gắn tên cho từng axis. Đừng thêm `reshape` cho tới khi nói được chiều mới có ý nghĩa gì.
+Reduce the example to two rows, print each `shape`, and name every axis. Do not add `reshape` until you can explain the meaning of the new dimension.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

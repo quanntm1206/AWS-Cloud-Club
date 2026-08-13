@@ -1,32 +1,31 @@
-# Lab 08 - So sánh tree ensembles công bằng
+# Lab 08 - Compare tree ensembles fairly
 
-## Mục tiêu
+## Goal
 
-Tree, random forest và boosting có cách học khác nhau; phép so chỉ có ý nghĩa khi dữ liệu, metric và budget giống nhau.
+Trees, random forests, and boosting learn differently. A comparison is meaningful only when the data, metric, and budget are the same.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `hyperparameter`, `ensemble`, `bagging / boosting`
+**New terms:** `hyperparameter`, `ensemble`, `bagging / boosting`
 
-**Ôn lại:** `baseline`, `validation set`, `metric`, `overfitting`
+**Review:** `baseline`, `validation set`, `metric`, `overfitting`
 
-**Áp dụng trong lab:** Giữ dataset, validation set, metric và budget cố định; so `ensemble` dùng bagging / boosting, đổi đúng một hyperparameter rồi đối chiếu baseline và dấu hiệu overfitting.
+**Use in this lab:** Keep the dataset, validation set, metric, and budget fixed. Compare each `ensemble` using bagging / boosting, change exactly one hyperparameter, then compare with the baseline and check for overfitting.
 
-**Tự giải thích:** Parameter khác hyperparameter thế nào; bagging khác boosting ở trực giác nào?
+**Explain it yourself:** How is a parameter different from a hyperparameter? What is the intuitive difference between bagging and boosting?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-09.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
+Read `roadmap/weeks/week-09.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Train logistic, random forest và gradient boosting trên cùng train/validation split.
-2. Ghi validation AUC, runtime và saved-model size cho từng candidate.
-3. Chọn candidate bằng rule đã viết; chỉ sau đó đánh giá final test.
-4. Đổi đúng một giới hạn độ phức tạp, giải thích tác động train-validation.
+1. Train logistic regression, random forest, and gradient boosting on the same train-validation split.
+2. Record validation AUC, runtime, and saved-model size for each candidate.
+3. Choose a candidate with a written rule. Only then evaluate the final test set.
+4. Change exactly one complexity limit. Explain the effect on train and validation results.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 8
 ```
 
-Kết quả được lưu tại `.artifacts/lab-08-evidence.json`. Trong `result`, bạn sẽ thấy validation score từng candidate, model được chọn và final test AUC.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-08-evidence.json`. In `result`, you will see each candidate's validation score, the selected model, and final test AUC.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Output nêu validation scores, candidate được chọn, selection split và final test AUC.
-- Bạn mô tả được bagging/boosting và không dùng test để chọn hyperparameter.
+- The output identifies validation scores, the selected candidate, the selection split, and final test AUC.
+- You can describe bagging and boosting, and you do not use the test set to choose a hyperparameter.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Khóa split/seed trước, giảm còn hai candidate nếu cần. Chênh lệch nhỏ hơn variability chưa đủ để tuyên bố model thắng.
+Lock the split and seed first. Reduce the comparison to two candidates if needed. A difference smaller than the variability is not enough to declare a winner.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

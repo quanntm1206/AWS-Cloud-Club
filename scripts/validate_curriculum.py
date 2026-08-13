@@ -17,7 +17,7 @@ def validate(path: Path = ROOT / "curriculum/curriculum.yml") -> list[str]:
     milestones = [(week.get("id"), week.get("milestone")) for week in weeks if week.get("milestone")]
     expected_milestones = [(week, f"milestone-{index:02d}") for index, week in enumerate(range(4, 25, 4), 1)]
     if milestones != expected_milestones:
-        errors.append("cần đúng sáu mốc năng lực theo thứ tự ở tuần 4, 8, 12, 16, 20, 24")
+        errors.append("curriculum needs six ordered milestones in weeks 4, 8, 12, 16, 20, and 24")
     for week in weeks:
         hours = week.get("hours")
         if not isinstance(hours, int) or not 8 <= hours <= 10:

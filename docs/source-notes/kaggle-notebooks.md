@@ -1,33 +1,33 @@
-# Kaggle Notebooks - free path cho Computer Vision
+# Kaggle Notebooks - a free path for Computer Vision
 
-**Kiểm chứng:** 2026-08-12 tại [Kaggle Notebooks documentation](https://www.kaggle.com/docs/notebooks).
+**Verified:** 2026-08-12 against the [Kaggle Notebooks documentation](https://www.kaggle.com/docs/notebooks).
 
-Roadmap không ghi cứng số giờ GPU/TPU vì availability và quota có thể thay đổi. Notebook tự phát hiện device
-và dùng `cpu-mini` khi accelerator không có.
+The roadmap does not promise a fixed number of GPU or TPU hours because availability and quotas may change.
+The notebook detects the device and uses `cpu-mini` when no accelerator is available.
 
-## Mở notebook
+## Open the notebook
 
-1. Tải [`notebooks/kaggle/cv_transfer_learning_kaggle.ipynb`](../../notebooks/kaggle/cv_transfer_learning_kaggle.ipynb).
-2. Trong Kaggle, tạo Notebook rồi chọn `File > Import Notebook` để upload file.
-3. Mở Settings, bật accelerator nếu tài khoản còn quyền sử dụng; chạy environment check để xác nhận device.
-4. Chạy `cpu-mini` trước. Với `gpu-free`, notebook dùng CIFAR10 subset, frozen backbone và tối đa 5 epoch.
-5. Chọn `Save Version`, chờ output hoàn tất, rồi tải `artifacts.zip`, metrics, manifest và checkpoint.
-6. Tắt accelerator/kết thúc session sau khi export; không để notebook chạy nền.
+1. Download [`notebooks/kaggle/cv_transfer_learning_kaggle.ipynb`](../../notebooks/kaggle/cv_transfer_learning_kaggle.ipynb).
+2. In Kaggle, create a Notebook, then select `File > Import Notebook` to upload the file.
+3. Open Settings and enable an accelerator if your account can use one. Run the environment check to confirm the device.
+4. Run `cpu-mini` first. With `gpu-free`, the notebook uses a CIFAR10 subset, a frozen backbone, and no more than 5 epochs.
+5. Select `Save Version`, wait for the output, then download `artifacts.zip`, metrics, the manifest, and checkpoints.
+6. Disable the accelerator or end the session after export. Do not leave the notebook running in the background.
 
-## Dữ liệu và internet
+## Data and internet access
 
-Nếu dùng dataset khác, thêm bằng `Add Input`; dữ liệu thường xuất hiện read-only dưới `/kaggle/input`. Ghi rõ
-license và split. Không đưa credential/private token vào notebook. Nếu internet bị tắt hoặc download lỗi,
-chuyển sang input dataset đã thêm hoặc FakeData smoke; không dùng FakeData accuracy để báo chất lượng. Nếu
-pretrained weights không có trong cache và internet bị tắt, random-weight fallback chỉ kiểm code, chưa đạt gate
-transfer learning.
+To use another dataset, add it with `Add Input`. Data usually appears as read-only files under `/kaggle/input`.
+Record the licence and split. Never put credentials or private tokens in a notebook. If internet access is off
+or a download fails, use an added input dataset or a FakeData smoke test. Do not report FakeData accuracy as
+model quality. If pretrained weights are not cached and internet access is off, the random-weight fallback only
+checks the code. It does not pass the transfer-learning gate.
 
-## Khắc phục nhanh
+## Quick fixes
 
-- Không chọn được GPU: chạy CPU-mini; phần cốt lõi vẫn hợp lệ.
-- Không tìm thấy file: in working directory và liệt kê `/kaggle/input`; tránh hardcode tên dataset chưa kiểm.
-- Hết memory: giảm batch/image/sample, restart session rồi chạy lại từ đầu.
-- Session dừng: tạo notebook version mới, upload checkpoint và kiểm config/label mapping trước resume.
-- Output biến mất: phải `Save Version` và download artifact trước khi kết thúc session.
+- GPU unavailable: run CPU-mini. The core work remains valid.
+- File not found: print the working directory and list `/kaggle/input`. Do not hard-code an unverified dataset name.
+- Out of memory: reduce the batch, image size, or sample count. Restart the session, then rerun from the start.
+- Session stops: create a new notebook version, upload the checkpoint, and confirm the configuration and label mapping before resuming.
+- Output disappears: select `Save Version` and download the artifacts before ending the session.
 
-Chọn **Kaggle hoặc Colab**, không buộc chạy cả hai và không cần gói trả phí.
+Choose **Kaggle or Colab**. You do not need to run both or buy a paid plan.

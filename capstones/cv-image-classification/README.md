@@ -1,72 +1,77 @@
-# Capstone B - Image Classification bằng free compute
+# Capstone B - image classification with free compute
 
-Capstone mở rộng này giúp bạn trải nghiệm một vòng Computer Vision thực tế mà không dùng GPU AWS. Bạn chọn
-**Colab Free hoặc Kaggle Free**, train frozen-backbone model, phân tích lỗi rồi viết quyết định kiến trúc AWS
-trên giấy. Không cần chạy cả hai nền tảng.
+This extension capstone gives you a realistic Computer Vision cycle without an AWS GPU. Choose **Colab Free or
+Kaggle Free**, train a frozen-backbone model, analyse its errors, then write an AWS architecture decision. You
+do not need to use both platforms.
 
-## Bạn sẽ tạo ra gì?
+## What will you produce?
 
-- Checkpoint tốt nhất và checkpoint có thể resume; metrics tổng hợp/per-class; confusion matrix.
-- Tối đa 20 failure records hoặc toàn bộ nếu ít hơn; experiment report và model card.
-- `artifacts.zip`, manifest/checksum và ADR giải thích vì sao core path không deploy CV endpoint.
+- The best checkpoint and a resumable checkpoint; overall and per-class metrics; a confusion matrix.
+- Up to 20 failure records, or all records if there are fewer; an experiment report and a model card.
+- `artifacts.zip`, a manifest and checksum, and an ADR explaining why the core path does not deploy a CV endpoint.
 
 ## File map
 
-- [`notebooks/colab.ipynb`](notebooks/colab.ipynb): notebook chạy thật trên Colab.
-- [`notebooks/kaggle.ipynb`](notebooks/kaggle.ipynb): cùng workflow cho Kaggle.
-- [`configs/cpu-mini.yml`](configs/cpu-mini.yml): 1 epoch, 160 mẫu; luôn chạy trước.
-- [`configs/gpu-free.yml`](configs/gpu-free.yml): tối đa 5 epoch, frozen backbone; chỉ khi có GPU miễn phí.
-- [`reports/experiment-report.md`](reports/experiment-report.md), [`reports/model-card.md`](reports/model-card.md)
-  và [`reports/aws-adr.md`](reports/aws-adr.md): ba tài liệu cần hoàn thiện.
-- [`rubric.yml`](rubric.yml): tiêu chí tự đánh giá.
+- [`notebooks/colab.ipynb`](notebooks/colab.ipynb): the working Colab notebook.
+- [`notebooks/kaggle.ipynb`](notebooks/kaggle.ipynb): the same workflow for Kaggle.
+- [`configs/cpu-mini.yml`](configs/cpu-mini.yml): 1 epoch and 160 samples; always run this first.
+- [`configs/gpu-free.yml`](configs/gpu-free.yml): up to 5 epochs with a frozen backbone; use only with a free GPU.
+- [`reports/experiment-report.md`](reports/experiment-report.md), [`reports/model-card.md`](reports/model-card.md),
+  and [`reports/aws-adr.md`](reports/aws-adr.md): the three documents to complete.
+- [`rubric.yml`](rubric.yml): self-assessment criteria.
 
-## Giai đoạn 1 - Chọn runtime
+## Stage 1 - choose a runtime
 
-1. Mở một notebook bằng [hướng dẫn Colab/Kaggle](../../notebooks/README.md).
-2. Chạy environment check và `cpu-mini`. Notebook vẫn cố tải pretrained ResNet18; FakeData chỉ xác nhận
-   pipeline, không chứng minh accuracy.
-3. Nếu có GPU miễn phí và internet, chuyển `gpu-free`; notebook dùng CIFAR10 subset và pretrained weights.
-4. Không quá 3-5 epoch, không hyperparameter sweep. Notebook ghi `last_checkpoint.pt` sau mỗi epoch và cập
-   nhật `best_checkpoint.pt` khi validation loss tốt hơn.
+1. Open one notebook by following the [Colab/Kaggle guide](../../notebooks/README.md).
+2. Run the environment check and `cpu-mini`. The notebook still tries to download pretrained ResNet18.
+   FakeData only confirms the pipeline; it does not prove accuracy.
+3. If a free GPU and internet access are available, switch to `gpu-free`. The notebook uses a CIFAR10 subset
+   and pretrained weights.
+4. Run no more than 3-5 epochs and do not run a hyperparameter sweep. The notebook writes
+   `last_checkpoint.pt` after each epoch and updates `best_checkpoint.pt` when validation loss improves.
 
-## Giai đoạn 2 - Training có kiểm soát
+## Stage 2 - controlled training
 
-Giữ pretrained normalization, split seed và validation transform cố định; augmentation chỉ áp dụng cho train.
-Train head với frozen backbone trước. Fine-tuning block cuối là phần mở rộng, chỉ làm nếu validation và runtime
-budget có lý do. Test không tham gia early stopping. Resume từ last checkpoint; đánh giá best checkpoint. Tải
-`artifacts.zip` về máy trước khi đóng runtime.
+Keep pretrained normalization, the split seed, and validation transforms fixed. Apply augmentation only to
+the training data. Train the head with a frozen backbone first. Fine-tuning the final block is an extension;
+do it only when validation evidence and the runtime budget support it. Do not use the test set for early
+stopping. Resume from the last checkpoint and evaluate the best checkpoint. Download `artifacts.zip` before
+closing the runtime.
 
-Khi resume ở runtime mới, upload `last_checkpoint.pt` hoặc `artifacts.zip` vào thư mục làm việc rồi đặt
-`RESUME=True`. Notebook tự đưa file về đúng `artifacts/last_checkpoint.pt` và dừng rõ nếu không tìm thấy.
+To resume in a new runtime, upload `last_checkpoint.pt` or `artifacts.zip` to the working directory and set
+`RESUME=True`. The notebook places the file at `artifacts/last_checkpoint.pt` and stops with a clear error if
+it cannot find it.
 
-## Giai đoạn 3 - Hiểu model sai ở đâu
+## Stage 3 - understand the model's errors
 
-Báo macro/weighted và từng class cùng support; confusion matrix normalize theo true class. Review lỗi theo quy
-tắc confident-wrong, không chọn ảnh thuận mắt. Notebook để `error_type='unreviewed'`; bạn mở từng ảnh và gán
-nhóm lỗi dựa trên evidence trước khi tổng hợp taxonomy. Với mỗi nhóm lỗi, ghi giả thuyết và một next experiment.
-Không chia sẻ ảnh nhạy cảm hoặc không có quyền sử dụng.
+Report macro, weighted, and per-class metrics with support. Normalize the confusion matrix by true class.
+Review errors using the confident-wrong rule instead of choosing convenient images. The notebook sets
+`error_type='unreviewed'`. Open each image and assign an evidence-based error group before you summarise the
+taxonomy. For each group, record a hypothesis and one next experiment. Do not share sensitive images or any
+image that you do not have permission to use.
 
-## Giai đoạn 4 - AWS chỉ ở mức artifact và thiết kế
+## Stage 4 - AWS for artifacts and design only
 
-Có thể upload artifact nhỏ/checksum lên S3 nếu đã qua cost gate. Core path không dùng SageMaker training,
-notebook instance, real-time endpoint, GPU AWS hoặc public API. Hoàn thiện `reports/aws-adr.md` để so private
-Lambda khi artifact phù hợp, batch inference và managed endpoint theo workload; không triển khai endpoint CV.
+You may upload a small artifact or checksum to S3 after passing the cost gate. The core path does not use
+SageMaker training, notebook instances, real-time endpoints, AWS GPUs, or a public API. Complete
+`reports/aws-adr.md` to compare a private Lambda when the artifact fits, batch inference, and a managed
+endpoint for different workloads. Do not deploy a CV endpoint.
 
-## Khi nào xem như hoàn thành?
+## When is the capstone complete?
 
-- Notebook chạy từ đầu với `cpu-mini`; pretrained weights phải tải thành công để đạt gate transfer learning.
-  Nếu báo quality, run còn phải dùng dataset thật chứ không phải FakeData.
-- Frozen backbone được kiểm; best checkpoint, resume state, config, label mapping và manifest đã export.
-- Per-class metrics, confusion matrix, failure taxonomy, report và model card hoàn chỉnh.
-- ADR nêu constraint, lựa chọn, trade-off và lý do không dùng AWS training/endpoint trong core path.
+- The notebook runs from the start with `cpu-mini`. Pretrained weights must download successfully to pass the
+  transfer-learning gate. A model-quality claim also requires a real dataset, not FakeData.
+- The frozen backbone is verified; the best checkpoint, resume state, configuration, label mapping, and manifest are exported.
+- Per-class metrics, the confusion matrix, failure taxonomy, report, and model card are complete.
+- The ADR states the constraints, options, trade-offs, and reasons for excluding AWS training and endpoints from the core path.
 
-## Khi mắc kẹt
+## If you get stuck
 
-- **Không có GPU:** giữ CPU-mini hoặc thử free runtime lúc khác; không mua compute.
-- **Download dataset lỗi:** dùng FakeData smoke và ghi limitation; chưa được kết luận model quality.
-- **Download pretrained weights lỗi:** random-weight fallback chỉ kiểm tra code, chưa đạt gate transfer learning.
-- **Out of memory:** giảm batch, image size và sample count; restart runtime sau OOM.
-- **Session bị ngắt:** upload checkpoint, kiểm architecture/config/label mapping rồi resume.
-- **Metric một class rất thấp:** kiểm support, split, label và confusion matrix trước khi fine-tune.
+- **No GPU:** keep CPU-mini or try another free runtime later. Do not buy compute.
+- **Dataset download fails:** use the FakeData smoke test and record the limitation. Do not make a model-quality claim.
+- **Pretrained weights do not download:** the random-weight fallback only checks the code. It does not pass the transfer-learning gate.
+- **Out of memory:** reduce the batch size, image size, and sample count. Restart the runtime after an OOM.
+- **Session stops:** upload the checkpoint, confirm the architecture, configuration, and label mapping, then resume.
+- **One class has a very low metric:** check its support, the split, labels, and confusion matrix before fine-tuning.
 
-Lưu artifact và báo cáo cục bộ để tự đánh giá; không xuất bản hoặc gửi cho ai.
+Store artifacts and reports locally for self-assessment. Do not publish or submit them to anyone.

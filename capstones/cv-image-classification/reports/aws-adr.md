@@ -1,19 +1,20 @@
-# ADR - Không triển khai CV endpoint trong core path
+# ADR - do not deploy a CV endpoint in the core path
 
 ## Context
 
-Model CV lớn hơn tabular, cold start/memory cao hơn và endpoint có thể tạo chi phí nền. Người học cần hiểu
-MLOps nhưng constraint ưu tiên Free Plan và tránh surprise cost.
+A CV model is larger than a tabular model, has higher cold-start and memory needs, and an endpoint may create
+ongoing costs. Learners need to understand MLOps, but the main constraints are the Free Plan and avoiding
+surprise costs.
 
 ## Decision
 
-Train trên Colab/Kaggle; export và kiểm checksum; S3 upload là optional. AWS deployment chỉ thiết kế:
+Train on Colab or Kaggle, export the artifact, and verify its checksum. Uploading it to S3 is optional. Design
+the AWS deployment only:
 
-- Lambda chỉ nếu artifact/runtime nằm trong limit đã đo và request nhỏ.
-- Batch inference phù hợp workload không cần realtime.
-- Managed endpoint phù hợp production latency/scale nhưng bị loại khỏi core vì chi phí nền.
+- Use Lambda only if the measured artifact and runtime fit within the limits and requests are small.
+- Batch inference suits workloads that do not need real-time responses.
+- A managed endpoint suits production latency and scaling needs, but the core path excludes it because of its ongoing cost.
 
 ## Consequence
 
-Capstone chứng minh experiment discipline và architecture reasoning, không chứng minh production serving CV.
-
+The capstone demonstrates experiment discipline and architecture reasoning. It does not demonstrate production CV serving.

@@ -1,80 +1,80 @@
-# Tuần 13 - Notebook thành Python package
+# Week 13 - Notebook to Python package
 
-## Mục tiêu tuần
+## Weekly goals
 
-Tách notebook thành module, config và CLI.
+Separate notebook into module, config and CLI.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Notebook giúp khám phá nhanh; package giúp logic có đầu vào rõ, tái sử dụng được và dễ test. ML Engineer cần biết chuyển từ cái đầu sang cái sau.
+Notebooks help with quick discovery; package helps logic have clear inputs, is reusable and easy to test. ML Engineers need to know how to move from the former to the latter.
 
-**Ví dụ gần gũi:** Cell chạy đúng nhờ biến còn trong memory sẽ thất bại khi mở notebook mới; CLI buộc dependency phải hiện rõ.
+**Close example:** Cell runs correctly thanks to variables while in memory it will fail when opening a new notebook; CLI forces dependencies to be visible.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Notebook để khám phá; production path là module có explicit input/output và CLI.
-- Tách data, feature, train, evaluate, artifact I/O; notebook chỉ gọi package.
-- Config có schema; CLI trả exit code và error message hữu ích.
-- Đặt file/network side effects tại boundary, giữ core functions dễ test.
+- Notebook to explore; production path is the module with explicit input/output and CLI.
+- Split data, feature, train, evaluate, artifact I/O; notebook just calls package.
+- Config has schema; The CLI returns a useful exit code and error message.
+- Place file/network side effects at the boundary, keeping core functions easy to test.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `package`, `configuration`
+**New or focus terms:** `package`, `configuration`
 
-**Ôn lại:** `reproducibility`, `pipeline`, `artifact`
+**Review:** `reproducibility`, `pipeline`, `artifact`
 
-**Áp dụng:** Tách pipeline thành `package`; đưa seed và hyperparameter vào `configuration`, chạy lại để giữ reproducibility, artifact và inference không phụ thuộc notebook state.
+**Use:** Split pipeline into `package`; put seed and hyperparameter in `configuration`, rerun to keep reproducibility, artifact and inference independent of notebook state.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Di chuyển train logic vào src nhưng giữ output agreement.
-2. Thêm CLI nhận config/output/seed.
-3. Chạy cùng config hai lần, so manifest và metric tolerance.
+1. Move train logic into src but keep output agreement.
+2. Add CLI to receive config/output/seed.
+3. Run the same config twice, so manifest and metric tolerance.
 
 ## Lab
 
-**lab-12:** Notebook-to-package refactor. Môi trường chính: `local`.
+**lab-12:** Notebook-to-package refactor. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn chạy cùng logic từ CLI và notebook, không copy hai phiên bản, và có config thay cho global state.
+You run the same logic from CLI and notebook, don't copy two versions, and have config instead of global state.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Logic nào ở notebook/package?
-2. Globals phá reproducibility ra sao?
-3. CLI contract gồm gì?
+1. What logic is in the notebook/package?
+2. How do Globals destroy reproducibility?
+3. What does CLI contract include?
 
-## Kết quả hướng tới
+## Result oriented
 
-installable package; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+installable package; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Giữ một nguồn training logic trong package; notebook và CLI cho kết quả tương đương.
-- **Mở rộng:** Thêm một config validation hoặc error message hữu ích cho input sai.
+- **Core:** Keep a source of training logic in the package; notebook and CLI give equivalent results.
+- **Extension:** Add a useful validation config or error message for incorrect input.
 
-## Lỗi thường gặp
+## Common errors
 
-- Copy logic ở hai nơi gây drift.
-- Ẩn input trong working directory.
+- Copying logic in two places causes drift.
+- Hide input in working directory.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Restart kernel hoặc mở clean shell. Nếu chỉ notebook cũ chạy, lần theo biến ẩn và đường dẫn phụ thuộc working directory.
+Restart the kernel or open a clean shell. If only the old notebook is running, trace the hidden variable and dependency path to the working directory.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: Python packaging/argparse và project structure references đã liệt kê trong `docs/sources.yml`.
+Recommended source reading: Python packaging/argparse and project structure references listed in `docs/sources.yml`.

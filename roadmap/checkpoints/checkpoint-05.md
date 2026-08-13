@@ -1,38 +1,38 @@
-# Mốc năng lực 05 - Tuần 20
+# Competency milestone 05 - Week 20
 
-## Mục tiêu
+## Target
 
-Tự đánh giá Computer Vision với transfer learning và giới hạn compute miễn phí.
+Evaluate yourself with Computer Vision with transfer learning and limited compute for free.
 
-## Bạn đã đạt mốc nếu
+## You have reached the if mark
 
-- Dùng đúng pretrained weights/normalization, có frozen-backbone baseline và CPU mini fallback. Nếu pretrained
-  weights không tải được, random-weight run chỉ là execution smoke và chưa đạt gate transfer learning.
-- Checkpoint lưu đủ model, optimizer, epoch, best metric, history, config, seed và class mapping.
-- Resume tiếp tục từ epoch đúng; không âm thầm train lại từ đầu khi runtime bị ngắt.
-- Báo macro/per-class metric, confusion matrix và phân nhóm failure cases thay vì chỉ accuracy.
+- Use correct pretrained weights/normalization, have frozen-backbone baseline and mini CPU fallback. If pretrained
+  weights cannot be loaded, random-weight run is just execution smoke and has not passed gate transfer learning.
+- Checkpoint stores all models, optimizers, epochs, best metrics, history, config, seeds and class mapping.
+- Resume continues from the correct epoch; Do not silently retrain from the beginning when the runtime is interrupted.
+- Report macro/per-class metrics, confusion matrix and grouping failure cases instead of just accuracy.
 
-## Minh chứng đạt mốc
+## Proof of reaching the milestone
 
-- Notebook Colab hoặc Kaggle chạy được với device check, mini profile và lệnh/config tái lập lưu cục bộ.
-- Checkpoint manifest, checksum và log chứng minh resume path hoạt động.
-- Bảng frozen/unfreeze có runtime, metric và giới hạn quota/compute.
-- Confusion matrix, per-class report và tối đa 20 failure examples; nếu ít hơn, lưu toàn bộ và ghi rõ.
+- Notebook Colab or Kaggle can run with device check, mini profile and locally saved command/config.
+- Checkpoint manifest, checksum and log prove the resume path works.
+- The frozen/unfreeze table has runtime, metrics and quota/compute limits.
+- Confusion matrix, per-class report and up to 20 failure examples; If less, save all and clearly state.
 
 ## Rubric
 
-| Tiêu chí | Điểm |
+| Criteria | Score |
 |---|---:|
-| Transfer learning đúng | 25 |
-| Checkpoint và resume | 25 |
-| Đánh giá per-class | 30 |
-| Failure analysis và giới hạn | 20 |
+| Transfer learning is correct | 25 |
+| Checkpoint and resume | 25 |
+| Per-class evaluation | 30 |
+| Failure analysis and limits | 20 |
 
-Điểm đạt: 70/100. Gate: pretrained weights và normalization đúng, best/last checkpoint load được, CPU mini path
-tái lập, không có token trong notebook/output. FakeData có thể chứng minh pipeline; evidence chất lượng cần dữ liệu thật.
+Passing score: 70/100. Gate: pretrained weights and normalization correct, best/last checkpoint loadable, CPU mini path
+recreated, no tokens in notebook/output. FakeData can demonstrate the pipeline; Quality evidence requires real data.
 
-## Câu hỏi tự nhìn lại
+## Self-reflection question
 
-- Cải thiện metric có đáng với runtime và quota đã dùng không?
-- Class hoặc điều kiện ảnh nào model thường nhầm nhất, vì sao?
-- Kết quả nào chỉ là execution smoke, chưa chứng minh chất lượng model?
+- Is improving metrics worth the runtime and quota used?
+- Which image class or condition is the most commonly mistaken model, and why?
+- Which results are just execution smoke, not proving model quality?

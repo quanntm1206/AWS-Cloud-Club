@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-04-first-classifier
+# Reference result - lab-04-first-classifier
 
 ## Oracle
 
-Giữ cùng split/metric; giải thích model có vượt baseline hay không.
+Keep the same split and metric. Explain whether the model beats the baseline.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 4` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy `dummy_f1` và `logistic_f1`.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 4` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for `dummy_f1` and `logistic_f1`.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Receipt ghi `data split`, training/validation/test set; baseline và model dùng cùng metric; confusion matrix cùng precision / recall / F1 phục vụ model validation.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The receipt records the `data split` and training, validation, and test sets. The baseline and model use the same metric; the confusion matrix and precision / recall / F1 support model validation.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu F1 đều thấp, kiểm class balance và signal trước khi đổi thuật toán.
+If both F1 scores are low, check class balance and signal before changing the algorithm.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

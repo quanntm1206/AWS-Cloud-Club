@@ -1,92 +1,92 @@
-# Tuần 24 - Khép lại capstone như một ML Engineer
+# Week 24 - Closing the capstone as an ML Engineer
 
-## Mục tiêu tuần
+## Weekly goals
 
-Trình bày quyết định kỹ thuật, audit tài nguyên/chi phí và lập kế hoạch 90 ngày tiếp theo.
+Present technical decisions, resource/cost audits, and planning for the next 90 days.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-ML Engineer giỏi không giữ cloud resource sống chỉ để slide đẹp. Một phần kết tốt phải cho thấy model
-tái lập được, giới hạn được nói thật, demo có fallback và hệ thống đã được dọn sạch.
+Good ML Engineers do not keep cloud resources alive just for beautiful slides. A good ending must show the model
+It's reproducible, the limits are stated, the demo has fallbacks, and the system is cleaned up.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Tổng kết theo problem, constraint, baseline, decision, evidence, failure và reproduction; không chỉ accuracy.
-- Demo 5-7 phút dùng local fallback. Không cần AWS resource sống thường trực.
-- Residual scan chứng minh state kỹ thuật; Billing chứng minh chi phí nhưng dữ liệu có độ trễ.
-- Budget alert được giữ có chủ đích không phải residual infrastructure. Review hoặc xóa thủ công cuối khóa.
-- “Done” nghĩa tests pass, model card cập nhật, secret scan sạch, limitation rõ và zero known residual.
+- Summarize according to problem, constraint, baseline, decision, evidence, failure and reproduction; not just accuracy.
+- 5-7 minute demo using local fallback. No need for permanent AWS resources.
+- Residual scan proves technical state; Billing justifies the cost but the data has latency.
+- Budget alerts are intentionally kept, not residual infrastructure. Review or delete manually at the end of the course.
+- “Done” means tests pass, card model updated, secret scan clean, limitations clear and zero known residual.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `idempotent cleanup`, `budget alert`, `manifest`
+**New or focus terms:** `idempotent cleanup`, `budget alert`, `manifest`
 
-**Ôn lại:** `artifact`, `inference`, `residual scan`
+**Review:** `artifact`, `inference`, `residual scan`
 
-**Áp dụng:** Chứng minh `idempotent cleanup`, đọc lại `budget alert`, đối chiếu `manifest`; ôn artifact, inference và residual scan trong demo cuối.
+**Use:** Demonstrate `idempotent cleanup`, reread `budget alert`, compare `manifest`; Review artifact, inference and residual scan in the final demo.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Chạy lại từ clean environment | 2 |
-| Chuẩn bị demo và fallback | 2 |
+| Rerun from clean environment | 2 |
+| Prepare demo and fallback | 2 |
 | Cleanup, residual scan, cost audit | 2 |
-| Rubric, retrospective và kế hoạch 90 ngày | 2 |
-| Learning log và tự đánh giá | 1 |
+| Rubric, retrospective and 90-day plan | 2 |
+| Learning log and self-assessment | 1 |
 
 ## Guided practice
 
-1. Demo từ clean environment, bấm giờ; tắt AWS rồi thử fallback local.
-2. Chạy cleanup dry-run, execute, residual scan. Nếu scan lỗi, xử lý lỗi trước khi kết luận.
-3. Kiểm Billing ngay, đặt lịch kiểm lại sau khoảng 12 giờ và ngày kế tiếp.
-4. Review Budget alerts; giữ nếu còn học AWS, xóa thủ công nếu không cần nữa.
+1. Demo from clean environment, timer; Turn off AWS then try fallback locally.
+2. Run cleanup dry-run, execute, residual scan. If there is an error in the scan, handle the error before concluding.
+3. Check Billing immediately, schedule to check again after about 12 hours and the next day.
+4. Review Budget alerts; Keep it if you're still learning AWS, delete it manually if you no longer need it.
 
 ## Lab
 
-**lab-20:** incident drill, cleanup, residual scan và cost retrospective.
+**lab-20:** incident drill, cleanup, residual scan and cost retrospective.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Tổng kết năng lực chứng minh engineering bằng gì ngoài metric?
-2. Vì sao số 0 ngay sau cleanup chưa phải cost evidence cuối?
-3. Budget còn lại khác residual infrastructure như thế nào?
+1. Summarize engineering capabilities using what other than metrics?
+2. Why is the number 0 right after cleanup not the last cost evidence?
+3. How is the remaining budget different from residual infrastructure?
 
-## Kết quả hướng tới
+## Result oriented
 
-Mốc năng lực 6: capstone tái lập, demo có fallback, audit có timestamp và kế hoạch 90 ngày hướng ML Engineer.
+Competency milestone 6: reset capstone, demo with fallback, audit with timestamp and 90-day plan for ML Engineer.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn không gọi dự án là “xong” trước khi reproduction, cleanup, residual scan và limitation đều rõ.
+You don't call a project "done" before reproduction, cleanup, residual scan and limitations are all clear.
 
 ## Core vs stretch
 
 - **Core:** local demo + completed cleanup/audit.
-- **Stretch:** kiến trúc hóa production path trên giấy, kèm auth, rate limit, monitoring và cost controls.
+- **Stretch:** architect the production path on paper, with auth, rate limit, monitoring and cost controls.
 
-## Lỗi thường gặp
+## Common errors
 
-- Giữ endpoint sống chỉ để trình diễn.
-- Đưa account ID, credential hoặc raw billing vào artifact.
-- Thấy Budget chưa báo rồi kết luận không có chi phí.
+- Keep the endpoint alive for demonstration only.
+- Insert account ID, credential or raw billing into the artifact.
+- Seeing that Budget has not reported yet, it is concluded that there are no costs.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Ưu tiên an toàn: dừng demo AWS, cleanup, dùng local fallback. Nếu Billing chưa cập nhật, ghi timestamp và
-lịch kiểm lại; đừng bịa kết luận để hoàn thành báo cáo.
+Prioritize safety: stop AWS demo, cleanup, use local fallback. If Billing has not been updated, record timestamp and
+review schedule; Don't make up conclusions to complete the report.
 
-## Bạn đã sẵn sàng kết thúc lộ trình khi
+## You are ready to end the route when
 
-- Demo chạy được từ clean environment và có fallback local.
-- Residual scan hoàn tất với `residual=false`; Budget được review riêng.
-- Bạn đã kiểm Billing theo ba mốc: ngay sau cleanup, khoảng 12 giờ, ngày kế tiếp.
+- Demo can run from clean environment and has local fallback.
+- Residual scan completed with `residual=false`; Budget is reviewed separately.
+- You checked Billing in three milestones: right after cleanup, about 12 hours, the next day.
 
 ## AWS cost gate
 
-AWS Budgets cập nhật tối đa ba lần/ngày, thường cách 8-12 giờ. Budget không phải hard cap. Nguồn:
+AWS Budgets updates up to three times a day, usually every 8-12 hours. Budget is not a hard cap. Source:
 [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html).
 
-## Nguồn
+## Source
 
-Xem `docs/sources.yml` và `aws/README.md`.
+See `docs/sources.yml` and `aws/README.md`.

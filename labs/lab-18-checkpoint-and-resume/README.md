@@ -1,34 +1,31 @@
-# Lab 18 - Lưu và resume checkpoint đúng nghĩa
+# Lab 18 - Save and resume a complete checkpoint
 
-## Mục tiêu
+## Goal
 
-Checkpoint tốt là hợp đồng để tiếp tục training, không chỉ là file weights. Bạn sẽ chủ động dừng một run rồi khôi phục đủ trạng thái.
+A useful checkpoint is a contract for continuing training, not only a weights file. Stop a run deliberately, then restore all required state.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `early stopping`, `fine-tuning`
+**New terms:** `early stopping`, `fine-tuning`
 
-**Ôn lại:** `transfer learning`, `freeze`, `checkpoint`, `optimizer`, `epoch`, `validation set`
+**Review:** `transfer learning`, `freeze`, `checkpoint`, `optimizer`, `epoch`, `validation set`
 
-**Áp dụng trong lab:** Chạy frozen `transfer learning` baseline với backbone đã freeze, sau đó optional `fine-tuning`; lưu `checkpoint` gồm optimizer/epoch và dùng `early stopping` theo validation set; resume để chứng minh state không mất.
+**Use in this lab:** Run a frozen `transfer learning` baseline, then optionally use `fine-tuning`. Use `freeze` to keep the backbone fixed. Save a `checkpoint` with optimizer and epoch state, apply `early stopping` on the validation set, and resume to prove that state was preserved.
 
-**Tự giải thích:** Checkpoint khác model weights thế nào; fine-tuning và early stopping dùng validation set ra sao?
+**Explain it yourself:** How is a checkpoint different from model weights? How do fine-tuning and early stopping use the validation set?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-19.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+Read `roadmap/weeks/week-19.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Chạy smoke local để đọc best epoch, resume epoch và patience.
-2. Trong notebook thật, train 1 epoch rồi lưu model, optimizer, epoch, best metric, config, seed và label mapping.
-3. Tạo runtime/process mới, upload `last_checkpoint.pt` hoặc `artifacts.zip` vào thư mục làm việc, đặt
-   `RESUME=True`; giữ `RUN_EPOCHS=1` để load checkpoint epoch 1 và chạy thêm epoch 2. Thiếu file thì notebook
-   phải dừng, không được âm thầm train lại từ đầu.
-4. So best với last; export ZIP và checksum trước khi đóng session.
+1. Run the local smoke demo. Read the best epoch, resume epoch, and patience.
+2. In the real notebook, train for 1 epoch. Save the model, optimizer, epoch, best metric, config, seed, and label mapping.
+3. Start a new runtime or process. Upload `last_checkpoint.pt` or `artifacts.zip`, set `RESUME=True`, and keep `RUN_EPOCHS=1` so epoch 1 loads and epoch 2 runs. If the file is missing, the notebook must stop instead of silently restarting training.
+4. Compare best and last checkpoints. Export the ZIP and checksum before closing the session.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -42,28 +39,27 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 18
 ```
 
-Kết quả được lưu tại `.artifacts/lab-18-evidence.json`. Trong `result`, bạn sẽ thấy smoke metadata; notebook thật lưu model/optimizer/epoch/config.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-18-evidence.json`. In `result`, you will see smoke metadata; the real notebook saves model, optimizer, epoch, and config.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
 
-## Bài thực hành đầy đủ trên PyTorch
+## Complete exercise in PyTorch
 
-Command local ở trên chỉ là smoke demo nhanh. Phần training/evaluation thật nằm trong notebook:
+The local command is only a quick smoke demo. Real training and evaluation are in these notebooks:
 
 - Colab: [`notebooks/colab/cv_transfer_learning_colab.ipynb`](../../notebooks/colab/cv_transfer_learning_colab.ipynb)
 - Kaggle: [`notebooks/kaggle/cv_transfer_learning_kaggle.ipynb`](../../notebooks/kaggle/cv_transfer_learning_kaggle.ipynb)
 
-Chọn **một** nền tảng. Chạy `cpu-mini` trước; chỉ chuyển sang `gpu-free` khi accelerator có sẵn. Tải
-`artifacts.zip` về máy trước khi kết thúc session. `RUN_EPOCHS` là số epoch chạy thêm trong mỗi phiên, không
-phải tổng epoch tính từ đầu.
+Choose **one** platform. Run `cpu-mini` first and move to `gpu-free` only when an accelerator is available. Download `artifacts.zip` before the session ends.
+`RUN_EPOCHS` is the number of additional epochs in each session, not the total number of epochs from the beginning.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Resume bắt đầu đúng epoch, giữ optimizer state/history và không dùng test cho early stopping.
-- Bạn phân biệt inference weights với resumable checkpoint và tải artifact về local.
+- The resumed run starts at the correct epoch, preserves optimizer state and history, and does not use the test set for early stopping.
+- You can distinguish inference weights from a resumable checkpoint, and you download the artifact locally.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu load lỗi, so architecture/config/label mapping trước. Nếu optimizer không load, kiểm parameter groups thay vì bỏ state âm thầm.
+If loading fails, compare architecture, config, and label mapping first. If optimizer loading fails, check parameter groups instead of silently dropping its state.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-07-cross-validation
+# Reference result - lab-07-cross-validation
 
 ## Oracle
 
-Báo từng fold và runtime; giải thích biến thiên có đáng lo so với metric gain hay không.
+Report every fold and its runtime. Explain whether the variation matters compared with the metric gain.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 7` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy fold scores, `cv_mean`, `cv_std`.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 7` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for fold scores, `cv_mean`, and `cv_std`.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Có score từng fold, mean/std; cross-validation fit lại pipeline; learning curve giải thích overfitting hoặc bias / variance.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The receipt has every fold score, mean, and standard deviation. Cross-validation refits the pipeline, and the learning curve explains overfitting or bias / variance.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu fold lệch mạnh, kiểm class/group/time distribution trước khi tăng số fold.
+If folds differ strongly, check class, group, and time distributions before increasing the number of folds.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

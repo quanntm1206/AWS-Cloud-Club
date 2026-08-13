@@ -1,81 +1,81 @@
-# Tuần 20 - CV evaluation và failure analysis
+# Week 20 - CV evaluation and failure analysis
 
-## Mục tiêu tuần
+## Weekly goals
 
-Đánh giá per-class và phân nhóm failure.
+Evaluate per-class and failure grouping.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Metric tổng hợp không cho biết model sai ở đâu. Failure analysis giúp bạn quyết định nên sửa dữ liệu, nhãn, transform hay model.
+The aggregated metric does not indicate where the model is wrong. Failure analysis helps you decide whether to edit data, labels, transforms or models.
 
-**Ví dụ gần gũi:** Một class ít mẫu có thể bị bỏ qua trong weighted F1 nhưng hiện rõ trong macro F1 và confusion matrix theo hàng.
+**Close example:** A class with few samples may be omitted in weighted F1 but clearly visible in macro F1 and row-by-row confusion matrix.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Overall accuracy che class yếu; báo per-class precision/recall/F1/support và macro/weighted aggregate.
-- Confusion matrix normalized theo true class giúp so recall giữa class khác support.
-- Failure record có sample ID, truth, prediction, confidence, error type; không publish sensitive data.
-- Review theo sampling rule rồi phân nhóm data, label, ambiguity, transform, model hoặc shift.
-- Model card gắn metric với dataset/split/config và cấm dùng fallback data để kết luận quality.
+- Overall accuracy covers weak class; report per-class precision/recall/F1/support and macro/weighted aggregate.
+- Confusion matrix normalized according to true class helps compare recall between other support classes.
+- Failure record has sample ID, truth, prediction, confidence, error type; Do not publish sensitive data.
+- Review according to sampling rule and then group data, label, ambiguity, transform, model or shift.
+- Model card attaches metrics to dataset/split/config and prohibits using fallback data to conclude quality.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `confusion matrix`, `support`
+**New or focus terms:** `confusion matrix`, `support`
 
-**Ôn lại:** `metric`, `validation set`, `error analysis`, `failure taxonomy`
+**Review:** `metric`, `validation set`, `error analysis`, `failure taxonomy`
 
-**Áp dụng:** Tạo `confusion matrix`, metric precision / recall / F1 và `support`; làm `error analysis` trên prediction ở validation set, gán failure taxonomy cho sample thật, không dùng FakeData làm model validation.
+**Use:** Create `confusion matrix`, metric precision / recall / F1 and `support`; Do `error analysis` on prediction in validation set, assign failure taxonomy to real sample, do not use FakeData as validation model.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Tạo per-class table và confusion matrix.
-2. Xuất tối đa 20 failure records, ưu tiên confident-wrong.
-3. Viết limitation và next experiment từ taxonomy.
+1. Create per-class table and confusion matrix.
+2. Export up to 20 failure records, confident-wrong priority.
+3. Write limitation and next experiment from taxonomy.
 
 ## Lab
 
-**lab-19:** Confusion matrix và tối đa 20 failure examples; nếu ít hơn thì xuất toàn bộ và ghi limitation. Môi trường chính: `local, colab, kaggle`.
+**lab-19:** Confusion matrix and up to 20 failure examples; If less, export all and write limitation. Main environment: `local, colab, kaggle`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn tạo bảng per-class, review lỗi theo quy tắc, viết limitation và một thí nghiệm tiếp theo có thể bác bỏ giả thuyết.
+You create a per-class table, review errors according to the rules, write limitations, and a follow-up experiment can disprove the hypothesis.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Macro khác weighted F1?
-2. Normalize matrix theo hàng trả lời gì?
-3. Sampling chỉ theo confidence bias gì?
+1. Other macros weighted F1?
+2. What does normalizing matrix by row answer?
+3. Sampling only follows what confidence bias?
 
-## Kết quả hướng tới
+## Result oriented
 
-mốc năng lực 5 + model card; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+competency milestone 5 + model card; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Tạo per-class metrics, confusion matrix, failure taxonomy và model card từ run thật.
-- **Mở rộng:** Thử một sampling rule khác cho failure review; không công bố ảnh không có quyền chia sẻ.
+- **Core:** Create per-class metrics, confusion matrix, failure taxonomy and model cards from real runtime.
+- **Expansion:** Try another sampling rule for failure review; Do not publish photos without permission to share.
 
-## Lỗi thường gặp
+## Common errors
 
-- Chỉ xem aggregate.
-- Đưa data không có quyền chia sẻ vào artifact công khai.
+- View only aggregates.
+- Putting data that does not have sharing rights into the public artifact.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Bắt đầu với 5-10 lỗi. Nếu ảnh nhạy cảm hoặc không có quyền chia sẻ, chỉ lưu ID và mô tả đã ẩn danh.
+Start with 5-10 errors. If the photo is sensitive or doesn't have permission to share, save only the anonymized ID and description.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: scikit-learn classification metrics/confusion matrix và model-card guidance trong `docs/sources.yml`.
+Recommended reading: scikit-learn classification metrics/confusion matrix and model-card guidance in `docs/sources.yml`.

@@ -1,20 +1,20 @@
-# AWS Free Tier - ghi chú nguồn
+# AWS Free Tier - source notes
 
-**Kiểm chứng:** 2026-08-12. Đây là thông tin dễ thay đổi; kiểm lại trước mỗi cohort và trước mỗi deploy.
+**Verified:** 2026-08-12. This information can change. Check it again before each cohort and each deployment.
 
-- Account mới đủ điều kiện nhận USD 100 sau khi tạo và có thể kiếm thêm tối đa USD 100 qua activities.
-  Cụm “up to USD 200” không có nghĩa USD 200 được cấp toàn bộ ngay.
-- Free Plan kết thúc sau 6 tháng hoặc khi credit hết, tùy điều kiện nào đến trước. AWS mô tả plan này
-  không phát sinh charge; account đóng khi plan kết thúc nếu người dùng không nâng cấp.
-- Paid Plan là pay-as-you-go. Credit còn lại được áp dụng cho khoản đủ điều kiện; Budget không chặn cứng.
-- Credit Free Tier hết hạn 12 tháng từ ngày tạo account. Existing/past customer có thể không đủ điều kiện.
-- Join AWS Organizations hoặc setup Control Tower có thể làm credit hết hiệu lực ngay và Free Plan tự
-  chuyển sang Paid Plan.
-- AWS Budgets cập nhật tối đa ba lần/ngày, thường cách 8-12 giờ. Alert có thể đến sau khi đã vượt ngưỡng.
-- Budget monitoring/notification không tính phí. Tránh Budget Reports và Budget Actions trong lab;
-  chúng có pricing riêng.
+- Eligible new accounts receive USD 100 after sign-up and may earn up to USD 100 more through activities.
+  The phrase "up to USD 200" does not mean that AWS gives the full USD 200 at once.
+- The Free Plan ends after 6 months or when its credits are used, whichever comes first. AWS describes this
+  plan as having no charges. The account closes when the plan ends unless the user upgrades.
+- The Paid Plan is pay-as-you-go. Remaining credits apply only to eligible charges. A Budget is not a hard cap.
+- Free Tier credits expire 12 months after account creation. Existing or past customers may not be eligible.
+- Joining AWS Organizations or setting up Control Tower may immediately invalidate the credits and move a
+  Free Plan to the Paid Plan.
+- AWS Budgets updates up to three times per day, usually every 8-12 hours. An alert may arrive after a threshold is exceeded.
+- Budget monitoring and notifications are free. Avoid Budget Reports and Budget Actions in the lab because
+  they have separate pricing.
 
-## Nguồn chính thức
+## Official sources
 
 - Plans: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html
 - FAQ: https://aws.amazon.com/free/free-tier-faqs/
@@ -22,5 +22,6 @@
 - Budgets: https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html
 - Budget pricing: https://aws.amazon.com/aws-cost-management/aws-budgets/pricing/
 
-**Quyết định:** Core chỉ dùng S3, private Lambda, CloudWatch Logs, IAM và Budgets. Không có public API.
-Training giữ local/Colab/Kaggle. Nếu account hoặc pricing không rõ, học viên dùng local simulation.
+**Decision:** The core path uses only S3, a private Lambda, CloudWatch Logs, IAM, and Budgets. It has no public
+API. Training stays on local, Colab, or Kaggle compute. If the account or pricing is unclear, learners use the
+local simulation.

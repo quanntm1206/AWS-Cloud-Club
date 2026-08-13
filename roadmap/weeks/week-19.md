@@ -1,81 +1,81 @@
-# Tuần 19 - Fine-tuning tiết kiệm và checkpoint
+# Week 19 - Fine-tuning saves and checkpoints
 
-## Mục tiêu tuần
+## Weekly goals
 
-Checkpoint/resume; fine-tune tiết kiệm.
+Checkpoint/resume; fine-tune savings.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Free runtime có thể ngắt bất cứ lúc nào. Checkpoint tốt biến một lần ngắt thành gián đoạn nhỏ thay vì mất toàn bộ buổi train.
+Free runtime can be interrupted at any time. A good checkpoint turns a break into a small interruption instead of losing the entire training session.
 
-**Ví dụ gần gũi:** Best checkpoint giữ epoch validation tốt nhất; last checkpoint chỉ phản ánh lần cập nhật gần nhất và có thể kém hơn.
+**Close example:** Best checkpoint holds the best epoch validation; last checkpoint only reflects the most recent update and may be inferior.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Train head trước; chỉ unfreeze block cuối nếu validation và runtime budget biện minh.
-- Pretrained layers thường dùng learning rate thấp hơn head; so một policy, không sweep free GPU.
-- Resumable checkpoint cần model, optimizer, epoch, best metric, config, seed, label mapping.
-- Early stopping theo validation với patience; best checkpoint khác last; test không tham gia mỗi epoch.
-- Free runtime có thể ngắt/quota đổi; export ZIP bền vững trước khi release session.
+- Train head first; Only unfreeze the last block if validation and runtime budget justify it.
+- Pretrained layers often use a lower learning rate than head; As a policy, do not scan GPU for free.
+- Resumable checkpoint needs model, optimizer, epoch, best metric, config, seed, label mapping.
+- Early stopping according to validation with patience; best checkpoint else last; test does not participate in every epoch.
+- Free runtime can be interrupted/quota changed; export persistent ZIP before release session.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `fine-tuning`, `checkpoint`, `early stopping`
+**New or focus terms:** `fine-tuning`, `checkpoint`, `early stopping`
 
-**Ôn lại:** `transfer learning`, `freeze`, `optimizer`, `epoch`, `validation set`
+**Review:** `transfer learning`, `freeze`, `optimizer`, `epoch`, `validation set`
 
-**Áp dụng:** Chạy frozen `transfer learning` baseline với backbone đã freeze, sau đó optional `fine-tuning`; lưu `checkpoint` gồm optimizer/epoch và dùng `early stopping` theo validation set; resume để chứng minh state không mất.
+**Use:** Run frozen `transfer learning` baseline with frozen backbone, then optional `fine-tuning`; save `checkpoint` including optimizer/epoch and use `early stopping` according to validation set; resume to prove that state is not lost.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Train tối đa 3-5 epoch, save best validation checkpoint.
-2. Dừng-load-resume thêm một epoch.
-3. Tạo ZIP self-contained, manifest và checksum ngay trong notebook.
+1. Train maximum 3-5 epochs, save best validation checkpoint.
+2. Stop-load-resume for another epoch.
+3. Create self-contained ZIP, manifest and checksum right in the notebook.
 
 ## Lab
 
-**lab-18:** 3-5 epoch, early stopping, export artifact. Môi trường chính: `colab, kaggle`.
+**lab-18:** 3-5 epochs, early stopping, export artifact. Main environment: `colab, kaggle`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn lưu đủ model, optimizer, epoch, config và label mapping; dừng rồi resume thêm một epoch thành công.
+You save all models, optimizers, epochs, config and label mapping; stop and then resume another successful epoch.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Optimizer state cần vì sao?
-2. Best khác last khi nào?
-3. Test có tham gia early stopping?
+1. Why is Optimizer state needed?
+2. When is best different from last?
+3. Does the test participate in early stopping?
 
-## Kết quả hướng tới
+## Result oriented
 
-checkpoint artifact; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+checkpoint artifact; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Lưu checkpoint đủ state, chủ động dừng/resume và export artifact trước khi đóng runtime.
-- **Mở rộng:** Unfreeze block cuối chỉ khi validation/runtime có lý do; dùng learning rate thấp hơn head.
+- **Core:** Save checkpoints with enough state, proactively stop/resume and export artifacts before closing runtime.
+- **Extension:** Unfreeze the last block only if validation/runtime has a reason; Use a learning rate lower than head.
 
-## Lỗi thường gặp
+## Common errors
 
-- Chỉ lưu weights nhưng gọi resumable.
-- Giữ accelerator session chạy sau lab.
+- Only save weights but call resumable.
+- Keep the accelerator session running after the lab.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Giảm data và epoch trước. Nếu resume sai, so architecture, label mapping và optimizer state thay vì chỉ load weights.
+Reduce data and epoch first. If the resume is wrong, compare architecture, label mapping and optimizer state instead of just load weights.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: PyTorch saving/loading checkpoint tutorial và notebook contract trong repo.
+Recommended sources: PyTorch saving/loading checkpoint tutorial and notebook contract in the repo.

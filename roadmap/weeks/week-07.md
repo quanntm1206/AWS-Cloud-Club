@@ -1,81 +1,81 @@
-# Tuần 07 - Metrics, imbalance và threshold
+# Week 07 - Metrics, imbalance and threshold
 
-## Mục tiêu tuần
+## Weekly goals
 
-Chọn metric và threshold theo chi phí lỗi.
+Choose metric and threshold according to error cost.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Metric phải phản ánh loại sai lầm bạn thật sự quan tâm. Threshold là quyết định vận hành, không phải con số mặc định 0.5.
+Metrics should reflect the type of errors you truly care about. Threshold is an operational decision, not the default number of 0.5.
 
-**Ví dụ gần gũi:** Trong sàng lọc rủi ro, bỏ sót một ca có thể đắt hơn cảnh báo nhầm; recall vì thế có thể quan trọng hơn accuracy.
+**Close example:** In risk screening, missing a case can be more expensive than a false alarm; Recall may therefore be more important than accuracy.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Confusion matrix tách TP/FP/FN/TN; precision đo độ đúng của positive prediction, recall đo positive thật tìm được.
-- F1 cân bằng precision/recall nhưng không thay thế cost của FP/FN.
-- ROC-AUC đo ranking; PR-AUC thường rõ hơn khi positive hiếm.
-- Chọn threshold trên validation, khóa lại, rồi đánh giá test; 0.5 không mặc định tối ưu.
-- Log loss phạt dự đoán tự tin nhưng sai; calibration hỏi liệu nhóm được dự đoán khoảng 0.7 có positive gần 70% hay không.
+- Confusion matrix separates TP/FP/FN/TN; precision measures the accuracy of positive prediction, recall measures the true positive found.
+- F1 balances precision/recall but does not replace the cost of FP/FN.
+- ROC-AUC measures ranking; PR-AUC is often more obvious when positives are rare.
+- Select threshold on validation, lock it, then evaluate the test; 0.5 is not the optimal default.
+- Log loss penalizes confident but wrong predictions; calibration asks whether the predicted group of about 0.7 is close to 70% positive.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `metric`, `precision / recall / F1`, `threshold`, `class imbalance`
+**New or focus terms:** `metric`, `precision / recall / F1`, `threshold`, `class imbalance`
 
-**Ôn lại:** `validation set`, `model validation`, `baseline`
+**Review:** `validation set`, `model validation`, `baseline`
 
-**Áp dụng:** Dùng `validation set` cho `model validation`: chọn metric precision / recall / F1 và threshold theo class imbalance, so với baseline; giữ test set đóng đến cuối.
+**Use:** Use `validation set` for `model validation`: select metrics precision / recall / F1 and threshold according to class imbalance, compared to baseline; keep the test set closed until the end.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Lập bảng metric và business cost theo threshold.
-2. Chọn threshold thỏa recall tối thiểu bằng validation.
-3. Áp threshold đã khóa lên test.
+1. Create a table of metrics and business costs based on threshold.
+2. Choose a threshold that satisfies minimum recall using validation.
+3. Apply the locked threshold to the test.
 
 ## Lab
 
-**lab-06:** Imbalance, PR/ROC, confusion matrix. Môi trường chính: `local`.
+**lab-06:** Imbalance, PR/ROC, confusion matrix. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn chọn threshold trên validation theo chi phí FP/FN, khóa nó rồi mới đánh giá test; giải thích được trade-off.
+You choose the threshold on validation according to the FP/FN cost, lock it and then evaluate the test; Explain trade-off.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Tăng recall ảnh hưởng precision thế nào?
-2. AUC cao có đảm bảo calibration?
-3. Vì sao không chọn threshold trên test?
+1. How does increasing recall affect precision?
+2. Does high AUC warrant calibration?
+3. Why not choose threshold on test?
 
-## Kết quả hướng tới
+## Result oriented
 
-metric decision memo; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+metric decision memo; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Chọn threshold bằng validation theo cost rule; khóa trước khi đánh giá test.
-- **Mở rộng:** Vẽ reliability/calibration curve nhỏ hoặc so log loss ở hai model có cùng accuracy.
+- **Core:** Choose threshold using validation according to cost rule; locked before evaluating the test.
+- **Expand:** Draw a small reliability/calibration curve or compare log loss for two models with the same accuracy.
 
-## Lỗi thường gặp
+## Common errors
 
-- Chỉ báo accuracy trên imbalance.
-- Sửa threshold sau khi xem test.
+- Accuracy indicator on imbalance.
+- Fix threshold after viewing test.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Lập confusion matrix bằng số đếm trước. Nếu PR-AUC và ROC-AUC gây rối, quay lại hỏi positive class có hiếm không.
+Set up a confusion matrix by pre-counting. If PR-AUC and ROC-AUC cause trouble, go back to asking if positive class is rare.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: scikit-learn model evaluation về precision-recall, ROC, log loss và calibration.
+Recommended source: scikit-learn model evaluation on precision-recall, ROC, log loss and calibration.

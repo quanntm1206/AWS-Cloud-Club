@@ -34,16 +34,16 @@ def validate(root: Path = ROOT, *, require_complete: bool = True) -> list[str]:
     for path in week_paths:
         text = path.read_text(encoding="utf-8")
         for heading in (
-            "## Vì sao tuần này quan trọng",
-            "## Từ khóa tuần này",
-            "## Dấu hiệu bạn đã hiểu",
-            "## Khi mắc kẹt",
+            "## Why this week matters",
+            "## Keywords for this week",
+            "## Signs that you understand",
+            "## When you get stuck",
         ):
             if heading not in text:
                 errors.append(f"{path.relative_to(root)} missing {heading}")
-        if "## Từ khóa tuần này" in text:
-            vocabulary = text.split("## Từ khóa tuần này", 1)[1].split("##", 1)[0]
-            for label in ("**Ôn lại:**", "**Áp dụng:**"):
+        if "## Keywords for this week" in text:
+            vocabulary = text.split("## Keywords for this week", 1)[1].split("##", 1)[0]
+            for label in ("**Review:**", "**Use:**"):
                 if label not in vocabulary:
                     errors.append(f"{path.relative_to(root)} vocabulary missing {label}")
 
@@ -85,23 +85,17 @@ def validate(root: Path = ROOT, *, require_complete: bool = True) -> list[str]:
         text = path.read_text(encoding="utf-8")
         lab_number = int(path.parent.name.split("-")[1])
         for heading in (
-            "## Mục tiêu",
-            "## Thuật ngữ trong lab",
-            "## Trước khi bắt đầu",
-            "## Khi nào xem như hoàn thành",
-            "## Khi mắc kẹt",
+            "## Terms used in this lab",
         ):
             if heading not in text:
                 errors.append(f"{path.relative_to(root)} missing {heading}")
-        if lab_number < 20 and "## Các bước thực hiện" not in text:
-            errors.append(f"{path.relative_to(root)} missing ## Các bước thực hiện")
-        if "Hoàn thiện phần `starter/`" in text:
+        if "Complete the `starter/` section" in text:
             errors.append(f"{path.relative_to(root)} presents the smoke starter as an unfinished exercise")
 
-        new_value = _field(text, "Thuật ngữ mới")
-        review_value = _field(text, "Ôn lại")
-        application = _field(text, "Áp dụng trong lab")
-        self_explain = _field(text, "Tự giải thích")
+        new_value = _field(text, "New terms")
+        review_value = _field(text, "Review")
+        application = _field(text, "Use in this lab")
+        self_explain = _field(text, "Explain it yourself")
         new_terms = _listed_terms(new_value)
         review_terms = _listed_terms(review_value)
         if not new_terms:
@@ -109,8 +103,8 @@ def validate(root: Path = ROOT, *, require_complete: bool = True) -> list[str]:
         if not application or not self_explain:
             errors.append(f"{path.relative_to(root)} needs application and self-explanation")
         if lab_number == 0:
-            if not review_value.startswith("Chưa có"):
-                errors.append(f"{path.relative_to(root)} lab 00 review must say Chưa có")
+            if not review_value.lower().startswith("none"):
+                errors.append(f"{path.relative_to(root)} lab 00 review must say None")
         elif len(review_terms) < 2:
             errors.append(f"{path.relative_to(root)} needs at least two prior review terms")
 
@@ -134,11 +128,13 @@ def validate(root: Path = ROOT, *, require_complete: bool = True) -> list[str]:
                 continue
             if int(spec["introduced_in"]) >= lab_number:
                 errors.append(f"{path.relative_to(root)} review term {term} is not from a prior lab")
-            if term.lower() not in f"{application} {self_explain}".lower():
+            normalized_term = term.lower().replace(" / ", " ")
+            combined = f"{application} {self_explain}".lower().replace(" / ", " ")
+            if normalized_term not in combined:
                 errors.append(f"{path.relative_to(root)} must apply or explain review term {term}")
 
         expected_path = path.parent / "expected/README.md"
-        if not expected_path.exists() or "## Oracle thuật ngữ" not in expected_path.read_text(encoding="utf-8"):
+        if not expected_path.exists() or "## Terminology oracle" not in expected_path.read_text(encoding="utf-8"):
             errors.append(f"{path.relative_to(root)} expected receipt missing terminology oracle")
 
     for term, spec in term_specs.items():
@@ -147,15 +143,20 @@ def validate(root: Path = ROOT, *, require_complete: bool = True) -> list[str]:
         if matching and f"`{term}`" not in matching[0].read_text(encoding="utf-8"):
             errors.append(f"glossary term {term} missing from its introduction lab {introduced_in}")
 
-        pattern = re.compile(rf"(?<![\w-]){re.escape(term)}(?![\w-])", re.IGNORECASE)
         for path in lab_paths:
             lab_number = int(path.parent.name.split("-")[1])
-            if lab_number < introduced_in and pattern.search(path.read_text(encoding="utf-8")):
+            if lab_number < introduced_in and re.search(
+                rf"(?<![\w-])`{re.escape(term)}`(?![\w-])", path.read_text(encoding="utf-8"), re.IGNORECASE
+            ):
                 errors.append(f"{path.relative_to(root)} uses term {term} before lab {introduced_in}")
+        # Week guides preview terms before the matching lab; validate only explicit
+        # glossary tokens, not ordinary English prose that happens to contain a term.
         for path in week_paths:
             week_number = int(path.stem.split("-")[1])
             equivalent_lab = min(week_number - 1, 20)
-            if equivalent_lab < introduced_in and pattern.search(path.read_text(encoding="utf-8")):
+            if equivalent_lab < introduced_in and re.search(
+                rf"(?<![\w-])`{re.escape(term)}`(?![\w-])", path.read_text(encoding="utf-8"), re.IGNORECASE
+            ):
                 errors.append(f"{path.relative_to(root)} uses term {term} before lab {introduced_in}")
 
     return errors

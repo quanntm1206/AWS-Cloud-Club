@@ -1,313 +1,351 @@
 terms:
 - term: dataset
-  meaning: Tập dữ liệu gồm nhiều mẫu được gom để phân tích hoặc huấn luyện model.
-  example: File churn có 300 khách hàng và các cột mô tả từng khách.
+  meaning: A collection of samples used for analysis or model training.
+  example: A churn file has 300 customers, with columns describing each customer.
   introduced_in: 0
 - term: reproducibility
-  meaning: Khả năng chạy lại cùng dữ liệu, code và cấu hình để nhận kết quả tương đương.
-  example: Hai terminal dùng cùng seed cho cùng số hàng và metric trong tolerance.
+  meaning: The ability to rerun the same data, code, and settings and get comparable
+    results.
+  example: Two terminals use the same seed and produce the same row count and metric
+    within tolerance.
   introduced_in: 0
 - term: sample
-  meaning: Một đơn vị quan sát trong dataset; thường là một hàng hoặc một ảnh.
-  example: Một khách hàng là một sample trong bảng churn.
+  meaning: One observation in a dataset, usually one row or one image.
+  example: One customer is a sample in the churn table.
   introduced_in: 0
 - term: schema
-  meaning: Bản mô tả tên cột, kiểu dữ liệu và quy tắc hợp lệ của input.
-  example: Cột tenure phải là số không âm; churn chỉ nhận 0 hoặc 1.
+  meaning: A description of input column names, data types, and valid rules.
+  example: The tenure column must be non-negative; churn accepts only 0 or 1.
   introduced_in: 0
 - term: seed
-  meaning: Con số khởi tạo bộ sinh ngẫu nhiên để phép chia hoặc khởi tạo có thể lặp lại.
-  example: Đặt seed 42 trước khi tạo dữ liệu mẫu.
+  meaning: A starting number for random generation so splits or initialization can
+    be repeated.
+  example: Set seed 42 before creating demo data.
   introduced_in: 0
 - term: feature
-  meaning: Thông tin đầu vào model dùng để tạo dự đoán.
-  example: Tenure và monthly_charges là hai feature của bài toán churn.
+  meaning: Input information the model uses to make a prediction.
+  example: Tenure and monthly_charges are two features in the churn problem.
   introduced_in: 1
 - term: label / target
-  meaning: Kết quả cần dự đoán và dùng để học hoặc đánh giá model.
-  example: Churn=1 là label cho khách đã rời đi.
+  meaning: The outcome to predict, used to train or evaluate a model.
+  example: Churn=1 is the label for a customer who left.
   introduced_in: 1
 - term: parameter
-  meaning: Giá trị model học từ dữ liệu trong lúc training.
-  example: Các trọng số trong vector w của hồi quy tuyến tính là parameter.
+  meaning: A value the model learns from data during training.
+  example: The weights in the linear-regression vector w are parameters.
   introduced_in: 1
 - term: vectorization
-  meaning: Thực hiện phép tính trên cả mảng thay vì lặp từng phần tử bằng Python.
-  example: Dùng X @ w để tính score cho mọi sample.
+  meaning: Computing on a whole array instead of looping through elements in Python.
+  example: Use X @ w to calculate scores for every sample.
   introduced_in: 1
 - term: data validation
-  meaning: Kiểm dữ liệu có đúng schema và quy tắc chất lượng trước khi dùng hay không.
-  example: Phát hiện ID trùng, tuổi âm hoặc target thiếu.
+  meaning: Checking that data follows the schema and quality rules before use.
+  example: Find duplicate IDs, negative ages, or a missing target.
   introduced_in: 2
 - term: EDA
-  meaning: Khám phá dữ liệu bằng thống kê và biểu đồ để hiểu chất lượng, phân bố và câu hỏi cần kiểm tiếp.
-  example: So churn rate tổng với từng nhóm hợp đồng.
+  meaning: Exploring data with statistics and plots to understand quality, distributions,
+    and follow-up questions.
+  example: Compare the overall churn rate with the rate for each contract group.
   introduced_in: 2
 - term: missing value
-  meaning: Giá trị bị thiếu hoặc không được ghi nhận trong dataset.
-  example: Một số sample không có monthly_charges.
+  meaning: A value that is absent or not recorded in the dataset.
+  example: Some samples have no monthly_charges value.
   introduced_in: 2
 - term: outlier
-  meaning: Quan sát khác xa phần lớn dữ liệu; cần điều tra trước khi xóa hoặc sửa.
-  example: Một hóa đơn cao bất thường có thể là lỗi hoặc khách doanh nghiệp thật.
+  meaning: An observation far from most of the data; investigate it before deleting
+    or changing it.
+  example: An unusually high bill may be an error or a real business customer.
   introduced_in: 2
 - term: gradient
-  meaning: Hướng và độ lớn cho biết loss thay đổi thế nào khi parameter thay đổi.
-  example: Gradient dương gợi ý giảm parameter theo learning rate.
+  meaning: The direction and size showing how loss changes when a parameter changes.
+  example: A positive gradient suggests lowering the parameter by the learning rate.
   introduced_in: 3
 - term: learning rate
-  meaning: Độ lớn mỗi bước cập nhật parameter.
-  example: Learning rate quá lớn làm loss dao động hoặc tăng.
+  meaning: The size of each parameter update.
+  example: A learning rate that is too large makes loss oscillate or grow.
   introduced_in: 3
 - term: loss
-  meaning: Con số model cố giảm trong training để đo sai lệch trên dữ liệu học.
-  example: MSE phạt bình phương khoảng cách giữa prediction và target.
+  meaning: The number a model tries to reduce during training to measure error on
+    learning data.
+  example: MSE penalizes the squared distance between prediction and target.
   introduced_in: 3
 - term: prediction
-  meaning: Giá trị model tạo ra cho một sample.
-  example: Model dự đoán monthly_charges là 42.5.
+  meaning: The value a model produces for one sample.
+  example: The model predicts monthly_charges of 42.5.
   introduced_in: 3
 - term: baseline
-  meaning: Mốc đơn giản để biết model phức tạp có thực sự cải thiện hay không.
-  example: Dummy classifier luôn đoán class phổ biến.
+  meaning: A simple benchmark to know whether a complex model really improves or not.
+  example: Dummy classifier always guesses popular classes.
   introduced_in: 4
 - term: confusion matrix
-  meaning: Bảng đếm truth và prediction để thấy model nhầm class nào với class nào.
-  example: Hàng churn=1 cho biết bao nhiêu mẫu bị đoán thành 0.
+  meaning: Truth and prediction counting table to see which class the model confuses
+    with which class.
+  example: The row churn=1 indicates how many samples were predicted to be 0.
   introduced_in: 4
 - term: data split
-  meaning: Cách chia dataset thành các phần có vai trò khác nhau và không chồng lặp.
-  example: Chia 70% train, 15% validation, 15% test.
+  meaning: How to divide a dataset into parts with different and non-overlapping roles.
+  example: Divide 70% training, 15% validation, 15% testing.
   introduced_in: 4
 - term: fit
-  meaning: Bước học parameter hoặc trạng thái transform từ training data.
-  example: Gọi pipeline.fit(X_train, y_train).
+  meaning: The step of learning parameters or transform states from training data.
+  example: Call pipeline.fit(X_train, y_train).
   introduced_in: 4
 - term: metric
-  meaning: Con số đo một khía cạnh chất lượng; phải chọn theo mục tiêu và chi phí lỗi.
-  example: Recall đo tỷ lệ khách churn được tìm thấy.
+  meaning: Number that measures an aspect of quality; Must choose according to goals
+    and error costs.
+  example: Recall measures the rate at which customer churn is found.
   introduced_in: 4
 - term: model validation
-  meaning: Quá trình kiểm model trên dữ liệu chưa dùng để fit nhằm đánh giá và chọn quyết định.
-  example: So F1 trên validation set trước khi mở test.
+  meaning: The process of testing the model on data that has not yet been used to
+    fit to evaluate and choose a decision.
+  example: So F1 on the validation set before opening the test.
   introduced_in: 4
 - term: precision / recall / F1
-  meaning: Precision chú trọng dự đoán dương đúng, recall chú trọng tìm đủ mẫu dương, F1 cân bằng hai phía.
-  example: Bài churn ưu tiên recall nhưng vẫn theo dõi precision.
+  meaning: Precision focuses on correct positive predictions, recall focuses on finding
+    enough positive samples, and F1 balances both sides.
+  example: Churn posts prioritize recall but still track precision.
   introduced_in: 4
 - term: test set
-  meaning: Phần dữ liệu chỉ mở sau khi đã khóa quyết định để ước lượng kết quả cuối.
-  example: Chạy test một lần sau khi chọn logistic regression.
+  meaning: The data section is only opened after the decision has been locked to estimate
+    the final result.
+  example: Run the test once after selecting logistic regression.
   introduced_in: 4
 - term: training set
-  meaning: Phần dữ liệu dùng để model học parameter.
-  example: Logistic regression gọi fit chỉ với training set.
+  meaning: The data part is used for the model to learn parameters.
+  example: Logistic regression calls fit only with the training set.
   introduced_in: 4
 - term: validation set
-  meaning: Phần dữ liệu dùng chọn model, threshold hoặc hyperparameter; không dùng fit parameter.
-  example: Chọn threshold có recall đạt yêu cầu trên validation set.
+  meaning: The data part is used to select model, threshold or hyperparameter; Do
+    not use fit parameter.
+  example: Choose a threshold with satisfactory recall on the validation set.
   introduced_in: 4
 - term: data leakage
-  meaning: Thông tin không hợp lệ từ validation, test hoặc tương lai lọt vào training.
-  example: Fit scaler trên toàn dataset trước split làm rò thông tin test.
+  meaning: Invalid information from validation, testing, or futures enters training.
+  example: Fit scaler on the entire dataset before splitting to leak test information.
   introduced_in: 5
 - term: pipeline
-  meaning: Chuỗi preprocessing và model chạy theo thứ tự cố định để giảm lỗi và leakage.
-  example: ColumnTransformer nối với logistic regression trong một Pipeline.
+  meaning: Preprocessing and modeling chains run in a fixed order to reduce errors
+    and leakage.
+  example: ColumnTransformer connects logistic regression in a Pipeline.
   introduced_in: 5
 - term: preprocessing
-  meaning: Các bước chuẩn bị dữ liệu trước model như điền thiếu, scale hoặc encode.
-  example: Điền median rồi one-hot encode cột hợp đồng.
+  meaning: Steps to prepare data before the model such as missing fill, scale or encode.
+  example: Fill in the median and then one-hot encode the contract column.
   introduced_in: 5
 - term: transform
-  meaning: Phép biến đổi input; một số transform phải học trạng thái chỉ từ training set.
-  example: StandardScaler học mean và std từ train rồi áp sang validation.
+  meaning: Input transformation; Some transforms must learn states only from the training
+    set.
+  example: StandardScaler learns mean and std from training and applies it to validation.
   introduced_in: 5
 - term: class imbalance
-  meaning: Tình trạng số mẫu giữa các class chênh lệch lớn.
-  example: Chỉ 8% khách churn nên accuracy dễ gây hiểu nhầm.
+  meaning: There is a large difference in the number of samples between classes.
+  example: Only 8% of customers churn so accuracy is easily misleading.
   introduced_in: 6
 - term: threshold
-  meaning: Ngưỡng chuyển score hoặc xác suất thành nhãn quyết định.
-  example: Xác suất từ 0.35 trở lên được gắn nhãn churn.
+  meaning: Threshold converts scores or probabilities into decision labels.
+  example: Probabilities of 0.35 or higher are labeled churn.
   introduced_in: 6
 - term: bias / variance
-  meaning: Bias cao thường do model quá đơn giản; variance cao do model quá nhạy với training data.
-  example: Learning curve có cả train và validation thấp gợi ý bias cao.
+  meaning: High bias is often due to the model being too simple; high variance because
+    the model is too sensitive to training data.
+  example: The learning curve has both low training and validation suggesting a high
+    bias.
   introduced_in: 7
 - term: cross-validation
-  meaning: Đánh giá lặp qua nhiều fold để ước lượng độ ổn định của model.
-  example: 3-fold CV tạo ba validation score.
+  meaning: Evaluate iteratively over many folds to estimate the model's stability.
+  example: 3-fold CV generates three validation scores.
   introduced_in: 7
 - term: fold
-  meaning: Một phần dữ liệu lần lượt làm validation trong cross-validation.
-  example: Ở fold 2, nhóm thứ hai được giữ lại để đánh giá.
+  meaning: Part of the data in turn does validation in cross-validation.
+  example: In fold 2, the second group is kept for evaluation.
   introduced_in: 7
 - term: overfitting
-  meaning: Model nhớ training data nhưng hoạt động kém trên dữ liệu mới.
-  example: Train score tăng còn validation score giảm.
+  meaning: The model remembers training data but performs poorly on new data.
+  example: Train score increases and validation score decreases.
   introduced_in: 7
 - term: bagging / boosting
-  meaning: Bagging học nhiều model tương đối độc lập; boosting học tuần tự để sửa lỗi trước.
-  example: Random forest dùng bagging, gradient boosting dùng boosting.
+  meaning: Bagging learns multiple models relatively independently; Boosting learns
+    sequentially to correct errors first.
+  example: Random forest uses bagging, gradient boosting uses boosting.
   introduced_in: 8
 - term: ensemble
-  meaning: Model kết hợp nhiều model con để tạo dự đoán chung.
-  example: Random forest lấy kết quả từ nhiều decision tree.
+  meaning: The model combines multiple sub-models to create a common prediction.
+  example: Random forest takes results from many decision trees.
   introduced_in: 8
 - term: hyperparameter
-  meaning: Cấu hình do người làm chọn, không phải parameter model tự học.
-  example: Số cây và độ sâu tối đa của random forest.
+  meaning: The configuration is chosen by the user, not a self-learning parameter
+    model.
+  example: Number of trees and maximum depth of random forest.
   introduced_in: 8
 - term: ablation
-  meaning: Thí nghiệm thêm hoặc bỏ đúng một thành phần để đo tác động của nó.
-  example: Bỏ nhóm feature hành vi rồi so validation AUC.
+  meaning: Experiment with adding or removing exactly one ingredient to measure its
+    impact.
+  example: Remove the behavioral feature group and then compare AUC validation.
   introduced_in: 9
 - term: feature engineering
-  meaning: Tạo hoặc biến đổi feature dựa trên hiểu biết bài toán và thời điểm dự đoán.
-  example: Tạo tenure_bucket từ tenure nếu dùng được lúc inference.
+  meaning: Create or transform features based on problem understanding and prediction
+    times.
+  example: Create tenure_bucket from tenure if used during inference.
   introduced_in: 9
 - term: error analysis
-  meaning: Phân tích có hệ thống các dự đoán sai để tạo giả thuyết và bước kiểm tiếp.
-  example: Xem false negative theo loại hợp đồng.
+  meaning: Systematic analysis of incorrect predictions to create hypotheses and further
+    testing.
+  example: View false negative by contract type.
   introduced_in: 10
 - term: failure taxonomy
-  meaning: Cách phân nhóm lỗi theo nguyên nhân quan sát được thay vì gom mọi lỗi chung.
-  example: Gắn lỗi vào data, boundary, missing signal hoặc label noise.
+  meaning: How to group errors according to observable causes instead of gathering
+    all common errors.
+  example: Attach errors to data, boundary, missing signal or label noise.
   introduced_in: 10
 - term: slice
-  meaning: Nhóm sample có đặc điểm chung được tách ra để kiểm hành vi model.
-  example: Slice khách mới có tenure dưới ba tháng.
+  meaning: Groups of samples with common characteristics are separated to test model
+    behavior.
+  example: New customer slices have a tenure of less than three months.
   introduced_in: 10
 - term: support
-  meaning: Số sample thật của một class hoặc slice dùng để đọc metric có ngữ cảnh.
-  example: Recall 100% trên support=2 chưa đủ kết luận mạnh.
+  meaning: The actual sample number of a class or slice used to read contextual metrics.
+  example: 100% recall on support=2 is not enough for a strong conclusion.
   introduced_in: 10
 - term: artifact
-  meaning: File model, config, metric và metadata cần để tái tạo hoặc phục vụ dự đoán.
-  example: model.joblib và manifest.json tạo thành artifact.
+  meaning: Model, config, metric and metadata files needed to reproduce or serve predictions.
+  example: model.joblib and manifest.json make up the artifact.
   introduced_in: 11
 - term: inference
-  meaning: Dùng model đã train để tạo prediction cho input mới.
-  example: Load artifact rồi dự đoán một khách chưa thấy.
+  meaning: Use the trained model to create predictions for new input.
+  example: Load the artifact and then predict an unseen guest.
   introduced_in: 11
 - term: manifest
-  meaning: Bản kê mô tả nội dung, phiên bản, checksum và nguồn gốc artifact.
-  example: Manifest ghi seed, feature order và SHA-256.
+  meaning: The list describes the content, version, checksum and artifact origin.
+  example: Manifest records seed, feature order and SHA-256.
   introduced_in: 11
 - term: configuration
-  meaning: Các giá trị điều khiển một run, được lưu riêng để chạy lại và so sánh.
-  example: Config YAML ghi seed, feature và threshold.
+  meaning: "The values \u200B\u200Bthat control a run, are saved separately for reruns\
+    \ and comparisons."
+  example: Config YAML records seed, feature and threshold.
   introduced_in: 12
 - term: package
-  meaning: Mã Python được tổ chức thành module có thể import, kiểm thử và gọi từ CLI.
-  example: Đưa logic train vào src/ml_roadmap thay vì copy giữa notebook.
+  meaning: Python code is organized into modules that can be imported, tested, and
+    called from the CLI.
+  example: Put the training logic in src/ml_roadmap instead of copying it between
+    notebooks.
   introduced_in: 12
 - term: data contract
-  meaning: Quy ước máy đọc được về schema, phạm vi và lỗi của dữ liệu.
-  example: Thiếu cột tenure phải bị từ chối trước model.
+  meaning: Machine-readable conventions for data schema, scope, and errors.
+  example: Missing tenure column must be rejected before model.
   introduced_in: 13
 - term: parity
-  meaning: Mức nhất quán giữa hai cách chạy được kỳ vọng cho cùng input.
-  example: Prediction trước và sau save/load phải khớp trong tolerance.
+  meaning: A level of consistency between two runs is expected for the same input.
+  example: Prediction before and after save/load must match within tolerance.
   introduced_in: 13
 - term: API contract
-  meaning: Quy ước rõ về input, output, status code và lỗi của inference service.
-  example: Payload thiếu tenure trả 422 thay vì 500.
+  meaning: Clear conventions on input, output, status code and errors of the inference
+    service.
+  example: Payload missing tenure returns 422 instead of 500.
   introduced_in: 14
 - term: latency
-  meaning: Thời gian từ khi nhận request đến khi trả response.
-  example: Đo warm latency cho mini batch 16 sample.
+  meaning: Time from receiving request to returning response.
+  example: Measure warm latency for mini batch of 16 samples.
   introduced_in: 14
 - term: CI
-  meaning: Quy trình tự động chạy validation và test khi code thay đổi.
-  example: Một pipeline CI chạy pytest, Ruff và mypy mà không deploy AWS.
+  meaning: The process automatically runs validation and testing when code changes.
+  example: A CI pipeline that runs pytest, Ruff, and mypy without deploying AWS.
   introduced_in: 15
 - term: container
-  meaning: Gói ứng dụng cùng dependency và cấu hình chạy trong môi trường tách biệt.
-  example: Docker image chạy API bằng non-root user.
+  meaning: Application packages with dependencies and configurations run in a separate
+    environment.
+  example: Docker images run APIs using non-root users.
   introduced_in: 15
 - term: batch
-  meaning: Nhóm sample được xử lý cùng một lần trước khi cập nhật parameter.
-  example: Batch size 32 nghĩa là model đọc 32 ảnh mỗi bước.
+  meaning: The sample group is processed at once before updating the parameter.
+  example: Batch size 32 means the model reads 32 images per step.
   introduced_in: 16
 - term: device
-  meaning: Phần cứng nơi tensor và model thực hiện phép tính.
-  example: Model và input cùng ở cpu hoặc cuda.
+  meaning: Hardware where tensors and models perform calculations.
+  example: Model and input are on the same cpu or cuda.
   introduced_in: 16
 - term: epoch
-  meaning: Một lượt model đi qua toàn bộ training set.
-  example: Ba epoch nghĩa là mỗi sample train được dùng khoảng ba lượt.
+  meaning: One pass of the model goes through the entire training set.
+  example: Three epochs means each sample train is used about three times.
   introduced_in: 16
 - term: optimizer
-  meaning: Thuật toán dùng gradient để cập nhật parameter.
-  example: Adam cập nhật classifier head sau loss.backward().
+  meaning: The algorithm uses gradients to update parameters.
+  example: Adam updates the classifier head after loss.backward().
   introduced_in: 16
 - term: tensor
-  meaning: Mảng nhiều chiều dùng để biểu diễn dữ liệu và phép tính trong neural network.
-  example: Batch ảnh có shape [32, 3, 160, 160].
+  meaning: Multidimensional arrays are used to represent data and calculations in
+    neural networks.
+  example: Batch images with shape [32, 3, 160, 160].
   introduced_in: 16
 - term: augmentation
-  meaning: Biến đổi ngẫu nhiên hợp lý trên training sample để tăng độ đa dạng mà không đổi label.
-  example: Lật ngang ảnh train; validation chỉ resize deterministic.
+  meaning: Make appropriate random changes on the training sample to increase diversity
+    without changing labels.
+  example: Flip the train image horizontally; validation only resize deterministic.
   introduced_in: 17
 - term: backbone
-  meaning: Phần mạng chính trích xuất đặc trưng trước classifier head.
-  example: ResNet18 pretrained làm backbone.
+  meaning: The main network part extracts features before the classifier head.
+  example: ResNet18 pretrained as backbone.
   introduced_in: 17
 - term: checkpoint
-  meaning: Trạng thái training đã lưu để có thể tiếp tục sau khi runtime bị ngắt.
-  example: Last checkpoint chứa model, optimizer, epoch và history.
+  meaning: The training state is saved so it can be continued after the runtime is
+    interrupted.
+  example: Last checkpoint contains model, optimizer, epoch and history.
   introduced_in: 17
 - term: freeze
-  meaning: Tạm không cập nhật parameter của một phần model trong training.
-  example: Đặt requires_grad=False cho backbone.
+  meaning: Temporarily do not update parameters of part of the model during training.
+  example: Set requires_grad=False for backbone.
   introduced_in: 17
 - term: transfer learning
-  meaning: Tái sử dụng kiến thức từ model pretrained cho bài toán mới.
-  example: Giữ ResNet18 backbone và thay classifier head.
+  meaning: Reuse knowledge from pretrained models for new problems.
+  example: Keep the ResNet18 backbone and replace the classifier head.
   introduced_in: 17
 - term: early stopping
-  meaning: Dừng training khi validation không cải thiện qua số epoch đã định.
-  example: Dừng sau hai epoch validation loss không tốt hơn.
+  meaning: Stop training when validation does not improve past the specified number
+    of epochs.
+  example: Stopping after two epochs of validation loss is not better.
   introduced_in: 18
 - term: fine-tuning
-  meaning: Tiếp tục train một phần model pretrained bằng learning rate nhỏ cho bài toán mới.
-  example: Unfreeze layer4 sau frozen-head baseline.
+  meaning: Continue training part of the pretrained model with a small learning rate
+    for the new problem.
+  example: Unfreeze layer4 after frozen-head baseline.
   introduced_in: 18
 - term: macro average
-  meaning: Cách tính metric bằng cách cho mỗi class trọng số ngang nhau, dù số mẫu khác nhau.
-  example: Macro F1 trung bình F1 của churn và non-churn như hai class ngang nhau.
+  meaning: How to calculate the metric by giving each class equal weight, even if
+    the number of samples is different.
+  example: Macro F1 average F1 of churn and non-churn as two equal classes.
   introduced_in: 19
 - term: weighted average
-  meaning: Cách tính metric bằng cách cho class nhiều sample trọng số lớn hơn theo support.
-  example: Weighted F1 có thể trông cao khi class phổ biến làm tốt nhưng class hiếm làm kém.
+  meaning: How to calculate the metric by giving a class more samples a larger weight
+    according to support.
+  example: Weighted F1 can look high when common classes do well but rare classes
+    do poorly.
   introduced_in: 19
 - term: budget alert
-  meaning: Cảnh báo khi chi phí thực tế hoặc dự báo chạm ngưỡng; không phải hard cap.
-  example: Email cảnh báo Actual và Forecasted Budget.
+  meaning: Alerts when actual or forecast costs hit thresholds; not hard cap.
+  example: Actual and Forecasted Budget email alerts.
   introduced_in: 20
 - term: CloudWatch Logs
-  meaning: Nơi lưu log runtime trên AWS; cần tránh dữ liệu nhạy cảm và đặt retention.
-  example: Log group Lambda giữ một ngày.
+  meaning: Where to store runtime logs on AWS; Need to avoid sensitive data and set
+    retention.
+  example: Log group Lambda keeps one day.
   introduced_in: 20
 - term: IAM
-  meaning: Dịch vụ AWS quản danh tính và quyền truy cập theo nguyên tắc quyền tối thiểu.
-  example: Lambda role chỉ được đọc đúng object model trong S3.
+  meaning: AWS services manage identity and access according to the principle of least
+    permissions.
+  example: Lambda roles can only read the correct object model in S3.
   introduced_in: 20
 - term: idempotent cleanup
-  meaning: Quy trình dọn có thể chạy lại an toàn và vẫn hướng tới trạng thái sạch.
-  example: Cleanup exact project ID rồi scan lại.
+  meaning: The cleanup process can be run again safely and still aim for a clean state.
+  example: Cleanup exact project ID then scan again.
   introduced_in: 20
 - term: Lambda
-  meaning: Dịch vụ chạy hàm serverless theo request mà không quản máy chủ.
-  example: Gọi private invoke để chạy inference tabular.
+  meaning: The service runs serverless functions on request without managing the server.
+  example: Call private invoke to run tabular inference.
   introduced_in: 20
 - term: residual scan
-  meaning: Bước kiểm sau cleanup để tìm tài nguyên project còn sót.
-  example: Scan CloudFormation, S3, Lambda, Logs và IAM.
+  meaning: Check step after cleanup to find remaining project resources.
+  example: Scan CloudFormation, S3, Lambda, Logs and IAM.
   introduced_in: 20
 - term: S3
-  meaning: Dịch vụ object storage của AWS dùng để lưu artifact nhỏ.
-  example: Upload portable_model.json vào bucket private.
+  meaning: AWS object storage service is used to store small artifacts.
+  example: Upload portable_model.json to private bucket.
   introduced_in: 20

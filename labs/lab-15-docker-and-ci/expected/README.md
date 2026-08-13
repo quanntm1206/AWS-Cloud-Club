@@ -1,24 +1,23 @@
-# Kết quả tham khảo - lab-15-docker-and-ci
+# Reference result - lab-15-docker-and-ci
 
 ## Oracle
 
-Chạy đủ build/start/log/health/predict/stop theo hướng dẫn riêng trong lab.
+Run build, start, logs, health, prediction, and stop as described in the lab.
 
 ## Required receipt
 
-- Chạy `python scripts/run_lab.py --lab 15` từ repository root; PowerShell/Bash đầy đủ nằm trong README.
-- JSON phải có `status=starter-example-completed`; trong `result` cần thấy non-root user, health/predict smoke và CI không deploy AWS.
-- Learning log cục bộ ghi seed/config, runtime, phép kiểm riêng của lab và ít nhất một limitation hoặc failure.
-- Tự trả lời: “Output này chứng minh được gì, và chưa chứng minh được gì?”
+- Run `python scripts/run_lab.py --lab 15` from the repository root. The full PowerShell and Bash commands are in the lab README.
+- The JSON must contain `status=starter-example-completed`; in `result`, look for the non-root user, health and prediction smoke checks, and confirmation that CI does not deploy to AWS.
+- Keep a local learning log with the seed or config, runtime, the lab-specific check, and at least one limitation or failure.
+- Answer in your own words: "What does this output prove, and what does it not prove?"
 
-## Oracle thuật ngữ
+## Terminology oracle
 
-- Container chạy non-root; CI chạy test/package/API contract offline; cleanup container; không deploy AWS.
-- Trả lời câu `Tự giải thích` bằng lời của bạn, trỏ tới evidence trên; không chỉ chép glossary.
+- The container runs as non-root. CI tests the package, artifact, and API contract offline. The container is cleaned up, and CI does not deploy to AWS.
+- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
 
-## Gợi ý nếu kết quả khác
+## If your result differs
 
-Nếu build chậm hoặc image lớn, kiểm `.dockerignore` và thứ tự dependency layer.
+If the build is slow or the image is large, check `.dockerignore` and dependency layer order.
 
-Đây là gợi ý tự kiểm, không phải bài cần gửi. Không commit evidence, secret, dữ liệu cá nhân, raw dataset lớn
-hoặc output cloud trả phí.
+This is a self-check, not an assignment to submit. Keep evidence local. Do not commit secrets, personal data, large raw datasets, or paid cloud output.

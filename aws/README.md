@@ -1,79 +1,80 @@
-# AWS capstone: học cloud mà không đánh cược hóa đơn
+# AWS capstone: learn cloud skills without risking a surprise bill
 
-Phần AWS của lộ trình chỉ làm một việc nhỏ nhưng đủ thật: đưa model tabular đã train ở máy cá nhân,
-Colab hoặc Kaggle lên S3 rồi gọi Lambda **riêng tư**. Không có public endpoint. Bạn học được lifecycle
-deploy, quan sát và dọn tài nguyên mà không cần dùng AWS để training.
+The AWS section of the roadmap does one small but realistic job. Upload a tabular model trained on your local
+machine, Colab, or Kaggle to S3, then invoke Lambda **privately**. There is no public endpoint. You learn the
+deployment lifecycle, monitoring, and cleanup without using AWS for training.
 
-## Hiểu đúng về USD 200 và hai loại account plan
+## Understand USD 200 and the two account plans
 
-- Tài khoản mới đủ điều kiện nhận **USD 100 khi đăng ký** và **có thể kiếm thêm tối đa USD 100** khi
-  hoàn thành các activity AWS chỉ định. Đây không phải USD 200 được cấp hết ngay.
-- **Free Plan** kết thúc sau 6 tháng hoặc khi dùng hết credit, tùy điều kiện nào đến trước. AWS mô tả
-  plan này không phát sinh charge; khi plan kết thúc, account sẽ đóng nếu bạn không nâng cấp.
-- **Paid Plan** là pay-as-you-go. Credit chỉ bù các khoản đủ điều kiện; phần vượt credit hoặc không đủ
-  điều kiện vẫn có thể bị tính phí. Budget alert không phải hard cap.
-- Credit Free Tier hết hạn 12 tháng từ ngày tạo account. Eligibility, credit và service allowance có
-  thể khác theo account; hãy tin màn hình Billing của chính bạn thay vì một con số trong tài liệu.
+- Eligible new accounts receive **USD 100 at sign-up** and **may earn up to USD 100 more** by completing
+  activities chosen by AWS. AWS does not provide the full USD 200 at once.
+- The **Free Plan** ends after 6 months or when its credits are used, whichever comes first. AWS describes this
+  plan as having no charges. When it ends, the account closes unless you upgrade.
+- The **Paid Plan** is pay-as-you-go. Credits cover only eligible charges; charges beyond the credits or outside
+  their terms may still be billed. A Budget alert is not a hard cap.
+- Free Tier credits expire 12 months after account creation. Eligibility, credits, and service allowances may
+  vary by account. Trust the Billing page for your account rather than a number in this guide.
 
-Nguồn AWS, kiểm ngày 2026-08-12:
+AWS sources, checked on 2026-08-12:
 [account plans](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html),
-[Free Tier FAQ](https://aws.amazon.com/free/free-tier-faqs/) và
+[Free Tier FAQ](https://aws.amazon.com/free/free-tier-faqs/), and
 [tracking Free Tier](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/tracking-free-tier-usage.html).
 
-> Dành cho AWS Cloud Club: đừng join AWS Organizations và đừng bật Control Tower cho account học tập.
-> Theo FAQ của AWS, hai thao tác này có thể làm Free Plan tự chuyển sang Paid Plan và credit Free Tier
-> hết hiệu lực ngay. Nếu account đã join, dừng AWS lab và dùng local simulation.
+> AWS Cloud Club learners: do not join AWS Organizations or enable Control Tower for a learning account.
+> According to the AWS FAQ, either action may move a Free Plan to the Paid Plan and immediately invalidate
+> Free Tier credits. If the account has already joined, stop the AWS lab and use the local simulation.
 
-## Khi nào nên tạo account
+## When to create an account
 
-Đừng tạo account từ tuần 1 rồi để đồng hồ 6 tháng chạy trong lúc bạn còn học NumPy. Nếu chưa có account,
-hãy đợi đến cuối tuần 20 hoặc đầu tuần 21. Không tạo nhiều account để săn credit. Trước mỗi lần deploy,
-mở Billing để kiểm `plan`, credit còn lại, ngày hết hạn và dịch vụ đủ điều kiện. Nếu console buộc nâng
-cấp Paid Plan, hoặc thông tin không rõ, bỏ qua deploy; private handler vẫn chạy local để bạn hoàn thành bài.
+Do not create an account in week 1 and let the six-month clock run while you are still learning NumPy. If you
+do not have an account, wait until the end of week 20 or the start of week 21. Do not create multiple accounts
+to collect credits. Before each deployment, open Billing and check the `plan`, remaining credits, expiry date,
+and eligible services. If the console requires the Paid Plan or the information is unclear, skip deployment.
+The private handler still runs locally, so you can complete the work.
 
-## Trước khi bấm Deploy
+## Before you select Deploy
 
-1. Bật MFA cho root; không tạo root access key. Dùng identity có quyền tối thiểu.
-2. Xác nhận đúng account và `us-east-1` bằng `aws sts get-caller-identity`.
-3. Tạo **Cost budget** với Actual và Forecasted email alerts ở ngưỡng thấp. Chỉ dùng notification thường:
-   không tạo Budget Report hoặc Budget Action cho lab này.
-4. Đọc `cost-policy.yml`. Không dùng EC2/EBS/Elastic IP, NAT Gateway, SageMaker, Bedrock, RDS/Aurora,
-   OpenSearch, Redshift, EMR/Glue, EKS/ECS/Fargate, Marketplace, Savings Plans, Reserved Instances hoặc
-   Route 53 domain. Những dịch vụ này chỉ được thảo luận ở mức kiến trúc/pricing.
-5. Chạy cost check, tự đối chiếu [AWS Pricing Calculator](https://calculator.aws/), rồi chạy preflight.
-   `USD 0.00-0.10` là planning envelope theo giả định nhỏ, không phải báo giá hay cam kết hóa đơn.
-6. Đặt timer để cleanup trong cùng phiên. Tag `ExpiresAt` chỉ là lời nhắc; nó **không tự xóa** tài nguyên.
+1. Enable MFA for the root user. Do not create a root access key. Use a least-privilege identity.
+2. Confirm the correct account and `us-east-1` with `aws sts get-caller-identity`.
+3. Create a **Cost budget** with low Actual and Forecasted email-alert thresholds. Use standard notifications
+   only. Do not create a Budget Report or Budget Action for this lab.
+4. Read `cost-policy.yml`. Do not use EC2/EBS/Elastic IP, NAT Gateway, SageMaker, Bedrock, RDS/Aurora,
+   OpenSearch, Redshift, EMR/Glue, EKS/ECS/Fargate, Marketplace, Savings Plans, Reserved Instances, or a
+   Route 53 domain. Discuss these services only as architecture or pricing options.
+5. Run the cost check, compare it with the [AWS Pricing Calculator](https://calculator.aws/), then run preflight.
+   `USD 0.00-0.10` is a planning envelope based on small-use assumptions, not a quote or billing promise.
+6. Set a timer to clean up during the same session. The `ExpiresAt` tag is only a reminder. It **does not delete** resources.
 
-AWS Budgets dùng dữ liệu có độ trễ. AWS cho biết budget cập nhật tối đa ba lần mỗi ngày, thường cách nhau
-8-12 giờ. Alert có thể đến sau khi chi phí đã vượt ngưỡng. Xem
+AWS Budgets uses delayed data. AWS says a budget updates up to three times per day, usually every 8-12 hours.
+An alert may arrive after spending has crossed its threshold. See
 [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html)
-và [Budget pricing](https://aws.amazon.com/aws-cost-management/aws-budgets/pricing/).
+and [Budget pricing](https://aws.amazon.com/aws-cost-management/aws-budgets/pricing/).
 
-## Lifecycle bắt buộc
+## Required lifecycle
 
 ```text
 Pre-check -> Estimate -> Dry-run -> Deploy -> Verify -> Cleanup -> Residual scan -> Cost audit
 ```
 
-`aws lambda invoke` là đường học duy nhất. Template không tạo API Gateway hay public URL. Cleanup chỉ
-xóa stack exact-name có prefix `ml-roadmap-`; script không quét hoặc xóa tài nguyên ngoài project.
-Budget alert được giữ có chủ đích để bảo vệ các buổi sau; cuối khóa bạn tự review rồi xóa trên Console.
+`aws lambda invoke` is the only learning path. The template creates no API Gateway or public URL. Cleanup
+deletes only an exact-name stack with the `ml-roadmap-` prefix. The script does not scan or delete resources
+outside the project. The Budget alert remains intentionally to protect later sessions. At the end of the
+course, review it and delete it in the Console yourself.
 
-## Nếu có gì sai
+## If something goes wrong
 
-Nếu deploy lỗi, terminal đóng bất ngờ, hoặc bạn không chắc stack còn sống hay không:
+If deployment fails, the terminal closes unexpectedly, or you are not sure whether the stack is still active:
 
-1. Dừng mọi lệnh tạo tài nguyên. Xác nhận lại account, Region và project ID.
-2. Chạy cleanup ở chế độ dry-run; đọc từng exact resource name.
-3. Chạy cleanup với xác nhận project ID, sau đó chạy residual scan.
-4. Nếu scan lỗi vì thiếu quyền, **không** coi đó là sạch. Kiểm thủ công CloudFormation, S3, Lambda,
-   CloudWatch Logs và IAM hoặc nhờ người quản lý account hỗ trợ.
-5. Kiểm Billing ngay, sau khoảng 12 giờ và vào ngày kế tiếp. Không lấy số 0 ngay sau cleanup làm kết luận.
+1. Stop all resource-creation commands. Confirm the account, Region, and project ID again.
+2. Run cleanup in dry-run mode. Read every exact resource name.
+3. Run cleanup with project ID confirmation, then run the residual scan.
+4. If the scan fails because of missing permissions, **do not** treat the account as clean. Check
+   CloudFormation, S3, Lambda, CloudWatch Logs, and IAM manually, or ask the account administrator for help.
+5. Check Billing now, after about 12 hours, and again the next day. A zero immediately after cleanup is not final evidence.
 
-## Bạn đã an toàn khi
+## You are safe when
 
-- Stack, bucket, Lambda, log group và IAM role của project không còn.
-- Residual scan trả `residual=false`; scan không có lỗi quyền hay lỗi mạng.
-- Bạn đã ghi lịch kiểm Billing lại sau độ trễ.
-- Budget alert còn lại được ghi rõ là giữ có chủ đích, không bị nhầm với residual infrastructure.
-
+- The project stack, bucket, Lambda, log group, and IAM role no longer exist.
+- The residual scan returns `residual=false` without permission or network errors.
+- You have scheduled another Billing check after the reporting delay.
+- The remaining Budget alert is recorded as intentional, not mistaken for residual infrastructure.

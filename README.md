@@ -1,44 +1,44 @@
 # Machine Learning Engineer Roadmap - AWS Cloud Club
 
-Nếu bạn đã viết code nhưng Machine Learning vẫn giống một chiếc hộp đen, lộ trình này sẽ giúp bạn mở nó
-từng lớp. Trong 24 tuần, bạn đi từ cách đọc dữ liệu và huấn luyện model đầu tiên đến một hệ thống ML nhỏ có
-thể kiểm thử, đóng gói và chạy an toàn. Nhịp học dự kiến 8-10 giờ mỗi tuần; không cần GPU hay AWS để bắt đầu.
+If you've written code but Machine Learning still feels like a black box, this roadmap will help you open it
+each class. In 24 weeks, you go from reading data and training your first model to having a small ML system
+can be tested, packaged, and run safely. Expected study schedule is 8-10 hours per week; No GPU or AWS needed to get started.
 
-## Sau 24 tuần, bạn có thể làm gì?
+## After 24 weeks, what can you do?
 
-- Chuyển một câu hỏi thực tế thành bài toán ML có dữ liệu, nhãn, baseline và metric rõ ràng.
-- Xây pipeline tabular tránh data leakage; đánh giá model bằng bằng chứng thay vì một con số đẹp.
-- Tách notebook thành package, viết test, dựng inference API, đóng gói Docker và quản lý artifact.
-- Train một model ảnh nhỏ bằng transfer learning trên Colab Free hoặc Kaggle Free.
-- Triển khai capstone tabular bằng private Lambda rồi dọn sạch tài nguyên AWS trong cùng phiên học.
+- Convert a real-life question into an ML problem with clear data, labels, baseline and metrics.
+- Build a tabular pipeline to avoid data leakage; Evaluate the model by evidence instead of a pretty number.
+- Split notebooks into packages, write tests, build inference API, package Docker and manage artifacts.
+- Train a small image model using transfer learning on Colab Free or Kaggle Free.
+- Deploy tabular capstone using private Lambda and then clean up AWS resources in the same session.
 
-Đây là nền móng để đi tiếp theo hướng ML Engineer, không phải lời hứa rằng 24 tuần sẽ thay thế kinh nghiệm
-làm sản phẩm thật. Điều quan trọng nhất bạn mang đi là khả năng tự đặt câu hỏi, kiểm chứng và giải thích quyết định.
+This is the foundation for moving forward in the ML Engineer direction, not a promise that 24 weeks will replace experience
+Make real products. The most important thing you take away is the ability to question, verify, and explain your decisions.
 
-## Bản đồ sáu chặng
+## Six stage map
 
-| Tuần | Chặng | Bạn sẽ làm được |
+| Week | Stage | You will do it |
 |---|---|---|
-| [01-04](roadmap/weeks/week-01.md) | Nền tảng dữ liệu và toán | Hiểu workflow, NumPy, EDA và gradient bằng trực giác |
-| [05-08](roadmap/weeks/week-05.md) | ML cổ điển và đánh giá | Dựng baseline, chống leakage, chọn metric và kiểm tra độ ổn định |
-| [09-12](roadmap/weeks/week-09.md) | ML ứng dụng | So sánh model, thiết kế feature, phân tích lỗi, hoàn thành mini-project |
-| [13-16](roadmap/weeks/week-13.md) | ML Engineering | Package, test, API, Docker, CI và version artifact |
-| [17-20](roadmap/weeks/week-17.md) | Deep Learning và CV | PyTorch, transfer learning, checkpoint và failure analysis |
-| [21-24](roadmap/weeks/week-21.md) | AWS capstone an toàn | S3, private Lambda, cleanup, cost audit và demo |
+| [01-04](roadmap/weeks/week-01.md) | Data and Math Foundations | Understand workflow, NumPy, EDA and gradients intuitively |
+| [05-08](roadmap/weeks/week-05.md) | Classic ML and Review | Build baseline, prevent leakage, choose metrics and check stability |
+| [09-12](roadmap/weeks/week-09.md) | Applied ML | Compare models, design features, analyze errors, complete mini-project |
+| [13-16](roadmap/weeks/week-13.md) | ML Engineering | Package, test, API, Docker, CI and version artifact |
+| [17-20](roadmap/weeks/week-17.md) | Deep Learning and CV | PyTorch, transfer learning, checkpoints and failure analysis |
+| [21-24](roadmap/weeks/week-21.md) | AWS secure capstone | S3, private Lambda, cleanup, cost audit and demo |
 
-## Cách dùng repo
+## How to use repo
 
-GitHub chỉ là nơi chủ repo phát hành bộ khung. Clone repo mẫu:
+GitHub is just where the repo master releases the framework. Clone sample repo:
 
 ```text
 git clone https://github.com/quanntm1206/AWS-Cloud-Club.git
 ```
 
-Nếu không dùng Git, tải source archive từ `https://github.com/quanntm1206/AWS-Cloud-Club` rồi giải nén
-cục bộ. Người học không fork, commit, push, mở pull request hoặc nộp bài. Learning log, kết quả lab và
-artifact được lưu cục bộ để bạn tự nhìn lại; không cần public repository.
+If not using Git, download the source archive from `https://github.com/quanntm1206/AWS-Cloud-Club` and extract it
+local. Learners do not fork, commit, push, open pull requests, or submit assignments. Learning log, lab results and
+The artifact is saved locally for you to review for yourself; no need for public repository.
 
-Thiết lập môi trường rồi chạy kiểm tra khởi động:
+Set up the environment and then run the boot test:
 
 ```powershell
 pwsh scripts/setup.ps1 -Profile core
@@ -50,45 +50,45 @@ bash scripts/setup.sh --profile core
 bash scripts/check.sh --scope bootstrap
 ```
 
-Đọc [hướng dẫn bắt đầu](roadmap/00-getting-started.md), sau đó mở tuần 01. Mỗi tuần sẽ chỉ bạn đến đúng lab.
-Sau tuần 24, dùng [bản đồ 90 ngày](roadmap/sau-24-tuan.md) để chọn hướng Model Engineering, ML Platform/MLOps
-hoặc Applied Computer Vision.
+Read the [getting started guide](roadmap/00-getting-started.md), then open week 01. Each week will point you to the correct lab.
+After week 24, use [90-day map](roadmap/sau-24-tuan.md) to choose the direction Model Engineering, ML Platform/MLOps
+or Applied Computer Vision.
 
-## Học thuật ngữ mà không cần học vẹt
+## Learn terms without memorizing them by rote
 
-Mỗi lab giới thiệu một nhóm từ mới, gọi lại những từ đã dùng ở lab trước rồi yêu cầu bạn áp dụng chúng vào
-thao tác và output thật. Ví dụ, bạn gặp `dataset` ở lab 00, dùng lại khi tạo `data split` ở lab 04, rồi tiếp
-tục kiểm `data leakage` ở lab 05. Mục `Tự giải thích` giúp bạn nói lại bằng lời của mình; glossary cuối tài liệu
-là chỗ tra cứu, không phải danh sách cần thuộc ngay. Ba cụm dễ nhầm được tách rõ:
+Each lab introduces a new group of words, recalls words used in the previous lab and asks you to apply them
+real operations and output. For example, you encounter `dataset` in lab 00, use it again when creating `data split` in lab 04, and then continue
+Continue checking `data leakage` in lab 05. The `Self-explanation` section helps you repeat it in your own words; glossary at the end of the document
+This is a place to look up, not a list that needs to be memorized right away. Three easily confused clusters are clearly separated:
 
-- `data validation`: kiểm dữ liệu có đúng schema/quy tắc hay không;
-- `validation set`: phần dữ liệu dùng chọn quyết định, không dùng fit parameter;
-- `model validation`: quá trình đánh giá model trên dữ liệu chưa dùng để fit.
+- `data validation`: check whether the data has the correct schema/rules or not;
+- `validation set`: the data part is used for decision selection, not fit parameter;
+- `model validation`: the process of evaluating the model on data that has not yet been used for fitting.
 
-## Nguyên tắc giữ chi phí thấp
+## Principle of keeping costs low
 
-- Local CPU là đường mặc định; Colab Free hoặc Kaggle Free chỉ dùng cho phần CV.
-- AWS dành cho artifact, IAM, Lambda và quan sát hệ thống; không dùng GPU hoặc training nặng.
-- Tabular capstone là phần cốt lõi; CV capstone là phần mở rộng có hướng dẫn đầy đủ.
-- Mọi AWS lab đi đủ: pre-check, estimate, dry-run, deploy, verify, cleanup, residual scan, cost audit.
-- AWS Budgets chỉ gửi cảnh báo, không tự khóa chi tiêu. Pricing và eligibility có thể thay đổi.
+- Local CPU is the default route; Colab Free or Kaggle Free is only used for the CV section.
+- AWS for artifacts, IAM, Lambda, and system observability; Does not use GPU or heavy training.
+- Tabular capstone is the core part; The CV capstone is a fully guided extension.
+- Every AWS lab comes complete: pre-check, estimate, dry-run, deploy, verify, cleanup, residual scan, cost audit.
+- AWS Budgets only sends alerts, does not block spending. Pricing and eligibility are subject to change.
 
-## Trong repo có gì?
+## What's in the repo?
 
-- [`roadmap/`](roadmap/): 24 tuần, sáu mốc năng lực, learning log và cách tự đánh giá.
-- [`labs/`](labs/): 21 lab, gồm lab 00 khởi động, lab 01-19 offline/free compute và lab 20 cho AWS.
-- [`notebooks/`](notebooks/): notebook chạy thật trên Colab/Kaggle cùng CPU fallback.
-- `src/ml_roadmap/`: code mẫu cho training, evaluation và inference.
-- [`capstones/`](capstones/): capstone churn tabular và image classification.
-- `aws/`: cost policy, CloudFormation và script preflight/deploy/cleanup.
-- `dist/`: tài liệu Word hoàn chỉnh.
+- [`roadmap/`](roadmap/): 24 weeks, six competency milestones, learning log and self-assessment.
+- [`labs/`](labs/): 21 labs, including startup lab 00, lab 01-19 offline/free compute and lab 20 for AWS.
+- [`notebooks/`](notebooks/): real notebook running on Colab/Kaggle with fallback CPU.
+- `src/ml_roadmap/`: sample code for training, evaluation and inference.
+- [`capstones/`](capstones/): capstone churn tabular and image classification.
+- `aws/`: cost policy, CloudFormation and preflight/deploy/cleanup scripts.
+- `dist/`: complete Word document.
 
-## Nếu bị chậm hoặc mắc kẹt
+## If slow or stuck
 
-Đừng mua thêm compute để chữa một lỗi chưa hiểu. Quay về `cpu-mini`, đọc thông báo lỗi đầu tiên, kiểm shape,
-dtype, data split và command đang chạy. Ghi lại điều đã thử trong learning log. Nếu một tuần kéo dài hơn dự
-kiến, hoàn thành phần cốt lõi rồi bỏ qua `Stretch`; roadmap không yêu cầu bạn chạy mọi tùy chọn.
+Don't buy more compute to fix an error you don't understand. Go back to `cpu-mini`, read the first error message, check the shape,
+dtype, data split and command are running. Record what you try in the learning log. If a week lasts longer than expected
+ant, complete the core then skip `Stretch`; The roadmap doesn't require you to run every option.
 
 ## License
 
-MIT. Dataset và model bên thứ ba giữ license riêng; xem từng lab và capstone trước khi sử dụng.
+MIT. Third-party datasets and models hold separate licenses; View each lab and capstone before use.

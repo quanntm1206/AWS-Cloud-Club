@@ -1,36 +1,36 @@
-# Mốc năng lực 04 - Tuần 16
+# Competency milestone 04 - Week 16
 
-## Mục tiêu
+## Target
 
-Tự đánh giá khả năng biến notebook thành phần mềm ML có thể kiểm thử và vận hành.
+Evaluate your ability to turn a notebook into testable and operational ML software.
 
-## Bạn đã đạt mốc nếu
+## You have reached the if mark
 
-- Training/evaluation tách khỏi notebook thành module, config và CLI chạy từ môi trường sạch.
-- Test bao phủ schema, transform, model artifact cùng boundary hợp lệ/không hợp lệ của inference API.
-- Artifact gắn model version, checksum, config, metric và source run.
-- CI chạy lint/test trên mini profile; Docker chỉ là phần mở rộng nếu máy không hỗ trợ.
+- Training/evaluation is separated from the notebook into modules, config and CLI running from a clean environment.
+- Test covers schema, transform, model artifact and valid/invalid boundary of inference API.
+- Artifact attaches model version, checksum, config, metrics and source run.
+- CI runs lint/test on mini profile; Docker is only an extension if the machine does not support it.
 
-## Minh chứng đạt mốc
+## Proof of reaching the milestone
 
-- Package tree, quickstart và command train/evaluate/serve lưu cục bộ.
-- Test report có ít nhất một negative case cho schema hoặc API contract.
-- Artifact manifest và parity check giữa đường batch với inference.
-- CI log hoặc local CI-equivalent; ghi rõ giới hạn môi trường/Docker nếu chưa chạy được.
+- Package tree, quickstart and command train/evaluate/serve are saved locally.
+- Test report has at least one negative case for the schema or API contract.
+- Artifact manifest and parity check between batch path and inference.
+- CI log or local CI-equivalent; Specify environment/Docker limits if not running yet.
 
 ## Rubric
 
-| Tiêu chí | Điểm |
+| Criteria | Score |
 |---|---:|
-| Cấu trúc package và CLI | 25 |
-| Test và contract inference | 30 |
-| CI và artifact versioning | 25 |
-| Vận hành và giới hạn | 20 |
+| Package structure and CLI | 25 |
+| Test and contract inference | 30 |
+| CI and artifact versioning | 25 |
+| Operation and limitations | 20 |
 
-Điểm đạt: 70/100. Gate: không secret, mini run tái lập, malformed input trả lỗi có contract thay vì làm tiến trình crash.
+Passing score: 70/100. Gate: no secret, mini run re-established, malformed input returns errors with contract instead of crashing the process.
 
-## Câu hỏi tự nhìn lại
+## Self-reflection question
 
-- Một người khác cần biết ít nhất những gì để chạy lại artifact?
-- Test nào bảo vệ ranh giới nguy hiểm nhất của hệ thống?
-- Notebook còn giữ trách nhiệm nào nên chuyển vào package?
+- What does someone else need to know at least to run the artifact again?
+- Which test protects the most dangerous boundaries of the system?
+- What responsibilities do notebooks still hold that should be moved to the package?

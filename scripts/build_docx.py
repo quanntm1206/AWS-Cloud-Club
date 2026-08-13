@@ -14,6 +14,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
 
 ROOT = Path(__file__).resolve().parents[1]
+DOCX_VI = ROOT / "docs/docx-vi"
 BLUE = "2E74B5"
 DARK_BLUE = "1F4D78"
 TABLE_FILL = "E8EEF5"
@@ -269,8 +270,8 @@ def set_paragraph_shading(paragraph: object, fill: str) -> None:
 
 
 def build(output: Path) -> None:
-    curriculum = yaml.safe_load((ROOT / "curriculum/curriculum.yml").read_text(encoding="utf-8"))
-    assessments = yaml.safe_load((ROOT / "curriculum/assessment.yml").read_text(encoding="utf-8"))
+    curriculum = yaml.safe_load((DOCX_VI / "curriculum/curriculum.yml").read_text(encoding="utf-8"))
+    assessments = yaml.safe_load((DOCX_VI / "curriculum/assessment.yml").read_text(encoding="utf-8"))
     sources = yaml.safe_load((ROOT / "docs/sources.yml").read_text(encoding="utf-8"))["sources"]
     document = Document()
     document.core_properties.title = "Machine Learning Engineer Roadmap - AWS Cloud Club"
@@ -417,7 +418,7 @@ def build(output: Path) -> None:
             ],
             [1.181, 5.319],
         )
-        week_doc = (ROOT / f"roadmap/weeks/week-{week['id']:02d}.md").read_text(encoding="utf-8")
+        week_doc = (DOCX_VI / f"roadmap/weeks/week-{week['id']:02d}.md").read_text(encoding="utf-8")
         goal = extract_markdown_section(week_doc, "Mục tiêu tuần")
         lead = document.add_paragraph()
         lead.add_run("Tuần này bạn sẽ ").bold = True
@@ -713,7 +714,7 @@ def build(output: Path) -> None:
     add_table(document, ["Tuần", "Lab", "Đọc trước", "Lệnh"], lab_rows, [0.5, 0.8, 3.35, 1.85])
 
     add_section_heading(document, "8. Glossary và nguồn", 1, "glossary", bookmark_id)
-    glossary = yaml.safe_load((ROOT / "curriculum/glossary.yml").read_text(encoding="utf-8"))["terms"]
+    glossary = yaml.safe_load((DOCX_VI / "curriculum/glossary.yml").read_text(encoding="utf-8"))["terms"]
     document.add_paragraph(
         "Đừng học thuộc bảng này một lượt. Mỗi thuật ngữ được giới thiệu trong lab, dùng lại ở các lab sau và "
         "gắn với một evidence cụ thể. Ba khái niệm dễ nhầm: data validation kiểm dữ liệu, validation set là "

@@ -1,32 +1,31 @@
-# Lab 11 - Ghép pipeline tabular thành mini-project
+# Lab 11 - Combine the tabular pipeline into a mini-project
 
-## Mục tiêu
+## Goal
 
-Mini-project này kiểm xem toàn bộ đường đi từ dữ liệu đến artifact có chạy lại được hay không. Model tốt nhưng chỉ sống trong notebook chưa phải sản phẩm tái lập.
+This mini-project checks whether the complete path from data to artifact can run again. A good model that exists only in a notebook is not a reproducible product.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `artifact`, `manifest`, `inference`
+**New terms:** `artifact`, `manifest`, `inference`
 
-**Ôn lại:** `schema`, `data split`, `pipeline`
+**Review:** `schema`, `data split`, `pipeline`
 
-**Áp dụng trong lab:** Khóa schema và data split, chạy pipeline; lưu `artifact` kèm `manifest`, load ở process mới để inference, rồi so baseline/metric và checksum.
+**Use in this lab:** Lock the schema and data split, then run the pipeline. Save an `artifact` with a `manifest`, load it in a new process for inference, and compare the baseline, metric, and checksum.
 
-**Tự giải thích:** Artifact, manifest và inference liên kết thế nào để chạy lại pipeline?
+**Explain it yourself:** How do artifact, manifest, and inference work together to make the pipeline repeatable?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-12.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+Read `roadmap/weeks/week-12.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Khóa problem, schema, split, baseline và success criteria trước training.
-2. Chạy pipeline churn mini end-to-end; lưu metrics, model và manifest.
-3. Load artifact ở process mới, kiểm prediction output agreement và checksum.
-4. Điền model card/experiment report với misuse, failure và limitation.
+1. Lock the problem, schema, split, baseline, and success criteria before training.
+2. Run the churn mini-project end to end. Save metrics, the model, and the manifest.
+3. Load the artifact in a new process. Check prediction agreement and the checksum.
+4. Complete the local model card and experiment report with misuse, failures, and limitations.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 11
 ```
 
-Kết quả được lưu tại `.artifacts/lab-11-evidence.json`. Trong `result`, bạn sẽ thấy metrics và artifact contract.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-11-evidence.json`. In `result`, you will see metrics and the artifact contract.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Pipeline chạy từ clean shell; artifact contract gồm model, feature names, threshold và checksum.
-- Prediction trước/sau load khớp; report ghi command, config, seed và negative result.
+- The pipeline runs from a clean shell. Its artifact contract includes the model, feature names, threshold, and checksum.
+- Predictions match before and after loading. The report records the command, config, seed, and a negative result.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu output agreement sai, so feature order, preprocessing và threshold. Nếu clean shell thất bại, tìm hidden state hoặc đường dẫn tương đối.
+If predictions differ, compare feature order, preprocessing, and threshold. If a clean shell fails, look for hidden state or a relative path.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

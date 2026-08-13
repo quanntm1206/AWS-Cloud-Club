@@ -1,32 +1,31 @@
-# Lab 14 - Kiểm contract của inference API local
+# Lab 14 - Check the local inference API contract
 
-## Mục tiêu
+## Goal
 
-API là nơi dữ liệu ngoài hệ thống gặp model. Bạn sẽ làm cho lỗi client, lỗi artifact và response thành công có contract khác nhau, thay vì mọi thứ thành 500.
+An API is where outside data meets the model. Give client errors, artifact errors, and successful responses different contracts instead of turning everything into a 500 response.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `API contract`, `latency`
+**New terms:** `API contract`, `latency`
 
-**Ôn lại:** `data contract`, `artifact`, `inference`, `schema`
+**Review:** `data contract`, `artifact`, `inference`, `schema`
 
-**Áp dụng trong lab:** Định nghĩa `API contract`, đo `latency`, gửi sample hợp lệ/sai qua inference; data contract chặn schema lỗi trước artifact và response không lộ raw feature.
+**Use in this lab:** Define the `API contract`, measure `latency`, and send valid and invalid samples through inference. The data contract rejects an invalid schema before the artifact runs, and responses do not expose raw features.
 
-**Tự giải thích:** API contract khác data contract thế nào; latency đo được chưa chứng minh điều gì?
+**Explain it yourself:** How is an API contract different from a data contract? What does the measured latency not prove?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-15.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+Read `roadmap/weeks/week-15.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Gọi `/health` và `/predict` với payload hợp lệ.
-2. Thử missing field, wrong type và unknown category; kiểm response 4xx có thông tin vừa đủ.
-3. Mô phỏng model chưa sẵn sàng; kiểm 503 mà không lộ stack trace.
-4. Đo warm latency mini input group, ghi payload/input group limit và giới hạn phép đo.
+1. Call `/health` and `/predict` with a valid payload.
+2. Try a missing field, wrong type, and unknown category. Check that each 4xx response contains enough information without exposing internals.
+3. Simulate an unavailable model. Check for a 503 response without a stack trace.
+4. Measure warm latency for a small input group. Record payload and input limits plus the measurement limitation.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 14
 ```
 
-Kết quả được lưu tại `.artifacts/lab-14-evidence.json`. Trong `result`, bạn sẽ thấy contract `/health`, `/predict`, 422 và 503.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-14-evidence.json`. In `result`, you will see the `/health` and `/predict` contracts, 422, and 503.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Contract có `/health`, `/predict`, 422 và 503; preprocessing đúng artifact training.
-- Log không chứa raw feature nhạy cảm; health không train hoặc sửa model.
+- The contract covers `/health`, `/predict`, 422, and 503. Preprocessing matches the training artifact.
+- Logs contain no sensitive raw features. The health endpoint does not train or modify the model.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Gọi handler với payload tối thiểu trước. Nếu lỗi client thành 500, đưa validation ra boundary và giữ exception nội bộ trong log.
+Call the handler with the smallest valid payload first. If a client error becomes 500, move validation to the boundary and keep the internal exception in logs.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

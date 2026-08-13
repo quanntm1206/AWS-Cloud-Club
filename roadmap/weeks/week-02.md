@@ -1,80 +1,80 @@
-# Tuần 02 - NumPy và vectorization
+# Week 02 - NumPy and vectorization
 
-## Mục tiêu tuần
+## Weekly goals
 
-Dùng vector, matrix, broadcasting; hiểu shape.
+Use vector, matrix, broadcasting; understand shapes.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-NumPy là ngôn ngữ chung của dữ liệu dạng số. Hiểu shape và axis sớm sẽ giúp bạn tránh nhiều lỗi model chạy được nhưng tính sai.
+NumPy is the lingua franca of numerical data. Understanding shape and axis early will help you avoid many mistakes where the model works but calculates incorrectly.
 
-**Ví dụ gần gũi:** Một hàng là một khách hàng, một cột là một đặc trưng; `X @ w` tạo một điểm số cho từng khách hàng.
+**Close example:** One row is a customer, one column is a feature; `X @ w` generates a score for each customer.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Array có shape, dtype, axis; code chạy nhưng sai axis vẫn sai nghiệp vụ.
-- Broadcasting hợp lệ khi kích thước từ phải sang trái bằng nhau hoặc một chiều bằng 1.
-- Dot product tạo weighted score; matrix multiplication tính đồng thời nhiều mẫu.
-- Float cần tolerance; chú ý chia 0, overflow exp/log và mảng trung gian quá lớn.
+- Array has shape, dtype, axis; The code runs but the axis is wrong but the business is still wrong.
+- Broadcasting is valid when the size from right to left is equal or one-way is equal to 1.
+- Dot product creates weighted score; matrix multiplication calculates multiple samples simultaneously.
+- Float requires tolerance; Pay attention to division by 0, overflow exp/log and the intermediate array is too large.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `feature`, `label / target`, `parameter`, `vectorization`
+**New or focus terms:** `feature`, `label / target`, `parameter`, `vectorization`
 
-**Ôn lại:** `dataset`, `sample`, `schema`
+**Review:** `dataset`, `sample`, `schema`
 
-**Áp dụng:** Biểu diễn mỗi `sample` thành vector `feature`, giữ `label / target` để diễn giải bài toán, dùng vectorization tính model output từ `parameter`; ghi `dataset` và `schema` của mảng.
+**Use:** Represent each `sample` into a `feature` vector, keep `label / target` to explain the problem, use vectorization to calculate model output from `parameter`; write `dataset` and `schema` of the array.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Viết weighted score bằng loop và X @ w; đối chiếu np.allclose.
-2. Tính error count table và precision/recall bằng NumPy.
-3. In shape từng bước, cố ý gây lỗi broadcasting rồi sửa.
+1. Write weighted score using loop and X @ w; compare np.allclose.
+2. Calculate error count table and precision/recall using NumPy.
+3. Print the shape step by step, intentionally causing a broadcasting error and then fix it.
 
 ## Lab
 
-**lab-01:** NumPy vectorization và quality measure từ đầu. Môi trường chính: `local`.
+**lab-01:** NumPy vectorization and quality measure from scratch. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn dự đoán được shape trước khi chạy code và giải thích vì sao loop với phép nhân ma trận cho cùng kết quả.
+You predict the shape before running the code and explain why loop and matrix multiplication give the same result.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Shape X, w, X @ w với n mẫu/d feature?
-2. Broadcasting khác copy dữ liệu thế nào?
-3. Vì sao dùng np.allclose?
+1. Shape X, w, X @ w with n samples/d features?
+2. How is Broadcasting different from copying data?
+3. Why use np.allclose?
 
-## Kết quả hướng tới
+## Result oriented
 
-tested NumPy module; lưu kèm lệnh đã chạy, cấu hình, quality measure, thời gian chạy và một điều còn hạn chế.
+tested NumPy module; Saves the executed command, configuration, quality measure, run time and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Hoàn thành phép tính loop/vectorized, tự tính một hàng và kiểm shape/boundary.
-- **Mở rộng:** Thử một mảng có zero variance hoặc shape sai; dự đoán lỗi trước khi chạy.
+- **Core:** Complete loop/vectorized calculations, calculate a row and check shape/boundary.
+- **Expansion:** Try an array with zero variance or wrong shape; Predict errors before running.
 
-## Lỗi thường gặp
+## Common errors
 
-- Reshape để code chạy mà không hiểu axis.
-- Vectorize bằng mảng trung gian làm hết RAM.
+- Reshape to let the code run without understanding the axis.
+- Vectorize using an intermediate array runs out of RAM.
 
-## Khi mắc kẹt
+## When you get stuck
 
-In `shape`, `dtype` sau từng bước. Giảm mảng xuống 2-3 hàng rồi tính tay trước khi sửa `reshape`.
+Print `shape`, `dtype` after each step. Reduce the array by 2-3 rows and then calculate it by hand before editing `reshape`.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: NumPy documentation về broadcasting, `matmul` và floating-point comparison trong `docs/sources.yml`.
+Recommended source: NumPy documentation on broadcasting, `matmul` and floating-point comparison in `docs/sources.yml`.

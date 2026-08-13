@@ -1,32 +1,31 @@
-# Lab 12 - Tách logic khỏi notebook thành config và CLI
+# Lab 12 - Move notebook logic into configuration and a CLI
 
-## Mục tiêu
+## Goal
 
-Bạn sẽ tháo training logic khỏi notebook mà không thay đổi hành vi. Mục tiêu không phải nhiều file hơn, mà là input/output rõ và một nguồn logic duy nhất.
+Move training logic out of the notebook without changing behavior. The goal is not more files; it is clear input and output with one source of logic.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `package`, `configuration`
+**New terms:** `package`, `configuration`
 
-**Ôn lại:** `reproducibility`, `pipeline`, `artifact`
+**Review:** `reproducibility`, `pipeline`, `artifact`
 
-**Áp dụng trong lab:** Tách pipeline thành `package`; đưa seed và hyperparameter vào `configuration`, chạy lại để giữ reproducibility, artifact và inference không phụ thuộc notebook state.
+**Use in this lab:** Move the pipeline into a `package`. Put the seed and hyperparameters in `configuration`, then rerun it so reproducibility, the artifact, and inference do not depend on notebook state.
 
-**Tự giải thích:** Package và configuration loại bỏ hidden notebook state thế nào?
+**Explain it yourself:** How do a package and configuration remove hidden notebook state?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-13.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc artifact lớn vào Git.
+Read `roadmap/weeks/week-13.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Đánh dấu cell nào thuộc data, features, train, evaluate và artifact I/O.
-2. Di chuyển core logic vào module; notebook chỉ import và gọi.
-3. Tạo config có schema cùng CLI nhận config/data/output.
-4. Chạy cùng config từ notebook và clean shell, so metric/artifact trong tolerance.
+1. Mark which cells handle data, features, training, evaluation, and artifact I/O.
+2. Move core logic into a module. The notebook should only import and call it.
+3. Create a config with a schema and a CLI that accepts config, data, and output paths.
+4. Run the same config from the notebook and a clean shell. Compare metrics and artifacts within tolerance.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 12
 ```
 
-Kết quả được lưu tại `.artifacts/lab-12-evidence.json`. Trong `result`, bạn sẽ thấy danh sách config keys và `notebook_state_required=false`.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-12-evidence.json`. In `result`, you will see the config key list and `notebook_state_required=false`.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Output cho thấy config keys rõ và `notebook_state_required=false`.
-- Không còn logic training copy ở hai nơi; CLI trả lỗi hữu ích khi config sai.
+- The output shows clear config keys and `notebook_state_required=false`.
+- Training logic is not copied in two places. The CLI gives a useful error for invalid config.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Restart kernel và mở clean shell. Biến hoặc file chỉ tồn tại sau một cell cũ chính là hidden dependency cần loại.
+Restart the kernel and open a clean shell. Any variable or file that exists only after an earlier cell is a hidden dependency to remove.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

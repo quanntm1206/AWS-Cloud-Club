@@ -1,81 +1,81 @@
-# Tuần 16 - Docker, CI và artifact versioning
+# Week 16 - Docker, CI and artifact versioning
 
-## Mục tiêu tuần
+## Weekly goals
 
-Đóng gói, CI, version artifact; hiểu image trade-off.
+Packaging, CI, version artifact; understand image trade-off.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Docker đóng gói runtime; CI kiểm các quy tắc mỗi lần code đổi. Cả hai giúp model chạy nhất quán nhưng không thay thế kiểm tra chất lượng dữ liệu.
+Docker encapsulates the runtime; CI checks the rules every time the code changes. Both help the model run consistently but do not replace data quality checks.
 
-**Ví dụ gần gũi:** Image có checksum đúng vẫn có thể chứa model sai; manifest và test trả lời hai câu hỏi khác nhau.
+**Close example:** Image with correct checksum may still contain wrong model; manifest and test answer two different questions.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Container đóng runtime/dependency, không bảo đảm model đúng; dùng base nhỏ, non-root user.
-- Đặt dependency layer trước source, loại data/artifact/.venv khỏi build context.
-- CI chạy lint/type/test/validators offline; roadmap không auto-deploy AWS.
-- Artifact manifest có schema/version/checksum/config/metrics; checksum không thay provenance.
-- Production monitoring cần cả service signals (latency/error) và ML signals (schema, drift, prediction distribution); drift là cảnh báo điều tra, không tự chứng minh model đã sai.
+- Container closes runtime/dependency, does not guarantee correct model; Use a small base, non-root user.
+- Place dependency layer before source, remove data/artifact/.venv from build context.
+- CI runs lint/type/test/validators offline; roadmap does not auto-deploy AWS.
+- Artifact manifest has schema/version/checksum/config/metrics; checksum does not replace provenance.
+- Production monitoring needs both service signals (latency/error) and ML signals (schema, drift, prediction distribution); drift is an investigative warning, not self-proving that the model is wrong.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `container`, `CI`
+**New or focus terms:** `container`, `CI`
 
-**Ôn lại:** `API contract`, `artifact`, `reproducibility`, `latency`
+**Review:** `API contract`, `artifact`, `reproducibility`, `latency`
 
-**Áp dụng:** Đóng package/API contract vào `container`, dùng `CI` chạy data validation, parity và test artifact; đo latency nhỏ rồi cleanup container để giữ reproducibility.
+**Use:** Pack the package/API contract into `container`, use `CI` to run data validation, parity and test artifact; Measure low latency and then cleanup the container to maintain reproducibility.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Build image, smoke health/predict, kiểm non-root.
-2. Chạy CI commands từ clean checkout.
-3. Đổi một byte artifact và xác nhận checksum fail.
+1. Build image, smoke health/predict, non-root check.
+2. Run CI commands from clean checkout.
+3. Change an artifact byte and confirm checksum failure.
 
 ## Lab
 
-**lab-15:** Docker/local CI smoke. Môi trường chính: `local`.
+**lab-15:** Docker/local CI smoke. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Bạn build image non-root, smoke `/health` và `/predict`, rồi phát hiện artifact bị đổi bằng checksum.
+You build a non-root image, smoke `/health` and `/predict`, then detect the altered artifact using checksum.
 
-## Tự kiểm tra
+## Test yourself
 
-1. latest tag có rủi ro gì?
-2. Image/model cần version riêng vì sao?
-3. Checksum chứng minh gì?
+1. What are the risks of latest tag?
+2. Why does the image/model need a separate version?
+3. What does Checksum prove?
 
-## Kết quả hướng tới
+## Result oriented
 
-mốc năng lực 4; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+competency milestone 4; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Build image non-root, smoke service, kiểm checksum và chạy CI offline.
-- **Mở rộng:** Đo image size/startup time hoặc thử artifact checksum failure; không thêm auto-deploy cloud.
+- **Core:** Build non-root image, smoke service, check checksum and run CI offline.
+- **Expand:** Measure image size/startup time or try artifact checksum failure; Do not add auto-deploy cloud.
 
-## Lỗi thường gặp
+## Common errors
 
-- Đưa secret/data vào image.
-- CI tự deploy cloud.
+- Put secret/data into image.
+- CI self-deploys to cloud.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu Docker tốn thời gian, chạy test local trước. Kiểm `.dockerignore`, build context và log container theo thứ tự.
+If Docker takes time, run local tests first. Check `.dockerignore`, build context and container log in order.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: Dockerfile best practices, non-root containers và GitHub Actions documentation.
+Recommended resources: Dockerfile best practices, non-root containers and GitHub Actions documentation.

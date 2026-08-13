@@ -1,80 +1,80 @@
-# Tuần 12 - Mini-project tabular
+# Week 12 - Mini-project tabular
 
-## Mục tiêu tuần
+## Weekly goals
 
-Tổng hợp pipeline tabular có thể tái lập.
+Synthesize reproducible tabular pipelines.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Mini-project là lúc ghép các mảnh thành một quy trình người khác có thể chạy lại, không phải lúc thêm thật nhiều thuật toán.
+Mini-projects are the time to assemble the pieces into a process that others can run again, not the time to add lots of algorithms.
 
-**Ví dụ gần gũi:** Một model file không đủ nếu thiếu schema, threshold, config và cách tái tạo đúng preprocessing.
+**Close example:** A model file is not enough without schema, threshold, config and how to properly reproduce preprocessing.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Mini-project khóa problem, contract, split, baseline và success criteria trước tối ưu.
-- Training xuất model, portable artifact, metrics, manifest và model card.
-- Reproduction guide bắt đầu từ clean environment, ghi command/config/seed/input/output.
-- Model card nêu intended/out-of-scope use, data, metrics, subgroup, limitation và rollback signal.
+- Mini-project locks problem, contract, split, baseline and success criteria before optimization.
+- Training exports models, portable artifacts, metrics, manifest and model cards.
+- Reproduction guide starts from clean environment, writes command/config/seed/input/output.
+- Model card states intended/out-of-scope use, data, metrics, subgroup, limitation and rollback signal.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `artifact`, `manifest`, `inference`
+**New or focus terms:** `artifact`, `manifest`, `inference`
 
-**Ôn lại:** `schema`, `data split`, `pipeline`
+**Review:** `schema`, `data split`, `pipeline`
 
-**Áp dụng:** Khóa schema và data split, chạy pipeline; lưu `artifact` kèm `manifest`, load ở process mới để inference, rồi so baseline/metric và checksum.
+**Use:** Lock schema and data split, run pipeline; Save `artifact` with `manifest`, load in new process for inference, then compare baseline/metric and checksum.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/error analysis | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Chạy churn pipeline mini end-to-end.
-2. Reload artifact ở process mới và kiểm prediction output agreement.
-3. Chạy reproduction guide từ clean shell.
+1. Run mini churn pipeline end-to-end.
+2. Reload the artifact in the new process and check the prediction output agreement.
+3. Run reproduction guide from clean shell.
 
 ## Lab
 
-**lab-11:** Mini-project tabular end-to-end. Môi trường chính: `local`.
+**lab-11:** Mini-project tabular end-to-end. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Từ clean shell, bạn train, lưu, load lại artifact và tạo cùng prediction trong tolerance đã ghi.
+From the clean shell, you train, save, reload the artifact and create the same prediction within the recorded tolerance.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Artifact cần gì ngoài weights?
-2. Model card phải nêu misuse nào?
-3. Chứng minh run tái lập bằng gì?
+1. What does Artifact need besides weights?
+2. What abuse must be mentioned on the card model?
+3. What can be used to prove tremor re-establishment?
 
-## Kết quả hướng tới
+## Result oriented
 
-mốc năng lực 3 + model card; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+competency milestone 3 + model card; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Chạy mini-project từ clean shell; load artifact ở process mới và hoàn thiện model card.
-- **Mở rộng:** So config `mini` với đúng một controlled change; ghi cả negative result.
+- **Core:** Run mini-project from clean shell; Load the artifact in the new process and complete the card model.
+- **Expansion:** So config `mini` with exactly one controlled change; Record the negative result as well.
 
-## Lỗi thường gặp
+## Common errors
 
-- Chỉ lưu notebook phụ thuộc cell state, thiếu artifact tái lập.
-- Thiếu split manifest/config.
+- Only saves notebooks depending on cell state, lacks reproducible artifacts.
+- Missing split manifest/config.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Chạy `mini` trước, kiểm từng artifact. Khi output agreement sai, so config và feature order trước khi train lại.
+Run `mini` first, checking each artifact. When output agreement is wrong, compare config and feature order before retraining.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: model persistence của scikit-learn và model-card references trong `docs/sources.yml`.
+Recommended source: scikit-learn's model persistence and model-card references in `docs/sources.yml`.

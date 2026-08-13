@@ -1,80 +1,80 @@
-# Tuần 10 - Feature engineering và ablation
+# Week 10 - Feature engineering and ablation
 
-## Mục tiêu tuần
+## Weekly goals
 
-Feature engineering có giả thuyết; ablation một biến.
+Feature engineering has a hypothesis; ablation of a variable.
 
-## Vì sao tuần này quan trọng
+## Why this week matters
 
-Feature engineering biến hiểu biết về bài toán thành tín hiệu model dùng được. Ablation giúp kiểm xem feature mới thật sự có ích hay chỉ trùng với nhiễu.
+Feature engineering turns understanding of the problem into usable model signals. Ablation helps check whether the new feature is really useful or just duplicate noise.
 
-**Ví dụ gần gũi:** Tỉ lệ chi tiêu trên thời gian gắn bó có thể hữu ích, nhưng phải xử lý mẫu số 0 và chỉ dùng dữ liệu có tại prediction time.
+**Close example:** The ratio of spend to engagement time can be useful, but must deal with zero denominators and only use data available at prediction time.
 
-## Kiến thức cốt lõi
+## Core knowledge
 
-- Feature phải tồn tại tại prediction time, ổn định, tái tạo được và có ý nghĩa.
-- Ratio/log/interaction cần hypothesis; xử lý zero, missing và range.
-- Ablation thay đúng một feature group trong cùng harness.
-- Metric delta nhỏ hơn CV variability chưa chứng minh feature có ích.
+- Feature must exist at prediction time, be stable, reproducible and meaningful.
+- Ratio/log/interaction requires hypothesis; Handles zero, missing and range.
+- Ablation replaces exactly one feature group in the same harness.
+- Metric delta is smaller than CV variability, which has not proven to be a useful feature.
 
-## Từ khóa tuần này
+## Keywords for this week
 
-**Thuật ngữ mới hoặc trọng tâm:** `feature engineering`, `ablation`
+**New or focus terms:** `feature engineering`, `ablation`
 
-**Ôn lại:** `feature`, `baseline`, `validation set`, `hyperparameter`
+**Review:** `feature`, `baseline`, `validation set`, `hyperparameter`
 
-**Áp dụng:** Viết giả thuyết `feature engineering`, chạy `ablation` thêm/bỏ một feature; khóa baseline, validation set, hyperparameter và data split để metric delta có nghĩa.
+**Use:** Write a `feature engineering` hypothesis, run `ablation` to add/remove a feature; lock the baseline, validation set, hyperparameter, and data split to make the delta metric meaningful.
 
-## Lịch 8-10 giờ
+## 8-10 hour schedule
 
-| Hoạt động | Giờ |
+| Activities | Hours |
 |---|---:|
-| Đọc và ghi chú | 2 |
+| Read and take notes | 2 |
 | Guided practice | 2 |
 | Lab | 3 |
 | Assessment/failure review | 1 |
-| Learning log và tự đánh giá | 1 |
-| Review/hoàn thiện | 0 |
+| Learning log and self-assessment | 1 |
+| Review/complete | 0 |
 
 ## Guided practice
 
 
-1. Viết feature hypothesis và availability time.
-2. So all-features với without-monthly-charge.
-3. Ghi metric/runtime delta và keep/drop decision.
+1. Write feature hypothesis and availability time.
+2. Compare all-features with without-monthly-charge.
+3. Record metric/runtime delta and keep/drop decision.
 
 ## Lab
 
-**lab-09:** Feature ablation log. Môi trường chính: `local`.
+**lab-09:** Feature ablation log. Main environment: `local`.
 
-## Dấu hiệu bạn đã hiểu
+## Signs that you understand
 
-Mỗi feature có giả thuyết và thời điểm sẵn có; quyết định giữ/bỏ dựa trên cùng harness cùng variability.
+Each feature has a hypothesis and availability date; Keep/drop decision based on same harness and same variability.
 
-## Tự kiểm tra
+## Test yourself
 
-1. Availability khác correlation thế nào?
-2. Ablation vì sao giữ seed/model?
-3. Khi nào bỏ feature dù metric tăng?
+1. How is availability different from correlation?
+2. Why does Ablation keep seed/model?
+3. When to remove a feature even though the metric increases?
 
-## Kết quả hướng tới
+## Result oriented
 
-ablation report; lưu kèm lệnh đã chạy, cấu hình, metric, thời gian chạy và một điều còn hạn chế.
+ablation report; Saves executed commands, configuration, metrics, runtime and one limitation.
 
 ## Core vs stretch
 
-- **Cốt lõi:** Chạy một ablation có giả thuyết, availability time rõ và test chưa bị chạm.
-- **Mở rộng:** Thử một feature ratio an toàn với zero/missing rồi đo cả metric lẫn runtime.
+- **Core:** Run an ablation with a hypothesis, clear availability time, and untouched testing.
+- **Extension:** Try a safe feature ratio with zero/missing and then measure both the metric and runtime.
 
-## Lỗi thường gặp
+## Common errors
 
-- Dùng future/target-proxy feature.
-- Đổi feature lẫn hyperparameter cùng lúc.
+- Use future/target-proxy feature.
+- Change features and hyperparameters at the same time.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Viết feature bằng lời trước code. Nếu không nói được nó có sẵn khi nào, tạm loại khỏi model.
+Write the feature in words before the code. If it cannot be said when it will be available, temporarily remove it from the model.
 
-## Nguồn
+## Source
 
-Nguồn nên đọc: phần feature engineering/model inspection trong tài liệu chính thức ở `docs/sources.yml`.
+Recommended source: feature engineering/model inspection section in the official documentation at `docs/sources.yml`.

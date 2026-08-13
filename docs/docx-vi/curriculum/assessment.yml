@@ -1,0 +1,44 @@
+scale:
+  emerging: {label: Chưa vững, factor: 0.4, description: Chưa tạo được đầu ra đúng contract hoặc cần làm lại phần cốt lõi.}
+  developing: {label: Đang tiến bộ, factor: 0.7, description: "Chạy được nhưng bằng chứng, kiểm thử hoặc khả năng tái lập còn thiếu."}
+  proficient: {label: Đạt yêu cầu, factor: 1.0, description: "Đúng, tái lập, có đánh giá và giải thích quyết định."}
+  exemplary: {label: Vượt mong đợi, factor: 1.1, description: "Có phân tích lỗi sâu, trade-off rõ và một cải tiến có kiểm soát."}
+
+milestones:
+  - id: milestone-01
+    week: 4
+    focus: Nền tảng dữ liệu và toán
+    pass_score: 70
+    criteria: {Hiểu dữ liệu và đặt bài toán: 30, Tính đúng và kiểm tra kết quả: 30, Tái lập môi trường: 25, Giải thích giới hạn: 15}
+  - id: milestone-02
+    week: 8
+    focus: Đánh giá model đáng tin cậy
+    pass_score: 70
+    criteria: {Chia dữ liệu và chống leakage: 30, Chọn metric theo bài toán: 30, Cross-validation và độ ổn định: 25, Kết luận có bằng chứng: 15}
+  - id: milestone-03
+    week: 12
+    focus: Dự án tabular hoàn chỉnh
+    pass_score: 70
+    criteria: {Pipeline và data contract: 30, Baseline và thí nghiệm có kiểm soát: 25, Error analysis: 25, Tái lập và giao tiếp: 20}
+  - id: milestone-04
+    week: 16
+    focus: ML engineering
+    pass_score: 70
+    criteria: {Cấu trúc package và CLI: 25, Test và contract inference: 30, CI và artifact versioning: 25, Vận hành và giới hạn: 20}
+  - id: milestone-05
+    week: 20
+    focus: Computer Vision tiết kiệm compute
+    pass_score: 70
+    criteria: {Transfer learning đúng: 25, Checkpoint và resume: 25, Đánh giá per-class: 30, Failure analysis và giới hạn: 20}
+  - id: milestone-06
+    week: 24
+    focus: Capstone và an toàn chi phí
+    pass_score: 75
+    criteria: {Tích hợp end-to-end: 25, Kiểm thử và khả năng tái lập: 25, AWS cost safety và cleanup: 30, Demo và retrospective: 20}
+
+global_gates:
+  - no_data_leakage
+  - no_secrets
+  - reproducible_mini_run
+  - aws_cleanup_evidence_when_applicable
+

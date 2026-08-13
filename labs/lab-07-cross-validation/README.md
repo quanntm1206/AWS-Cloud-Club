@@ -1,32 +1,31 @@
-# Lab 07 - Đo độ ổn định bằng cross-validation
+# Lab 07 - Measure stability with cross-validation
 
-## Mục tiêu
+## Goal
 
-Một split may mắn có thể làm model trông ổn định hơn thực tế. Cross-validation cho bạn thấy kết quả thay đổi ra sao khi dữ liệu được chia lại có kiểm soát.
+A lucky split can make a model look more stable than it is. Cross-validation shows how results change when data is split again under controlled rules.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `cross-validation`, `fold`, `overfitting`, `bias / variance`
+**New terms:** `cross-validation`, `fold`, `overfitting`, `bias / variance`
 
-**Ôn lại:** `data split`, `pipeline`, `metric`
+**Review:** `data split`, `pipeline`, `metric`
 
-**Áp dụng trong lab:** Đặt toàn bộ pipeline trong `cross-validation`; đọc từng `fold`, mean/std và learning curve để phân biệt overfitting với bias / variance; giữ metric và data split nhất quán.
+**Use in this lab:** Put the complete pipeline inside `cross-validation`. Read each `fold`, the mean and standard deviation, and the learning curve to distinguish overfitting from bias / variance. Keep the metric and data split rules consistent.
 
-**Tự giải thích:** Fold khác test set thế nào; learning curve gợi ý overfitting hay bias / variance ra sao?
+**Explain it yourself:** How is a fold different from a test set? How can a learning curve suggest overfitting or bias / variance?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-08.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
+Read `roadmap/weeks/week-08.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Đặt pipeline đầy đủ bên trong 3-fold CV; khóa seed và scoring.
-2. Ghi từng fold score cùng runtime, sau đó tính mean/std.
-3. So với một preprocessing sai nằm ngoài CV và mô tả leakage risk.
-4. Vẽ learning curve ở ba train sizes; nêu dấu hiệu bias/variance.
+1. Put the full pipeline inside 3-fold CV. Lock the seed and scoring rule.
+2. Record every fold score and runtime, then calculate the mean and standard deviation.
+3. Compare this with incorrect preprocessing outside CV and describe the leakage risk.
+4. Plot a learning curve at three training sizes. Describe signs of bias or variance.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 7
 ```
 
-Kết quả được lưu tại `.artifacts/lab-07-evidence.json`. Trong `result`, bạn sẽ thấy fold scores, `cv_mean`, `cv_std`.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-07-evidence.json`. In `result`, you will see fold scores, `cv_mean`, and `cv_std`.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- JSON có fold scores, mean và std; mọi transform được fit lại trong từng fold.
-- Bạn chọn được Stratified/Group/time split theo quan hệ giữa mẫu, không mặc định shuffle.
+- The JSON contains fold scores, mean, and standard deviation. Every transform is fit again inside each fold.
+- You can choose a stratified, group, or time split from the relationships between samples instead of shuffling by default.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu fold dao động mạnh, xem class/group/time distribution của từng fold. Đừng tăng số fold trước khi hiểu nguyên nhân.
+If fold scores vary widely, inspect the class, group, or time distribution in each fold. Do not increase the number of folds before understanding the cause.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.

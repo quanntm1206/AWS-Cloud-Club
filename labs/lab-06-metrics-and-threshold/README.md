@@ -1,32 +1,31 @@
-# Lab 06 - Chọn metric và threshold theo chi phí lỗi
+# Lab 06 - Choose a metric and threshold from error costs
 
-## Mục tiêu
+## Goal
 
-Threshold 0.5 không hiểu chi phí kinh doanh. Bạn sẽ chọn một ngưỡng bằng validation evidence, sau đó khóa quyết định trước khi chạm test.
+A threshold of 0.5 does not understand business costs. Choose a threshold from validation evidence, then lock the decision before touching the test set.
 
-## Thuật ngữ trong lab
+## Terms used in this lab
 
-**Thuật ngữ mới:** `class imbalance`, `threshold`
+**New terms:** `class imbalance`, `threshold`
 
-**Ôn lại:** `validation set`, `model validation`, `baseline`, `metric`, `precision / recall / F1`
+**Review:** `validation set`, `model validation`, `baseline`, `metric`, `precision / recall / F1`
 
-**Áp dụng trong lab:** Dùng `validation set` cho `model validation`: chọn metric precision / recall / F1 và threshold theo class imbalance, so với baseline; giữ test set đóng đến cuối.
+**Use in this lab:** Use the `validation set` for `model validation`. Choose a `precision / recall / F1` metric and a threshold that reflect class imbalance, compare them with the baseline, and keep the test set closed until the end.
 
-**Tự giải thích:** Metric và threshold nào phù hợp khi class imbalance; validation set được dùng ra sao?
+**Explain it yourself:** Which metric and threshold suit the class imbalance? How is the validation set used?
 
-## Trước khi bắt đầu
+## Before you start
 
-Đọc `roadmap/weeks/week-07.md`, chạy từ repository root và tạo chỗ lưu evidence cục bộ. Không đưa
-credential, dữ liệu cá nhân hoặc file kết quả lớn vào Git.
+Read `roadmap/weeks/week-07.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.
 
-## Các bước thực hiện
+## Steps
 
-1. Lập confusion matrix ở ít nhất ba threshold và gán chi phí FP/FN.
-2. Viết selection rule, chẳng hạn recall tối thiểu rồi chi phí thấp nhất.
-3. Chọn threshold trên validation; ghi F1 và PR-AUC.
-4. Áp đúng threshold đã khóa lên test, so kết quả nhưng không chỉnh lại.
+1. Build confusion matrices at at least three thresholds and assign costs to FP and FN.
+2. Write a selection rule, such as minimum recall followed by lowest cost.
+3. Choose the threshold on validation. Record F1 and PR-AUC.
+4. Apply the locked threshold to the test set. Compare results without tuning again.
 
-## Chạy smoke demo
+## Run the smoke demo
 
 PowerShell:
 
@@ -40,16 +39,16 @@ Bash (macOS/Linux):
 .venv/bin/python scripts/run_lab.py --lab 6
 ```
 
-Kết quả được lưu tại `.artifacts/lab-06-evidence.json`. Trong `result`, bạn sẽ thấy validation threshold/F1/PR-AUC, FP/FN cost và test metrics.
-`status=starter-example-completed` chỉ xác nhận code mẫu chạy; **không** có nghĩa toàn bộ acceptance đã đạt.
+The result is saved to `.artifacts/lab-06-evidence.json`. In `result`, you will see the validation threshold, F1, PR-AUC, FP/FN cost, and test metrics.
+`status=starter-example-completed` only confirms that the example code ran. It does **not** mean that you met all acceptance criteria.
 
-## Khi nào xem như hoàn thành?
+## When you are done
 
-- Output ghi selection rule, selected threshold, validation/test metrics và FP/FN cost.
-- Bạn giải thích được precision-recall trade-off, log loss và câu hỏi calibration kiểm điều gì.
+- The output records the selection rule, selected threshold, validation and test metrics, and FP/FN cost.
+- You can explain the precision-recall trade-off, log loss, and what a calibration check asks.
 
-## Khi mắc kẹt
+## When you get stuck
 
-Nếu các metric gây rối, quay về số lượng TP/FP/FN/TN. Chỉ chọn metric sau khi viết loại sai lầm nào đắt hơn.
+If the metrics are confusing, return to TP, FP, FN, and TN counts. Choose a metric only after writing which error costs more.
 
-Sau khi tự dự đoán output, đối chiếu [`expected/README.md`](expected/README.md) và ghi lại điều đã học ở local.
+Predict the output first, then compare it with [`expected/README.md`](expected/README.md) and record what you learned locally. No submission is required.
