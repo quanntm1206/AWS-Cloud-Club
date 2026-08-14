@@ -1,0 +1,62 @@
+[
+  {
+    "baseline_rmse": 76.7685765104177,
+    "best_model": "random_forest",
+    "country": "all",
+    "model_rmse": {
+      "baseline_mean": 76.7685765104177,
+      "random_forest": 20.43926053605489,
+      "ridge": 22.0520159565999
+    },
+    "rmse": 20.43926053605489,
+    "test_rows": 46
+  },
+  {
+    "baseline_rmse": 15.636741758927691,
+    "best_model": "ridge",
+    "country": "france",
+    "model_rmse": {
+      "baseline_mean": 15.636741758927691,
+      "random_forest": 6.095366346690772,
+      "ridge": 5.262081121045634
+    },
+    "rmse": 5.262081121045634,
+    "test_rows": 46
+  },
+  {
+    "baseline_rmse": 19.427624249335853,
+    "best_model": "ridge",
+    "country": "germany",
+    "model_rmse": {
+      "baseline_mean": 19.427624249335853,
+      "random_forest": 7.664168012681684,
+      "ridge": 6.817989136420985
+    },
+    "rmse": 6.817989136420985,
+    "test_rows": 46
+  },
+  {
+    "baseline_rmse": 20.575580218145447,
+    "best_model": "ridge",
+    "country": "united_kingdom",
+    "model_rmse": {
+      "baseline_mean": 20.575580218145447,
+      "random_forest": 7.706320658234859,
+      "ridge": 7.268728594161025
+    },
+    "rmse": 7.268728594161025,
+    "test_rows": 46
+  },
+  {
+    "baseline_rmse": 22.986746397674192,
+    "best_model": "ridge",
+    "country": "viet_nam",
+    "model_rmse": {
+      "baseline_mean": 22.986746397674192,
+      "random_forest": 8.94794213403777,
+      "ridge": 8.567084813006984
+    },
+    "rmse": 8.567084813006984,
+    "test_rows": 46
+  }
+]

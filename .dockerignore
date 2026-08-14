@@ -6,6 +6,9 @@ data
 artifacts
 checkpoints
 .artifacts
-dist
+capstones/country-revenue/data/
+capstones/country-revenue/logs/
+capstones/country-revenue/models/
+capstones/country-revenue/reports/figures/
 **/__pycache__
 

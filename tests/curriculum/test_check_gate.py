@@ -1,9 +1,13 @@
+import shutil
 import subprocess
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
+@pytest.mark.skipif(shutil.which("pwsh") is None, reason="PowerShell is not installed")
 def test_powershell_release_gate_fails_fast_on_first_validator_error(tmp_path: Path) -> None:
     scripts = tmp_path / "scripts"
     scripts.mkdir()

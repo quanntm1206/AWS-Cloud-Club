@@ -80,6 +80,7 @@ This is a place to look up, not a list that needs to be memorized right away. Th
 - [`notebooks/`](notebooks/): real notebook running on Colab/Kaggle with fallback CPU.
 - `src/ml_roadmap/`: sample code for training, evaluation and inference.
 - [`capstones/`](capstones/): capstone churn tabular and image classification.
+- [`capstones/country-revenue/`](capstones/country-revenue/): peer-review-ready country revenue forecasting API with tests, monitoring, EDA, model comparison and Docker evidence.
 - `aws/`: cost policy, CloudFormation and preflight/deploy/cleanup scripts.
 - `dist/`: complete Word document.
 

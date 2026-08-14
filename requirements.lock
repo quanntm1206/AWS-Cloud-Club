@@ -1,5 +1,6 @@
 # Verified against PyPI on 2026-08-12. Runtime setup installs these exact versions.
 joblib==1.5.3
+matplotlib==3.11.1
 numpy==2.5.2
 pandas==3.0.5
 PyYAML==6.0.3
