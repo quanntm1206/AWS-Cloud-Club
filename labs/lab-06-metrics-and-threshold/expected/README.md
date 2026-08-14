@@ -13,8 +13,11 @@ Write the threshold rule before viewing the test set. Compare at least three thr
 
 ## Terminology oracle
 
-- The receipt records class imbalance, the metric, and the threshold selected on the validation set. The test set does not tune the decision.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** The chosen threshold should follow the written validation rule and the stated costs of false positives and false negatives. It must remain unchanged for the test set.
+
+**Evidence mapping:** Class counts and the baseline give context. Candidate confusion matrices, costs, and metrics explain the selection of `validation_threshold`, which is then applied once to the test data.
+
+**Misconception check:** Do not adjust the threshold after reading the test result. The starter status only confirms that the smoke output contains the expected fields.
 
 ## If your result differs
 

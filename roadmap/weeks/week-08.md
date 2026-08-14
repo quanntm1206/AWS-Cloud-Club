@@ -24,7 +24,37 @@ A data split can be lucky or unlucky. Cross-validation helps you see how stable 
 
 **Review:** `data split`, `pipeline`, `metric`
 
-**Use:** Put the entire pipeline in `cross-validation`; read each `fold`, mean/std and learning curve to distinguish overfitting from bias / variance; keep metrics and data splits consistent.
+**Use:** Place the complete `pipeline` inside `cross-validation`; inspect every `fold`, the mean and standard deviation, and the learning curve to distinguish `overfitting` from `bias / variance` while keeping the `metric` and `data split` fixed.
+
+## Concept walkthrough
+
+### Rotating the validation role
+
+**Mental model:** `cross-validation`: Cross-validation repeatedly evaluates a model on different folds to estimate its stability. Each sample is used for validation in one fold and for training in the others. `fold`: A fold is one subset that takes a turn as validation data during cross-validation. Folds should preserve important structure, such as class balance or customer grouping.
+
+**Why it matters:** Cross-validation reveals whether a result is stable across several plausible folds instead of one lucky split.
+
+**Worked example:** `cross-validation`: 3-fold CV generates three validation scores. `fold`: In fold 2, the second group is kept for evaluation.
+
+**Easy to confuse:** Cross-validation estimates variability; it does not create more independent data. A fold is one subset inside cross-validation, not the final test set.
+
+**Check yourself:** What does variation among `fold` scores reveal that one `cross-validation` mean hides?
+
+### Overfitting through bias and variance
+
+**Mental model:** `overfitting`: The model remembers training data but performs poorly on new data. It appears as a gap between training performance and performance on unseen data. `bias / variance`: High bias often means a model is too simple, while high variance means it is too sensitive to its training data. Bias causes systematic underfitting, while variance causes unstable behavior across datasets.
+
+**Why it matters:** The gap and variation across folds help distinguish overfitting from a model with too much bias.
+
+**Worked example:** `overfitting`: Train score increases and validation score decreases. `bias / variance`: Low training and validation scores together suggest high bias.
+
+**Easy to confuse:** Overfitting is a generalization gap, not simply a model with many parameters. Bias and variance are error tendencies, not the protected attributes called demographic bias.
+
+**Check yourself:** Which learning-curve pattern suggests `overfitting`, high `bias`, or high `variance`?
+
+## Connect earlier terms
+
+The existing `data split`, `pipeline`, and `metric` are held constant while folds rotate through validation. Per-fold scores and their spread reveal stability that one split cannot show.
 
 ## 8-10 hour schedule
 

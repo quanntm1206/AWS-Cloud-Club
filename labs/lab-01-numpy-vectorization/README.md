@@ -14,6 +14,37 @@ Matrix multiplication is useful only when you know what each dimension represent
 
 **Explain it yourself:** What roles do feature, label / target, and parameter play in `X @ w`?
 
+
+## Apply the concepts
+
+### Arrays as model inputs
+
+**Terms:** `dataset`, `sample`, `schema`, `feature`, `label / target`, `parameter`
+
+**What they mean here:** Each `sample` is one row of features, the `label / target` is the value to interpret or predict, and the weight vector is a learned `parameter`. Together, their shapes describe the array `schema` for this `dataset`.
+
+**Where you will see them:** You will see them in `X.shape`, `w.shape`, one score calculated by hand, and the first five scores in the JSON output.
+
+**Common mistake:** Matching element counts while swapping sample and feature axes.
+
+**Evidence to keep:** Keep predicted and actual shapes plus one row-by-row score calculation.
+
+**Explain after the lab:** Explain why the parameter shape allows `X @ w` and which array contains the targets.
+
+### Equivalent calculation
+
+**Terms:** `vectorization`
+
+**What they mean here:** `vectorization` expresses the same per-row dot products as one NumPy operation.
+
+**Where you will see them:** The loop output and `X @ w` meet at `np.allclose` and `vectorization_matches_loop=true`.
+
+**Common mistake:** Assuming faster code is correct without a simple reference comparison.
+
+**Evidence to keep:** Keep both outputs, the tolerance, and the deliberate shape error.
+
+**Explain after the lab:** Use the hand calculation and equality check to show that the implementation changed, but the calculation did not.
+
 ## Before you start
 
 Read `roadmap/weeks/week-02.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

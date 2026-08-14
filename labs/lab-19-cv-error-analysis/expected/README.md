@@ -13,8 +13,11 @@ Use real notebook output to create the confusion matrix, review no more than 20 
 
 ## Terminology oracle
 
-- The receipt includes the confusion matrix, support, macro average, and weighted average. The failure taxonomy connects real image samples to a limitation.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** Per-class metrics need support and confusion-matrix context. The failure taxonomy must come from real validation images that were actually reviewed.
+
+**Evidence mapping:** The class table and raw and normalized matrices explain the macro and weighted averages. The confident-wrong record IDs, reviewed categories, and next experiment provide the error-analysis evidence.
+
+**Misconception check:** FakeData or records still marked `unreviewed` do not complete model validation. A weighted average can also hide weak performance on a smaller class.
 
 ## If your result differs
 

@@ -23,7 +23,37 @@ Feature engineering turns understanding of the problem into usable model signals
 
 **Review:** `feature`, `baseline`, `validation set`, `hyperparameter`
 
-**Use:** Write a `feature engineering` hypothesis, run `ablation` to add/remove a feature; lock the baseline, validation set, hyperparameter, and data split to make the delta metric meaningful.
+**Use:** Write a `feature engineering` hypothesis and run an `ablation` that adds or removes one feature; hold the `baseline`, `validation set`, `hyperparameter`, and data split fixed so the metric change has one interpretation.
+
+## Concept walkthrough
+
+### Features as hypotheses
+
+**Mental model:** `feature engineering`: Feature engineering creates or transforms inputs using problem knowledge and only information available at prediction time. Useful engineered features encode relevant structure without using future or target information.
+
+**Why it matters:** A feature must exist at prediction time and encode a defensible hypothesis, not accidental future information.
+
+**Worked example:** `feature engineering`: Create tenure_bucket from tenure if used during inference.
+
+**Easy to confuse:** Feature engineering creates inputs; feature selection keeps or removes existing inputs.
+
+**Check yourself:** Can this `feature engineering` rule be reproduced from information available at prediction time?
+
+### Ablation as a controlled test
+
+**Mental model:** `ablation`: An ablation adds or removes exactly one ingredient so its impact can be measured. All other data, code, and settings should stay fixed so the comparison is fair.
+
+**Why it matters:** Ablation isolates the value of one feature change, turning an intuition into evidence against the same validation protocol.
+
+**Worked example:** `ablation`: Remove the behavioral feature group, then compare validation AUC.
+
+**Easy to confuse:** An ablation changes one ingredient; ordinary tuning may change many settings.
+
+**Check yourself:** Which single change must an `ablation` isolate for its result to be credible?
+
+## Connect earlier terms
+
+Each engineered `feature` must improve the locked `baseline` on the same `validation set` under the same `hyperparameter` choices. The ablation delta is the evidence that isolates its contribution.
 
 ## 8-10 hour schedule
 

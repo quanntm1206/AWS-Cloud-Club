@@ -24,7 +24,37 @@ Docker đóng gói runtime; CI kiểm các quy tắc mỗi lần code đổi. C�
 
 **Ôn lại:** `API contract`, `artifact`, `reproducibility`, `latency`
 
-**Áp dụng:** Đóng package/API contract vào `container`, dùng `CI` chạy data validation, parity và test artifact; đo latency nhỏ rồi cleanup container để giữ reproducibility.
+**Áp dụng:** Đóng service cùng `API contract` vào `container`; dùng `CI` chạy data validation, parity và artifact test, đo `latency`, rồi xóa container nhưng vẫn giữ evidence về reproducibility.
+
+## Giải thích khái niệm
+
+### Environment trong container
+
+**Cách hình dung:** `container`: Gói ứng dụng cùng dependency và cấu hình chạy trong môi trường tách biệt. Image chỉ nên chứa phần service cần và nên chạy bằng non-root user.
+
+**Vì sao quan trọng:** Container khóa runtime boundary nhưng vẫn cần image nhỏ, non-root user và health check rõ ràng.
+
+**Ví dụ xuyên suốt:** `container`: Docker image chạy API bằng non-root user.
+
+**Dễ nhầm với:** Container là gói chạy được, không phải một virtual machine đầy đủ.
+
+**Tự kiểm tra:** `container` khóa runtime assumption nào, và rủi ro nào vẫn nằm ngoài nó?
+
+### CI là phán quyết lặp lại
+
+**Cách hình dung:** `CI`: Quy trình tự động chạy validation và test khi code thay đổi. CI thường chạy test, lint và type check, nhưng không tự động production deployment.
+
+**Vì sao quan trọng:** CI chạy lại các check đã thống nhất từ clean state để build được đánh giá bằng evidence thay vì máy của một developer.
+
+**Ví dụ xuyên suốt:** `CI`: CI pipeline chạy pytest, Ruff và mypy mà không deploy lên AWS.
+
+**Dễ nhầm với:** CI kiểm code change; deployment phát hành nó vào environment.
+
+**Tự kiểm tra:** Check nào từ clean state phải được `CI` lặp lại trước khi chấp nhận code change?
+
+## Kết nối kiến thức cũ
+
+Các yêu cầu về `API contract`, `artifact`, `reproducibility` và `latency` giờ chạy trong clean container. CI output và fresh container test chứng minh kết quả không gắn với một workstation.
 
 ## Lịch 8-10 giờ
 

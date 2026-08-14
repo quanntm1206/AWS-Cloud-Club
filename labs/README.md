@@ -10,7 +10,7 @@ This repository contains **21 labs**. Lab 00 checks the environment. Labs 01-19 
 4. Compare your result with `expected/README.md`. Record the result and one meaningful failure in your local learning log.
 5. Mark the lab complete only when you can explain the result, not only when the command exits with code 0.
 
-Each lab also includes a terminology loop: read the new terms, recall at least two earlier terms, use both groups in the task, then answer `Explain it yourself`. The terminology oracle connects terms to evidence; it does not ask you to copy definitions.
+Each lab also includes a terminology loop: read the new terms, recall earlier terms, then use `Apply the concepts` to connect them to the lab's data, code, metric, and output. Keep the named evidence locally and answer `Explain it yourself` from that evidence. In `expected/README.md`, the terminology oracle shows the expected reasoning, maps it to evidence, and checks one lab-specific misconception; it does not ask you to copy definitions.
 
 `status=starter-example-completed` only means that the demo finished. It does not prove that you met the learning goal. Keep evidence local; no submission is required. GitHub is only a source for cloning or downloading the repository. Do not put secrets, personal data, or large output in Git.
 

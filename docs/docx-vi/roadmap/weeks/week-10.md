@@ -23,7 +23,37 @@ Feature engineering biến hiểu biết về bài toán thành tín hiệu mode
 
 **Ôn lại:** `feature`, `baseline`, `validation set`, `hyperparameter`
 
-**Áp dụng:** Viết giả thuyết `feature engineering`, chạy `ablation` thêm/bỏ một feature; khóa baseline, validation set, hyperparameter và data split để metric delta có nghĩa.
+**Áp dụng:** Viết hypothesis `feature engineering` và chạy `ablation` chỉ thêm hoặc bỏ một feature; giữ cố định `baseline`, `validation set`, `hyperparameter` và data split để metric delta chỉ có một cách giải thích.
+
+## Giải thích khái niệm
+
+### Feature là hypothesis
+
+**Cách hình dung:** `feature engineering`: Tạo hoặc biến đổi feature dựa trên hiểu biết bài toán và thời điểm dự đoán. Feature tốt mã hóa cấu trúc hữu ích mà không dùng future information hoặc target information.
+
+**Vì sao quan trọng:** Feature phải tồn tại tại prediction time và biểu diễn hypothesis hợp lý, không phải thông tin tương lai vô tình lọt vào.
+
+**Ví dụ xuyên suốt:** `feature engineering`: Tạo tenure_bucket từ tenure nếu dùng được lúc inference.
+
+**Dễ nhầm với:** Feature engineering tạo input; feature selection chỉ giữ hoặc bỏ input có sẵn.
+
+**Tự kiểm tra:** Rule `feature engineering` này có tái tạo được từ thông tin có sẵn tại prediction time không?
+
+### Ablation là controlled test
+
+**Cách hình dung:** `ablation`: Thí nghiệm thêm hoặc bỏ đúng một thành phần để đo tác động của nó. Mọi data, code và setting khác phải giữ nguyên để so sánh công bằng.
+
+**Vì sao quan trọng:** Ablation cô lập giá trị của một thay đổi feature, biến trực giác thành evidence dưới cùng validation protocol.
+
+**Ví dụ xuyên suốt:** `ablation`: Bỏ nhóm feature hành vi rồi so validation AUC.
+
+**Dễ nhầm với:** Ablation đổi một thành phần; tuning thông thường có thể đổi nhiều cấu hình.
+
+**Tự kiểm tra:** Một `ablation` phải cô lập đúng thay đổi nào để kết quả đáng tin?
+
+## Kết nối kiến thức cũ
+
+Mỗi `feature` mới phải cải thiện `baseline` đã khóa trên cùng `validation set` với cùng lựa chọn `hyperparameter`. Ablation delta là evidence cô lập đóng góp của feature đó.
 
 ## Lịch 8-10 giờ
 

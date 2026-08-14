@@ -13,8 +13,11 @@ Try several `epsilon` values. Both gradients must be close within the recorded t
 
 ## Terminology oracle
 
-- The history shows `loss`, and the gradient check compares the `gradient`. The learning log explains how the `learning rate` updates a parameter and changes the prediction.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** With a suitable learning rate, the loss should decrease. Agreement between the analytic gradient and finite differences supports the derivative code for these checked inputs.
+
+**Evidence mapping:** Use the hand calculation to explain the prediction and loss. Compare the two gradient values for `gradient_check=true`, then connect the parameter and loss history to the learning-rate updates.
+
+**Misconception check:** A passing gradient check does not prove that training will converge or that linear regression suits every dataset. The starter status only exercises the reference path.
 
 ## If your result differs
 

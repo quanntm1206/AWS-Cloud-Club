@@ -14,6 +14,37 @@ The final computer-vision lab turns metrics into an understanding of failures. T
 
 **Explain it yourself:** How is macro average different from weighted average? How do the confusion matrix and support explain that difference?
 
+
+## Apply the concepts
+
+### Class-aware metrics
+
+**Terms:** `confusion matrix`, `support`, `metric`, `macro average`, `weighted average`
+
+**What they mean here:** The `confusion matrix` counts prediction outcomes, and `support` gives the number of true samples in each class. A `macro average` gives every class equal weight, while a `weighted average` gives larger classes more influence on the metric.
+
+**Where you will see them:** Per-class precision/recall/F1/support sit beside both aggregates and a true-class-normalized matrix.
+
+**Common mistake:** Ignoring that large classes dominate the weighted result.
+
+**Evidence to keep:** Keep raw/normalized matrices, class table, supports, and both calculations.
+
+**Explain after the lab:** Show how one weak minority class affects the two averages differently.
+
+### Reviewed real failures
+
+**Terms:** `validation set`, `error analysis`, `failure taxonomy`
+
+**What they mean here:** `error analysis` selects real mistakes from the `validation set` with a written rule. The `failure taxonomy` records what you actually observe when you review those images.
+
+**Where you will see them:** Records move from `unreviewed` to categories, a limitation, and a testable experiment.
+
+**Common mistake:** Treating FakeData, placeholders, or memorable errors as completed validation.
+
+**Evidence to keep:** Keep safe IDs, true/predicted class, confidence, category, limitation, and experiment.
+
+**Explain after the lab:** Trace one image from its confusion-matrix cell to a failure category and a next experiment that could disprove your explanation.
+
 ## Before you start
 
 Read `roadmap/weeks/week-20.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.

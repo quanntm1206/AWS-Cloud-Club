@@ -23,7 +23,37 @@ tái lập được, giới hạn được nói thật, demo có fallback và h�
 
 **Ôn lại:** `artifact`, `inference`, `residual scan`
 
-**Áp dụng:** Chứng minh `idempotent cleanup`, đọc lại `budget alert`, đối chiếu `manifest`; ôn artifact, inference và residual scan trong demo cuối.
+**Áp dụng:** Chứng minh `idempotent cleanup`, review `budget alert` và kiểm final `manifest`; đưa evidence về `artifact`, `inference` và `residual scan` vào demo cuối.
+
+## Giải thích khái niệm
+
+### Cleanup lặp lại và budget signal
+
+**Cách hình dung:** `idempotent cleanup`: Quy trình dọn có thể chạy lại an toàn và vẫn hướng tới trạng thái sạch. Resource đã không còn được xem là trạng thái thành công thay vì fatal error. `budget alert`: Cảnh báo khi chi phí thực tế hoặc dự báo chạm ngưỡng; không phải hard cap. Nó theo dõi actual và forecast spending, nhưng resource AWS vẫn chạy cho đến khi có hành động dừng.
+
+**Vì sao quan trọng:** Idempotent cleanup chứng minh technical state có thể lặp lại; budget alert là cost signal có độ trễ riêng, không phải bằng chứng resource đã xóa.
+
+**Ví dụ xuyên suốt:** `idempotent cleanup`: Xóa resource có đúng project ID rồi scan lại. `budget alert`: AWS Budget gửi email cảnh báo Actual và Forecasted spending.
+
+**Dễ nhầm với:** Idempotent cleanup chạy lặp an toàn; delete một lần có thể hỏng khi mới hoàn tất một phần. Budget alert gửi cảnh báo; nó không tự động dừng chi tiêu AWS.
+
+**Tự kiểm tra:** Vì sao evidence của `idempotent cleanup` và `budget alert` là hai safety signal riêng?
+
+### Manifest cho handoff cuối
+
+**Cách hình dung:** `manifest`: Bản kê mô tả nội dung, phiên bản, checksum và nguồn gốc artifact. Checksum giúp phát hiện file bị đổi, còn metadata giải thích cách tạo các file đó.
+
+**Vì sao quan trọng:** Manifest nối final artifact, schema, threshold, checksum và source run thành một handoff có thể audit.
+
+**Ví dụ xuyên suốt:** `manifest`: Manifest ghi seed, feature order và SHA-256 checksum.
+
+**Dễ nhầm với:** Manifest mô tả file và provenance; artifact chứa các file thật.
+
+**Tự kiểm tra:** `manifest` có xác định được final artifact, schema, threshold, checksum và source run không?
+
+## Kết nối kiến thức cũ
+
+Final `artifact` và evidence `inference` chỉ được chấp nhận sau khi `residual scan` báo technical state sạch. Manifest cùng lần review budget có độ trễ giữ riêng provenance evidence và cost evidence cho handoff.
 
 ## Lịch 8-10 giờ
 

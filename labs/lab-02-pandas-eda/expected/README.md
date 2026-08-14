@@ -13,8 +13,11 @@ Write three findings in this form: observation - hypothesis - next check.
 
 ## Terminology oracle
 
-- The `data validation` report identifies schema problems, each `missing value`, and each `outlier`. The EDA separates evidence from hypotheses.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** Data validation checks whether the table follows known rules. EDA then uses the checked summaries to form hypotheses, not to claim causes.
+
+**Evidence mapping:** The schema and duplicate checks describe dataset integrity. Missing counts and ranges show possible quality issues, while the churn rate and group summaries support the three evidence-hypothesis-next-check notes.
+
+**Misconception check:** A missing value or outlier is not automatically bad data. The starter status only confirms that the sample report was generated.
 
 ## If your result differs
 

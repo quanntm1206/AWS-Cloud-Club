@@ -23,7 +23,37 @@ Mini-projects are the time to assemble the pieces into a process that others can
 
 **Review:** `schema`, `data split`, `pipeline`
 
-**Use:** Lock schema and data split, run pipeline; Save `artifact` with `manifest`, load in new process for inference, then compare baseline/metric and checksum.
+**Use:** Lock the `schema` and `data split`, then run the `pipeline`; save the `artifact` with its `manifest`, load it in a new process for `inference`, and compare predictions, metrics, and checksums.
+
+## Concept walkthrough
+
+### Artifact and manifest
+
+**Mental model:** `artifact`: An artifact is the set of model, configuration, metric, and metadata files needed to reproduce or serve predictions. It should be versioned and accompanied by enough provenance to verify how it was produced. `manifest`: A manifest lists an artifact's contents, versions, checksums, and origin. Checksums help detect changed files, while metadata explains how those files were created.
+
+**Why it matters:** An artifact is useful only when its manifest identifies the exact schema, configuration, checksum, and source run.
+
+**Worked example:** `artifact`: model.joblib and manifest.json make up the artifact. `manifest`: The manifest records the seed, feature order, and SHA-256 checksum.
+
+**Easy to confuse:** An artifact is the saved model package; a checkpoint is training state used to resume. A manifest describes files and provenance; the artifact contains the actual files.
+
+**Check yourself:** Could a reviewer identify every file and source run from the `artifact` and `manifest` alone?
+
+### Inference from saved state
+
+**Mental model:** `inference`: Inference uses a trained model to produce predictions for new input. It must apply exactly the preprocessing and feature order learned during training.
+
+**Why it matters:** Inference must reproduce training-time preprocessing and feature order without relying on notebook state.
+
+**Worked example:** `inference`: Load the artifact, then predict churn for an unseen customer.
+
+**Easy to confuse:** Inference uses a trained model; training updates its parameters.
+
+**Check yourself:** Does `inference` reproduce the same preprocessing and feature order without notebook state?
+
+## Connect earlier terms
+
+The saved `schema`, `data split`, and `pipeline` now become provenance inside the artifact manifest. Reloaded predictions and matching checksums show that the new process uses the same learned path.
 
 ## 8-10 hour schedule
 

@@ -14,6 +14,37 @@ A useful checkpoint is a contract for continuing training, not only a weights fi
 
 **Explain it yourself:** How is a checkpoint different from model weights? How do fine-tuning and early stopping use the validation set?
 
+
+## Apply the concepts
+
+### Training phases
+
+**Terms:** `transfer learning`, `freeze`, `fine-tuning`
+
+**What they mean here:** The first `transfer learning` phase uses `freeze` to keep the backbone unchanged. Optional `fine-tuning` then unfreezes selected layers with a smaller, clearly recorded learning rate.
+
+**Where you will see them:** Trainable groups and config distinguish frozen and fine-tuning phases.
+
+**Common mistake:** Calling head-only training fine-tuning or unfreezing everything without recording rates.
+
+**Evidence to keep:** Keep phase, frozen/trainable layers, optimizer groups, and metrics.
+
+**Explain after the lab:** Explain which parameters change in each phase.
+
+### Complete resume state
+
+**Terms:** `checkpoint`, `optimizer`, `epoch`, `early stopping`, `validation set`
+
+**What they mean here:** A resumable `checkpoint` stores the model and `optimizer` state, completed `epoch`, best metric, patience, configuration, seed, and label mapping. `early stopping` makes its decision from the `validation set` history.
+
+**Where you will see them:** A new process loads epoch 1, runs epoch 2, and compares best with last.
+
+**Common mistake:** Loading weights alone while restarting optimizer and epoch.
+
+**Evidence to keep:** Keep metadata, epoch transition, optimizer state, validation history, checksum, and missing-file failure.
+
+**Explain after the lab:** Use epoch/optimizer evidence to prove continuity and explain why test cannot drive stopping.
+
 ## Before you start
 
 Read `roadmap/weeks/week-19.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.

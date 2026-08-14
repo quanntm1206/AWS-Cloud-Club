@@ -70,7 +70,7 @@ def test_readme_defines_owner_template_clone_and_local_artifacts() -> None:
     text = (ROOT / "README.md").read_text(encoding="utf-8")
     assert "git clone https://github.com/quanntm1206/AWS-Cloud-Club.git" in text
     assert "<REPO_URL>" not in text
-    assert "learners do not fork, commit, push, open pull requests, or submit assignments" in text.lower()
+    assert "learners do not need to fork, commit, push, open a pull request, or submit work" in text.lower()
     assert "local" in text.lower()
 
 

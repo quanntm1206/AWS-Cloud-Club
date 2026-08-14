@@ -25,7 +25,37 @@ cần mở endpoint ra Internet.
 
 **Ôn lại:** `IAM`, `S3`, `budget alert`
 
-**Áp dụng:** Dùng `Lambda` thực hiện inference theo `API contract`, kiểm `CloudWatch Logs` không lộ sample nhạy cảm; ôn IAM và S3 từ tuần trước.
+**Áp dụng:** Chạy `inference` trong `Lambda` theo `API contract`, kiểm `CloudWatch Logs` không chứa sample nhạy cảm, rồi review các control `IAM`, `S3` và `budget alert` từ tuần trước.
+
+## Giải thích khái niệm
+
+### Lambda execution và log
+
+**Cách hình dung:** `Lambda`: Dịch vụ chạy hàm serverless theo request mà không quản máy chủ. AWS cấp execution environment và tính phí resource dùng cho mỗi invocation. `CloudWatch Logs`: Nơi lưu log runtime trên AWS; cần tránh dữ liệu nhạy cảm và đặt retention. Log group cần retention, access control và quy tắc không ghi sensitive value.
+
+**Vì sao quan trọng:** Lambda cần input và output rõ ràng; CloudWatch Logs cho biết version nào đã chạy và vì sao request lỗi.
+
+**Ví dụ xuyên suốt:** `Lambda`: Dùng private invoke để chạy tabular inference. `CloudWatch Logs`: Đặt retention một ngày cho Lambda log group.
+
+**Dễ nhầm với:** Lambda là compute; S3 là object storage. CloudWatch Logs lưu runtime log; CloudWatch metric lưu số đo.
+
+**Tự kiểm tra:** `Lambda` result và field nào trong `CloudWatch Logs` chứng minh đúng model version đã chạy?
+
+### API contract tại boundary
+
+**Cách hình dung:** `API contract`: Quy ước rõ về input, output, status code và lỗi của inference service. Client và server cùng dựa vào contract để trao đổi data hợp lệ.
+
+**Vì sao quan trọng:** API contract giữ cloud invocation tương thích với local caller và làm error có thể chẩn đoán.
+
+**Ví dụ xuyên suốt:** `API contract`: Payload thiếu tenure trả về 422 thay vì 500.
+
+**Dễ nhầm với:** API contract mô tả hành vi; data contract tập trung vào quy tắc input data.
+
+**Tự kiểm tra:** Cloud response có còn thỏa cùng `API contract` với local caller không?
+
+## Kết nối kiến thức cũ
+
+Các control `IAM`, `S3` và `budget alert` vẫn hoạt động khi `Lambda` phục vụ request. Response cùng log entry đã redact cho thấy access, storage và cost guardrail vẫn bao quanh deployment.
 
 ## Lịch 8-10 giờ
 

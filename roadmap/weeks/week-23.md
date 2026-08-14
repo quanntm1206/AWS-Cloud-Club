@@ -23,7 +23,37 @@ what threshold, what run it was trained from and whether the artifact has been c
 
 **Review:** `Lambda`, `CloudWatch Logs`, `API contract`
 
-**Use:** Pair `artifact` with private `inference`, after cleanup run `residual scan`; Review Lambda, CloudWatch Logs and API contracts.
+**Use:** Pair the promoted `artifact` with private `inference`, then run a `residual scan` after cleanup; review the `Lambda`, `CloudWatch Logs`, and `API contract` evidence together.
+
+## Concept walkthrough
+
+### From artifact to inference
+
+**Mental model:** `artifact`: An artifact is the set of model, configuration, metric, and metadata files needed to reproduce or serve predictions. It should be versioned and accompanied by enough provenance to verify how it was produced. `inference`: Inference uses a trained model to produce predictions for new input. It must apply exactly the preprocessing and feature order learned during training.
+
+**Why it matters:** Inference is trustworthy only when the deployed artifact can be traced to its local training evidence and exact schema.
+
+**Worked example:** `artifact`: model.joblib and manifest.json make up the artifact. `inference`: Load the artifact, then predict churn for an unseen customer.
+
+**Easy to confuse:** An artifact is the saved model package; a checkpoint is training state used to resume. Inference uses a trained model; training updates its parameters.
+
+**Check yourself:** Can the deployed `artifact` be traced from each `inference` result back to its schema and source run?
+
+### Residual scan after the run
+
+**Mental model:** `residual scan`: A residual scan checks for project resources that remain after cleanup. It should check every relevant service and identify anything that still needs removal.
+
+**Why it matters:** A residual scan is the post-cleanup proof that the short cloud demonstration did not leave known project resources behind.
+
+**Worked example:** `residual scan`: The scan checks CloudFormation, S3, Lambda, CloudWatch Logs, and IAM.
+
+**Easy to confuse:** A residual scan verifies absence; cleanup performs the deletion actions.
+
+**Check yourself:** Which services must the `residual scan` inspect after the short cloud run?
+
+## Connect earlier terms
+
+The `Lambda` response, `CloudWatch Logs`, and `API contract` now accompany the promoted artifact as deployment evidence. The post-cleanup scan closes the loop by checking that the short cloud run left no known resources.
 
 ## 8-10 hour schedule
 

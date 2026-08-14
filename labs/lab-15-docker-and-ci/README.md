@@ -14,6 +14,37 @@ A container makes the runtime consistent, but a successful image build does not 
 
 **Explain it yourself:** Which parts of reproducibility do containers and CI improve, and which tests do they not replace?
 
+
+## Apply the concepts
+
+### Runtime lifecycle
+
+**Terms:** `container`, `API contract`, `artifact`, `latency`
+
+**What they mean here:** The `container` packages a consistent runtime with the model `artifact`. Smoke calls exercise the `API contract`, while the measured `latency` describes only this local run.
+
+**Where you will see them:** The lifecycle evidence includes the image build, non-root `id`, health check, valid and invalid predictions, logs, and final container stop.
+
+**Common mistake:** Treating image build as proof that the artifact loads or the process is non-root.
+
+**Evidence to keep:** Keep the image tag, user ID, responses, sanitized logs, timing conditions, and proof that no container remains.
+
+**Explain after the lab:** Walk from build to cleanup and identify the missing-artifact failure.
+
+### Offline automation
+
+**Terms:** `CI`, `reproducibility`
+
+**What they mean here:** `CI` repeats deterministic package, contract, parity, artifact, and smoke checks; it improves verification `reproducibility` without deployment.
+
+**Where you will see them:** Workflow commands run offline and explicitly record no AWS deploy.
+
+**Common mistake:** Assuming CI replaces local investigation or deployment safety.
+
+**Evidence to keep:** Keep run result, exact checks, setup, failure output, and no-deploy confirmation.
+
+**Explain after the lab:** Explain which drift CI reduces and which production risk remains.
+
 ## Before you start
 
 Read `roadmap/weeks/week-16.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.

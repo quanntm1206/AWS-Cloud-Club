@@ -14,6 +14,37 @@ A new feature should begin with a hypothesis, not a list of transformations. Abl
 
 **Explain it yourself:** How is feature engineering different from ablation? Why should you change only one factor?
 
+
+## Apply the concepts
+
+### Feature hypothesis
+
+**Terms:** `feature`, `feature engineering`
+
+**What they mean here:** A `feature` is an input available to the model. `feature engineering` proposes a useful representation, explains why it may help, and defines its availability at prediction time and its missing-value handling.
+
+**Where you will see them:** The hypothesis and feature-group code appear before any metric delta.
+
+**Common mistake:** Inventing a hypothesis after one transformation scores well.
+
+**Evidence to keep:** Keep definition, availability, missing rule, and expected effect.
+
+**Explain after the lab:** Explain why signal is available at inference without future information.
+
+### Single change
+
+**Terms:** `ablation`, `baseline`, `validation set`, `hyperparameter`
+
+**What they mean here:** An `ablation` changes one feature group around a fixed `baseline`; validation data, model `hyperparameter`, split, and seed stay constant.
+
+**Where you will see them:** AUC by group, `single_change`, and `test_set_touched=false` record the comparison.
+
+**Common mistake:** Changing model settings alongside features.
+
+**Evidence to keep:** Keep both lists, AUCs, runtime, unchanged settings, and decision.
+
+**Explain after the lab:** Use the controlled score difference and expected variability to justify whether you keep or drop the feature.
+
 ## Before you start
 
 Read `roadmap/weeks/week-10.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

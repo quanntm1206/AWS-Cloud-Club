@@ -14,6 +14,37 @@ An API is where outside data meets the model. Give client errors, artifact error
 
 **Explain it yourself:** How is an API contract different from a data contract? What does the measured latency not prove?
 
+
+## Apply the concepts
+
+### Two contracts
+
+**Terms:** `API contract`, `data contract`, `schema`
+
+**What they mean here:** The `API contract` defines endpoints, payloads, status codes, and response bodies. Within that boundary, the `data contract` validates the model-input `schema`.
+
+**Where you will see them:** `/health`, successful `/predict`, 422 input errors, and 503 unavailable-model responses use distinct paths.
+
+**Common mistake:** Returning 500 for client schema errors or exposing raw data and stack traces.
+
+**Evidence to keep:** Keep sanitized request shapes, status codes, response bodies, and logs for all paths.
+
+**Explain after the lab:** Explain which contract rejects a wrong type and which represents that rejection.
+
+### Measured inference
+
+**Terms:** `artifact`, `inference`, `latency`
+
+**What they mean here:** `inference` loads the intended `artifact`; measured `latency` covers a declared warm local payload, not every deployment.
+
+**Where you will see them:** Artifact identity, health state, output, payload size, and warm timings form the record.
+
+**Common mistake:** Calling one warm local request production latency.
+
+**Evidence to keep:** Keep checksum/version, payload and batch, warm-up rule, timings, and environment.
+
+**Explain after the lab:** State exactly what the latency covers and one unmeasured condition.
+
 ## Before you start
 
 Read `roadmap/weeks/week-15.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.

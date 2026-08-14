@@ -24,7 +24,37 @@ Tree ensembles give you strong options with panel data, but the goal is still to
 
 **Review:** `baseline`, `validation set`, `metric`, `overfitting`
 
-**Use:** Keep dataset, validation set, metrics and budget fixed; so `ensemble` uses bagging / boosting, changes the exact hyperparameter and compares the baseline and overfitting signs.
+**Use:** Hold the dataset, `validation set`, `metric`, and budget fixed; compare an `ensemble` built with `bagging / boosting`, change one `hyperparameter`, then check improvement over the `baseline` and signs of `overfitting`.
+
+## Concept walkthrough
+
+### Hyperparameters and ensembles
+
+**Mental model:** `hyperparameter`: A hyperparameter is a setting chosen by the practitioner rather than learned directly during fit. Examples include tree depth, regularization strength, and the number of trees. `ensemble`: The model combines multiple sub-models to create a common prediction. The member predictions are combined by voting, averaging, or another aggregation rule.
+
+**Why it matters:** Hyperparameters control how learners are built; an ensemble combines learners, so both must be selected without consulting the test set.
+
+**Worked example:** `hyperparameter`: Number of trees and maximum depth of random forest. `ensemble`: Random forest takes results from many decision trees.
+
+**Easy to confuse:** A hyperparameter is selected; a parameter is learned from training data. An ensemble is the combined model; bagging and boosting are ways to build one.
+
+**Check yourself:** Which evidence should select a `hyperparameter` before several models become an `ensemble`?
+
+### Bagging compared with boosting
+
+**Mental model:** `bagging / boosting`: Bagging trains several models mostly independently, while boosting trains them in sequence to correct earlier errors. Bagging mainly reduces instability; boosting focuses later models on earlier mistakes.
+
+**Why it matters:** Bagging mainly reduces variance through parallel learners, while boosting builds learners sequentially to correct earlier errors.
+
+**Worked example:** `bagging / boosting`: Random forest uses bagging, gradient boosting uses boosting.
+
+**Easy to confuse:** Bagging and boosting are different ensemble strategies, not interchangeable names.
+
+**Check yourself:** Why does `bagging / boosting` describe two different ways to combine learners?
+
+## Connect earlier terms
+
+The `baseline`, `validation set`, and `metric` remain the comparison contract for every ensemble candidate. Training-validation gaps provide the `overfitting` evidence needed before accepting a hyperparameter change.
 
 ## 8-10 hour schedule
 

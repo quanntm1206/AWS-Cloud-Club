@@ -14,6 +14,23 @@ You do not need to train a model in the first session. Build a trustworthy start
 
 **Explain it yourself:** How is a dataset different from a sample? How far do schema and seed support reproducibility? Here, support means provide evidence for the claim.
 
+
+## Apply the concepts
+
+### Data and repeatability
+
+**Terms:** `dataset`, `sample`, `schema`, `reproducibility`, `seed`
+
+**What they mean here:** The CSV is the `dataset`, one row is a `sample`, and the column names and data types form the `schema`. The `seed` controls the demo's random choices. Here, `reproducibility` means getting the same checked result from the same recorded inputs and environment.
+
+**Where you will see them:** Compare the sample file with `rows`, `dtypes`, and `seed` in `.artifacts/lab-00-evidence.json`, then repeat from a new terminal.
+
+**Common mistake:** Treating the same row count and seed as proof that the data values, dependencies, and devices are also identical.
+
+**Evidence to keep:** Keep both JSON reports, Python/dependency/OS versions, and any observed difference or tolerance.
+
+**Explain after the lab:** Point to evidence for the dataset, one sample-level fact, the schema, and one factor the seed does not control.
+
 ## Before you start
 
 Read `roadmap/weeks/week-01.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

@@ -1,351 +1,643 @@
 terms:
 - term: dataset
-  meaning: A collection of samples used for analysis or model training.
+  meaning: A dataset is a collection of samples used for analysis or model training. It usually has rows
+    of samples and columns of features.
   example: A churn file has 300 customers, with columns describing each customer.
+  why_it_matters: It defines the evidence available to every later ML decision.
+  common_confusion: A dataset is the whole collection; a sample is one item inside it.
+  self_check: Which rows and columns belong in the churn dataset?
   introduced_in: 0
 - term: reproducibility
-  meaning: The ability to rerun the same data, code, and settings and get comparable
+  meaning: Reproducibility is the ability to rerun the same data, code, and settings and get comparable
+    results. It requires recording data, code, dependencies, configuration, and random controls.
+  example: Two terminals use the same seed and produce the same row count and metric within tolerance.
+  why_it_matters: It lets another person verify that a result came from the same procedure.
+  common_confusion: The same seed helps reproducibility, but changed code or packages can still change
     results.
-  example: Two terminals use the same seed and produce the same row count and metric
-    within tolerance.
+  self_check: What would another learner need to rerun your churn experiment?
   introduced_in: 0
 - term: sample
-  meaning: One observation in a dataset, usually one row or one image.
+  meaning: A sample is one observation in a dataset, usually one row or one image. Every sample has the
+    same expected structure but different observed values.
   example: One customer is a sample in the churn table.
+  why_it_matters: It is the unit that splits, metrics, and predictions count.
+  common_confusion: A sample is one observation, while a feature is one input value or column describing
+    it.
+  self_check: In the churn table, what does one sample represent?
   introduced_in: 0
 - term: schema
-  meaning: A description of input column names, data types, and valid rules.
+  meaning: A schema describes input names, data types, and validity rules. It also states constraints
+    such as required columns, allowed categories, and numeric ranges.
   example: The tenure column must be non-negative; churn accepts only 0 or 1.
+  why_it_matters: It prevents silent input changes from reaching training or inference.
+  common_confusion: A schema describes allowed structure; data validation checks actual data against it.
+  self_check: Which schema rule would reject a negative tenure value?
   introduced_in: 0
 - term: seed
-  meaning: A starting number for random generation so splits or initialization can
-    be repeated.
+  meaning: A seed is a starting number for pseudorandom generation, allowing splits or initialization
+    to be repeated. Reusing it starts the same pseudorandom sequence in supported operations.
   example: Set seed 42 before creating demo data.
+  why_it_matters: It makes random experiments comparable when the rest of the setup is unchanged.
+  common_confusion: A seed controls a random sequence, not every source of nondeterminism.
+  self_check: What must stay unchanged, besides seed 42, to reproduce a split?
   introduced_in: 0
 - term: feature
-  meaning: Input information the model uses to make a prediction.
+  meaning: A feature is input information that a model uses to make a prediction. A feature must be available
+    both during training and when a new prediction is requested.
   example: Tenure and monthly_charges are two features in the churn problem.
+  why_it_matters: It determines which information the model can use at prediction time.
+  common_confusion: A feature is an input; the label or target is the answer to predict.
+  self_check: Why can tenure be a churn feature at inference time?
   introduced_in: 1
 - term: label / target
-  meaning: The outcome to predict, used to train or evaluate a model.
+  meaning: A label, or target, is the outcome that a supervised model learns to predict. During supervised
+    learning, each training sample pairs its features with this known answer.
   example: Churn=1 is the label for a customer who left.
+  why_it_matters: It states the outcome the model is expected to learn.
+  common_confusion: A label is observed truth; a prediction is the model's estimated answer.
+  self_check: For a customer who left, what value should the churn target contain?
   introduced_in: 1
 - term: parameter
-  meaning: A value the model learns from data during training.
+  meaning: A parameter is a value that a model learns from data during training. Parameters include weights
+    and biases that change as training reduces loss.
   example: The weights in the linear-regression vector w are parameters.
+  why_it_matters: It captures what the model learned and is updated by the optimizer.
+  common_confusion: A parameter is learned during fit; a hyperparameter is chosen before or around fit.
+  self_check: 'Who learns the linear model''s weights: the optimizer or the practitioner?'
   introduced_in: 1
 - term: vectorization
-  meaning: Computing on a whole array instead of looping through elements in Python.
+  meaning: Vectorization performs a calculation on a whole array instead of looping through elements in
+    Python. Array operations let optimized numerical libraries process many values together.
   example: Use X @ w to calculate scores for every sample.
+  why_it_matters: It makes numerical code faster, shorter, and less error-prone.
+  common_confusion: Vectorization changes how computation is expressed, not the mathematical objective.
+  self_check: How does `X @ w` replace a loop over customer rows?
   introduced_in: 1
 - term: data validation
-  meaning: Checking that data follows the schema and quality rules before use.
+  meaning: Data validation checks that data follows its schema and quality rules before use. Checks can
+    reject or report invalid rows before those rows enter the workflow.
   example: Find duplicate IDs, negative ages, or a missing target.
+  why_it_matters: It catches bad inputs before they distort analysis or break a service.
+  common_confusion: Data validation enforces known rules; EDA searches for patterns and new questions.
+  self_check: Which validation checks would catch a missing target and a duplicate customer ID?
   introduced_in: 2
 - term: EDA
-  meaning: Exploring data with statistics and plots to understand quality, distributions,
-    and follow-up questions.
+  meaning: Exploratory data analysis (EDA) uses statistics and plots to study data quality, distributions,
+    and useful questions. It begins with questions, then uses summaries and plots to investigate them.
   example: Compare the overall churn rate with the rate for each contract group.
+  why_it_matters: It reveals data problems and useful patterns before modeling begins.
+  common_confusion: EDA explores and forms hypotheses; model validation evaluates model choices.
+  self_check: Which EDA comparison could show whether contract type relates to churn?
   introduced_in: 2
 - term: missing value
-  meaning: A value that is absent or not recorded in the dataset.
+  meaning: A missing value is absent or was not recorded in the dataset. It may be represented by null,
+    NaN, or another agreed marker, depending on the schema.
   example: Some samples have no monthly_charges value.
+  why_it_matters: It affects what the model can learn and must be handled consistently.
+  common_confusion: A missing value is absent; zero can be a valid recorded value.
+  self_check: How should a missing `monthly_charges` value differ from a real zero?
   introduced_in: 2
 - term: outlier
-  meaning: An observation far from most of the data; investigate it before deleting
-    or changing it.
+  meaning: An outlier is an observation far from most other values in the data. Its cause should be checked
+    with domain knowledge before it is removed or capped.
   example: An unusually high bill may be an error or a real business customer.
+  why_it_matters: It may reveal a data error, a rare case, or an important business event.
+  common_confusion: An outlier is unusual, not automatically incorrect.
+  self_check: What evidence would tell you whether an unusually high bill is valid?
   introduced_in: 2
 - term: gradient
-  meaning: The direction and size showing how loss changes when a parameter changes.
+  meaning: A gradient shows the direction and rate at which loss changes when a parameter changes. Its
+    sign gives direction, and its magnitude shows how strongly the loss responds.
   example: A positive gradient suggests lowering the parameter by the learning rate.
+  why_it_matters: It tells the optimizer how each parameter should move to reduce loss.
+  common_confusion: A gradient is a direction of change; the learning rate scales the update size.
+  self_check: If a parameter has a positive gradient, which direction should gradient descent move it?
   introduced_in: 3
 - term: learning rate
-  meaning: The size of each parameter update.
+  meaning: The learning rate controls the size of each parameter update. The optimizer multiplies this
+    value by the gradient when forming an update.
   example: A learning rate that is too large makes loss oscillate or grow.
+  why_it_matters: It controls whether training moves steadily, too slowly, or unstably.
+  common_confusion: The learning rate is an update setting, not the loss being minimized.
+  self_check: What training pattern suggests that the learning rate is too large?
   introduced_in: 3
 - term: loss
-  meaning: The number a model tries to reduce during training to measure error on
-    learning data.
+  meaning: Loss is the error value that a model tries to reduce during training. Different tasks use different
+    loss functions, such as MSE for regression or cross-entropy for classification.
   example: MSE penalizes the squared distance between prediction and target.
+  why_it_matters: It gives training a single objective to minimize.
+  common_confusion: Loss guides training; a metric reports the quality people care about.
+  self_check: Why does a large prediction error contribute strongly to MSE?
   introduced_in: 3
 - term: prediction
-  meaning: The value a model produces for one sample.
+  meaning: A prediction is the value that a model produces for one sample. For regression it may be a
+    number; for classification it may be a class or probability.
   example: The model predicts monthly_charges of 42.5.
+  why_it_matters: It is the model output that downstream users or systems act on.
+  common_confusion: A prediction is an output value; a label is the observed answer.
+  self_check: Is a churn probability of 0.72 a prediction, a target, or both?
   introduced_in: 3
 - term: baseline
-  meaning: A simple benchmark to know whether a complex model really improves or not.
-  example: Dummy classifier always guesses popular classes.
+  meaning: A baseline is a simple benchmark used to judge whether a more complex model provides a real
+    improvement. It can be a simple rule, a dummy model, or the smallest reasonable learned model.
+  example: A dummy classifier always predicts the most common class.
+  why_it_matters: It provides a minimum result that a more complex model must beat.
+  common_confusion: A baseline is a comparison point, not necessarily the final model.
+  self_check: What must logistic regression demonstrate beyond a majority-class baseline?
   introduced_in: 4
 - term: confusion matrix
-  meaning: Truth and prediction counting table to see which class the model confuses
-    with which class.
-  example: The row churn=1 indicates how many samples were predicted to be 0.
+  meaning: A confusion matrix is a table that counts each combination of true class and predicted class.
+    Its cells separate true positives, false positives, true negatives, and false negatives.
+  example: The churn=1 row shows how many actual churners were predicted as 0.
+  why_it_matters: It shows the exact types of classification mistakes hidden by one score.
+  common_confusion: A confusion matrix contains counts; precision, recall, and F1 summarize those counts.
+  self_check: Which confusion-matrix cell counts churners predicted as non-churners?
   introduced_in: 4
 - term: data split
-  meaning: How to divide a dataset into parts with different and non-overlapping roles.
-  example: Divide 70% training, 15% validation, 15% testing.
+  meaning: A data split divides a dataset into non-overlapping subsets with different roles. Typical roles
+    are training, validation, and testing, with no sample shared across them.
+  example: Use 70% for training, 15% for validation, and 15% for testing.
+  why_it_matters: It protects evaluation by giving each subset one clear role.
+  common_confusion: A data split creates subsets; cross-validation rotates several folds through roles.
+  self_check: Why must one customer not appear in both training and test sets?
   introduced_in: 4
 - term: fit
-  meaning: The step of learning parameters or transform states from training data.
+  meaning: To fit a model or transform is to learn its state from training data. For a scaler, fit learns
+    statistics; for a model, fit learns predictive parameters.
   example: Call pipeline.fit(X_train, y_train).
+  why_it_matters: It is where learned state enters a model or preprocessing step.
+  common_confusion: fit learns state; transform applies a learned or fixed transformation.
+  self_check: What does `pipeline.fit(X_train, y_train)` learn from the training data?
   introduced_in: 4
 - term: metric
-  meaning: Number that measures an aspect of quality; Must choose according to goals
-    and error costs.
-  example: Recall measures the rate at which customer churn is found.
+  meaning: A metric is a number that measures one aspect of model quality and should match the goal and
+    cost of errors. No single metric describes every kind of quality, so its meaning must be stated.
+  example: Recall measures the proportion of churners that the model finds.
+  why_it_matters: It connects model evaluation to the business cost of errors.
+  common_confusion: A metric is a measurement; loss is the objective optimized during training.
+  self_check: Which metric best reflects the goal of finding most churners?
   introduced_in: 4
 - term: model validation
-  meaning: The process of testing the model on data that has not yet been used to
-    fit to evaluate and choose a decision.
-  example: So F1 on the validation set before opening the test.
+  meaning: Model validation evaluates model choices on data that was not used to fit them. It includes
+    comparing candidates and thresholds on validation data before the final test.
+  example: Compare F1 on the validation set before opening the test set.
+  why_it_matters: It lets you compare choices while keeping the final test estimate independent.
+  common_confusion: Validation guides choices; testing estimates the final chosen system once.
+  self_check: Why should model validation happen before the test set is opened?
   introduced_in: 4
 - term: precision / recall / F1
-  meaning: Precision focuses on correct positive predictions, recall focuses on finding
-    enough positive samples, and F1 balances both sides.
-  example: Churn posts prioritize recall but still track precision.
+  meaning: Precision measures correct positive predictions, recall measures found positive samples, and
+    F1 balances the two. All three come from confusion-matrix counts but answer different questions.
+  example: The churn project prioritizes recall while still tracking precision.
+  why_it_matters: It explains the trade-off between false alarms and missed churners.
+  common_confusion: Precision asks whether positive predictions are right; recall asks whether positives
+    were found.
+  self_check: If missing a churner is costly, why might recall matter more than precision?
   introduced_in: 4
 - term: test set
-  meaning: The data section is only opened after the decision has been locked to estimate
-    the final result.
+  meaning: A test set is a held-back data subset opened only after model and threshold choices are fixed.
+    It must remain untouched by preprocessing fit, model selection, and threshold tuning.
   example: Run the test once after selecting logistic regression.
+  why_it_matters: It gives one final, less-biased estimate after all choices are fixed.
+  common_confusion: The test set is not another validation set for repeated tuning.
+  self_check: When is it acceptable to evaluate the churn model on the test set?
   introduced_in: 4
 - term: training set
-  meaning: The data part is used for the model to learn parameters.
-  example: Logistic regression calls fit only with the training set.
+  meaning: A training set is the data subset used to learn model parameters and preprocessing state. Validation
+    and test samples must not influence anything learned from this subset.
+  example: Fit logistic regression only on the training set.
+  why_it_matters: Keeping all learned state within this split protects validation and test results from
+    leakage.
+  common_confusion: The training set teaches the model; the validation set only guides choices.
+  self_check: Which data should a scaler use when it learns its mean and standard deviation?
   introduced_in: 4
 - term: validation set
-  meaning: The data part is used to select model, threshold or hyperparameter; Do
-    not use fit parameter.
+  meaning: A validation set is the data subset used to choose a model, threshold, or hyperparameter without
+    fitting on it. It may be examined many times for decisions, but its labels must not enter fit.
   example: Choose a threshold with satisfactory recall on the validation set.
+  why_it_matters: It supports model choices without teaching the model or replacing the test set.
+  common_confusion: The validation set guides choices; the test set checks the locked result.
+  self_check: Can you tune a churn threshold on validation data without fitting the model on it?
   introduced_in: 4
 - term: data leakage
-  meaning: Invalid information from validation, testing, or futures enters training.
-  example: Fit scaler on the entire dataset before splitting to leak test information.
+  meaning: Data leakage happens when training uses information from validation, testing, or the future.
+    Leakage can come from future data, target-derived features, duplicate customers, or preprocessing
+    before a split.
+  example: Fitting a scaler on the entire dataset before splitting leaks test information.
+  why_it_matters: It can make evaluation look excellent even when the model will fail in use.
+  common_confusion: Leakage can occur without duplicate rows, such as fitting a scaler before splitting.
+  self_check: Why does fitting a scaler on the full dataset leak test information?
   introduced_in: 5
 - term: pipeline
-  meaning: Preprocessing and modeling chains run in a fixed order to reduce errors
-    and leakage.
-  example: ColumnTransformer connects logistic regression in a Pipeline.
+  meaning: A pipeline runs preprocessing and modeling steps in a fixed order. When the pipeline is fitted,
+    each learned preprocessing step sees only training data.
+  example: A Pipeline connects a ColumnTransformer to logistic regression.
+  why_it_matters: It keeps preprocessing and prediction steps consistent across splits and inference.
+  common_confusion: A pipeline is the ordered container; preprocessing is only the data-preparation part.
+  self_check: How does a pipeline help keep scaling consistent during inference?
   introduced_in: 5
 - term: preprocessing
-  meaning: Steps to prepare data before the model such as missing fill, scale or encode.
-  example: Fill in the median and then one-hot encode the contract column.
+  meaning: Preprocessing prepares raw data for a model by filling missing values, scaling numbers, or
+    encoding categories. Some steps are fixed, while others learn values such as medians, category lists,
+    or scaling statistics.
+  example: Fill missing values with the median, then one-hot encode the contract column.
+  why_it_matters: It turns raw data into model-ready inputs while preserving split boundaries.
+  common_confusion: Preprocessing may learn state, so it is not always a harmless fixed cleanup.
+  self_check: Which preprocessing values must be learned only from the training split?
   introduced_in: 5
 - term: transform
-  meaning: Input transformation; Some transforms must learn states only from the training
-    set.
-  example: StandardScaler learns mean and std from training and applies it to validation.
+  meaning: A transform applies a fixed rule or state learned from the training set to input data. The
+    same fitted transform should then be reused for validation, test, and inference data.
+  example: StandardScaler learns the mean and standard deviation from training data, then applies them
+    to validation data.
+  why_it_matters: It applies a learned or fixed rule consistently to new inputs.
+  common_confusion: transform applies a rule; fit learns any state required by that rule.
+  self_check: What is different between `fit_transform` on training data and `transform` on validation
+    data?
   introduced_in: 5
 - term: class imbalance
-  meaning: There is a large difference in the number of samples between classes.
+  meaning: Class imbalance occurs when the numbers of samples in different classes vary greatly. The minority
+    class can have too little influence on accuracy or model training.
   example: Only 8% of customers churn so accuracy is easily misleading.
+  why_it_matters: It makes accuracy unreliable and shifts attention to class-sensitive metrics.
+  common_confusion: Class imbalance describes label counts, not unequal business costs by itself.
+  self_check: Why can 92% accuracy be weak when only 8% of customers churn?
   introduced_in: 6
 - term: threshold
-  meaning: Threshold converts scores or probabilities into decision labels.
+  meaning: A threshold converts a score or probability into a decision label. Lowering it usually finds
+    more positive cases but also creates more false alarms.
   example: Probabilities of 0.35 or higher are labeled churn.
+  why_it_matters: It converts model scores into an operational decision rule.
+  common_confusion: A threshold changes decisions, not the underlying predicted probability.
+  self_check: What happens to churn recall when the decision threshold is lowered?
   introduced_in: 6
 - term: bias / variance
-  meaning: High bias is often due to the model being too simple; high variance because
-    the model is too sensitive to training data.
-  example: The learning curve has both low training and validation suggesting a high
+  meaning: High bias often means a model is too simple, while high variance means it is too sensitive
+    to its training data. Bias causes systematic underfitting, while variance causes unstable behavior
+    across datasets.
+  example: Low training and validation scores on a learning curve suggest high bias.
+  why_it_matters: It helps diagnose whether to add model capacity, data, or regularization.
+  common_confusion: Bias and variance are error tendencies, not the protected attributes called demographic
     bias.
+  self_check: What learning-curve pattern suggests high bias rather than high variance?
   introduced_in: 7
 - term: cross-validation
-  meaning: Evaluate iteratively over many folds to estimate the model's stability.
+  meaning: Cross-validation repeatedly evaluates a model on different folds to estimate its stability.
+    Each sample is used for validation in one fold and for training in the others.
   example: 3-fold CV generates three validation scores.
+  why_it_matters: It estimates performance variation instead of trusting one lucky split.
+  common_confusion: Cross-validation estimates variability; it does not create more independent data.
+  self_check: Why are several CV scores more informative than one validation score?
   introduced_in: 7
 - term: fold
-  meaning: Part of the data in turn does validation in cross-validation.
+  meaning: A fold is one subset that takes a turn as validation data during cross-validation. Folds should
+    preserve important structure, such as class balance or customer grouping.
   example: In fold 2, the second group is kept for evaluation.
+  why_it_matters: It defines each temporary training and validation role in CV.
+  common_confusion: A fold is one subset inside cross-validation, not the final test set.
+  self_check: In three-fold CV, how many times does each fold serve as validation data?
   introduced_in: 7
 - term: overfitting
-  meaning: The model remembers training data but performs poorly on new data.
+  meaning: Overfitting happens when a model learns the training data too closely and performs poorly on
+    new data. It appears as a gap between training performance and performance on unseen data.
   example: Train score increases and validation score decreases.
+  why_it_matters: It warns that strong training results may not generalize.
+  common_confusion: Overfitting is a generalization gap, not simply a model with many parameters.
+  self_check: What does rising training score with falling validation score suggest?
   introduced_in: 7
 - term: bagging / boosting
-  meaning: Bagging learns multiple models relatively independently; Boosting learns
-    sequentially to correct errors first.
+  meaning: Bagging trains several models mostly independently, while boosting trains them in sequence
+    to correct earlier errors. Bagging mainly reduces instability; boosting focuses later models on earlier
+    mistakes.
   example: Random forest uses bagging, gradient boosting uses boosting.
+  why_it_matters: It explains how tree ensembles gain stability or correct earlier errors.
+  common_confusion: Bagging and boosting are different ensemble strategies, not interchangeable names.
+  self_check: Which strategy describes random forest, and which describes gradient boosting?
   introduced_in: 8
 - term: ensemble
-  meaning: The model combines multiple sub-models to create a common prediction.
+  meaning: An ensemble combines predictions from several member models. The member predictions are combined
+    by voting, averaging, or another aggregation rule.
   example: Random forest takes results from many decision trees.
+  why_it_matters: It often improves robustness by combining different prediction errors.
+  common_confusion: An ensemble is the combined model; bagging and boosting are ways to build one.
+  self_check: How does random forest turn many tree outputs into one prediction?
   introduced_in: 8
 - term: hyperparameter
-  meaning: The configuration is chosen by the user, not a self-learning parameter
-    model.
-  example: Number of trees and maximum depth of random forest.
+  meaning: A hyperparameter is a setting chosen by the practitioner rather than learned directly during
+    fit. Examples include tree depth, regularization strength, and the number of trees.
+  example: The number of trees and maximum tree depth are random-forest hyperparameters.
+  why_it_matters: It controls model behavior and must be chosen with validation evidence.
+  common_confusion: A hyperparameter is selected; a parameter is learned from training data.
+  self_check: Why must maximum tree depth be chosen with validation rather than test data?
   introduced_in: 8
 - term: ablation
-  meaning: Experiment with adding or removing exactly one ingredient to measure its
-    impact.
-  example: Remove the behavioral feature group and then compare AUC validation.
+  meaning: An ablation adds or removes exactly one ingredient so its impact can be measured. All other
+    data, code, and settings should stay fixed so the comparison is fair.
+  example: Remove the behavioral feature group, then compare validation AUC.
+  why_it_matters: It isolates whether one feature group or technique truly caused an improvement.
+  common_confusion: An ablation changes one ingredient; ordinary tuning may change many settings.
+  self_check: What can you conclude if validation AUC falls after removing one feature group?
   introduced_in: 9
 - term: feature engineering
-  meaning: Create or transform features based on problem understanding and prediction
-    times.
+  meaning: Feature engineering creates or transforms inputs using problem knowledge and only information
+    available at prediction time. Useful engineered features encode relevant structure without using future
+    or target information.
   example: Create tenure_bucket from tenure if used during inference.
+  why_it_matters: It can expose useful signal, but only when the feature exists at inference time.
+  common_confusion: Feature engineering creates inputs; feature selection keeps or removes existing inputs.
+  self_check: Would `tenure_bucket` still be available when predicting a new customer?
   introduced_in: 9
 - term: error analysis
-  meaning: Systematic analysis of incorrect predictions to create hypotheses and further
-    testing.
-  example: View false negative by contract type.
+  meaning: Error analysis studies incorrect predictions systematically to form hypotheses and plan further
+    tests. The analyst inspects false positives and false negatives across examples and groups.
+  example: Review false negatives by contract type.
+  why_it_matters: It turns failures into specific, testable improvement ideas.
+  common_confusion: Error analysis studies observed failures; a metric only summarizes them.
+  self_check: Which false-negative pattern would you investigate first in the churn model?
   introduced_in: 10
 - term: failure taxonomy
-  meaning: How to group errors according to observable causes instead of gathering
-    all common errors.
-  example: Attach errors to data, boundary, missing signal or label noise.
+  meaning: A failure taxonomy groups errors by observable cause instead of treating every mistake as the
+    same. Useful categories are specific enough to count and connect to a possible remedy.
+  example: Group errors as data problems, boundary cases, missing signals, or label noise.
+  why_it_matters: It makes recurring failure patterns measurable instead of anecdotal.
+  common_confusion: A failure taxonomy names error groups; a confusion matrix groups errors only by class
+    labels.
+  self_check: Would "missing signal" and "label noise" belong in the same failure category?
   introduced_in: 10
 - term: slice
-  meaning: Groups of samples with common characteristics are separated to test model
-    behavior.
-  example: New customer slices have a tenure of less than three months.
+  meaning: A slice is a group of samples with a shared characteristic that is evaluated separately. Slice
+    results should be compared with overall results and reported with support.
+  example: The new-customer slice contains customers with tenure below three months.
+  why_it_matters: It reveals whether overall performance hides harm to an important group.
+  common_confusion: A slice is a meaningful subgroup; a data split assigns training or evaluation roles.
+  self_check: Which metric would you inspect for customers with tenure below three months?
   introduced_in: 10
 - term: support
-  meaning: The actual sample number of a class or slice used to read contextual metrics.
+  meaning: Support is the number of actual samples in a class or slice. Small support makes an apparently
+    perfect metric uncertain.
   example: 100% recall on support=2 is not enough for a strong conclusion.
+  why_it_matters: It shows whether a strong-looking slice metric has enough evidence.
+  common_confusion: Support is a count, not a quality score.
+  self_check: Why is recall of 100% on only two churners weak evidence?
   introduced_in: 10
 - term: artifact
-  meaning: Model, config, metric and metadata files needed to reproduce or serve predictions.
-  example: model.joblib and manifest.json make up the artifact.
+  meaning: An artifact is the set of model, configuration, metric, and metadata files needed to reproduce
+    or serve predictions. It should be versioned and accompanied by enough provenance to verify how it
+    was produced.
+  example: The artifact contains model.joblib and manifest.json.
+  why_it_matters: It packages the exact files needed to reproduce or serve a model.
+  common_confusion: An artifact is the saved deliverable; a checkpoint is a training state used to resume.
+  self_check: Which files and metadata must travel with `model.joblib`?
   introduced_in: 11
 - term: inference
-  meaning: Use the trained model to create predictions for new input.
-  example: Load the artifact and then predict an unseen guest.
+  meaning: Inference uses a trained model to produce predictions for new input. It must apply exactly
+    the preprocessing and feature order learned during training.
+  example: Load the artifact, then predict churn for an unseen customer.
+  why_it_matters: It is the point where a trained model produces value on unseen inputs.
+  common_confusion: Inference uses a trained model; training updates its parameters.
+  self_check: What should happen when the saved churn model receives one unseen customer?
   introduced_in: 11
 - term: manifest
-  meaning: The list describes the content, version, checksum and artifact origin.
+  meaning: A manifest lists an artifact's contents, versions, checksums, and origin. Checksums help detect
+    changed files, while metadata explains how those files were created.
   example: Manifest records seed, feature order and SHA-256.
+  why_it_matters: It makes an artifact auditable and protects against loading the wrong files.
+  common_confusion: A manifest describes files and provenance; the artifact contains the actual files.
+  self_check: Which manifest field would reveal that a model file changed unexpectedly?
   introduced_in: 11
 - term: configuration
-  meaning: "The values \u200B\u200Bthat control a run, are saved separately for reruns\
-    \ and comparisons."
-  example: Config YAML records seed, feature and threshold.
+  meaning: Configuration is the set of values that controls a run and is saved for reruns and comparisons.
+    It belongs outside reusable code so one setting can change without editing program logic.
+  example: A YAML configuration records the seed, feature list, and threshold.
+  why_it_matters: It records run choices so experiments can be repeated and compared fairly.
+  common_confusion: Configuration controls a run; learned parameters are model state.
+  self_check: Which churn run choices should be stored in configuration rather than source code?
   introduced_in: 12
 - term: package
-  meaning: Python code is organized into modules that can be imported, tested, and
-    called from the CLI.
-  example: Put the training logic in src/ml_roadmap instead of copying it between
-    notebooks.
+  meaning: A package organizes Python code into modules that tests, CLIs, notebooks, and services can
+    import. An installable package avoids copying important logic between notebooks.
+  example: Put the training logic in src/ml_roadmap instead of copying it between notebooks.
+  why_it_matters: It makes ML logic reusable by tests, CLIs, notebooks, and services.
+  common_confusion: A package organizes code; a container bundles the runtime environment.
+  self_check: Why should training logic live in `src/ml_roadmap` instead of several notebooks?
   introduced_in: 12
 - term: data contract
-  meaning: Machine-readable conventions for data schema, scope, and errors.
-  example: Missing tenure column must be rejected before model.
+  meaning: A data contract is a machine-readable agreement about data schema, allowed values, and validation
+    errors. Both producers and consumers can validate the same contract at their boundary.
+  example: Reject input that lacks the tenure column before it reaches the model.
+  why_it_matters: It turns assumptions about input data into enforceable checks.
+  common_confusion: A data contract governs data; an API contract governs service requests and responses.
+  self_check: What should the data contract do when the `tenure` column is absent?
   introduced_in: 13
 - term: parity
-  meaning: A level of consistency between two runs is expected for the same input.
+  meaning: Parity means two paths produce sufficiently consistent results for the same input. The acceptable
+    tolerance depends on whether outputs are labels, probabilities, or floating-point arrays.
   example: Prediction before and after save/load must match within tolerance.
+  why_it_matters: It detects behavior changes introduced by serialization or a new serving path.
+  common_confusion: Parity means sufficiently matching behavior, not necessarily byte-identical files.
+  self_check: How would you test prediction parity before and after saving the model?
   introduced_in: 13
 - term: API contract
-  meaning: Clear conventions on input, output, status code and errors of the inference
-    service.
+  meaning: An API contract defines an inference service's inputs, outputs, status codes, and errors. Both
+    client and server rely on the same contract to exchange valid data.
   example: Payload missing tenure returns 422 instead of 500.
+  why_it_matters: It gives clients a stable interface and predictable failure behavior.
+  common_confusion: An API contract describes behavior; a data contract focuses on input data rules.
+  self_check: Which status code should the API return when required churn input is missing?
   introduced_in: 14
 - term: latency
-  meaning: Time from receiving request to returning response.
-  example: Measure warm latency for mini batch of 16 samples.
+  meaning: Latency is the elapsed time between receiving a request and returning its response. It should
+    be measured under stated conditions such as warm-up state and batch size.
+  example: Measure warm latency for a mini-batch of 16 samples.
+  why_it_matters: It determines whether an inference service feels responsive enough for its use case.
+  common_confusion: Latency measures elapsed time; throughput measures how much work finishes per unit
+    time.
+  self_check: Why must a warm latency result include the batch size?
   introduced_in: 14
 - term: CI
-  meaning: The process automatically runs validation and testing when code changes.
-  example: A CI pipeline that runs pytest, Ruff, and mypy without deploying AWS.
+  meaning: Continuous integration (CI) automatically runs checks and tests when code changes. Typical
+    CI checks include tests, linting, and type checking, but not an automatic production deployment.
+  example: The CI pipeline runs pytest, Ruff, and mypy without deploying to AWS.
+  why_it_matters: It catches regressions automatically before changed code is merged.
+  common_confusion: CI validates changes; deployment releases them to an environment.
+  self_check: Which checks should run in CI before the churn package is merged?
   introduced_in: 15
 - term: container
-  meaning: Application packages with dependencies and configurations run in a separate
-    environment.
+  meaning: A container bundles an application with its dependencies and runtime configuration in an isolated
+    environment. Its image should contain only what the service needs and should run as a non-root user.
   example: Docker images run APIs using non-root users.
+  why_it_matters: It makes an application portable without assuming the host has matching dependencies.
+  common_confusion: A container is a runnable package, not a full virtual machine.
+  self_check: What makes a containerized inference API more portable than a host-only setup?
   introduced_in: 15
 - term: batch
-  meaning: The sample group is processed at once before updating the parameter.
-  example: Batch size 32 means the model reads 32 images per step.
+  meaning: A batch is a group of samples processed together before a parameter update. Training normally
+    performs one forward and backward pass for each batch.
+  example: Batch size 32 means the model reads 32 images in each step.
+  why_it_matters: It balances compute efficiency, memory use, and gradient noise.
+  common_confusion: A batch groups samples; an epoch covers the entire training set.
+  self_check: How many images contribute to one step when batch size is 32?
   introduced_in: 16
 - term: device
-  meaning: Hardware where tensors and models perform calculations.
-  example: Model and input are on the same cpu or cuda.
+  meaning: A device is the hardware, such as a CPU or GPU, where tensors and models perform computations.
+    The model and every tensor used in one operation must be on compatible devices.
+  example: Place the model and its input on the same CPU or CUDA device.
+  why_it_matters: It prevents runtime errors caused by tensors living on different hardware.
+  common_confusion: A device is compute hardware; a tensor is the data placed on it.
+  self_check: Why does a CUDA model fail when its input tensor remains on the CPU?
   introduced_in: 16
 - term: epoch
-  meaning: One pass of the model goes through the entire training set.
-  example: Three epochs means each sample train is used about three times.
+  meaning: An epoch is one complete pass through the training set. The number of optimizer steps per epoch
+    depends on dataset size and batch size.
+  example: Three epochs use each training sample about three times.
+  why_it_matters: It provides the basic unit for measuring progress through training data.
+  common_confusion: An epoch is one pass; an optimizer step may happen many times within that pass.
+  self_check: If the training set has 320 images and batch size 32, how many batches form one epoch?
   introduced_in: 16
 - term: optimizer
-  meaning: The algorithm uses gradients to update parameters.
+  meaning: An optimizer is an algorithm that uses gradients to update model parameters. It may also keep
+    moving averages or other state used to form later updates.
   example: Adam updates the classifier head after loss.backward().
+  why_it_matters: It determines how gradients become parameter updates.
+  common_confusion: The optimizer applies updates; the learning rate is one setting that controls them.
+  self_check: What information does Adam use after `loss.backward()`?
   introduced_in: 16
 - term: tensor
-  meaning: Multidimensional arrays are used to represent data and calculations in
-    neural networks.
-  example: Batch images with shape [32, 3, 160, 160].
+  meaning: A tensor is a multidimensional array used to represent data and computations in a neural network.
+    Its shape, data type, and device determine how operations can use it.
+  example: A batch of images has shape [32, 3, 160, 160].
+  why_it_matters: It carries neural-network inputs, activations, and outputs with explicit shapes.
+  common_confusion: A tensor is an array with shape and dtype, not the neural network itself.
+  self_check: What does each dimension in `[32, 3, 160, 160]` represent?
   introduced_in: 16
 - term: augmentation
-  meaning: Make appropriate random changes on the training sample to increase diversity
-    without changing labels.
-  example: Flip the train image horizontally; validation only resize deterministic.
+  meaning: Augmentation applies valid random changes to training samples to add diversity without changing
+    their labels. The transformation must preserve the task label and is normally random only for training.
+  example: Flip training images horizontally; resize validation images deterministically.
+  why_it_matters: It reduces overfitting by showing the model valid variations of training images.
+  common_confusion: Augmentation changes training examples; preprocessing also prepares validation and
+    inference inputs.
+  self_check: Why should validation images be resized deterministically instead of randomly augmented?
   introduced_in: 17
 - term: backbone
-  meaning: The main network part extracts features before the classifier head.
-  example: ResNet18 pretrained as backbone.
+  meaning: A backbone is the main network section that extracts features before the task-specific classifier
+    head. A small classifier head converts those features into scores for the new classes.
+  example: Use a pretrained ResNet18 as the backbone.
+  why_it_matters: It supplies reusable visual features before the task-specific classifier.
+  common_confusion: The backbone extracts features; the classifier head maps them to task labels.
+  self_check: Which part of pretrained ResNet18 is replaced for a new image-classification task?
   introduced_in: 17
 - term: checkpoint
-  meaning: The training state is saved so it can be continued after the runtime is
-    interrupted.
-  example: Last checkpoint contains model, optimizer, epoch and history.
+  meaning: A checkpoint saves training state so a run can continue after interruption. It often contains
+    model parameters, optimizer state, epoch number, and training history.
+  example: The latest checkpoint contains the model, optimizer, epoch, and history.
+  why_it_matters: It preserves progress and enables a stopped training run to resume.
+  common_confusion: A checkpoint may resume training; a final artifact is prepared for evaluation or serving.
+  self_check: Which checkpoint fields are needed to resume an interrupted run faithfully?
   introduced_in: 17
 - term: freeze
-  meaning: Temporarily do not update parameters of part of the model during training.
+  meaning: To freeze a model section means temporarily preventing its parameters from being updated during
+    training. Frozen parameters still take part in the forward pass but receive no optimizer updates.
   example: Set requires_grad=False for backbone.
+  why_it_matters: It reduces compute and protects pretrained features during early training.
+  common_confusion: Freeze stops parameter updates but still allows data to pass through the layer.
+  self_check: What does `requires_grad=False` change for the backbone during training?
   introduced_in: 17
 - term: transfer learning
-  meaning: Reuse knowledge from pretrained models for new problems.
+  meaning: Transfer learning reuses knowledge from a pretrained model for a new problem. The classifier
+    head can be trained first while the pretrained backbone remains frozen.
   example: Keep the ResNet18 backbone and replace the classifier head.
+  why_it_matters: It lowers data and compute needs by starting from useful pretrained features.
+  common_confusion: Transfer learning is the overall reuse strategy; fine-tuning is one later training
+    stage.
+  self_check: Why can transfer learning work with fewer labeled images than training from scratch?
   introduced_in: 17
 - term: early stopping
-  meaning: Stop training when validation does not improve past the specified number
-    of epochs.
-  example: Stopping after two epochs of validation loss is not better.
+  meaning: Early stopping ends training after validation performance has not improved for a chosen number
+    of epochs. A patience setting defines how many non-improving epochs are tolerated.
+  example: Stop after validation loss fails to improve for two epochs.
+  why_it_matters: It avoids wasting epochs after validation performance stops improving.
+  common_confusion: Early stopping is a training rule, not a guarantee against all overfitting.
+  self_check: After how many non-improving epochs should a patience-two run stop?
   introduced_in: 18
 - term: fine-tuning
-  meaning: Continue training part of the pretrained model with a small learning rate
-    for the new problem.
+  meaning: Fine-tuning continues training some pretrained layers with a small learning rate for the new
+    problem. It commonly follows frozen-head training and uses a lower learning rate for unfrozen layers.
   example: Unfreeze layer4 after frozen-head baseline.
+  why_it_matters: It adapts pretrained features to the new task after a stable baseline exists.
+  common_confusion: Fine-tuning updates pretrained layers; frozen-head training leaves them unchanged.
+  self_check: Why should the pretrained backbone use a small learning rate during fine-tuning?
   introduced_in: 18
 - term: macro average
-  meaning: How to calculate the metric by giving each class equal weight, even if
-    the number of samples is different.
-  example: Macro F1 average F1 of churn and non-churn as two equal classes.
+  meaning: A macro average calculates a metric for each class and gives every class equal weight. The
+    per-class scores are added and divided by the number of classes.
+  example: Macro F1 averages the F1 scores for churn and non-churn as equally weighted classes.
+  why_it_matters: It gives rare and common classes equal influence on the reported score.
+  common_confusion: Macro average weights classes equally; weighted average weights them by support.
+  self_check: How does macro F1 treat churn and non-churn when their supports differ greatly?
   introduced_in: 19
 - term: weighted average
-  meaning: How to calculate the metric by giving a class more samples a larger weight
-    according to support.
-  example: Weighted F1 can look high when common classes do well but rare classes
-    do poorly.
+  meaning: A weighted average gives each class a weight based on its support. Large classes therefore
+    influence the result more than small classes.
+  example: Weighted F1 can look high when common classes do well but rare classes do poorly.
+  why_it_matters: It reflects dataset frequency but can hide poor performance on rare classes.
+  common_confusion: Weighted average follows support; macro average treats every class equally.
+  self_check: How can weighted F1 look strong while the rare class performs poorly?
   introduced_in: 19
 - term: budget alert
-  meaning: Alerts when actual or forecast costs hit thresholds; not hard cap.
-  example: Actual and Forecasted Budget email alerts.
+  meaning: A budget alert sends a notification when actual or forecast AWS cost reaches a threshold. It
+    can watch actual and forecast spending, but AWS resources continue running until something stops them.
+  example: Send email alerts for both Actual and Forecasted AWS Budgets.
+  why_it_matters: It gives early cost visibility before an experiment creates a surprise bill.
+  common_confusion: A budget alert sends a warning; it does not automatically stop AWS spending.
+  self_check: What action is still required after a budget alert reports unexpected AWS cost?
   introduced_in: 20
 - term: CloudWatch Logs
-  meaning: Where to store runtime logs on AWS; Need to avoid sensitive data and set
-    retention.
-  example: Log group Lambda keeps one day.
+  meaning: CloudWatch Logs stores runtime logs on AWS, where sensitive data and retention require deliberate
+    controls. Log groups need explicit retention, access control, and rules that prevent sensitive values
+    from being written.
+  example: Retain the Lambda log group for one day.
+  why_it_matters: It provides evidence for debugging while retention and privacy controls limit risk.
+  common_confusion: CloudWatch Logs stores runtime logs; CloudWatch metrics store numeric measurements.
+  self_check: Which Lambda evidence belongs in CloudWatch Logs, and which customer data should stay out?
   introduced_in: 20
 - term: IAM
-  meaning: AWS services manage identity and access according to the principle of least
-    permissions.
-  example: Lambda roles can only read the correct object model in S3.
+  meaning: AWS Identity and Access Management (IAM) controls identities and permissions using least privilege.
+    Policies attach allowed actions and resources to users, roles, or services.
+  example: The Lambda role can read only the required model object in S3.
+  why_it_matters: It limits what each AWS identity or service is allowed to do.
+  common_confusion: IAM controls access; security groups control network traffic.
+  self_check: What is the least S3 permission the inference Lambda role needs?
   introduced_in: 20
 - term: idempotent cleanup
-  meaning: The cleanup process can be run again safely and still aim for a clean state.
-  example: Cleanup exact project ID then scan again.
+  meaning: Idempotent cleanup can run repeatedly and still move toward the same clean state. It treats
+    already-absent resources as a successful state rather than a fatal error.
+  example: Clean up resources for the exact project ID, then scan again.
+  why_it_matters: It lets cleanup be retried safely after a partial failure.
+  common_confusion: Idempotent cleanup is safe to repeat; a one-shot delete may fail when partly completed.
+  self_check: Why should running the same cleanup command twice remain safe?
   introduced_in: 20
 - term: Lambda
-  meaning: The service runs serverless functions on request without managing the server.
-  example: Call private invoke to run tabular inference.
+  meaning: AWS Lambda runs functions on request without requiring users to manage servers. AWS provisions
+    the execution environment and charges for the resources used by each invocation.
+  example: Invoke the private Lambda function to run tabular inference.
+  why_it_matters: It runs inference on demand without maintaining a continuously running server.
+  common_confusion: Lambda is compute; S3 is object storage.
+  self_check: Which part of the tabular inference workflow runs inside Lambda?
   introduced_in: 20
 - term: residual scan
-  meaning: Check step after cleanup to find remaining project resources.
-  example: Scan CloudFormation, S3, Lambda, Logs and IAM.
+  meaning: A residual scan checks for project resources that remain after cleanup. It should check every
+    relevant service and identify anything that still needs removal.
+  example: Scan CloudFormation, S3, Lambda, CloudWatch Logs, and IAM.
+  why_it_matters: It verifies that cleanup actually removed the project resources.
+  common_confusion: A residual scan verifies absence; cleanup performs the deletion actions.
+  self_check: Which AWS services should the residual scan inspect after this project?
   introduced_in: 20
 - term: S3
-  meaning: AWS object storage service is used to store small artifacts.
-  example: Upload portable_model.json to private bucket.
+  meaning: Amazon S3 is an object storage service used here for small model artifacts. Each object has
+    a key inside a bucket and can be protected with IAM and encryption.
+  example: Upload portable_model.json to a private bucket.
+  why_it_matters: It stores model artifacts durably without placing them in the application image.
+  common_confusion: S3 stores objects in buckets; a file system exposes directories and file operations.
+  self_check: Which model file should be uploaded to the private S3 bucket?
   introduced_in: 20

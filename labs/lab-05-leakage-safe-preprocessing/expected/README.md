@@ -13,8 +13,11 @@ Add an unseen category. The pipeline must still predict without fitting again.
 
 ## Terminology oracle
 
-- The evidence shows that preprocessing transforms are fit only on the training set inside the pipeline. The new category is handled, with no data leakage.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** Splitting first and learning every preprocessing value from the training set keeps validation and test data outside the fitting boundary.
+
+**Evidence mapping:** Check that the transformer statistics come from training rows. The unknown-category prediction shows transform-only behavior, and `leakage_guard=true` records the intended pipeline path.
+
+**Misconception check:** Preprocessing can leak information even when it does not use the label. The starter status alone does not prove that every `fit` call used training data only.
 
 ## If your result differs
 

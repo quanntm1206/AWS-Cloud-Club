@@ -13,8 +13,11 @@ Report every fold and its runtime. Explain whether the variation matters compare
 
 ## Terminology oracle
 
-- The receipt has every fold score, mean, and standard deviation. Cross-validation refits the pipeline, and the learning curve explains overfitting or bias / variance.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** Cross-validation estimates how sensitive the score is to the split only when the full pipeline is fitted again inside every fold.
+
+**Evidence mapping:** Each fold score and runtime belongs to a separate fit. `cv_mean` and `cv_std` summarize stability, while the training and validation learning curves support the bias, variance, or overfitting discussion.
+
+**Misconception check:** The best fold is not the expected performance, and a fold is not the final untouched test set. The starter status is smoke evidence only.
 
 ## If your result differs
 

@@ -13,8 +13,11 @@ Calculate one row by hand, then compare the loop with `X @ w` using `np.allclose
 
 ## Terminology oracle
 
-- The evidence records the shapes of `feature`, `label / target`, and `parameter`. `vectorization` matches the loop within tolerance on the same dataset and samples.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** The loop and vectorized code should calculate the same dot product for every sample when the feature and parameter shapes match.
+
+**Evidence mapping:** Use the predicted shapes and hand calculation to explain the array roles. Then use both output arrays and `vectorization_matches_loop=true` to show that the two implementations agree within tolerance.
+
+**Misconception check:** Faster code is not automatically correct. The starter status does not replace the shape prediction, hand calculation, or comparison with the loop.
 
 ## If your result differs
 

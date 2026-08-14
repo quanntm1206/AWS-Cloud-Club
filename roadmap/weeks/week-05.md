@@ -23,7 +23,49 @@ Baseline creates an honest starting line. If the model is not yet beyond simple 
 
 **Review:** `dataset`, `sample`, `feature`, `label / target`, `prediction`
 
-**Use:** Create `data split` from `dataset` without duplicate samples into `training set`, `validation set`, `test set`; fit `baseline` on feature, perform `model validation`, compare prediction with label / target.
+**Use:** Create a `data split` with no duplicated `sample` across the `training set`, `validation set`, and `test set`; fit a `baseline`, perform `model validation`, then compare each `prediction` with its `label / target`.
+
+## Concept walkthrough
+
+### Splitting data for training
+
+**Mental model:** `data split`: How to divide a dataset into parts with different and non-overlapping roles. Typical roles are training, validation, and testing, with no sample shared across them. `training set`: The data subset used to learn model parameters and preprocessing state. Validation and test samples must not influence anything learned from this subset.
+
+**Why it matters:** A data split assigns roles before modeling, and only the training set may fit parameters.
+
+**Worked example:** `data split`: Divide 70% training, 15% validation, 15% testing. `training set`: Logistic regression calls fit only with the training set.
+
+**Easy to confuse:** A data split creates subsets; cross-validation rotates several folds through roles. The training set teaches the model; the validation set only guides choices.
+
+**Check yourself:** Why may the `training set`, but not the other splits, teach model parameters?
+
+### Validation and the untouched test
+
+**Mental model:** `validation set`: The data subset used to choose a model, threshold, or hyperparameter without fitting on it. It may be examined many times for decisions, but its labels must not enter fit. `test set`: A held-back data subset opened only after model and threshold choices are fixed. It must remain untouched by preprocessing fit, model selection, and threshold tuning.
+
+**Why it matters:** The validation set supports choices; the test set stays untouched until those choices are locked.
+
+**Worked example:** `validation set`: Choose a threshold with satisfactory recall on the validation set. `test set`: Run the test once after selecting logistic regression.
+
+**Easy to confuse:** The validation set guides choices; the test set checks the locked result. The test set is not another validation set for repeated tuning.
+
+**Check yourself:** Which decisions use the `validation set`, and when may the `test set` be opened?
+
+### Baseline and model validation
+
+**Mental model:** `baseline`: A simple benchmark used to judge whether a more complex model provides a real improvement. It can be a simple rule, a dummy model, or the smallest reasonable learned model. `model validation`: The process of evaluating model choices on data that was not used to fit the model. It includes comparing candidates and thresholds on validation data before the final test.
+
+**Why it matters:** A baseline defines the minimum useful result, while model validation tests whether an improvement survives unseen data.
+
+**Worked example:** `baseline`: A dummy classifier always predicts the most common class. `model validation`: Compare F1 on the validation set before opening the test set.
+
+**Easy to confuse:** A baseline is a comparison point, not necessarily the final model. Validation guides choices; testing estimates the final chosen system once.
+
+**Check yourself:** What evidence shows that a model beats the `baseline` under honest `model validation`?
+
+## Connect earlier terms
+
+The `dataset` and its `sample` rows now receive fixed roles before any model choice. Saved split indices show that each `feature` and `label / target` reaches exactly one split, while held-out `prediction` evidence remains independent.
 
 ## 8-10 hour schedule
 

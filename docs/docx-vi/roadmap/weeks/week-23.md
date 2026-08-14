@@ -23,7 +23,37 @@ threshold nào, được train từ run nào và artifact có bị thay đổi h
 
 **Ôn lại:** `Lambda`, `CloudWatch Logs`, `API contract`
 
-**Áp dụng:** Ghép `artifact` với private `inference`, sau cleanup chạy `residual scan`; ôn Lambda, CloudWatch Logs và API contract.
+**Áp dụng:** Ghép promoted `artifact` với private `inference`, rồi chạy `residual scan` sau cleanup; review evidence từ `Lambda`, `CloudWatch Logs` và `API contract` cùng nhau.
+
+## Giải thích khái niệm
+
+### Từ artifact đến inference
+
+**Cách hình dung:** `artifact`: File model, config, metric và metadata cần để tái tạo hoặc phục vụ dự đoán. Artifact cần được version và kèm đủ provenance để kiểm chứng cách nó được tạo. `inference`: Dùng model đã train để tạo prediction cho input mới. Nó phải áp đúng preprocessing và feature order đã học khi training.
+
+**Vì sao quan trọng:** Inference chỉ đáng tin khi artifact đã deploy truy được về local training evidence và schema chính xác.
+
+**Ví dụ xuyên suốt:** `artifact`: model.joblib và manifest.json tạo thành artifact. `inference`: Load artifact rồi dự đoán churn cho một khách hàng mới.
+
+**Dễ nhầm với:** Artifact là gói model đã lưu; checkpoint là training state để resume. Inference dùng model đã train; training cập nhật parameter của model.
+
+**Tự kiểm tra:** Mỗi `inference` result có truy được deployed `artifact` về schema và source run không?
+
+### Residual scan sau lần chạy
+
+**Cách hình dung:** `residual scan`: Bước kiểm sau cleanup để tìm tài nguyên project còn sót. Nó phải kiểm mọi service liên quan và chỉ ra phần nào vẫn cần xóa.
+
+**Vì sao quan trọng:** Residual scan là bằng chứng sau cleanup rằng cloud demo ngắn không để lại project resource đã biết.
+
+**Ví dụ xuyên suốt:** `residual scan`: Residual scan kiểm CloudFormation, S3, Lambda, CloudWatch Logs và IAM.
+
+**Dễ nhầm với:** Residual scan xác minh không còn resource; cleanup thực hiện hành động xóa.
+
+**Tự kiểm tra:** `residual scan` phải kiểm những service nào sau cloud run ngắn?
+
+## Kết nối kiến thức cũ
+
+`Lambda` response, `CloudWatch Logs` và `API contract` giờ đi cùng promoted artifact như deployment evidence. Scan sau cleanup khép vòng kiểm bằng cách xác nhận cloud run ngắn không để lại resource đã biết.
 
 ## Lịch 8-10 giờ
 

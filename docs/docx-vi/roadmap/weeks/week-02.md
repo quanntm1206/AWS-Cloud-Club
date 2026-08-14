@@ -23,7 +23,37 @@ NumPy là ngôn ngữ chung của dữ liệu dạng số. Hiểu shape và axis
 
 **Ôn lại:** `dataset`, `sample`, `schema`
 
-**Áp dụng:** Biểu diễn mỗi `sample` thành vector `feature`, giữ `label / target` để diễn giải bài toán, dùng vectorization tính model output từ `parameter`; ghi `dataset` và `schema` của mảng.
+**Áp dụng:** Biểu diễn mỗi `sample` thành vector `feature` nhưng giữ riêng `label / target`; dùng `vectorization` để tính output từ các `parameter` đã học, rồi ghi lại `dataset` và `schema` của array.
+
+## Giải thích khái niệm
+
+### Input và outcome
+
+**Cách hình dung:** `feature`: Thông tin đầu vào model dùng để tạo dự đoán. Feature phải có cả khi training lẫn khi hệ thống nhận yêu cầu prediction mới. `label / target`: Kết quả cần dự đoán và dùng để học hoặc đánh giá model. Trong supervised learning, feature của mỗi training sample đi cùng đáp án đã biết này.
+
+**Vì sao quan trọng:** Model chỉ có thể học đúng khi input được tách rõ khỏi outcome cần dự đoán.
+
+**Ví dụ xuyên suốt:** `feature`: Tenure và monthly_charges là hai feature của bài toán churn. `label / target`: Churn=1 là label cho khách đã rời đi.
+
+**Dễ nhầm với:** Feature là input; label hoặc target là đáp án cần dự đoán. Label là truth quan sát được; prediction là đáp án model ước lượng.
+
+**Tự kiểm tra:** Trong bài toán churn, cột nào là `feature` và field nào là `label / target`?
+
+### Parameter đã học và vectorized computation
+
+**Cách hình dung:** `parameter`: Giá trị model học từ dữ liệu trong lúc training. Parameter gồm weight và bias thay đổi khi training giảm loss. `vectorization`: Thực hiện phép tính trên cả mảng thay vì lặp từng phần tử bằng Python. Phép toán trên array giúp thư viện số học tối ưu xử lý nhiều giá trị cùng lúc.
+
+**Vì sao quan trọng:** Parameter lưu phần training học được; vectorization áp dụng phép tính đã học nhất quán trên nhiều sample.
+
+**Ví dụ xuyên suốt:** `parameter`: Các trọng số trong vector w của hồi quy tuyến tính là parameter. `vectorization`: Dùng X @ w để tính score cho mọi sample.
+
+**Dễ nhầm với:** Parameter được học khi fit; hyperparameter được chọn trước hoặc quanh quá trình fit. Vectorization đổi cách biểu diễn phép tính, không đổi mục tiêu toán học.
+
+**Tự kiểm tra:** Training học gì thành `parameter`, còn `vectorization` thực hiện phần việc nào?
+
+## Kết nối kiến thức cũ
+
+`dataset`, `sample` và `schema` từ tuần trước giờ trở thành biểu diễn số: mỗi sample ánh xạ thành một feature vector có shape rõ ràng. Array shape và vectorized output đã lưu cho biết biểu diễn đó có nhất quán hay không.
 
 ## Lịch 8-10 giờ
 

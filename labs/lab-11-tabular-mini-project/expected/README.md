@@ -13,8 +13,11 @@ Train, save, and load in a new process. Complete the local experiment report and
 
 ## Terminology oracle
 
-- The manifest lists the artifact, checksum, and config. Inference after loading preserves the output, and the mini-project records a limitation.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** A fixed schema, split, and pipeline should create an artifact whose contract is recorded in the manifest. Loading it in a new process should preserve predictions within tolerance.
+
+**Evidence mapping:** The command, configuration, schema, and split describe the training run. The manifest and checksum identify the saved files, while the paired predictions show inference parity.
+
+**Misconception check:** Saving only the estimator does not preserve the complete artifact contract. The starter status is smoke evidence, not proof that the mini-project is reproducible.
 
 ## If your result differs
 

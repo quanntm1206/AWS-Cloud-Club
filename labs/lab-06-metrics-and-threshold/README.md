@@ -14,6 +14,37 @@ A threshold of 0.5 does not understand business costs. Choose a threshold from v
 
 **Explain it yourself:** Which metric and threshold suit the class imbalance? How is the validation set used?
 
+
+## Apply the concepts
+
+### Error costs
+
+**Terms:** `class imbalance`, `baseline`, `metric`, `precision / recall / F1`
+
+**What they mean here:** With `class imbalance`, the chosen `metric` and the trade-off between `precision / recall / F1` should reflect the costs of false positives and false negatives. Compare the result with the `baseline`.
+
+**Where you will see them:** Class counts, confusion matrices, F1, PR-AUC, and dummy results appear together.
+
+**Common mistake:** Choosing whichever metric makes the current model look strongest.
+
+**Evidence to keep:** Keep support, metric declaration, baseline, and FP/FN cost assumptions.
+
+**Explain after the lab:** Explain which error matters more and why the metric exposes it.
+
+### Locked cutoff
+
+**Terms:** `threshold`, `validation set`, `model validation`
+
+**What they mean here:** A `threshold` turns probability scores into class predictions. During `model validation`, choose it on the `validation set` with a written rule, then keep it unchanged for the test set.
+
+**Where you will see them:** Candidate validation matrices lead to `validation_threshold`, reused for test metrics.
+
+**Common mistake:** Moving the threshold after reading the test confusion matrix.
+
+**Evidence to keep:** Keep all candidates, validation costs, rule, chosen threshold, and locked test result.
+
+**Explain after the lab:** Reconstruct the choice without using test performance as selection evidence.
+
 ## Before you start
 
 Read `roadmap/weeks/week-07.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

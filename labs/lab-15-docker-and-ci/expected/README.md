@@ -13,8 +13,11 @@ Run build, start, logs, health, prediction, and stop as described in the lab.
 
 ## Terminology oracle
 
-- The container runs as non-root. CI tests the package, artifact, and API contract offline. The container is cleaned up, and CI does not deploy to AWS.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** The container must run the artifact-backed API as a non-root user and be stopped after the checks. CI should repeat offline tests without deploying anything to AWS.
+
+**Evidence mapping:** The image tag, user ID, API responses, logs, timings, and stop result describe the container lifecycle. The workflow results and explicit no-deploy check describe the CI path.
+
+**Misconception check:** A successful image build does not prove that the service is healthy, and CI is not production monitoring. The starter status only inspects the reference contract.
 
 ## If your result differs
 

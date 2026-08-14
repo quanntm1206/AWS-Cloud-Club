@@ -24,7 +24,37 @@ Metric phải phản ánh loại sai lầm bạn thật sự quan tâm. Threshol
 
 **Ôn lại:** `validation set`, `model validation`, `baseline`
 
-**Áp dụng:** Dùng `validation set` cho `model validation`: chọn metric precision / recall / F1 và threshold theo class imbalance, so với baseline; giữ test set đóng đến cuối.
+**Áp dụng:** Dùng `validation set` cho `model validation`; chọn `metric` trong `precision / recall / F1`, đặt `threshold` theo `class imbalance`, so với `baseline`, và giữ test set đóng.
+
+## Giải thích khái niệm
+
+### Metric phục vụ quyết định
+
+**Cách hình dung:** `metric`: Con số đo một khía cạnh chất lượng; phải chọn theo mục tiêu và chi phí lỗi. Không metric nào mô tả mọi mặt chất lượng nên phải nêu rõ ý nghĩa của metric đã chọn. `precision / recall / F1`: Precision chú trọng dự đoán dương đúng, recall chú trọng tìm đủ mẫu dương, F1 cân bằng hai phía. Cả ba đều tính từ confusion-matrix count nhưng trả lời những câu hỏi khác nhau.
+
+**Vì sao quan trọng:** Metric phải phản ánh cost của lỗi; precision, recall và F1 cho thấy các trade-off mà accuracy che đi.
+
+**Ví dụ xuyên suốt:** `metric`: Recall đo tỷ lệ khách churn được tìm thấy. `precision / recall / F1`: Bài churn ưu tiên recall nhưng vẫn theo dõi precision.
+
+**Dễ nhầm với:** Metric là thước đo; loss là mục tiêu được tối ưu khi training. Precision hỏi prediction dương có đúng không; recall hỏi đã tìm được bao nhiêu mẫu dương.
+
+**Tự kiểm tra:** Cost của loại lỗi nào khiến recall phù hợp hơn precision cho `metric` đã chọn?
+
+### Threshold đổi trade-off
+
+**Cách hình dung:** `threshold`: Ngưỡng chuyển score hoặc xác suất thành nhãn quyết định. Giảm threshold thường tìm được nhiều positive case hơn nhưng cũng tăng false alarm. `class imbalance`: Tình trạng số mẫu giữa các class chênh lệch lớn. Minority class có thể ảnh hưởng quá ít tới accuracy hoặc quá trình model học.
+
+**Vì sao quan trọng:** Threshold biến score thành action; class imbalance làm thay đổi lượng evidence mỗi class đóng góp.
+
+**Ví dụ xuyên suốt:** `threshold`: Xác suất từ 0.35 trở lên được gắn nhãn churn. `class imbalance`: Chỉ 8% khách churn nên accuracy dễ gây hiểu nhầm.
+
+**Dễ nhầm với:** Threshold đổi quyết định, không đổi predicted probability gốc. Class imbalance mô tả số lượng label, không tự nói lên chi phí kinh doanh.
+
+**Tự kiểm tra:** `Class imbalance` làm quyết định thay đổi ra sao khi di chuyển `threshold`?
+
+## Kết nối kiến thức cũ
+
+`validation set` và quy trình `model validation` giờ hỗ trợ metric cùng threshold theo quyết định thực tế. So sánh với `baseline` cho biết precision-recall trade-off đã chọn có thật sự cải thiện hay không.
 
 ## Lịch 8-10 giờ
 

@@ -13,8 +13,11 @@ Review errors with a sampling rule and support. Propose one data fix and one mod
 
 ## Terminology oracle
 
-- Each slice has a metric and support. The failure taxonomy connects to failure records, and error analysis produces the next experiment.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** Every slice metric needs its support. The sampled failures should lead to an evidence-based taxonomy and an experiment that could disprove the proposed explanation.
+
+**Evidence mapping:** For each slice, read the rule, support, false-positive and false-negative counts, and metric together. Then connect the capped failure records to their categories and proposed tests.
+
+**Misconception check:** A few memorable errors are not systematic error analysis, and a tiny group does not support a broad fairness claim. The starter output only shows the expected format.
 
 ## If your result differs
 

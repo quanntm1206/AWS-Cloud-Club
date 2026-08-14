@@ -23,7 +23,49 @@ Preprocessing also learns from data. Placing it in the pipeline keeps the train/
 
 **Review:** `data split`, `training set`, `validation set`, `test set`, `schema`
 
-**Use:** Divide by `data split` first, fit each `preprocessing`/`transform` step only on `training set`, merge into `pipeline`; Use schema to prove there is no `data leakage` to validation set/test set.
+**Use:** Create the `data split` first, fit each `preprocessing` and `transform` step only on the `training set`, then assemble the `pipeline`; use the `schema` and split lineage to rule out `data leakage` into validation or test data.
+
+## Concept walkthrough
+
+### Learning a transformation
+
+**Mental model:** `preprocessing`: Preprocessing prepares raw data for a model by filling missing values, scaling numbers, or encoding categories. Some steps are fixed, while others learn values such as medians, category lists, or scaling statistics. `transform`: A transform applies a fixed rule or state learned from the training set to input data. The same fitted transform should then be reused for validation, test, and inference data.
+
+**Why it matters:** Every preprocessing rule that learns statistics must learn them from the training data only.
+
+**Worked example:** `preprocessing`: Fill in the median and then one-hot encode the contract column. `transform`: StandardScaler learns mean and std from training and applies it to validation.
+
+**Easy to confuse:** Preprocessing may learn state, so it is not always a harmless fixed cleanup. A transform applies a rule; fit learns any state required by that rule.
+
+**Check yourself:** Which state may `preprocessing` learn, and how must the same `transform` reach later data?
+
+### Pipeline order and leakage
+
+**Mental model:** `pipeline`: A pipeline runs preprocessing and modeling steps in a fixed order. When the pipeline is fitted, each learned preprocessing step sees only training data. `data leakage`: Data leakage happens when training uses information from validation, testing, or the future. Leakage can come from future data, target-derived features, duplicate customers, or preprocessing before a split.
+
+**Why it matters:** A pipeline preserves operation order; that boundary prevents information from leaking from validation or test data.
+
+**Worked example:** `pipeline`: A Pipeline connects a ColumnTransformer to logistic regression. `data leakage`: Fitting a scaler on the entire dataset before splitting leaks test information.
+
+**Easy to confuse:** A pipeline is the ordered container; preprocessing is only the data-preparation part. Leakage can occur without duplicate rows, such as fitting a scaler before splitting.
+
+**Check yourself:** Where can `data leakage` enter when the `pipeline` is fitted in the wrong order?
+
+### Fit learns state
+
+**Mental model:** `fit`: The step of learning parameters or transform states from training data. For a scaler, fit learns statistics; for a model, fit learns predictive parameters.
+
+**Why it matters:** Fit changes an object's state, so recording what was fitted and on which rows is part of reproducibility.
+
+**Worked example:** `fit`: Call pipeline.fit(X_train, y_train).
+
+**Easy to confuse:** Fit learns state; transform applies a learned or fixed transformation.
+
+**Check yourself:** Which rows are allowed to influence state during `fit`?
+
+## Connect earlier terms
+
+The earlier `data split`, `training set`, `validation set`, `test set`, and `schema` define where preprocessing may learn state. Fitted-state metadata and unchanged held-out rows show that the pipeline respects those boundaries.
 
 ## 8-10 hour schedule
 

@@ -13,8 +13,11 @@ Add checks for a missing column, wrong dtype, unseen category, and damaged artif
 
 ## Terminology oracle
 
-- The data contract rejects an invalid schema. Artifact reload parity meets the tolerance, and negative tests produce intentional errors.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** The data contract should reject each intentional boundary violation. The fit-save-load-predict check should also preserve numerical behavior within a stated tolerance.
+
+**Evidence mapping:** Match every invalid case with its rule and expected error. Then compare the predictions, checksum, tolerance, and `artifact_reload_parity=true` result for the saved artifact.
+
+**Misconception check:** A file that loads has not yet proved parity, and exact floating-point equality can be too strict. The starter status does not replace the negative tests.
 
 ## If your result differs
 

@@ -23,7 +23,37 @@ Notebooks help with quick discovery; package helps logic have clear inputs, is r
 
 **Review:** `reproducibility`, `pipeline`, `artifact`
 
-**Use:** Split pipeline into `package`; put seed and hyperparameter in `configuration`, rerun to keep reproducibility, artifact and inference independent of notebook state.
+**Use:** Move the `pipeline` into a reusable `package`; store the seed and hyperparameters in `configuration`, then rerun to show that `reproducibility`, the `artifact`, and inference no longer depend on notebook state.
+
+## Concept walkthrough
+
+### Code as a package
+
+**Mental model:** `package`: A package organizes Python code into modules that tests, CLIs, notebooks, and services can import. An installable package avoids copying important logic between notebooks.
+
+**Why it matters:** A package gives the production path explicit imports and entry points instead of hidden notebook state.
+
+**Worked example:** `package`: Put the training logic in src/ml_roadmap instead of copying it between notebooks.
+
+**Easy to confuse:** A package organizes code; a container bundles the runtime environment.
+
+**Check yourself:** Can the `package` be imported and tested without running a notebook?
+
+### Behavior through configuration
+
+**Mental model:** `configuration`: Configuration is the set of values that controls a run and is saved for reruns and comparisons. It belongs outside reusable code so one setting can change without editing program logic.
+
+**Why it matters:** Configuration makes behavior reviewable and repeatable without changing source code for every run.
+
+**Worked example:** `configuration`: Config YAML records seed, feature and threshold.
+
+**Easy to confuse:** Configuration controls a run; learned parameters are model state.
+
+**Check yourself:** Which values belong in `configuration` rather than source code or learned model state?
+
+## Connect earlier terms
+
+The earlier `reproducibility`, `pipeline`, and `artifact` requirements now extend beyond notebook state. A clean CLI rerun from saved configuration provides the new evidence.
 
 ## 8-10 hour schedule
 

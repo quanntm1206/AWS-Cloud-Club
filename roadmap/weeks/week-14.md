@@ -23,7 +23,37 @@ ML systems fail not just because of poor models. Schema changes, strange categor
 
 **Review:** `schema`, `pipeline`, `artifact`, `reproducibility`
 
-**Use:** Write `data contract` for schema; test `parity` fit-save-load-predict of pipeline/artifact, negative case for wrong sample and tolerance for reproducibility.
+**Use:** Write a `data contract` for the `schema`; test `parity` across fit, save, load, and predict for the `pipeline` and `artifact`, including an invalid sample and a stated reproducibility tolerance.
+
+## Concept walkthrough
+
+### A contract at the boundary
+
+**Mental model:** `data contract`: A data contract is a machine-readable agreement about data schema, allowed values, and validation errors. Both producers and consumers can validate the same contract at their boundary.
+
+**Why it matters:** A data contract turns schema expectations into checks at the boundary before bad inputs reach the model.
+
+**Worked example:** `data contract`: A request missing the tenure field is rejected before it reaches the model.
+
+**Easy to confuse:** A data contract governs data; an API contract governs service requests and responses.
+
+**Check yourself:** Which invalid input should the `data contract` reject before the model runs?
+
+### Training-serving parity
+
+**Mental model:** `parity`: Parity means two paths produce sufficiently consistent results for the same input. The acceptable tolerance depends on whether outputs are labels, probabilities, or floating-point arrays.
+
+**Why it matters:** Parity evidence shows that training and serving apply the same feature order, transformations, and decision rule.
+
+**Worked example:** `parity`: Predictions before and after save/load match within the stated tolerance.
+
+**Easy to confuse:** Parity means sufficiently matching behavior, not necessarily byte-identical files.
+
+**Check yourself:** What tolerance proves `parity` between the training and serving paths?
+
+## Connect earlier terms
+
+The `schema` becomes an executable data contract around the `pipeline` and `artifact`. Matching predictions within a stated tolerance demonstrate `reproducibility` across save and load boundaries.
 
 ## 8-10 hour schedule
 

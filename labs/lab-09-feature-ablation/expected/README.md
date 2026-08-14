@@ -13,8 +13,11 @@ Change only one feature group. Record the hypothesis, metric delta, and keep/dro
 
 ## Terminology oracle
 
-- The ablation changes one feature-engineering group and keeps the data split and baseline fixed. The receipt records the metric delta and decision.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** An ablation can link a score change to one feature group only when the split, seed, model, and hyperparameters stay fixed.
+
+**Evidence mapping:** The written hypothesis explains the feature-engineering idea. AUC by feature group and `single_change` show the controlled comparison, while `test_set_touched=false` confirms the evaluation boundary.
+
+**Misconception check:** A positive score difference is not automatically stable or causal. The starter status is not the final decision to keep the feature.
 
 ## If your result differs
 

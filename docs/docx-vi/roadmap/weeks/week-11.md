@@ -24,7 +24,37 @@ Model tốt trung bình vẫn có thể tệ với một nhóm nhỏ. Error anal
 
 **Ôn lại:** `metric`, `validation set`, `feature engineering`
 
-**Áp dụng:** Chạy `error analysis` theo từng `slice`, luôn ghi sample count; tạo `failure taxonomy` từ prediction sai, liên hệ feature engineering và metric trên validation set.
+**Áp dụng:** Chạy `error analysis` cho từng `slice` và ghi sample count; tạo `failure taxonomy` từ prediction sai, rồi nối từng category với `feature engineering` và `metric` trên `validation set`.
+
+## Giải thích khái niệm
+
+### Từ score đến failure slice
+
+**Cách hình dung:** `error analysis`: Phân tích có hệ thống các dự đoán sai để tạo giả thuyết và bước kiểm tiếp. Người phân tích xem false positive và false negative theo từng example và group. `slice`: Nhóm sample có đặc điểm chung được tách ra để kiểm hành vi model. Cần so kết quả slice với kết quả tổng và luôn báo kèm support.
+
+**Vì sao quan trọng:** Error analysis biến aggregate metric thành thông tin hành động được bằng cách tìm slice nơi failure tập trung.
+
+**Ví dụ xuyên suốt:** `error analysis`: Xem false negative theo loại hợp đồng. `slice`: Slice khách mới có tenure dưới ba tháng.
+
+**Dễ nhầm với:** Error analysis nghiên cứu failure thật; metric chỉ tóm tắt chúng. Slice là subgroup có ý nghĩa; data split giao vai trò training hoặc evaluation.
+
+**Tự kiểm tra:** `slice` nào tập trung các lỗi tìm thấy trong `error analysis`?
+
+### Đặt tên failure pattern
+
+**Cách hình dung:** `failure taxonomy`: Cách phân nhóm lỗi theo nguyên nhân quan sát được thay vì gom mọi lỗi chung. Category hữu ích phải đủ cụ thể để đếm và nối với một hướng xử lý.
+
+**Vì sao quan trọng:** Failure taxonomy biến triệu chứng lặp lại thành category có tên để đếm, ưu tiên và retest.
+
+**Ví dụ xuyên suốt:** `failure taxonomy`: Gắn lỗi vào data, boundary, missing signal hoặc label noise.
+
+**Dễ nhầm với:** Failure taxonomy đặt tên nhóm lỗi; confusion matrix chỉ nhóm lỗi theo class label.
+
+**Tự kiểm tra:** Mọi failure quan sát được có gán vào một category hành động được trong `failure taxonomy` không?
+
+## Kết nối kiến thức cũ
+
+Aggregate `metric` trên `validation set` giờ dẫn tới từng failure và slice cụ thể. Nối mỗi category về `feature engineering` biến lỗi đã thấy thành thay đổi có thể kiểm chứng.
 
 ## Lịch 8-10 giờ
 

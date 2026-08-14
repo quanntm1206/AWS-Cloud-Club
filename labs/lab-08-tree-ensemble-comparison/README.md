@@ -14,6 +14,37 @@ Trees, random forests, and boosting learn differently. A comparison is meaningfu
 
 **Explain it yourself:** How is a parameter different from a hyperparameter? What is the intuitive difference between bagging and boosting?
 
+
+## Apply the concepts
+
+### Controlled candidates
+
+**Terms:** `baseline`, `validation set`, `metric`, `hyperparameter`, `overfitting`
+
+**What they mean here:** Keep the `baseline`, split, `metric`, and compute budget fixed while one `hyperparameter` changes. A growing gap between training and validation results may indicate `overfitting`.
+
+**Where you will see them:** Candidates report validation AUC, runtime, and saved size under one split.
+
+**Common mistake:** Giving the preferred model more tuning or compute.
+
+**Evidence to keep:** Keep settings, runtime, size, and train-validation results.
+
+**Explain after the lab:** State what was controlled and why test AUC did not choose a hyperparameter.
+
+### Ensemble strategies
+
+**Terms:** `ensemble`, `bagging / boosting`
+
+**What they mean here:** An `ensemble` combines learners; `bagging / boosting` contrasts parallel variance reduction with sequential error correction.
+
+**Where you will see them:** Random forest represents bagging and gradient boosting represents boosting.
+
+**Common mistake:** Explaining both as interchangeable averaging of identical trees.
+
+**Evidence to keep:** Keep selected model, strategy, changed complexity limit, and observed effect.
+
+**Explain after the lab:** Describe learner dependence in each strategy and connect it to results.
+
 ## Before you start
 
 Read `roadmap/weeks/week-09.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

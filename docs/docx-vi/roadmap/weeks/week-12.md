@@ -23,7 +23,37 @@ Mini-project là lúc ghép các mảnh thành một quy trình người khác c
 
 **Ôn lại:** `schema`, `data split`, `pipeline`
 
-**Áp dụng:** Khóa schema và data split, chạy pipeline; lưu `artifact` kèm `manifest`, load ở process mới để inference, rồi so baseline/metric và checksum.
+**Áp dụng:** Khóa `schema` và `data split`, rồi chạy `pipeline`; lưu `artifact` kèm `manifest`, load trong process mới để `inference`, sau đó so prediction, metric và checksum.
+
+## Giải thích khái niệm
+
+### Artifact và manifest
+
+**Cách hình dung:** `artifact`: File model, config, metric và metadata cần để tái tạo hoặc phục vụ dự đoán. Artifact cần được version và kèm đủ provenance để kiểm chứng cách nó được tạo. `manifest`: Bản kê mô tả nội dung, phiên bản, checksum và nguồn gốc artifact. Checksum giúp phát hiện file bị đổi, còn metadata giải thích cách tạo các file đó.
+
+**Vì sao quan trọng:** Artifact chỉ hữu ích khi manifest xác định đúng schema, configuration, checksum và source run.
+
+**Ví dụ xuyên suốt:** `artifact`: model.joblib và manifest.json tạo thành artifact. `manifest`: Manifest ghi seed, feature order và SHA-256 checksum.
+
+**Dễ nhầm với:** Artifact là gói model đã lưu; checkpoint là training state để resume. Manifest mô tả file và provenance; artifact chứa các file thật.
+
+**Tự kiểm tra:** Reviewer có xác định được mọi file và source run chỉ từ `artifact` và `manifest` không?
+
+### Inference từ state đã lưu
+
+**Cách hình dung:** `inference`: Dùng model đã train để tạo prediction cho input mới. Nó phải áp đúng preprocessing và feature order đã học khi training.
+
+**Vì sao quan trọng:** Inference phải tái tạo preprocessing và feature order lúc training mà không phụ thuộc notebook state.
+
+**Ví dụ xuyên suốt:** `inference`: Load artifact rồi dự đoán churn cho một khách hàng mới.
+
+**Dễ nhầm với:** Inference dùng model đã train; training cập nhật parameter của model.
+
+**Tự kiểm tra:** `inference` có tái tạo cùng preprocessing và feature order mà không dựa vào notebook state không?
+
+## Kết nối kiến thức cũ
+
+`schema`, `data split` và `pipeline` đã lưu giờ trở thành provenance trong artifact manifest. Prediction sau reload cùng checksum khớp cho thấy process mới dùng đúng learned path.
 
 ## Lịch 8-10 giờ
 

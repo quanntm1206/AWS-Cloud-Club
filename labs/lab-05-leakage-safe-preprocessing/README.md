@@ -14,6 +14,37 @@ Imputers, scalers, and encoders all learn from data. Keep them in one pipeline s
 
 **Explain it yourself:** Why must preprocessing transforms be fit after the data split and only on the training set?
 
+
+## Apply the concepts
+
+### Learning boundary
+
+**Terms:** `data split`, `fit`, `training set`, `validation set`, `test set`, `data leakage`
+
+**What they mean here:** Every preprocessing value and model parameter must be learned by calling `fit` on the `training set` only. If validation or test data influences those values, you have `data leakage`.
+
+**Where you will see them:** The split precedes every fitted transformer, whose statistics trace to training rows only.
+
+**Common mistake:** Fitting label-free preprocessing on the full table; feature distributions still leak.
+
+**Evidence to keep:** Keep the split sizes and the learned imputer and scaler values beside the training-only calculation that produced them.
+
+**Explain after the lab:** Name every operation that learns state and show where its fit input stops.
+
+### One transform path
+
+**Terms:** `pipeline`, `preprocessing`, `transform`
+
+**What they mean here:** The `pipeline` puts each `preprocessing` operation and the model in one ordered path. The `transform` step applies rules that were already learned, without fitting them again.
+
+**Where you will see them:** The `ColumnTransformer`, unknown validation category, prediction, and `leakage_guard=true` exercise one path.
+
+**Common mistake:** Calling `fit_transform` on validation data to make an unknown category pass.
+
+**Evidence to keep:** Keep pipeline steps, unknown-category prediction, and the guard field.
+
+**Explain after the lab:** Trace the validation row through the pipeline and name the unchanged state.
+
 ## Before you start
 
 Read `roadmap/weeks/week-06.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

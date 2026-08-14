@@ -23,7 +23,37 @@ EDA không phải cuộc thi vẽ nhiều biểu đồ. Đây là lúc bạn tì
 
 **Ôn lại:** `dataset`, `sample`, `feature`, `label / target`
 
-**Áp dụng:** Chạy `data validation` trên `dataset`: kiểm `schema`, `missing value`, `outlier`; dùng EDA mô tả feature và label / target ở cấp sample.
+**Áp dụng:** Chạy `data validation` trên `dataset` theo `schema`, gồm check `missing value` và `outlier`; dùng `EDA` để mô tả từng `feature` và `label / target` ở cấp sample.
+
+## Giải thích khái niệm
+
+### Tin dữ liệu trước khi modeling
+
+**Cách hình dung:** `data validation`: Kiểm dữ liệu có đúng schema và quy tắc chất lượng trước khi dùng hay không. Các check có thể từ chối hoặc báo row không hợp lệ trước khi row đi vào workflow. `EDA`: Khám phá dữ liệu bằng thống kê và biểu đồ để hiểu chất lượng, phân bố và câu hỏi cần kiểm tiếp. EDA bắt đầu từ câu hỏi rồi dùng summary và plot để điều tra.
+
+**Vì sao quan trọng:** Data validation thực thi rule đã biết; EDA tìm distribution và pattern có thể dẫn tới rule mới.
+
+**Ví dụ xuyên suốt:** `data validation`: Phát hiện ID trùng, tuổi âm hoặc target thiếu. `EDA`: So sánh churn rate tổng với churn rate của từng nhóm hợp đồng.
+
+**Dễ nhầm với:** Data validation áp quy tắc đã biết; EDA tìm pattern và câu hỏi mới. EDA khám phá và tạo giả thuyết; model validation đánh giá lựa chọn model.
+
+**Tự kiểm tra:** Check nào thuộc `data validation`, còn câu hỏi nào cần `EDA`?
+
+### Missingness và giá trị bất thường
+
+**Cách hình dung:** `missing value`: Giá trị bị thiếu hoặc không được ghi nhận trong dataset. Tùy schema, nó có thể được biểu diễn bằng null, NaN hoặc marker đã thống nhất. `outlier`: Quan sát khác xa phần lớn dữ liệu; cần điều tra trước khi xóa hoặc sửa. Cần dùng hiểu biết domain để tìm nguyên nhân trước khi xóa hoặc cap giá trị này.
+
+**Vì sao quan trọng:** Missing value và outlier có thể là lỗi hoặc signal thật, nên phải tìm cơ chế trước khi thay đổi chúng.
+
+**Ví dụ xuyên suốt:** `missing value`: Một số sample không có monthly_charges. `outlier`: Một hóa đơn cao bất thường có thể là lỗi hoặc khách doanh nghiệp thật.
+
+**Dễ nhầm với:** Missing value là không có giá trị; số 0 vẫn có thể là giá trị hợp lệ. Outlier là bất thường, không tự động đồng nghĩa với sai.
+
+**Tự kiểm tra:** Bạn dựa vào evidence nào để biết `missing value` hoặc `outlier` là lỗi hay signal hữu ích?
+
+## Kết nối kiến thức cũ
+
+Một `dataset` chỉ đáng tin khi từng `sample`, `feature` và `label / target` qua quality check rõ ràng. Kết quả validation cùng EDA summary cung cấp evidence thay vì chỉ dựa vào row count.
 
 ## Lịch 8-10 giờ
 

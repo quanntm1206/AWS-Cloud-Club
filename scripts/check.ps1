@@ -12,6 +12,7 @@ function Invoke-Checked {
 if ($Scope -eq 'bootstrap') { Invoke-Checked @('-c', 'import ml_roadmap; print(ml_roadmap.__version__)'); exit 0 }
 Invoke-Checked @('scripts/validate_curriculum.py')
 Invoke-Checked @('scripts/validate_learner_docs.py')
+Invoke-Checked @('scripts/build_glossary_markdown.py', '--check')
 Invoke-Checked @('scripts/validate_sources.py')
 Invoke-Checked @('scripts/validate_notebooks.py')
 Invoke-Checked @('scripts/validate_aws_safety.py')

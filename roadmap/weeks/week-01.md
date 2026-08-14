@@ -23,7 +23,49 @@ A clear workflow helps you know which decision the model serves, instead of star
 
 **Review:** None - this is the first lab.
 
-**Use:** Open smoke `dataset`, count each `sample`, compare `schema`, fix `seed` then run twice to check `reproducibility`.
+**Use:** Inspect the smoke `dataset`, count its `sample` rows, validate the `schema`, fix the `seed`, then run twice to check `reproducibility`.
+
+## Concept walkthrough
+
+### Rows, collections, and rules
+
+**Mental model:** `dataset`: A collection of samples used for analysis or model training. It usually has rows of samples and columns of features. `sample`: One observation in a dataset, usually one row or one image. Every sample has the same expected structure but different observed values.
+
+**Why it matters:** A dataset gives the project its evidence, while samples define the units counted by splits, predictions, and metrics.
+
+**Worked example:** `dataset`: A churn file has 300 customers, with columns describing each customer. `sample`: One customer is a sample in the churn table.
+
+**Easy to confuse:** A dataset is the whole collection; a sample is one item inside it. A sample is one observation, while a feature is one input value or column describing it.
+
+**Check yourself:** When counting churn evidence, how does a `sample` differ from the `dataset`?
+
+### Schema rules and repeatable runs
+
+**Mental model:** `schema`: A description of input column names, data types, and valid rules. It also states constraints such as required columns, allowed categories, and numeric ranges. `reproducibility`: The ability to rerun the same data, code, and settings and get comparable results. It requires recording data, code, dependencies, configuration, and random controls.
+
+**Why it matters:** A schema detects structural drift; reproducibility shows whether the same procedure still gives comparable evidence.
+
+**Worked example:** `schema`: The tenure column must be non-negative; churn accepts only 0 or 1. `reproducibility`: Two terminals use the same seed and produce the same row count and metric within tolerance.
+
+**Easy to confuse:** A schema describes allowed structure; data validation checks actual data against it. The same seed helps reproducibility, but changed code or packages can still change results.
+
+**Check yourself:** Would a changed column type break the `schema`, `reproducibility`, or both?
+
+### Seed controls randomness
+
+**Mental model:** `seed`: A starting number for random generation so splits or initialization can be repeated. Reusing it starts the same pseudorandom sequence in supported operations.
+
+**Why it matters:** A seed controls one random sequence, so it is useful only when data, code, configuration, and environment are also recorded.
+
+**Worked example:** `seed`: Set seed 42 before creating demo data.
+
+**Easy to confuse:** A seed controls a random sequence, not every source of nondeterminism.
+
+**Check yourself:** What must stay fixed before the same `seed` makes two runs comparable?
+
+## Connect earlier terms
+
+There are no earlier course terms to review in Week 01. The environment report establishes the first evidence by recording the `dataset`, `seed`, and repeated-run result for later comparison.
 
 ## 8-10 hour schedule
 

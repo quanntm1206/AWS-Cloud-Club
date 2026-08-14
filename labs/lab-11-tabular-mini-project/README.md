@@ -14,6 +14,37 @@ This mini-project checks whether the complete path from data to artifact can run
 
 **Explain it yourself:** How do artifact, manifest, and inference work together to make the pipeline repeatable?
 
+
+## Apply the concepts
+
+### Repeatable training contract
+
+**Terms:** `schema`, `data split`, `pipeline`
+
+**What they mean here:** The `schema` defines accepted columns, the `data split` fixes evaluation boundaries, and the `pipeline` makes preprocessing plus fitting one repeatable path.
+
+**Where you will see them:** The problem definition, feature names, split seed, threshold, and metrics are fixed before the end-to-end command runs.
+
+**Common mistake:** Saving only the estimator and rebuilding preprocessing or feature order from memory.
+
+**Evidence to keep:** Keep command, config, schema, seed, baseline, metric, and one negative result.
+
+**Explain after the lab:** Explain which decisions must remain stable for a clean-shell rerun.
+
+### Loaded behavior
+
+**Terms:** `artifact`, `manifest`, `inference`
+
+**What they mean here:** The `artifact` is the saved model bundle; the `manifest` describes its files and contract; `inference` loads it without retraining.
+
+**Where you will see them:** A new process loads the model, feature names, threshold, and configuration. The checksum and predictions are then compared with the original run.
+
+**Common mistake:** Treating a matching filename as proof of intended bytes and configuration.
+
+**Evidence to keep:** Keep manifest, checksum, before/after predictions, model card, and limitation.
+
+**Explain after the lab:** Use checksum and parity to show what was preserved and what remains unproved.
+
 ## Before you start
 
 Read `roadmap/weeks/week-12.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.

@@ -13,8 +13,11 @@ Stop after one epoch, load the checkpoint, and continue. Distinguish the best ch
 
 ## Terminology oracle
 
-- The checkpoint stores model, optimizer, epoch, config, and transfer-learning state. Fine-tuning and early stopping use the validation set, not the test set.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** A genuine resume restores the complete training state and continues from the next epoch. Early stopping must use validation history, not the test set.
+
+**Evidence mapping:** The parameter groups identify the frozen or fine-tuning phase. Compare the best and last checkpoint metadata, checksums, epoch numbers, and optimizer state to show continuity across processes.
+
+**Misconception check:** Loading model weights while restarting the optimizer is not a resume. The starter metadata only demonstrates the expected output shape.
 
 ## If your result differs
 

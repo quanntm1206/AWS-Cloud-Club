@@ -14,6 +14,23 @@ Good EDA begins with 'Can I trust each row?', not 'Which chart looks best?'. Cre
 
 **Explain it yourself:** How is data validation different from EDA? Why is an outlier not always an error?
 
+
+## Apply the concepts
+
+### Rows, quality, and exploration
+
+**Terms:** `dataset`, `sample`, `feature`, `label / target`, `data validation`, `EDA`, `missing value`, `outlier`
+
+**What they mean here:** The churn table is the `dataset`; each customer `sample` has input `feature` values and a churn `label / target`. `data validation` checks rules, while `EDA` forms hypotheses; a `missing value` or `outlier` needs investigation, not automatic deletion.
+
+**Where you will see them:** Schema, duplicate, missing, and range checks precede churn-rate and group-mean exploration.
+
+**Common mistake:** Explaining an unusual value before verifying whether it is invalid, rare, or meaningful.
+
+**Evidence to keep:** Keep the row definition, business key, validation table, target distribution, and three evidence-hypothesis-next-check notes.
+
+**Explain after the lab:** Describe one failed validation rule and one exploratory pattern, then name the next check needed for each one.
+
 ## Before you start
 
 Read `roadmap/weeks/week-03.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

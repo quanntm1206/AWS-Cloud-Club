@@ -24,7 +24,37 @@ Free runtime can be interrupted at any time. A good checkpoint turns a break int
 
 **Review:** `transfer learning`, `freeze`, `optimizer`, `epoch`, `validation set`
 
-**Use:** Run frozen `transfer learning` baseline with frozen backbone, then optional `fine-tuning`; save `checkpoint` including optimizer/epoch and use `early stopping` according to validation set; resume to prove that state is not lost.
+**Use:** Start from the frozen `transfer learning` baseline, then optionally run `fine-tuning`; save a `checkpoint` with optimizer and epoch state, apply `early stopping` on the `validation set`, and resume once to verify the saved state.
+
+## Concept walkthrough
+
+### Fine-tuning checkpoints
+
+**Mental model:** `fine-tuning`: Fine-tuning continues training some pretrained layers with a small learning rate for the new problem. It commonly follows frozen-head training and uses a lower learning rate for unfrozen layers. `checkpoint`: A checkpoint saves training state so a run can continue after interruption. It often contains model parameters, optimizer state, epoch number, and training history.
+
+**Why it matters:** A checkpoint preserves model and optimizer state so a fine-tuning decision can be reproduced or safely resumed.
+
+**Worked example:** `fine-tuning`: Unfreeze layer4 after frozen-head baseline. `checkpoint`: Last checkpoint contains model, optimizer, epoch and history.
+
+**Easy to confuse:** Fine-tuning updates pretrained layers; frozen-head training leaves them unchanged. A checkpoint may resume training; a final artifact is prepared for evaluation or serving.
+
+**Check yourself:** What state must a `checkpoint` preserve so the `fine-tuning` run can resume exactly?
+
+### Early stopping
+
+**Mental model:** `early stopping`: Early stopping ends training after validation performance has not improved for a chosen number of epochs. A patience setting defines how many non-improving epochs are tolerated.
+
+**Why it matters:** Early stopping uses validation evidence to stop before extra epochs mostly memorize training noise.
+
+**Worked example:** `early stopping`: Stop after validation loss fails to improve for two epochs.
+
+**Easy to confuse:** Early stopping is a training rule, not a guarantee against all overfitting.
+
+**Check yourself:** Which validation signal and patience rule trigger `early stopping`?
+
+## Connect earlier terms
+
+The frozen `transfer learning` baseline and `freeze` policy remain the comparison point. Restored `optimizer` and `epoch` state plus unchanged `validation set` rules show whether fine-tuning genuinely improves the model.
 
 ## 8-10 hour schedule
 

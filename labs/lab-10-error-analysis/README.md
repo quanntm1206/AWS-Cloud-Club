@@ -14,6 +14,37 @@ Error analysis is not a collection of interesting mistakes. Sample by a written 
 
 **Explain it yourself:** How do slice, support, and a failure taxonomy prevent subjective error analysis?
 
+
+## Apply the concepts
+
+### Slice evidence
+
+**Terms:** `slice`, `support`, `metric`, `validation set`
+
+**What they mean here:** A `slice` is a rule-defined validation subset; `support` gives the denominator for every slice `metric`.
+
+**Where you will see them:** FP, FN, metric, and support appear together for at least two groups.
+
+**Common mistake:** Treating a perfect tiny slice as stronger than a large, slightly weaker one.
+
+**Evidence to keep:** Keep slice rule, support, FP/FN, metric, and sampling rule.
+
+**Explain after the lab:** Compare slices using rate and support, then limit the conclusion.
+
+### Failures into tests
+
+**Terms:** `error analysis`, `failure taxonomy`, `feature engineering`
+
+**What they mean here:** `error analysis` reviews mistakes selected by a written rule. A `failure taxonomy` groups the observed causes so you can test the next data or `feature engineering` change.
+
+**Where you will see them:** The capped failure records receive evidence-based categories, followed by one data experiment and one model experiment.
+
+**Common mistake:** Browsing memorable mistakes and calling anecdotes a taxonomy.
+
+**Evidence to keep:** Keep IDs, safe descriptions, categories, and rejection tests.
+
+**Explain after the lab:** Trace one record from the observed evidence to its category and proposed change, then describe a result that would disprove your hypothesis.
+
 ## Before you start
 
 Read `roadmap/weeks/week-11.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

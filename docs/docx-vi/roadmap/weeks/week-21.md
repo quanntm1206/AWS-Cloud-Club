@@ -30,7 +30,61 @@ Nguồn AWS, kiểm ngày 2026-08-12:
 
 **Ôn lại:** `artifact`, `inference`, `API contract`
 
-**Áp dụng:** Upload `artifact` lên `S3`, cấp quyền tối thiểu bằng `IAM`, gọi inference qua `Lambda`, đọc `CloudWatch Logs`; tạo `budget alert`, chạy idempotent cleanup và `residual scan` theo API contract.
+**Áp dụng:** Upload `artifact` lên `S3`, cấp quyền tối thiểu bằng `IAM`, gọi `Lambda` để `inference`, rồi đọc `CloudWatch Logs`; tạo `budget alert`, chạy `idempotent cleanup`, và xác nhận bằng `residual scan` theo `API contract`.
+
+## Giải thích khái niệm
+
+### Least privilege và storage
+
+**Cách hình dung:** `IAM`: Dịch vụ AWS quản danh tính và quyền truy cập theo nguyên tắc quyền tối thiểu. Policy gắn action và resource được phép vào user, role hoặc service. `S3`: Dịch vụ object storage của AWS dùng để lưu artifact nhỏ. Mỗi object có một key trong bucket và có thể được bảo vệ bằng IAM cùng encryption.
+
+**Vì sao quan trọng:** IAM theo least privilege giới hạn blast radius; S3 object private giữ model artifact trong boundary dự kiến.
+
+**Ví dụ xuyên suốt:** `IAM`: Lambda role chỉ được đọc đúng model object cần thiết trong S3. `S3`: Upload portable_model.json vào private bucket.
+
+**Dễ nhầm với:** IAM kiểm soát access; security group kiểm soát network traffic. S3 lưu object trong bucket; file system cung cấp directory và file operation.
+
+**Tự kiểm tra:** Lambda role cần cho phép S3 action nào và nên từ chối action không liên quan nào?
+
+### Event-driven execution
+
+**Cách hình dung:** `Lambda`: Dịch vụ chạy hàm serverless theo request mà không quản máy chủ. AWS cấp execution environment và tính phí resource dùng cho mỗi invocation. `CloudWatch Logs`: Nơi lưu log runtime trên AWS; cần tránh dữ liệu nhạy cảm và đặt retention. Log group cần retention, access control và quy tắc không ghi sensitive value.
+
+**Vì sao quan trọng:** Lambda thực hiện event-driven computation; CloudWatch Logs cung cấp operational evidence có giới hạn mà không trở thành nơi lưu payload nhạy cảm.
+
+**Ví dụ xuyên suốt:** `Lambda`: Dùng private invoke để chạy tabular inference. `CloudWatch Logs`: Đặt retention một ngày cho Lambda log group.
+
+**Dễ nhầm với:** Lambda là compute; S3 là object storage. CloudWatch Logs lưu runtime log; CloudWatch metric lưu số đo.
+
+**Tự kiểm tra:** Log field nào chứng minh Lambda load đúng artifact mà không lộ customer payload?
+
+### Observability và cost
+
+**Cách hình dung:** `budget alert`: Cảnh báo khi chi phí thực tế hoặc dự báo chạm ngưỡng; không phải hard cap. Nó theo dõi actual và forecast spending, nhưng resource AWS vẫn chạy cho đến khi có hành động dừng. `residual scan`: Bước kiểm sau cleanup để tìm tài nguyên project còn sót. Nó phải kiểm mọi service liên quan và chỉ ra phần nào vẫn cần xóa.
+
+**Vì sao quan trọng:** Budget alert báo cost threshold; residual scan kiểm tra technical state thực tế sau cleanup.
+
+**Ví dụ xuyên suốt:** `budget alert`: AWS Budget gửi email cảnh báo Actual và Forecasted spending. `residual scan`: Residual scan kiểm CloudFormation, S3, Lambda, CloudWatch Logs và IAM.
+
+**Dễ nhầm với:** Budget alert gửi cảnh báo; nó không tự động dừng chi tiêu AWS. Residual scan xác minh không còn resource; cleanup thực hiện hành động xóa.
+
+**Tự kiểm tra:** Vì sao budget alert có thể im lặng trong khi residual scan vẫn tìm thấy resource?
+
+### Cleanup an toàn
+
+**Cách hình dung:** `idempotent cleanup`: Quy trình dọn có thể chạy lại an toàn và vẫn hướng tới trạng thái sạch. Resource đã không còn được xem là trạng thái thành công thay vì fatal error.
+
+**Vì sao quan trọng:** Idempotent cleanup phục hồi được từ partial failure vì chạy lại vẫn hướng tới cùng clean state.
+
+**Ví dụ xuyên suốt:** `idempotent cleanup`: Xóa resource có đúng project ID rồi scan lại.
+
+**Dễ nhầm với:** Idempotent cleanup chạy lặp an toàn; delete một lần có thể hỏng khi mới hoàn tất một phần.
+
+**Tự kiểm tra:** Kết quả lần chạy thứ hai nào chứng minh cleanup là idempotent?
+
+## Kết nối kiến thức cũ
+
+Local `artifact` giờ đi tới cloud `inference` qua cùng `API contract`. S3 checksum, Lambda response và log có giới hạn cho thấy cloud path giữ đúng model cùng interface dự kiến.
 
 ## Lịch 8-10 giờ
 

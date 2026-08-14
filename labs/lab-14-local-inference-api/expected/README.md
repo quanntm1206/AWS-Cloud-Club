@@ -13,8 +13,11 @@ Send a valid payload, a missing column, and a wrong type. Do not log sensitive r
 
 ## Terminology oracle
 
-- The API contract separates success, 422, and 503. Inference uses the correct artifact, and the latency record includes sample or batch limits.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** The API should separate successful predictions, client data errors, and an unavailable model. Its latency claim should cover only the stated local warm-request conditions.
+
+**Evidence mapping:** Use `/health`, successful `/predict`, 422, and 503 responses to check the API contract. Use the validated schema and artifact identity for inference, then record the payload, environment, and timing sample for latency.
+
+**Misconception check:** A 500 response is not a suitable client-error contract, and one warm request is not production latency. The starter status is smoke evidence only.
 
 ## If your result differs
 

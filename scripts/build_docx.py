@@ -79,7 +79,14 @@ def set_table_geometry(table: object, widths: list[float]) -> None:
             cell_width.set(qn("w:type"), "dxa")
 
 
-def add_table(document: Document, headers: list[str], rows: list[list[str]], widths: list[float]) -> object:
+def add_table(
+    document: Document,
+    headers: list[str],
+    rows: list[list[str]],
+    widths: list[float],
+    *,
+    prevent_row_splits: bool = False,
+) -> object:
     table = document.add_table(rows=1, cols=len(headers))
     table.style = "Table Grid"
     header = table.rows[0]
@@ -90,12 +97,23 @@ def add_table(document: Document, headers: list[str], rows: list[list[str]], wid
         run = paragraph.add_run(text)
         run.bold = True
     for values in rows:
-        cells = table.add_row().cells
+        row = table.add_row()
+        if prevent_row_splits:
+            row._tr.get_or_add_trPr().append(OxmlElement("w:cantSplit"))  # type: ignore[attr-defined]
+        cells = row.cells
         for index, text in enumerate(values):
             cells[index].text = text
     set_table_geometry(table, widths)
     document.add_paragraph("")
     return table
+
+
+def set_labeled_cell(cell: object, entries: list[tuple[str, str]]) -> None:
+    cell.text = ""  # type: ignore[attr-defined]
+    for index, (label, value) in enumerate(entries):
+        paragraph = cell.paragraphs[0] if index == 0 else cell.add_paragraph()  # type: ignore[attr-defined]
+        paragraph.add_run(f"{label}: ").bold = True
+        paragraph.add_run(value)
 
 
 def add_warning(document: Document, title: str, body: str) -> None:
@@ -167,6 +185,41 @@ def configure_styles(document: Document) -> None:
         footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
         footer.add_run("AWS Cloud Club  |  Tài liệu học tập - kiểm tra nguồn trước mỗi cohort")
         footer.runs[0].font.size = Pt(8)
+
+
+def set_document_language(document: Document, language: str) -> None:
+    settings = document.settings.element
+    theme_languages = settings.findall(qn("w:themeFontLang"))
+    if theme_languages:
+        theme_language = theme_languages[0]
+        for duplicate in theme_languages[1:]:
+            settings.remove(duplicate)
+    else:
+        theme_language = OxmlElement("w:themeFontLang")
+        settings.append(theme_language)
+    theme_language.set(qn("w:val"), language)
+    theme_language.set(qn("w:eastAsia"), language)
+
+    styles = document.styles.element
+    defaults = styles.find(qn("w:docDefaults"))
+    if defaults is None:
+        defaults = OxmlElement("w:docDefaults")
+        styles.insert(0, defaults)
+    run_defaults = defaults.find(qn("w:rPrDefault"))
+    if run_defaults is None:
+        run_defaults = OxmlElement("w:rPrDefault")
+        defaults.append(run_defaults)
+    run_properties = run_defaults.find(qn("w:rPr"))
+    if run_properties is None:
+        run_properties = OxmlElement("w:rPr")
+        run_defaults.append(run_properties)
+    run_language = run_properties.find(qn("w:lang"))
+    if run_language is None:
+        run_language = OxmlElement("w:lang")
+        run_properties.append(run_language)
+    run_language.set(qn("w:val"), language)
+    run_language.set(qn("w:eastAsia"), language)
+    run_language.attrib.pop(qn("w:bidi"), None)
 
 
 def add_bullets(document: Document, items: list[str]) -> None:
@@ -249,6 +302,38 @@ def markdown_items(section: str) -> list[str]:
     return items
 
 
+def add_markdown_concept_groups(document: Document, section: str) -> None:
+    groups = re.split(r"(?m)^###\s+", section)
+    for group in groups[1:]:
+        lines = group.strip().splitlines()
+        if not lines:
+            continue
+        document.add_heading(lines[0].strip(), level=4)
+        current_label = ""
+        current_value: list[str] = []
+
+        def flush() -> None:
+            nonlocal current_label, current_value
+            if not current_label:
+                return
+            paragraph = document.add_paragraph()
+            paragraph.add_run(f"{current_label}: ").bold = True
+            paragraph.add_run(" ".join(current_value).replace("`", "").replace("**", "").strip())
+            current_label = ""
+            current_value = []
+
+        for line in lines[1:]:
+            stripped = line.strip()
+            match = re.match(r"^\*\*(.+?):\*\*\s*(.*)$", stripped)
+            if match:
+                flush()
+                current_label = match.group(1)
+                current_value = [match.group(2)]
+            elif stripped and current_label:
+                current_value.append(stripped)
+        flush()
+
+
 def add_command(document: Document, command: str) -> None:
     paragraph = document.add_paragraph()
     paragraph.style = document.styles["Normal"]
@@ -278,9 +363,7 @@ def build(output: Path) -> None:
     document.core_properties.subject = "Roadmap 24 tuần, local-first, free-compute-first và AWS cost-safe"
     document.core_properties.author = "AWS Cloud Club"
     document.core_properties.keywords = "Machine Learning, MLOps, AWS, Colab, Kaggle, roadmap"
-    language = OxmlElement("w:themeFontLang")
-    language.set(qn("w:val"), "vi-VN")
-    document.settings.element.append(language)
+    set_document_language(document, "vi-VN")
     configure_styles(document)
     bookmark_id = 1
     document.add_heading("Machine Learning Engineer Roadmap", 0)
@@ -403,6 +486,9 @@ def build(output: Path) -> None:
     add_table(document, ["Chặng", "Tuần", "Bạn sẽ đi được đến đâu"], phase_rows, [2.0, 0.65, 3.85])
     for week in curriculum["weeks"]:
         heading = document.add_heading(f"Tuần {week['id']:02d} - {week['title']}", level=2)
+        # Week 1 follows the phase map; week 22 already flows to a fresh page after the dense week 21 spread.
+        # Forcing either break leaves an almost empty or fully blank page in Word's paginator.
+        heading.paragraph_format.page_break_before = week["id"] not in {1, 22}
         add_bookmark(heading, f"week-{week['id']:02d}", bookmark_id)
         bookmark_id += 1
         environment = ", ".join(week["environments"])
@@ -442,6 +528,16 @@ def build(output: Path) -> None:
                 paragraph.add_run(value.strip().replace("`", ""))
             else:
                 paragraph.add_run(stripped.replace("`", "").replace("**", ""))
+        concept_walkthrough = extract_markdown_section(week_doc, "Giải thích khái niệm")
+        document.add_heading("Giải thích khái niệm", level=3)
+        add_markdown_concept_groups(document, concept_walkthrough)
+        prior_connections = extract_markdown_section(week_doc, "Kết nối kiến thức cũ")
+        document.add_heading("Kết nối kiến thức cũ", level=3)
+        connection_items = markdown_items(prior_connections)
+        if connection_items:
+            add_bullets(document, connection_items)
+        else:
+            document.add_paragraph(prior_connections.replace("`", "").replace("**", ""))
         guided = extract_markdown_section(week_doc, "Guided practice")
         document.add_heading("Thực hành có hướng dẫn", level=3)
         add_bullets(document, markdown_items(guided))
@@ -713,22 +809,53 @@ def build(output: Path) -> None:
         lab_rows.append([f"{week['id']:02d}", lab_id, path, f"scripts/run_lab.py --lab {lab_number}"])
     add_table(document, ["Tuần", "Lab", "Đọc trước", "Lệnh"], lab_rows, [0.5, 0.8, 3.35, 1.85])
 
-    add_section_heading(document, "8. Glossary và nguồn", 1, "glossary", bookmark_id)
+    glossary_heading = add_section_heading(document, "8. Glossary và nguồn", 1, "glossary", bookmark_id)
+    glossary_heading.paragraph_format.page_break_before = True
     glossary = yaml.safe_load((DOCX_VI / "curriculum/glossary.yml").read_text(encoding="utf-8"))["terms"]
     document.add_paragraph(
         "Đừng học thuộc bảng này một lượt. Mỗi thuật ngữ được giới thiệu trong lab, dùng lại ở các lab sau và "
         "gắn với một evidence cụ thể. Ba khái niệm dễ nhầm: data validation kiểm dữ liệu, validation set là "
         "một phần dữ liệu, model validation là quá trình đánh giá/chọn quyết định."
     )
-    add_table(
+    glossary_table = add_table(
         document,
-        ["Thuật ngữ", "Nghĩa dễ hiểu", "Ví dụ", "Giới thiệu ở"],
         [
-            [item["term"], item["meaning"], item["example"], f"Lab {int(item['introduced_in']):02d}"]
+            "Thuật ngữ",
+            "Hiểu đơn giản và vì sao quan trọng",
+            "Ví dụ, điểm dễ nhầm và tự kiểm tra",
+            "Giới thiệu ở",
+        ],
+        [
+            [
+                item["term"],
+                f"{item['meaning']} Vì sao quan trọng: {item['why_it_matters']}",
+                (
+                    f"Ví dụ: {item['example']} Dễ nhầm với: {item['common_confusion']} "
+                    f"Tự kiểm tra: {item['self_check']}"
+                ),
+                f"Lab {int(item['introduced_in']):02d}",
+            ]
             for item in glossary
         ],
-        [1.3, 2.55, 2.05, 0.6],
+        [1.15, 2.55, 2.3, 0.5],
+        prevent_row_splits=True,
     )
+    for row, item in zip(glossary_table.rows[1:], glossary, strict=True):
+        set_labeled_cell(
+            row.cells[1],
+            [
+                ("Hiểu đơn giản", item["meaning"]),
+                ("Vì sao quan trọng", item["why_it_matters"]),
+            ],
+        )
+        set_labeled_cell(
+            row.cells[2],
+            [
+                ("Ví dụ", item["example"]),
+                ("Dễ nhầm với", item["common_confusion"]),
+                ("Tự kiểm tra", item["self_check"]),
+            ],
+        )
     document.add_heading("Nguồn chính thức", level=2)
     for source in sources:
         paragraph = document.add_paragraph()

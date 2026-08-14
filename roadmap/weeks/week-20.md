@@ -24,7 +24,37 @@ The aggregated metric does not indicate where the model is wrong. Failure analys
 
 **Review:** `metric`, `validation set`, `error analysis`, `failure taxonomy`
 
-**Use:** Create `confusion matrix`, metric precision / recall / F1 and `support`; Do `error analysis` on prediction in validation set, assign failure taxonomy to real sample, do not use FakeData as validation model.
+**Use:** Build a `confusion matrix` with precision, recall, F1, and `support`; perform `error analysis` on real validation predictions, assign each failure to the `failure taxonomy`, and never use FakeData for `model validation`.
+
+## Concept walkthrough
+
+### Counts behind the metric
+
+**Mental model:** `confusion matrix`: A table that counts each combination of true class and predicted class. Its cells separate true positives, false positives, true negatives, and false negatives.
+
+**Why it matters:** A confusion matrix exposes the exact class-to-class mistakes hidden by one aggregate score.
+
+**Worked example:** `confusion matrix`: The row churn=1 indicates how many samples were predicted to be 0.
+
+**Easy to confuse:** A confusion matrix contains counts; precision, recall, and F1 summarize those counts.
+
+**Check yourself:** Which error counts in the `confusion matrix` explain the class-level metric?
+
+### Support gives denominators
+
+**Mental model:** `support`: Support is the number of actual samples in a class or slice. Small support makes an apparently perfect metric uncertain.
+
+**Why it matters:** Support supplies the denominator, so a strong class or slice score can be judged against the amount of evidence behind it.
+
+**Worked example:** `support`: 100% recall on support=2 is not enough for a strong conclusion.
+
+**Easy to confuse:** Support is a count, not a quality score.
+
+**Check yourself:** Is the `support` large enough to trust the reported class or slice score?
+
+## Connect earlier terms
+
+The existing `metric` on the `validation set` is now decomposed into class-level counts and support. `error analysis` and the `failure taxonomy` explain which real examples create each weak class result.
 
 ## 8-10 hour schedule
 

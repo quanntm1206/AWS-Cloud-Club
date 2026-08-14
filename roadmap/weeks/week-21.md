@@ -30,7 +30,61 @@ Source AWS, checked on 2026-08-12:
 
 **Review:** `artifact`, `inference`, `API contract`
 
-**Use:** Upload `artifact` to `S3`, grant minimum permissions with `IAM`, call inference via `Lambda`, read `CloudWatch Logs`; create `budget alert`, run idempotent cleanup and `residual scan` according to API contract.
+**Use:** Upload the `artifact` to `S3`, grant least-privilege access with `IAM`, invoke `Lambda` for `inference`, and inspect `CloudWatch Logs`; create a `budget alert`, perform `idempotent cleanup`, then confirm the result with a `residual scan` against the `API contract`.
+
+## Concept walkthrough
+
+### Least privilege and storage
+
+**Mental model:** `IAM`: AWS Identity and Access Management (IAM) controls identities and permissions using least privilege. Policies attach allowed actions and resources to users, roles, or services. `S3`: Amazon S3 is an object storage service used here for small model artifacts. Each object has a key inside a bucket and can be protected with IAM and encryption.
+
+**Why it matters:** Least-privilege IAM limits the blast radius, while a private S3 object keeps the model artifact inside the intended boundary.
+
+**Worked example:** `IAM`: The Lambda role may read only the intended model object in S3. `S3`: Upload portable_model.json to a private bucket.
+
+**Easy to confuse:** IAM controls access; security groups control network traffic. S3 stores objects in buckets; a file system exposes directories and file operations.
+
+**Check yourself:** Which S3 action must the Lambda role allow, and which unrelated actions should it deny?
+
+### Event-driven execution
+
+**Mental model:** `Lambda`: AWS Lambda runs functions on request without requiring users to manage servers. AWS provisions the execution environment and charges for the resources used by each invocation. `CloudWatch Logs`: CloudWatch Logs stores runtime logs on AWS, where sensitive data and retention require deliberate controls. Log groups need explicit retention, access control, and rules that prevent sensitive values from being written.
+
+**Why it matters:** Lambda performs the event-driven computation; CloudWatch Logs provide bounded operational evidence without becoming a store for sensitive payloads.
+
+**Worked example:** `Lambda`: Use a private invoke to run tabular inference. `CloudWatch Logs`: Set the Lambda log group retention to one day.
+
+**Easy to confuse:** Lambda is compute; S3 is object storage. CloudWatch Logs stores runtime logs; CloudWatch metrics store numeric measurements.
+
+**Check yourself:** Which log fields prove that Lambda loaded the intended artifact without exposing a customer payload?
+
+### Observability and cost
+
+**Mental model:** `budget alert`: A budget alert sends a notification when actual or forecast AWS cost reaches a threshold. It can watch actual and forecast spending, but AWS resources continue running until something stops them. `residual scan`: A residual scan checks for project resources that remain after cleanup. It should check every relevant service and identify anything that still needs removal.
+
+**Why it matters:** A budget alert reports a cost threshold, while a residual scan inspects the actual technical state after cleanup.
+
+**Worked example:** `budget alert`: An AWS Budget emails alerts for Actual and Forecasted spending. `residual scan`: The scan checks CloudFormation, S3, Lambda, CloudWatch Logs, and IAM.
+
+**Easy to confuse:** A budget alert sends a warning; it does not automatically stop AWS spending. A residual scan verifies absence; cleanup performs the deletion actions.
+
+**Check yourself:** Why can a budget alert be quiet while a residual scan still finds a resource?
+
+### Safe cleanup
+
+**Mental model:** `idempotent cleanup`: Idempotent cleanup can run repeatedly and still move toward the same clean state. It treats already-absent resources as a successful state rather than a fatal error.
+
+**Why it matters:** Idempotent cleanup can recover from partial failure because rerunning it still targets the same clean state.
+
+**Worked example:** `idempotent cleanup`: Delete resources with the exact project ID, then scan again.
+
+**Easy to confuse:** Idempotent cleanup is safe to repeat; a one-shot delete may fail when partly completed.
+
+**Check yourself:** What second-run result demonstrates that cleanup is idempotent?
+
+## Connect earlier terms
+
+The local `artifact` now reaches cloud `inference` through the same `API contract`. S3 checksums, Lambda responses, and bounded logs show that the cloud path preserves the intended model and interface.
 
 ## 8-10 hour schedule
 

@@ -20,5 +20,8 @@ Keep the checksum, valid and invalid responses, cleanup output, residual JSON, a
 
 ## Terminology oracle
 
-- The evidence connects IAM, S3, Lambda, CloudWatch Logs, and the budget alert. Idempotent cleanup and the residual scan prove that the project is clean or that a safe local fallback was used.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy the glossary.
+**Expected reasoning:** A satisfactory lifecycle verifies the local artifact, deploys only the guarded private path, checks valid and invalid events, reviews logs and costs, and proves cleanup.
+
+**Evidence mapping:** The checksum, S3 object, IAM policy, Lambda responses, and CloudWatch logs describe inference. The budget settings and three Billing timestamps describe costs. The cleanup dry-run, execution result, and `residual=false` scan describe teardown.
+
+**Misconception check:** A budget alert is not a spending cap, `ExpiresAt` does not delete resources, and requesting stack deletion does not prove cleanup. If a guard fails, stop cloud work and continue with the local fallback.

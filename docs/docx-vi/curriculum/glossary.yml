@@ -1,313 +1,634 @@
 terms:
 - term: dataset
-  meaning: Tập dữ liệu gồm nhiều mẫu được gom để phân tích hoặc huấn luyện model.
+  meaning: Tập dữ liệu gồm nhiều mẫu được gom để phân tích hoặc huấn luyện model. Dataset thường có các
+    hàng là sample và các cột là feature.
   example: File churn có 300 khách hàng và các cột mô tả từng khách.
+  why_it_matters: Nó xác định nguồn bằng chứng cho mọi quyết định ML về sau.
+  common_confusion: Dataset là cả tập; sample là một phần tử bên trong.
+  self_check: Trong dataset churn, phần nào là sample và phần nào là feature?
   introduced_in: 0
 - term: reproducibility
-  meaning: Khả năng chạy lại cùng dữ liệu, code và cấu hình để nhận kết quả tương đương.
-  example: Hai terminal dùng cùng seed cho cùng số hàng và metric trong tolerance.
+  meaning: Khả năng chạy lại cùng dữ liệu, code và cấu hình để nhận kết quả tương đương. Cần ghi lại data,
+    code, dependency, configuration và các yếu tố ngẫu nhiên.
+  example: Hai lần chạy dùng cùng seed cho cùng số hàng và metric trong tolerance.
+  why_it_matters: Nó giúp người khác kiểm chứng kết quả có đến từ cùng một quy trình hay không.
+  common_confusion: Cùng seed hỗ trợ reproducibility, nhưng code hoặc package đổi vẫn có thể làm kết quả
+    đổi.
+  self_check: Một người học khác cần những gì để chạy lại thí nghiệm churn của bạn?
   introduced_in: 0
 - term: sample
-  meaning: Một đơn vị quan sát trong dataset; thường là một hàng hoặc một ảnh.
+  meaning: Một đơn vị quan sát trong dataset; thường là một hàng hoặc một ảnh. Mỗi sample có cùng cấu
+    trúc mong đợi nhưng mang các giá trị quan sát khác nhau.
   example: Một khách hàng là một sample trong bảng churn.
+  why_it_matters: Nó là đơn vị mà phép split, metric và prediction dùng để đếm.
+  common_confusion: Sample là một quan sát; feature là một giá trị input hoặc cột mô tả quan sát đó.
+  self_check: Trong bảng churn, một sample đại diện cho điều gì?
   introduced_in: 0
 - term: schema
-  meaning: Bản mô tả tên cột, kiểu dữ liệu và quy tắc hợp lệ của input.
+  meaning: Bản mô tả tên cột, kiểu dữ liệu và quy tắc hợp lệ của input. Schema còn nêu constraint như
+    cột bắt buộc, category hợp lệ và khoảng số cho phép.
   example: Cột tenure phải là số không âm; churn chỉ nhận 0 hoặc 1.
+  why_it_matters: Nó ngăn thay đổi input âm thầm đi vào training hoặc inference.
+  common_confusion: Schema mô tả cấu trúc hợp lệ; data validation kiểm dữ liệu thật theo schema.
+  self_check: Quy tắc schema nào sẽ từ chối giá trị tenure âm?
   introduced_in: 0
 - term: seed
-  meaning: Con số khởi tạo bộ sinh ngẫu nhiên để phép chia hoặc khởi tạo có thể lặp lại.
+  meaning: Con số khởi tạo bộ sinh ngẫu nhiên để phép chia hoặc khởi tạo có thể lặp lại. Dùng lại seed
+    sẽ khởi tạo cùng chuỗi giả ngẫu nhiên cho các thao tác có hỗ trợ.
   example: Đặt seed 42 trước khi tạo dữ liệu mẫu.
+  why_it_matters: Nó giúp so sánh các thí nghiệm ngẫu nhiên khi phần còn lại không đổi.
+  common_confusion: Seed điều khiển một chuỗi ngẫu nhiên, không kiểm soát mọi nguồn nondeterminism.
+  self_check: Ngoài seed 42, những yếu tố nào phải giữ nguyên để tái tạo một data split?
   introduced_in: 0
 - term: feature
-  meaning: Thông tin đầu vào model dùng để tạo dự đoán.
+  meaning: Thông tin đầu vào model dùng để tạo dự đoán. Feature phải có cả khi training lẫn khi hệ thống
+    nhận yêu cầu prediction mới.
   example: Tenure và monthly_charges là hai feature của bài toán churn.
+  why_it_matters: Nó quyết định model được dùng thông tin nào tại thời điểm prediction.
+  common_confusion: Feature là input; label hoặc target là đáp án cần dự đoán.
+  self_check: Vì sao tenure có thể dùng làm feature churn lúc inference?
   introduced_in: 1
 - term: label / target
-  meaning: Kết quả cần dự đoán và dùng để học hoặc đánh giá model.
+  meaning: Kết quả cần dự đoán và dùng để học hoặc đánh giá model. Trong supervised learning, feature
+    của mỗi training sample đi cùng đáp án đã biết này.
   example: Churn=1 là label cho khách đã rời đi.
+  why_it_matters: Nó nêu rõ kết quả mà model cần học.
+  common_confusion: Label là truth quan sát được; prediction là đáp án model ước lượng.
+  self_check: Khách đã rời đi phải có giá trị churn target nào?
   introduced_in: 1
 - term: parameter
-  meaning: Giá trị model học từ dữ liệu trong lúc training.
+  meaning: Giá trị model học từ dữ liệu trong lúc training. Parameter gồm weight và bias thay đổi khi
+    training giảm loss.
   example: Các trọng số trong vector w của hồi quy tuyến tính là parameter.
+  why_it_matters: Nó lưu điều model đã học và được optimizer cập nhật.
+  common_confusion: Parameter được học khi fit; hyperparameter được chọn trước hoặc quanh quá trình fit.
+  self_check: Weight của linear model do optimizer học hay do người làm tự đặt?
   introduced_in: 1
 - term: vectorization
-  meaning: Thực hiện phép tính trên cả mảng thay vì lặp từng phần tử bằng Python.
+  meaning: Thực hiện phép tính trên cả mảng thay vì lặp từng phần tử bằng Python. Phép toán trên array
+    giúp thư viện số học tối ưu xử lý nhiều giá trị cùng lúc.
   example: Dùng X @ w để tính score cho mọi sample.
+  why_it_matters: Nó giúp code tính toán nhanh hơn, ngắn hơn và ít lỗi hơn.
+  common_confusion: Vectorization đổi cách biểu diễn phép tính, không đổi mục tiêu toán học.
+  self_check: '`X @ w` thay vòng lặp qua từng khách hàng như thế nào?'
   introduced_in: 1
 - term: data validation
-  meaning: Kiểm dữ liệu có đúng schema và quy tắc chất lượng trước khi dùng hay không.
+  meaning: Kiểm dữ liệu có đúng schema và quy tắc chất lượng trước khi dùng hay không. Các check có thể
+    từ chối hoặc báo row không hợp lệ trước khi row đi vào workflow.
   example: Phát hiện ID trùng, tuổi âm hoặc target thiếu.
+  why_it_matters: Nó chặn input xấu trước khi làm sai phân tích hoặc làm hỏng service.
+  common_confusion: Data validation áp quy tắc đã biết; EDA tìm pattern và câu hỏi mới.
+  self_check: Check nào sẽ bắt target thiếu và customer ID trùng?
   introduced_in: 2
 - term: EDA
   meaning: Khám phá dữ liệu bằng thống kê và biểu đồ để hiểu chất lượng, phân bố và câu hỏi cần kiểm tiếp.
+    EDA bắt đầu từ câu hỏi rồi dùng summary và plot để điều tra.
   example: So churn rate tổng với từng nhóm hợp đồng.
+  why_it_matters: Nó phát hiện vấn đề dữ liệu và pattern hữu ích trước khi modeling.
+  common_confusion: EDA khám phá và tạo giả thuyết; model validation đánh giá lựa chọn model.
+  self_check: So sánh EDA nào có thể cho thấy contract type liên quan tới churn?
   introduced_in: 2
 - term: missing value
-  meaning: Giá trị bị thiếu hoặc không được ghi nhận trong dataset.
+  meaning: Giá trị bị thiếu hoặc không được ghi nhận trong dataset. Tùy schema, nó có thể được biểu diễn
+    bằng null, NaN hoặc marker đã thống nhất.
   example: Một số sample không có monthly_charges.
+  why_it_matters: Nó ảnh hưởng điều model có thể học và phải được xử lý nhất quán.
+  common_confusion: Missing value là không có giá trị; số 0 vẫn có thể là giá trị hợp lệ.
+  self_check: Missing `monthly_charges` khác giá trị 0 thật như thế nào?
   introduced_in: 2
 - term: outlier
-  meaning: Quan sát khác xa phần lớn dữ liệu; cần điều tra trước khi xóa hoặc sửa.
+  meaning: Quan sát khác xa phần lớn dữ liệu; cần điều tra trước khi xóa hoặc sửa. Cần dùng hiểu biết
+    domain để tìm nguyên nhân trước khi xóa hoặc cap giá trị này.
   example: Một hóa đơn cao bất thường có thể là lỗi hoặc khách doanh nghiệp thật.
+  why_it_matters: Nó có thể chỉ ra lỗi dữ liệu, trường hợp hiếm hoặc sự kiện kinh doanh quan trọng.
+  common_confusion: Outlier là bất thường, không tự động đồng nghĩa với sai.
+  self_check: Bằng chứng nào cho biết hóa đơn cao bất thường là hợp lệ?
   introduced_in: 2
 - term: gradient
-  meaning: Hướng và độ lớn cho biết loss thay đổi thế nào khi parameter thay đổi.
+  meaning: Hướng và độ lớn cho biết loss thay đổi thế nào khi parameter thay đổi. Dấu của gradient cho
+    biết hướng, còn độ lớn cho biết loss phản ứng mạnh đến đâu.
   example: Gradient dương gợi ý giảm parameter theo learning rate.
+  why_it_matters: Nó cho optimizer biết mỗi parameter cần dịch chuyển thế nào để giảm loss.
+  common_confusion: Gradient là hướng thay đổi; learning rate scale độ lớn bước cập nhật.
+  self_check: Nếu parameter có gradient dương, gradient descent nên dịch nó theo hướng nào?
   introduced_in: 3
 - term: learning rate
-  meaning: Độ lớn mỗi bước cập nhật parameter.
+  meaning: Độ lớn mỗi bước cập nhật parameter. Optimizer nhân giá trị này với gradient để tạo bước cập
+    nhật.
   example: Learning rate quá lớn làm loss dao động hoặc tăng.
+  why_it_matters: Nó quyết định training tiến ổn định, quá chậm hay mất ổn định.
+  common_confusion: Learning rate là cấu hình bước cập nhật, không phải loss cần giảm.
+  self_check: Dấu hiệu training nào cho thấy learning rate quá lớn?
   introduced_in: 3
 - term: loss
-  meaning: Con số model cố giảm trong training để đo sai lệch trên dữ liệu học.
+  meaning: Con số model cố giảm trong training để đo sai lệch trên dữ liệu học. Mỗi bài toán dùng loss
+    function phù hợp, như MSE cho regression hoặc cross-entropy cho classification.
   example: MSE phạt bình phương khoảng cách giữa prediction và target.
+  why_it_matters: Nó cho training một mục tiêu duy nhất để giảm.
+  common_confusion: Loss dẫn hướng training; metric báo chất lượng mà con người quan tâm.
+  self_check: Vì sao prediction error lớn đóng góp mạnh vào MSE?
   introduced_in: 3
 - term: prediction
-  meaning: Giá trị model tạo ra cho một sample.
+  meaning: Giá trị model tạo ra cho một sample. Với regression, nó có thể là một số; với classification,
+    nó có thể là class hoặc probability.
   example: Model dự đoán monthly_charges là 42.5.
+  why_it_matters: Nó là output mà người dùng hoặc hệ thống phía sau sẽ hành động theo.
+  common_confusion: Prediction là output; label là đáp án quan sát được.
+  self_check: Xác suất churn 0.72 là prediction, target hay cả hai?
   introduced_in: 3
 - term: baseline
-  meaning: Mốc đơn giản để biết model phức tạp có thực sự cải thiện hay không.
-  example: Dummy classifier luôn đoán class phổ biến.
+  meaning: Mốc đơn giản để biết model phức tạp có thực sự cải thiện hay không. Baseline có thể là quy
+    tắc đơn giản, dummy model hoặc learned model hợp lý nhỏ nhất.
+  example: Dummy classifier luôn đoán class phổ biến nhất.
+  why_it_matters: Nếu model mới không vượt baseline, độ phức tạp tăng thêm chưa tạo giá trị rõ ràng.
+  common_confusion: Baseline là mốc so sánh, không nhất thiết là model cuối.
+  self_check: Logistic regression phải chứng minh điều gì so với majority-class baseline?
   introduced_in: 4
 - term: confusion matrix
-  meaning: Bảng đếm truth và prediction để thấy model nhầm class nào với class nào.
+  meaning: Bảng đếm truth và prediction để thấy model nhầm class nào với class nào. Các ô tách riêng true
+    positive, false positive, true negative và false negative.
   example: Hàng churn=1 cho biết bao nhiêu mẫu bị đoán thành 0.
+  why_it_matters: Nó cho thấy chính xác loại lỗi classification bị một score duy nhất che khuất.
+  common_confusion: Confusion matrix chứa số đếm; precision, recall và F1 tóm tắt các số đếm đó.
+  self_check: Ô nào trong confusion matrix đếm khách churn nhưng bị đoán là không churn?
   introduced_in: 4
 - term: data split
-  meaning: Cách chia dataset thành các phần có vai trò khác nhau và không chồng lặp.
-  example: Chia 70% train, 15% validation, 15% test.
+  meaning: Cách chia dataset thành các phần có vai trò khác nhau và không chồng lặp. Ba vai trò thường
+    gặp là training, validation và test, không có sample dùng chung.
+  example: Dùng 70% cho training, 15% cho validation và 15% cho test.
+  why_it_matters: Nó bảo vệ việc đánh giá bằng cách cho mỗi tập con một vai trò rõ ràng.
+  common_confusion: Data split tạo tập con; cross-validation luân phiên nhiều fold qua các vai trò.
+  self_check: Vì sao một khách hàng không được xuất hiện ở cả training set lẫn test set?
   introduced_in: 4
 - term: fit
-  meaning: Bước học parameter hoặc trạng thái transform từ training data.
+  meaning: Bước học parameter hoặc trạng thái transform từ training data. Với scaler, fit học statistic;
+    với model, fit học predictive parameter.
   example: Gọi pipeline.fit(X_train, y_train).
+  why_it_matters: Đây là nơi trạng thái được học đi vào model hoặc bước preprocessing.
+  common_confusion: fit học trạng thái; transform áp phép biến đổi cố định hoặc đã học.
+  self_check: '`pipeline.fit(X_train, y_train)` học gì từ training data?'
   introduced_in: 4
 - term: metric
-  meaning: Con số đo một khía cạnh chất lượng; phải chọn theo mục tiêu và chi phí lỗi.
+  meaning: Con số đo một khía cạnh chất lượng; phải chọn theo mục tiêu và chi phí lỗi. Không metric nào
+    mô tả mọi mặt chất lượng nên phải nêu rõ ý nghĩa của metric đã chọn.
   example: Recall đo tỷ lệ khách churn được tìm thấy.
+  why_it_matters: Nó nối việc đánh giá model với chi phí kinh doanh của từng loại lỗi.
+  common_confusion: Metric là thước đo; loss là mục tiêu được tối ưu khi training.
+  self_check: Metric nào phản ánh tốt nhất mục tiêu tìm ra phần lớn khách churn?
   introduced_in: 4
 - term: model validation
-  meaning: Quá trình kiểm model trên dữ liệu chưa dùng để fit nhằm đánh giá và chọn quyết định.
-  example: So F1 trên validation set trước khi mở test.
+  meaning: Quá trình kiểm model trên dữ liệu chưa dùng để fit nhằm đánh giá và chọn quyết định. Quy trình
+    gồm so sánh candidate và threshold trên validation data trước final test.
+  example: So sánh F1 trên validation set trước khi mở test set.
+  why_it_matters: Nó giúp chọn model mà vẫn giữ test set độc lập cho lần đánh giá cuối.
+  common_confusion: Validation hướng dẫn lựa chọn; test chỉ ước lượng hệ thống cuối một lần.
+  self_check: Vì sao phải model validation trước khi mở test set?
   introduced_in: 4
 - term: precision / recall / F1
-  meaning: Precision chú trọng dự đoán dương đúng, recall chú trọng tìm đủ mẫu dương, F1 cân bằng hai phía.
+  meaning: Precision chú trọng dự đoán dương đúng, recall chú trọng tìm đủ mẫu dương, F1 cân bằng hai
+    phía. Cả ba đều tính từ confusion-matrix count nhưng trả lời những câu hỏi khác nhau.
   example: Bài churn ưu tiên recall nhưng vẫn theo dõi precision.
+  why_it_matters: Nó giải thích trade-off giữa cảnh báo nhầm và bỏ sót khách churn.
+  common_confusion: Precision hỏi prediction dương có đúng không; recall hỏi đã tìm được bao nhiêu mẫu
+    dương.
+  self_check: Nếu bỏ sót khách churn rất tốn kém, vì sao recall có thể quan trọng hơn precision?
   introduced_in: 4
 - term: test set
-  meaning: Phần dữ liệu chỉ mở sau khi đã khóa quyết định để ước lượng kết quả cuối.
+  meaning: Phần dữ liệu chỉ mở sau khi đã khóa quyết định để ước lượng kết quả cuối. Không được dùng nó
+    để fit preprocessing, chọn model hoặc tune threshold.
   example: Chạy test một lần sau khi chọn logistic regression.
+  why_it_matters: Nó cung cấp một ước lượng cuối ít thiên lệch hơn sau khi mọi lựa chọn đã được khóa.
+  common_confusion: Test set không phải validation set bổ sung để tuning lặp lại.
+  self_check: Khi nào có thể đánh giá churn model trên test set?
   introduced_in: 4
 - term: training set
-  meaning: Phần dữ liệu dùng để model học parameter.
+  meaning: Phần dữ liệu dùng để model học parameter. Validation và test sample không được ảnh hưởng bất
+    kỳ điều gì học từ tập này.
   example: Logistic regression gọi fit chỉ với training set.
+  why_it_matters: Đây là split duy nhất dùng để học model parameter và preprocessing state.
+  common_confusion: Training set dạy model; validation set chỉ hướng dẫn lựa chọn.
+  self_check: Scaler phải dùng data nào để học mean và standard deviation?
   introduced_in: 4
 - term: validation set
-  meaning: Phần dữ liệu dùng chọn model, threshold hoặc hyperparameter; không dùng fit parameter.
+  meaning: Phần dữ liệu dùng chọn model, threshold hoặc hyperparameter; không dùng fit parameter. Có thể
+    xem nó nhiều lần để ra quyết định, nhưng label của nó không được đi vào fit.
   example: Chọn threshold có recall đạt yêu cầu trên validation set.
+  why_it_matters: Nó hỗ trợ lựa chọn model mà không dạy model và không thay thế test set.
+  common_confusion: Validation set hướng dẫn lựa chọn; test set kiểm kết quả đã khóa.
+  self_check: Có thể tune churn threshold trên validation data mà không fit model trên đó không?
   introduced_in: 4
 - term: data leakage
-  meaning: Thông tin không hợp lệ từ validation, test hoặc tương lai lọt vào training.
-  example: Fit scaler trên toàn dataset trước split làm rò thông tin test.
+  meaning: Thông tin không hợp lệ từ validation, test hoặc tương lai lọt vào training. Leakage có thể
+    đến từ future data, feature suy ra từ target, khách trùng hoặc preprocessing trước split.
+  example: Fit scaler trên toàn dataset trước khi split sẽ làm lộ thông tin test.
+  why_it_matters: Nó có thể làm kết quả evaluation rất cao dù model sẽ thất bại khi dùng thật.
+  common_confusion: Leakage có thể xảy ra mà không có row trùng, như fit scaler trước split.
+  self_check: Vì sao fit scaler trên toàn dataset làm lộ thông tin test?
   introduced_in: 5
 - term: pipeline
-  meaning: Chuỗi preprocessing và model chạy theo thứ tự cố định để giảm lỗi và leakage.
-  example: ColumnTransformer nối với logistic regression trong một Pipeline.
+  meaning: Chuỗi preprocessing và model chạy theo thứ tự cố định để giảm lỗi và leakage. Khi fit pipeline,
+    mỗi bước preprocessing cần học chỉ được thấy training data.
+  example: Một Pipeline nối ColumnTransformer với logistic regression.
+  why_it_matters: Nó giữ các bước preprocessing và prediction nhất quán giữa split và inference.
+  common_confusion: Pipeline là container theo thứ tự; preprocessing chỉ là phần chuẩn bị dữ liệu.
+  self_check: Pipeline giúp giữ bước scaling nhất quán lúc inference như thế nào?
   introduced_in: 5
 - term: preprocessing
-  meaning: Các bước chuẩn bị dữ liệu trước model như điền thiếu, scale hoặc encode.
-  example: Điền median rồi one-hot encode cột hợp đồng.
+  meaning: Các bước chuẩn bị dữ liệu trước model như điền thiếu, scale hoặc encode. Có bước cố định, có
+    bước học median, danh sách category hoặc scaling statistic.
+  example: Điền missing value bằng median rồi one-hot encode cột contract.
+  why_it_matters: Nó biến dữ liệu thô thành input sẵn sàng cho model mà vẫn giữ ranh giới split.
+  common_confusion: Preprocessing có thể học trạng thái nên không phải lúc nào cũng là cleanup cố định
+    vô hại.
+  self_check: Giá trị preprocessing nào chỉ được học từ training split?
   introduced_in: 5
 - term: transform
-  meaning: Phép biến đổi input; một số transform phải học trạng thái chỉ từ training set.
-  example: StandardScaler học mean và std từ train rồi áp sang validation.
+  meaning: Phép biến đổi input; một số transform phải học trạng thái chỉ từ training set. Sau đó phải
+    dùng lại cùng fitted transform cho validation, test và inference data.
+  example: StandardScaler học mean và standard deviation từ training data rồi áp dụng cho validation data.
+  why_it_matters: Nó áp dụng nhất quán một quy tắc cố định hoặc đã học lên input mới.
+  common_confusion: transform áp quy tắc; fit học trạng thái mà quy tắc cần.
+  self_check: '`fit_transform` trên training data khác `transform` trên validation data ở đâu?'
   introduced_in: 5
 - term: class imbalance
-  meaning: Tình trạng số mẫu giữa các class chênh lệch lớn.
+  meaning: Tình trạng số mẫu giữa các class chênh lệch lớn. Minority class có thể ảnh hưởng quá ít tới
+    accuracy hoặc quá trình model học.
   example: Chỉ 8% khách churn nên accuracy dễ gây hiểu nhầm.
+  why_it_matters: Nó làm accuracy kém đáng tin và buộc ta xem metric nhạy theo class.
+  common_confusion: Class imbalance mô tả số lượng label, không tự nói lên chi phí kinh doanh.
+  self_check: Vì sao accuracy 92% vẫn có thể yếu khi chỉ 8% khách churn?
   introduced_in: 6
 - term: threshold
-  meaning: Ngưỡng chuyển score hoặc xác suất thành nhãn quyết định.
+  meaning: Ngưỡng chuyển score hoặc xác suất thành nhãn quyết định. Giảm threshold thường tìm được nhiều
+    positive case hơn nhưng cũng tăng false alarm.
   example: Xác suất từ 0.35 trở lên được gắn nhãn churn.
+  why_it_matters: Nó biến score của model thành quy tắc quyết định trong vận hành.
+  common_confusion: Threshold đổi quyết định, không đổi predicted probability gốc.
+  self_check: Churn recall thay đổi thế nào khi giảm decision threshold?
   introduced_in: 6
 - term: bias / variance
-  meaning: Bias cao thường do model quá đơn giản; variance cao do model quá nhạy với training data.
-  example: Learning curve có cả train và validation thấp gợi ý bias cao.
+  meaning: Bias cao thường do model quá đơn giản; variance cao do model quá nhạy với training data. Bias
+    gây underfitting có hệ thống, còn variance làm model thiếu ổn định giữa các dataset.
+  example: Train score và validation score đều thấp trên learning curve gợi ý bias cao.
+  why_it_matters: Nó giúp chẩn đoán nên tăng độ phức tạp model, thêm data hay regularization.
+  common_confusion: Bias và variance là xu hướng lỗi, không phải demographic bias của protected attribute.
+  self_check: Learning curve nào gợi ý bias cao thay vì variance cao?
   introduced_in: 7
 - term: cross-validation
-  meaning: Đánh giá lặp qua nhiều fold để ước lượng độ ổn định của model.
+  meaning: Đánh giá lặp qua nhiều fold để ước lượng độ ổn định của model. Mỗi sample làm validation ở
+    một fold và làm training ở các fold còn lại.
   example: 3-fold CV tạo ba validation score.
+  why_it_matters: Nó ước lượng độ dao động thay vì tin vào một split may mắn.
+  common_confusion: Cross-validation ước lượng độ dao động, không tạo thêm independent data.
+  self_check: Vì sao nhiều CV score hữu ích hơn một validation score?
   introduced_in: 7
 - term: fold
-  meaning: Một phần dữ liệu lần lượt làm validation trong cross-validation.
+  meaning: Một phần dữ liệu lần lượt làm validation trong cross-validation. Fold nên giữ cấu trúc quan
+    trọng như class balance hoặc customer group.
   example: Ở fold 2, nhóm thứ hai được giữ lại để đánh giá.
+  why_it_matters: Nó xác định vai trò training và validation tạm thời trong CV.
+  common_confusion: Fold là tập con trong cross-validation, không phải test set cuối.
+  self_check: Trong 3-fold CV, mỗi fold làm validation bao nhiêu lần?
   introduced_in: 7
 - term: overfitting
-  meaning: Model nhớ training data nhưng hoạt động kém trên dữ liệu mới.
+  meaning: Model nhớ training data nhưng hoạt động kém trên dữ liệu mới. Nó xuất hiện dưới dạng khoảng
+    cách giữa performance trên training và data chưa thấy.
   example: Train score tăng còn validation score giảm.
+  why_it_matters: Nó cảnh báo kết quả training tốt có thể không generalize.
+  common_confusion: Overfitting là generalization gap, không chỉ là model có nhiều parameter.
+  self_check: Train score tăng nhưng validation score giảm cho thấy điều gì?
   introduced_in: 7
 - term: bagging / boosting
-  meaning: Bagging học nhiều model tương đối độc lập; boosting học tuần tự để sửa lỗi trước.
+  meaning: Bagging học nhiều model tương đối độc lập; boosting học tuần tự để sửa lỗi trước. Bagging chủ
+    yếu giảm độ bất ổn; boosting khiến model sau tập trung vào lỗi trước.
   example: Random forest dùng bagging, gradient boosting dùng boosting.
+  why_it_matters: Nó giải thích cách tree ensemble tăng ổn định hoặc sửa lỗi trước đó.
+  common_confusion: Bagging và boosting là hai chiến lược ensemble khác nhau, không phải tên thay thế
+    nhau.
+  self_check: Random forest dùng chiến lược nào, còn gradient boosting dùng chiến lược nào?
   introduced_in: 8
 - term: ensemble
-  meaning: Model kết hợp nhiều model con để tạo dự đoán chung.
+  meaning: Model kết hợp nhiều model con để tạo dự đoán chung. Prediction của các model thành viên được
+    gộp bằng voting, averaging hoặc quy tắc khác.
   example: Random forest lấy kết quả từ nhiều decision tree.
+  why_it_matters: Nó thường tăng độ bền bằng cách kết hợp các lỗi prediction khác nhau.
+  common_confusion: Ensemble là model kết hợp; bagging và boosting là cách xây nó.
+  self_check: Random forest gộp output của nhiều tree thành một prediction thế nào?
   introduced_in: 8
 - term: hyperparameter
-  meaning: Cấu hình do người làm chọn, không phải parameter model tự học.
-  example: Số cây và độ sâu tối đa của random forest.
+  meaning: Cấu hình do người làm chọn, không phải parameter model tự học. Ví dụ gồm tree depth, regularization
+    strength và số lượng tree.
+  example: Số tree và maximum tree depth là hyperparameter của random forest.
+  why_it_matters: Nó điều khiển hành vi model và phải được chọn dựa trên kết quả validation.
+  common_confusion: Hyperparameter được chọn; parameter được học từ training data.
+  self_check: Vì sao phải chọn maximum tree depth bằng validation thay vì test data?
   introduced_in: 8
 - term: ablation
-  meaning: Thí nghiệm thêm hoặc bỏ đúng một thành phần để đo tác động của nó.
-  example: Bỏ nhóm feature hành vi rồi so validation AUC.
+  meaning: Thí nghiệm thêm hoặc bỏ đúng một thành phần để đo tác động của nó. Mọi data, code và setting
+    khác phải giữ nguyên để so sánh công bằng.
+  example: Bỏ nhóm feature hành vi rồi so sánh validation AUC.
+  why_it_matters: Nó tách riêng tác động thật của một nhóm feature hoặc kỹ thuật.
+  common_confusion: Ablation đổi một thành phần; tuning thông thường có thể đổi nhiều cấu hình.
+  self_check: Có thể kết luận gì nếu validation AUC giảm sau khi bỏ một feature group?
   introduced_in: 9
 - term: feature engineering
-  meaning: Tạo hoặc biến đổi feature dựa trên hiểu biết bài toán và thời điểm dự đoán.
+  meaning: Tạo hoặc biến đổi feature dựa trên hiểu biết bài toán và thời điểm dự đoán. Feature tốt mã
+    hóa cấu trúc hữu ích mà không dùng future information hoặc target information.
   example: Tạo tenure_bucket từ tenure nếu dùng được lúc inference.
+  why_it_matters: Nó có thể mở ra signal hữu ích, nhưng feature phải tồn tại lúc inference.
+  common_confusion: Feature engineering tạo input; feature selection chỉ giữ hoặc bỏ input có sẵn.
+  self_check: '`tenure_bucket` còn tạo được khi dự đoán khách hàng mới không?'
   introduced_in: 9
 - term: error analysis
-  meaning: Phân tích có hệ thống các dự đoán sai để tạo giả thuyết và bước kiểm tiếp.
-  example: Xem false negative theo loại hợp đồng.
+  meaning: Phân tích có hệ thống các dự đoán sai để tạo giả thuyết và bước kiểm tiếp. Người phân tích
+    xem false positive và false negative theo từng example và group.
+  example: Xem lại false negative theo contract type.
+  why_it_matters: Nó biến failure thành ý tưởng cải thiện cụ thể và kiểm chứng được.
+  common_confusion: Error analysis nghiên cứu failure thật; metric chỉ tóm tắt chúng.
+  self_check: Bạn sẽ điều tra pattern false negative nào trước trong churn model?
   introduced_in: 10
 - term: failure taxonomy
-  meaning: Cách phân nhóm lỗi theo nguyên nhân quan sát được thay vì gom mọi lỗi chung.
-  example: Gắn lỗi vào data, boundary, missing signal hoặc label noise.
+  meaning: Cách phân nhóm lỗi theo nguyên nhân quan sát được thay vì gom mọi lỗi chung. Category hữu ích
+    phải đủ cụ thể để đếm và nối với một hướng xử lý.
+  example: Nhóm lỗi thành data problem, boundary case, missing signal hoặc label noise.
+  why_it_matters: Nó làm các pattern lỗi lặp lại trở nên đo được thay vì chỉ là cảm nhận.
+  common_confusion: Failure taxonomy đặt tên nhóm lỗi; confusion matrix chỉ nhóm lỗi theo class label.
+  self_check: “Missing signal” và “label noise” có nên nằm trong cùng failure category không?
   introduced_in: 10
 - term: slice
-  meaning: Nhóm sample có đặc điểm chung được tách ra để kiểm hành vi model.
-  example: Slice khách mới có tenure dưới ba tháng.
+  meaning: Nhóm sample có đặc điểm chung được tách ra để kiểm hành vi model. Cần so kết quả slice với
+    kết quả tổng và luôn báo kèm support.
+  example: Slice khách hàng mới gồm các khách có tenure dưới ba tháng.
+  why_it_matters: Nó cho biết performance tổng có che vấn đề ở một nhóm quan trọng hay không.
+  common_confusion: Slice là subgroup có ý nghĩa; data split giao vai trò training hoặc evaluation.
+  self_check: Bạn sẽ xem metric nào cho nhóm khách có tenure dưới ba tháng?
   introduced_in: 10
 - term: support
-  meaning: Số sample thật của một class hoặc slice dùng để đọc metric có ngữ cảnh.
+  meaning: Số sample thật của một class hoặc slice dùng để đọc metric có ngữ cảnh. Support nhỏ làm một
+    metric có vẻ hoàn hảo trở nên thiếu chắc chắn.
   example: Recall 100% trên support=2 chưa đủ kết luận mạnh.
+  why_it_matters: Nó cho biết slice metric đẹp có đủ bằng chứng hay chưa.
+  common_confusion: Support là số đếm, không phải score chất lượng.
+  self_check: Vì sao recall 100% trên chỉ hai khách churn là bằng chứng yếu?
   introduced_in: 10
 - term: artifact
-  meaning: File model, config, metric và metadata cần để tái tạo hoặc phục vụ dự đoán.
-  example: model.joblib và manifest.json tạo thành artifact.
+  meaning: File model, config, metric và metadata cần để tái tạo hoặc phục vụ dự đoán. Artifact cần được
+    version và kèm đủ provenance để kiểm chứng cách nó được tạo.
+  example: Artifact gồm model.joblib và manifest.json.
+  why_it_matters: Nó gom đúng các file cần để tái tạo hoặc serve model.
+  common_confusion: Artifact là deliverable đã lưu; checkpoint là training state để resume.
+  self_check: Những file và metadata nào phải đi cùng `model.joblib`?
   introduced_in: 11
 - term: inference
-  meaning: Dùng model đã train để tạo prediction cho input mới.
-  example: Load artifact rồi dự đoán một khách chưa thấy.
+  meaning: Dùng model đã train để tạo prediction cho input mới. Nó phải áp đúng preprocessing và feature
+    order đã học khi training.
+  example: Load artifact rồi dự đoán churn cho một khách hàng chưa từng thấy.
+  why_it_matters: Đây là điểm model đã train tạo giá trị từ input chưa từng thấy.
+  common_confusion: Inference dùng model đã train; training cập nhật parameter của model.
+  self_check: Model churn đã lưu phải làm gì khi nhận một khách hàng chưa từng thấy?
   introduced_in: 11
 - term: manifest
-  meaning: Bản kê mô tả nội dung, phiên bản, checksum và nguồn gốc artifact.
+  meaning: Bản kê mô tả nội dung, phiên bản, checksum và nguồn gốc artifact. Checksum giúp phát hiện file
+    bị đổi, còn metadata giải thích cách tạo các file đó.
   example: Manifest ghi seed, feature order và SHA-256.
+  why_it_matters: Nó giúp audit artifact và tránh load nhầm file.
+  common_confusion: Manifest mô tả file và provenance; artifact chứa các file thật.
+  self_check: Field nào trong manifest cho biết model file đã bị đổi ngoài dự kiến?
   introduced_in: 11
 - term: configuration
-  meaning: Các giá trị điều khiển một run, được lưu riêng để chạy lại và so sánh.
-  example: Config YAML ghi seed, feature và threshold.
+  meaning: Các giá trị điều khiển một run, được lưu riêng để chạy lại và so sánh. Nên tách configuration
+    khỏi reusable code để đổi setting mà không sửa program logic.
+  example: Configuration YAML ghi seed, danh sách feature và threshold.
+  why_it_matters: Nó ghi lại lựa chọn của run để thí nghiệm được lặp lại và so sánh công bằng.
+  common_confusion: Configuration điều khiển run; parameter đã học là model state.
+  self_check: Lựa chọn nào của churn run nên nằm trong configuration thay vì source code?
   introduced_in: 12
 - term: package
-  meaning: Mã Python được tổ chức thành module có thể import, kiểm thử và gọi từ CLI.
+  meaning: Mã Python được tổ chức thành module có thể import, kiểm thử và gọi từ CLI. Package cài được
+    giúp tránh copy logic quan trọng giữa nhiều notebook.
   example: Đưa logic train vào src/ml_roadmap thay vì copy giữa notebook.
+  why_it_matters: Nó giúp test, CLI, notebook và service dùng lại cùng logic ML.
+  common_confusion: Package tổ chức code; container đóng gói cả runtime environment.
+  self_check: Vì sao training logic nên ở `src/ml_roadmap` thay vì nhiều notebook?
   introduced_in: 12
 - term: data contract
-  meaning: Quy ước máy đọc được về schema, phạm vi và lỗi của dữ liệu.
-  example: Thiếu cột tenure phải bị từ chối trước model.
+  meaning: Quy ước máy đọc được về schema, phạm vi và lỗi của dữ liệu. Cả producer lẫn consumer đều có
+    thể validate cùng contract tại boundary.
+  example: Từ chối input thiếu cột tenure trước khi input tới model.
+  why_it_matters: Nó biến giả định về input data thành check có thể thực thi.
+  common_confusion: Data contract quản data; API contract quản request và response của service.
+  self_check: Data contract phải làm gì khi thiếu cột `tenure`?
   introduced_in: 13
 - term: parity
-  meaning: Mức nhất quán giữa hai cách chạy được kỳ vọng cho cùng input.
+  meaning: Mức nhất quán giữa hai cách chạy được kỳ vọng cho cùng input. Tolerance phù hợp tùy output
+    là label, probability hay floating-point array.
   example: Prediction trước và sau save/load phải khớp trong tolerance.
+  why_it_matters: Nó phát hiện thay đổi hành vi do serialization hoặc serving path mới gây ra.
+  common_confusion: Parity là hành vi khớp đủ mức yêu cầu, không nhất thiết file giống từng byte.
+  self_check: Bạn kiểm prediction parity trước và sau khi save model như thế nào?
   introduced_in: 13
 - term: API contract
-  meaning: Quy ước rõ về input, output, status code và lỗi của inference service.
+  meaning: Quy ước rõ về input, output, status code và lỗi của inference service. Client và server cùng
+    dựa vào contract để trao đổi data hợp lệ.
   example: Payload thiếu tenure trả 422 thay vì 500.
+  why_it_matters: Nó cho client một interface ổn định và cách báo lỗi dự đoán được.
+  common_confusion: API contract mô tả hành vi; data contract tập trung vào quy tắc input data.
+  self_check: API phải trả status code nào khi thiếu churn input bắt buộc?
   introduced_in: 14
 - term: latency
-  meaning: Thời gian từ khi nhận request đến khi trả response.
-  example: Đo warm latency cho mini batch 16 sample.
+  meaning: Thời gian từ khi nhận request đến khi trả response. Cần đo trong điều kiện được nêu rõ như
+    trạng thái warm-up và batch size.
+  example: Đo warm latency cho mini-batch gồm 16 sample.
+  why_it_matters: Nó quyết định inference service có đủ nhanh cho use case hay không.
+  common_confusion: Latency đo thời gian; throughput đo lượng công việc hoàn tất mỗi đơn vị thời gian.
+  self_check: Vì sao kết quả warm latency phải ghi kèm batch size?
   introduced_in: 14
 - term: CI
-  meaning: Quy trình tự động chạy validation và test khi code thay đổi.
-  example: Một pipeline CI chạy pytest, Ruff và mypy mà không deploy AWS.
+  meaning: Quy trình tự động chạy validation và test khi code thay đổi. CI thường chạy test, lint và type
+    check, nhưng không tự động production deployment.
+  example: CI pipeline chạy pytest, Ruff và mypy mà không deploy lên AWS.
+  why_it_matters: Nó tự động bắt regression trước khi code thay đổi được merge.
+  common_confusion: CI kiểm thay đổi code; deployment phát hành thay đổi đó vào environment.
+  self_check: Check nào cần chạy trong CI trước khi merge churn package?
   introduced_in: 15
 - term: container
-  meaning: Gói ứng dụng cùng dependency và cấu hình chạy trong môi trường tách biệt.
+  meaning: Gói ứng dụng cùng dependency và cấu hình chạy trong môi trường tách biệt. Image chỉ nên chứa
+    phần service cần và nên chạy bằng non-root user.
   example: Docker image chạy API bằng non-root user.
+  why_it_matters: Nó giúp application chạy nhất quán ở nhiều environment mà không phụ thuộc dependency
+    trên host.
+  common_confusion: Container là gói chạy được, không phải một virtual machine đầy đủ.
+  self_check: Điều gì làm inference API trong container portable hơn cách chạy phụ thuộc host?
   introduced_in: 15
 - term: batch
-  meaning: Nhóm sample được xử lý cùng một lần trước khi cập nhật parameter.
-  example: Batch size 32 nghĩa là model đọc 32 ảnh mỗi bước.
+  meaning: Nhóm sample được xử lý cùng một lần trước khi cập nhật parameter. Training thường thực hiện
+    một forward pass và backward pass cho mỗi batch.
+  example: Batch size 32 nghĩa là model đọc 32 ảnh trong mỗi step.
+  why_it_matters: Nó cân bằng hiệu quả compute, memory và độ nhiễu gradient.
+  common_confusion: Batch gom sample; epoch đi qua toàn bộ training set.
+  self_check: Có bao nhiêu ảnh tham gia một step khi batch size là 32?
   introduced_in: 16
 - term: device
-  meaning: Phần cứng nơi tensor và model thực hiện phép tính.
-  example: Model và input cùng ở cpu hoặc cuda.
+  meaning: Phần cứng nơi tensor và model thực hiện phép tính. Model và mọi tensor trong cùng phép toán
+    phải nằm trên device tương thích.
+  example: Đặt model và input trên cùng CPU hoặc CUDA device.
+  why_it_matters: Nó giúp tránh runtime error khi model và tensor nằm trên các device không tương thích.
+  common_confusion: Device là hardware tính toán; tensor là data được đặt lên đó.
+  self_check: Vì sao CUDA model lỗi khi input tensor vẫn ở CPU?
   introduced_in: 16
 - term: epoch
-  meaning: Một lượt model đi qua toàn bộ training set.
-  example: Ba epoch nghĩa là mỗi sample train được dùng khoảng ba lượt.
+  meaning: Một lượt model đi qua toàn bộ training set. Số optimizer step trong mỗi epoch phụ thuộc dataset
+    size và batch size.
+  example: Ba epoch dùng mỗi training sample khoảng ba lần.
+  why_it_matters: Nó là đơn vị cơ bản để đo tiến độ đi qua training data.
+  common_confusion: Epoch là một lượt; nhiều optimizer step có thể xảy ra trong lượt đó.
+  self_check: Nếu training set có 320 ảnh và batch size 32, một epoch có bao nhiêu batch?
   introduced_in: 16
 - term: optimizer
-  meaning: Thuật toán dùng gradient để cập nhật parameter.
+  meaning: Thuật toán dùng gradient để cập nhật parameter. Optimizer còn có thể giữ moving average hoặc
+    state khác để tạo cập nhật sau.
   example: Adam cập nhật classifier head sau loss.backward().
+  why_it_matters: Nó quyết định gradient được chuyển thành cập nhật parameter thế nào.
+  common_confusion: Optimizer áp cập nhật; learning rate là một cấu hình điều khiển cập nhật.
+  self_check: Adam dùng thông tin nào sau `loss.backward()`?
   introduced_in: 16
 - term: tensor
-  meaning: Mảng nhiều chiều dùng để biểu diễn dữ liệu và phép tính trong neural network.
-  example: Batch ảnh có shape [32, 3, 160, 160].
+  meaning: Mảng nhiều chiều dùng để biểu diễn dữ liệu và phép tính trong neural network. Shape, data type
+    và device quyết định phép toán nào có thể dùng tensor.
+  example: Một batch ảnh có shape [32, 3, 160, 160].
+  why_it_matters: Nó mang input, activation và output của neural network với shape rõ ràng.
+  common_confusion: Tensor là array có shape và dtype, không phải chính neural network.
+  self_check: Mỗi chiều trong `[32, 3, 160, 160]` biểu diễn điều gì?
   introduced_in: 16
 - term: augmentation
-  meaning: Biến đổi ngẫu nhiên hợp lý trên training sample để tăng độ đa dạng mà không đổi label.
-  example: Lật ngang ảnh train; validation chỉ resize deterministic.
+  meaning: Biến đổi ngẫu nhiên hợp lý trên training sample để tăng độ đa dạng mà không đổi label. Biến
+    đổi phải giữ nguyên task label và thường chỉ random trên training data.
+  example: Lật ngang training image; resize validation image theo cách deterministic.
+  why_it_matters: Nó giảm overfitting bằng cách cho model thấy biến thể hợp lệ của ảnh train.
+  common_confusion: Augmentation đổi training example; preprocessing còn chuẩn bị validation và inference
+    input.
+  self_check: Vì sao validation image nên resize deterministic thay vì random augmentation?
   introduced_in: 17
 - term: backbone
-  meaning: Phần mạng chính trích xuất đặc trưng trước classifier head.
-  example: ResNet18 pretrained làm backbone.
+  meaning: Phần mạng chính trích xuất đặc trưng trước classifier head. Classifier head nhỏ sẽ đổi các
+    feature đó thành score cho class mới.
+  example: Dùng pretrained ResNet18 làm backbone.
+  why_it_matters: Nó cung cấp visual feature dùng lại trước classifier riêng của bài toán.
+  common_confusion: Backbone trích xuất feature; classifier head ánh xạ chúng sang task label.
+  self_check: Phần nào của pretrained ResNet18 được thay cho bài toán image classification mới?
   introduced_in: 17
 - term: checkpoint
-  meaning: Trạng thái training đã lưu để có thể tiếp tục sau khi runtime bị ngắt.
-  example: Last checkpoint chứa model, optimizer, epoch và history.
+  meaning: Trạng thái training đã lưu để có thể tiếp tục sau khi runtime bị ngắt. Nó thường chứa model
+    parameter, optimizer state, epoch number và training history.
+  example: Checkpoint mới nhất chứa model, optimizer, epoch và history.
+  why_it_matters: Nó giữ tiến độ và cho phép tiếp tục một training run bị dừng.
+  common_confusion: Checkpoint có thể resume training; final artifact được chuẩn bị cho evaluation hoặc
+    serving.
+  self_check: Cần field nào trong checkpoint để tiếp tục chính xác một run bị ngắt?
   introduced_in: 17
 - term: freeze
-  meaning: Tạm không cập nhật parameter của một phần model trong training.
+  meaning: Tạm không cập nhật parameter của một phần model trong training. Frozen parameter vẫn tham gia
+    forward pass nhưng không nhận optimizer update.
   example: Đặt requires_grad=False cho backbone.
+  why_it_matters: Nó giảm compute và bảo vệ pretrained feature ở giai đoạn đầu.
+  common_confusion: Freeze ngừng cập nhật parameter nhưng data vẫn đi qua layer.
+  self_check: '`requires_grad=False` thay đổi điều gì ở backbone trong lúc training?'
   introduced_in: 17
 - term: transfer learning
-  meaning: Tái sử dụng kiến thức từ model pretrained cho bài toán mới.
+  meaning: Tái sử dụng kiến thức từ model pretrained cho bài toán mới. Có thể train classifier head trước
+    trong khi giữ pretrained backbone ở trạng thái freeze.
   example: Giữ ResNet18 backbone và thay classifier head.
+  why_it_matters: Nó giảm nhu cầu data và compute nhờ bắt đầu từ pretrained feature hữu ích.
+  common_confusion: Transfer learning là chiến lược reuse tổng thể; fine-tuning là một giai đoạn training
+    sau.
+  self_check: Vì sao transfer learning cần ít labeled image hơn training from scratch?
   introduced_in: 17
 - term: early stopping
-  meaning: Dừng training khi validation không cải thiện qua số epoch đã định.
-  example: Dừng sau hai epoch validation loss không tốt hơn.
+  meaning: Dừng training khi validation không cải thiện qua số epoch đã định. Setting patience quy định
+    số epoch không cải thiện được chấp nhận.
+  example: Dừng khi validation loss không cải thiện trong hai epoch.
+  why_it_matters: Nó tránh lãng phí epoch sau khi validation performance ngừng cải thiện.
+  common_confusion: Early stopping là quy tắc training, không bảo đảm loại bỏ mọi overfitting.
+  self_check: Run có patience bằng hai nên dừng sau bao nhiêu epoch không cải thiện?
   introduced_in: 18
 - term: fine-tuning
-  meaning: Tiếp tục train một phần model pretrained bằng learning rate nhỏ cho bài toán mới.
+  meaning: Tiếp tục train một phần model pretrained bằng learning rate nhỏ cho bài toán mới. Nó thường
+    diễn ra sau frozen-head training và dùng learning rate thấp hơn cho layer được unfreeze.
   example: Unfreeze layer4 sau frozen-head baseline.
+  why_it_matters: Nó điều chỉnh pretrained feature cho bài toán mới sau khi có baseline ổn định.
+  common_confusion: Fine-tuning cập nhật pretrained layer; frozen-head training giữ nguyên chúng.
+  self_check: Vì sao pretrained backbone cần learning rate nhỏ khi fine-tuning?
   introduced_in: 18
 - term: macro average
-  meaning: Cách tính metric bằng cách cho mỗi class trọng số ngang nhau, dù số mẫu khác nhau.
-  example: Macro F1 trung bình F1 của churn và non-churn như hai class ngang nhau.
+  meaning: Cách tính metric bằng cách cho mỗi class trọng số ngang nhau, dù số mẫu khác nhau. Score của
+    từng class được cộng rồi chia cho số class.
+  example: Macro F1 lấy trung bình F1 của churn và non-churn với trọng số ngang nhau.
+  why_it_matters: Nó cho class hiếm và class phổ biến đóng góp ngang nhau vào score báo cáo.
+  common_confusion: Macro average cho class trọng số bằng nhau; weighted average cho trọng số theo support.
+  self_check: Macro F1 xử lý churn và non-churn thế nào khi support chênh lệch lớn?
   introduced_in: 19
 - term: weighted average
-  meaning: Cách tính metric bằng cách cho class nhiều sample trọng số lớn hơn theo support.
+  meaning: Cách tính metric bằng cách cho class nhiều sample trọng số lớn hơn theo support. Vì vậy class
+    lớn ảnh hưởng kết quả nhiều hơn class nhỏ.
   example: Weighted F1 có thể trông cao khi class phổ biến làm tốt nhưng class hiếm làm kém.
+  why_it_matters: Nó phản ánh tần suất dataset nhưng có thể che performance kém ở class hiếm.
+  common_confusion: Weighted average theo support; macro average xem mọi class ngang nhau.
+  self_check: Vì sao weighted F1 có thể cao dù rare class hoạt động kém?
   introduced_in: 19
 - term: budget alert
-  meaning: Cảnh báo khi chi phí thực tế hoặc dự báo chạm ngưỡng; không phải hard cap.
-  example: Email cảnh báo Actual và Forecasted Budget.
+  meaning: Cảnh báo khi chi phí thực tế hoặc dự báo chạm ngưỡng; không phải hard cap. Nó theo dõi actual
+    và forecast spending, nhưng resource AWS vẫn chạy cho đến khi có hành động dừng.
+  example: Gửi email alert cho cả Actual và Forecasted AWS Budgets.
+  why_it_matters: Nó cảnh báo chi phí sớm trước khi thí nghiệm tạo hóa đơn bất ngờ.
+  common_confusion: Budget alert gửi cảnh báo; nó không tự động dừng chi tiêu AWS.
+  self_check: Sau budget alert báo chi phí AWS bất thường, vẫn cần làm gì?
   introduced_in: 20
 - term: CloudWatch Logs
-  meaning: Nơi lưu log runtime trên AWS; cần tránh dữ liệu nhạy cảm và đặt retention.
-  example: Log group Lambda giữ một ngày.
+  meaning: Nơi lưu log runtime trên AWS; cần tránh dữ liệu nhạy cảm và đặt retention. Log group cần retention,
+    access control và quy tắc không ghi sensitive value.
+  example: Giữ log group của Lambda trong một ngày.
+  why_it_matters: Nó cung cấp dữ liệu để debug, còn retention và privacy control giúp giới hạn rủi ro.
+  common_confusion: CloudWatch Logs lưu runtime log; CloudWatch metric lưu số đo.
+  self_check: Bằng chứng Lambda nào nên vào CloudWatch Logs, còn customer data nào phải tránh ghi?
   introduced_in: 20
 - term: IAM
-  meaning: Dịch vụ AWS quản danh tính và quyền truy cập theo nguyên tắc quyền tối thiểu.
-  example: Lambda role chỉ được đọc đúng object model trong S3.
+  meaning: Dịch vụ AWS quản danh tính và quyền truy cập theo nguyên tắc quyền tối thiểu. Policy gắn action
+    và resource được phép vào user, role hoặc service.
+  example: Lambda role chỉ được đọc model object cần thiết trong S3.
+  why_it_matters: Nó giới hạn từng AWS identity hoặc service được phép làm gì.
+  common_confusion: IAM kiểm soát access; security group kiểm soát network traffic.
+  self_check: Inference Lambda role cần quyền S3 tối thiểu nào?
   introduced_in: 20
 - term: idempotent cleanup
-  meaning: Quy trình dọn có thể chạy lại an toàn và vẫn hướng tới trạng thái sạch.
-  example: Cleanup exact project ID rồi scan lại.
+  meaning: Quy trình dọn có thể chạy lại an toàn và vẫn hướng tới trạng thái sạch. Resource đã không còn
+    được xem là trạng thái thành công thay vì fatal error.
+  example: Cleanup resource của đúng project ID rồi scan lại.
+  why_it_matters: Nó cho phép retry cleanup an toàn sau khi quy trình chỉ hoàn tất một phần.
+  common_confusion: Idempotent cleanup chạy lặp an toàn; delete một lần có thể hỏng khi mới hoàn tất một
+    phần.
+  self_check: Vì sao chạy cùng cleanup command hai lần vẫn phải an toàn?
   introduced_in: 20
 - term: Lambda
-  meaning: Dịch vụ chạy hàm serverless theo request mà không quản máy chủ.
-  example: Gọi private invoke để chạy inference tabular.
+  meaning: Dịch vụ chạy hàm serverless theo request mà không quản máy chủ. AWS cấp execution environment
+    và tính phí resource dùng cho mỗi invocation.
+  example: Invoke private Lambda function để chạy tabular inference.
+  why_it_matters: Nó chạy inference theo nhu cầu mà không cần duy trì server chạy liên tục.
+  common_confusion: Lambda là compute; S3 là object storage.
+  self_check: Phần nào của tabular inference workflow chạy trong Lambda?
   introduced_in: 20
 - term: residual scan
-  meaning: Bước kiểm sau cleanup để tìm tài nguyên project còn sót.
-  example: Scan CloudFormation, S3, Lambda, Logs và IAM.
+  meaning: Bước kiểm sau cleanup để tìm tài nguyên project còn sót. Nó phải kiểm mọi service liên quan
+    và chỉ ra phần nào vẫn cần xóa.
+  example: Scan CloudFormation, S3, Lambda, CloudWatch Logs và IAM.
+  why_it_matters: Nó kiểm chứng cleanup đã xóa thật các resource của project.
+  common_confusion: Residual scan xác minh không còn resource; cleanup thực hiện hành động xóa.
+  self_check: Residual scan phải kiểm những AWS service nào sau project này?
   introduced_in: 20
 - term: S3
-  meaning: Dịch vụ object storage của AWS dùng để lưu artifact nhỏ.
-  example: Upload portable_model.json vào bucket private.
+  meaning: Dịch vụ object storage của AWS dùng để lưu artifact nhỏ. Mỗi object có một key trong bucket
+    và có thể được bảo vệ bằng IAM cùng encryption.
+  example: Upload portable_model.json vào một private bucket.
+  why_it_matters: Nó lưu model artifact bền vững mà không cần đóng gói chúng trong application image.
+  common_confusion: S3 lưu object trong bucket; file system cung cấp directory và file operation.
+  self_check: Model file nào cần upload vào private S3 bucket?
   introduced_in: 20

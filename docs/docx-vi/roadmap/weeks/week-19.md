@@ -24,7 +24,37 @@ Free runtime có thể ngắt bất cứ lúc nào. Checkpoint tốt biến mộ
 
 **Ôn lại:** `transfer learning`, `freeze`, `optimizer`, `epoch`, `validation set`
 
-**Áp dụng:** Chạy frozen `transfer learning` baseline với backbone đã freeze, sau đó optional `fine-tuning`; lưu `checkpoint` gồm optimizer/epoch và dùng `early stopping` theo validation set; resume để chứng minh state không mất.
+**Áp dụng:** Bắt đầu từ frozen `transfer learning` baseline, sau đó mới cân nhắc `fine-tuning`; lưu `checkpoint` gồm optimizer và epoch state, dùng `early stopping` trên `validation set`, rồi resume một lần để kiểm state đã lưu.
+
+## Giải thích khái niệm
+
+### Checkpoint khi fine-tuning
+
+**Cách hình dung:** `fine-tuning`: Tiếp tục train một phần model pretrained bằng learning rate nhỏ cho bài toán mới. Nó thường diễn ra sau frozen-head training và dùng learning rate thấp hơn cho layer được unfreeze. `checkpoint`: Trạng thái training đã lưu để có thể tiếp tục sau khi runtime bị ngắt. Nó thường chứa model parameter, optimizer state, epoch number và training history.
+
+**Vì sao quan trọng:** Checkpoint giữ model và optimizer state để quyết định fine-tuning có thể tái lập hoặc resume an toàn.
+
+**Ví dụ xuyên suốt:** `fine-tuning`: Unfreeze layer4 sau frozen-head baseline. `checkpoint`: Last checkpoint chứa model, optimizer, epoch và history.
+
+**Dễ nhầm với:** Fine-tuning cập nhật pretrained layer; frozen-head training giữ nguyên chúng. Checkpoint có thể resume training; final artifact được chuẩn bị cho evaluation hoặc serving.
+
+**Tự kiểm tra:** `checkpoint` phải giữ state nào để resume chính xác run `fine-tuning`?
+
+### Early stopping
+
+**Cách hình dung:** `early stopping`: Dừng training khi validation không cải thiện qua số epoch đã định. Setting patience quy định số epoch không cải thiện được chấp nhận.
+
+**Vì sao quan trọng:** Early stopping dùng validation evidence để dừng trước khi epoch bổ sung chủ yếu ghi nhớ training noise.
+
+**Ví dụ xuyên suốt:** `early stopping`: Dừng khi validation loss không cải thiện trong hai epoch.
+
+**Dễ nhầm với:** Early stopping là quy tắc training, không bảo đảm loại bỏ mọi overfitting.
+
+**Tự kiểm tra:** Validation signal và patience rule nào kích hoạt `early stopping`?
+
+## Kết nối kiến thức cũ
+
+Frozen `transfer learning` baseline và policy `freeze` vẫn là mốc so sánh. `optimizer` cùng `epoch` state được restore, kết hợp rule không đổi trên `validation set`, cho biết fine-tuning có thật sự cải thiện model hay không.
 
 ## Lịch 8-10 giờ
 

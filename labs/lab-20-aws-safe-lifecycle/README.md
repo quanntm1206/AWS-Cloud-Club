@@ -14,6 +14,51 @@ Upload a portable tabular model to S3, invoke a private Lambda with valid and in
 
 **Explain it yourself:** A budget alert is not a hard cap. What do idempotent cleanup and a residual scan protect?
 
+
+## Apply the concepts
+
+### Private inference path
+
+**Terms:** `artifact`, `S3`, `IAM`, `Lambda`, `inference`, `API contract`
+
+**What they mean here:** Upload the local `artifact` to `S3`. Least-privilege `IAM` allows the private `Lambda` function to load it and run `inference` for valid and invalid events defined by the `API contract`.
+
+**Where you will see them:** You will see this path in the local SHA-256 checksum, the S3 object, the IAM role policy, the stack outputs, and the two Lambda response files.
+
+**Common mistake:** Retrying a failed deploy or adding a public endpoint when the private path is enough.
+
+**Evidence to keep:** Keep sanitized checksum, output names, policy summary, and response shapes locally.
+
+**Explain after the lab:** Trace model access and justify each permission while identifying what stays private.
+
+### Delayed signals
+
+**Terms:** `CloudWatch Logs`, `budget alert`
+
+**What they mean here:** `CloudWatch Logs` records execution evidence; a `budget alert` sends delayed notifications, not a hard cap or zero-spend proof.
+
+**Where you will see them:** The evidence includes sanitized log events, Actual and Forecasted budget notifications, and Billing checks at three different times.
+
+**Common mistake:** Logging secrets or treating a quiet alert as a live billing guarantee.
+
+**Evidence to keep:** Keep sanitized log summary, budget settings, and immediate, ~12-hour, and next-day timestamps.
+
+**Explain after the lab:** Explain what logs and alerts establish and why later billing checks remain.
+
+### Verified teardown
+
+**Terms:** `idempotent cleanup`, `residual scan`
+
+**What they mean here:** `idempotent cleanup` can be repeated safely for the exact project ID. After deletion, the `residual scan` checks whether any governed resources remain.
+
+**Where you will see them:** Dry-run names precede execution, then the scan reports `residual=false` without permission errors.
+
+**Common mistake:** Calling the project clean because deletion was requested.
+
+**Evidence to keep:** Keep the dry-run, cleanup result, residual-scan result, account and Region confirmation without the account ID, and the decision to keep or delete the budget alert.
+
+**Explain after the lab:** Use scan evidence to say clean or not clean and explain safe repetition.
+
 ## Before you start
 
 - Read `aws/README.md`. Confirm your plan, credits, expiry date, account, and Region.

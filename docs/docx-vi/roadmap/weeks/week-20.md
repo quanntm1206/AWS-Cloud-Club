@@ -24,7 +24,37 @@ Metric tổng hợp không cho biết model sai ở đâu. Failure analysis giú
 
 **Ôn lại:** `metric`, `validation set`, `error analysis`, `failure taxonomy`
 
-**Áp dụng:** Tạo `confusion matrix`, metric precision / recall / F1 và `support`; làm `error analysis` trên prediction ở validation set, gán failure taxonomy cho sample thật, không dùng FakeData làm model validation.
+**Áp dụng:** Tạo `confusion matrix` kèm precision, recall, F1 và `support`; chạy `error analysis` trên validation prediction thật, gán mỗi failure vào `failure taxonomy`, và không dùng FakeData cho `model validation`.
+
+## Giải thích khái niệm
+
+### Số đếm phía sau metric
+
+**Cách hình dung:** `confusion matrix`: Bảng đếm truth và prediction để thấy model nhầm class nào với class nào. Các ô tách riêng true positive, false positive, true negative và false negative.
+
+**Vì sao quan trọng:** Confusion matrix cho thấy đúng loại nhầm lẫn giữa các class mà một aggregate score che đi.
+
+**Ví dụ xuyên suốt:** `confusion matrix`: Hàng churn=1 cho biết bao nhiêu mẫu bị đoán thành 0.
+
+**Dễ nhầm với:** Confusion matrix chứa số đếm; precision, recall và F1 tóm tắt các số đếm đó.
+
+**Tự kiểm tra:** Error count nào trong `confusion matrix` giải thích class-level metric?
+
+### Support cho biết mẫu số
+
+**Cách hình dung:** `support`: Số sample thật của một class hoặc slice dùng để đọc metric có ngữ cảnh. Support nhỏ làm một metric có vẻ hoàn hảo trở nên thiếu chắc chắn.
+
+**Vì sao quan trọng:** Support cung cấp mẫu số để đánh giá một class hoặc slice score dựa trên lượng evidence phía sau.
+
+**Ví dụ xuyên suốt:** `support`: Recall 100% trên support=2 chưa đủ kết luận mạnh.
+
+**Dễ nhầm với:** Support là số đếm, không phải score chất lượng.
+
+**Tự kiểm tra:** `support` có đủ lớn để tin score của class hoặc slice này không?
+
+## Kết nối kiến thức cũ
+
+`metric` trên `validation set` giờ được tách thành count và support theo class. `error analysis` cùng `failure taxonomy` giải thích sample thật nào tạo ra kết quả yếu của từng class.
 
 ## Lịch 8-10 giờ
 

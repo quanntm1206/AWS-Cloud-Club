@@ -14,6 +14,23 @@ Do not trust a gradient only because the loss decreases. Check it with an indepe
 
 **Explain it yourself:** How are loss, gradient, and learning rate connected when a parameter is updated?
 
+
+## Apply the concepts
+
+### One gradient update
+
+**Terms:** `feature`, `label / target`, `prediction`, `loss`, `gradient`, `learning rate`, `data validation`
+
+**What they mean here:** Features and targets produce a `prediction`. The `loss` summarizes its error, the `gradient` gives the local update direction, and the `learning rate` controls the size of the update. `data validation` rejects invalid shapes or values before this calculation starts.
+
+**Where you will see them:** Follow the arrays for four samples through MSE, the analytic and finite-difference gradients, one parameter update, and the loss history.
+
+**Common mistake:** Reading decreasing loss as proof that the derivative is correct without checking sign and scale.
+
+**Evidence to keep:** Keep one hand calculation, both gradients for several epsilon values, `gradient_check=true`, the loss path, and one intentional validation error.
+
+**Explain after the lab:** Walk from a feature and target to the next parameter value, then state what the gradient check does not prove.
+
 ## Before you start
 
 Read `roadmap/weeks/week-04.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large result files in Git.

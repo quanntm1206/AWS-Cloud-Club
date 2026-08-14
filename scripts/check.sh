@@ -8,6 +8,7 @@ python_bin="python3"; [[ -x .venv/bin/python ]] && python_bin=".venv/bin/python"
 if [[ "$scope" == "bootstrap" ]]; then "$python_bin" -c 'import ml_roadmap; print(ml_roadmap.__version__)'; exit; fi
 "$python_bin" scripts/validate_curriculum.py
 "$python_bin" scripts/validate_learner_docs.py
+"$python_bin" scripts/build_glossary_markdown.py --check
 "$python_bin" scripts/validate_sources.py
 "$python_bin" scripts/validate_notebooks.py
 "$python_bin" scripts/validate_aws_safety.py

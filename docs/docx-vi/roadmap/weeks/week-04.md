@@ -24,7 +24,37 @@ Loss cho model biết đang sai bao nhiêu; gradient cho biết nên đổi tham
 
 **Ôn lại:** `feature`, `label / target`, `data validation`
 
-**Áp dụng:** Tính `prediction`, `loss`, `gradient` và cập nhật parameter bằng `learning rate`; giữ feature, label / target và ghi lỗi data validation nếu input sai.
+**Áp dụng:** Tính `prediction` và `loss`, theo hướng `gradient`, rồi cập nhật từng parameter bằng `learning rate` đã chọn; giữ lại `feature`, `label / target` và mọi lỗi `data validation`.
+
+## Giải thích khái niệm
+
+### Prediction và error
+
+**Cách hình dung:** `prediction`: Giá trị model tạo ra cho một sample. Với regression, nó có thể là một số; với classification, nó có thể là class hoặc probability. `loss`: Con số model cố giảm trong training để đo sai lệch trên dữ liệu học. Mỗi bài toán dùng loss function phù hợp, như MSE cho regression hoặc cross-entropy cho classification.
+
+**Vì sao quan trọng:** Prediction là output của model; loss cho training một objective dạng số để cải thiện output đó.
+
+**Ví dụ xuyên suốt:** `prediction`: Model dự đoán monthly_charges là 42.5. `loss`: MSE phạt bình phương khoảng cách giữa prediction và target.
+
+**Dễ nhầm với:** Prediction là output; label là đáp án quan sát được. Loss dẫn hướng training; metric báo chất lượng mà con người quan tâm.
+
+**Tự kiểm tra:** Vì sao `loss` thấp hơn có thể cải thiện `prediction` nhưng chưa chắc hữu ích cho sản phẩm?
+
+### Quá trình học di chuyển ra sao
+
+**Cách hình dung:** `gradient`: Hướng và độ lớn cho biết loss thay đổi thế nào khi parameter thay đổi. Dấu của gradient cho biết hướng, còn độ lớn cho biết loss phản ứng mạnh đến đâu. `learning rate`: Độ lớn mỗi bước cập nhật parameter. Optimizer nhân giá trị này với gradient để tạo bước cập nhật.
+
+**Vì sao quan trọng:** Gradient cung cấp hướng update; learning rate kiểm soát parameter di chuyển bao xa theo hướng đó.
+
+**Ví dụ xuyên suốt:** `gradient`: Gradient dương gợi ý giảm parameter theo learning rate. `learning rate`: Learning rate quá lớn làm loss dao động hoặc tăng.
+
+**Dễ nhầm với:** Gradient là hướng thay đổi; learning rate scale độ lớn bước cập nhật. Learning rate là cấu hình bước cập nhật, không phải loss cần giảm.
+
+**Tự kiểm tra:** Update thay đổi thế nào khi `gradient` giữ nguyên nhưng `learning rate` tăng gấp đôi?
+
+## Kết nối kiến thức cũ
+
+Mỗi `feature` giờ đóng góp vào prediction để so với `label / target`; `data validation` vẫn là cổng chặn input sai trước phép tính. Loss log và parameter update làm mối nối này quan sát được.
 
 ## Lịch 8-10 giờ
 

@@ -1,4 +1,6 @@
+import re
 from pathlib import Path
+from xml.etree import ElementTree
 from zipfile import ZipFile
 
 from docx import Document
@@ -67,6 +69,10 @@ def test_docx_contains_all_weeks_and_safety_language(tmp_path: Path) -> None:
     assert "Tabular AWS bắt buộc" not in text
     assert "Từ khóa tuần này" in text
     assert "Thuật ngữ mới" in text and "Ôn lại" in text
+    assert text.count("Giải thích khái niệm") == 24
+    assert text.count("Kết nối kiến thức cũ") == 24
+    assert "Vì sao quan trọng" in text
+    assert "Dễ nhầm với" in text
     assert "dataset" in text and "augmentation" in text
     assert "Ví dụ" in text and "Giới thiệu ở" in text
     for command in (
@@ -83,10 +89,24 @@ def test_docx_contains_all_weeks_and_safety_language(tmp_path: Path) -> None:
     assert "local-first" in document.core_properties.subject
     with ZipFile(output) as archive:
         settings = archive.read("word/settings.xml").decode("utf-8")
+        styles = archive.read("word/styles.xml")
         relationships = archive.read("word/_rels/document.xml.rels").decode("utf-8")
-    assert "vi-VN" in settings
+        document_xml = archive.read("word/document.xml").decode("utf-8")
+    settings_root = ElementTree.fromstring(settings)
+    theme_languages = settings_root.findall(qn("w:themeFontLang"))
+    assert len(theme_languages) == 1
+    assert theme_languages[0].get(qn("w:val")) == "vi-VN"
+    assert theme_languages[0].get(qn("w:eastAsia")) == "vi-VN"
+    styles_root = ElementTree.fromstring(styles)
+    default_language = styles_root.find(
+        f"{qn('w:docDefaults')}/{qn('w:rPrDefault')}/{qn('w:rPr')}/{qn('w:lang')}"
+    )
+    assert default_language is not None
+    assert default_language.get(qn("w:val")) == "vi-VN"
+    assert default_language.get(qn("w:eastAsia")) == "vi-VN"
     assert relationships.count("relationships/hyperlink") >= 9
     assert "https://aws.amazon.com/free/" in relationships
+    assert document_xml.count("w:cantSplit") >= 78
 
 
 def test_docx_guides_a_learner_from_download_to_first_lab(tmp_path: Path) -> None:
@@ -131,3 +151,34 @@ def test_docx_has_usable_navigation_and_self_assessment(tmp_path: Path) -> None:
     assert document_xml.count("w:bookmarkStart") >= 10
     assert 'w:anchor="quick-start"' in document_xml
     assert 'w:anchor="roadmap"' in document_xml
+
+
+def test_docx_glossary_uses_readable_labeled_paragraphs(tmp_path: Path) -> None:
+    output = tmp_path / "roadmap.docx"
+    build(output)
+    document = Document(output)
+    glossary_heading = next(
+        paragraph
+        for paragraph in document.paragraphs
+        if paragraph.text == "8. Glossary và nguồn" and paragraph.style.name == "Heading 1"
+    )
+    assert glossary_heading.paragraph_format.page_break_before is True
+    glossary = next(table for table in document.tables if table.cell(0, 0).text == "Thuật ngữ")
+    assert len(glossary.rows) == 79
+    for row in glossary.rows[1:]:
+        assert len(row.cells[1].paragraphs) >= 2
+        assert len(row.cells[2].paragraphs) >= 3
+        assert all(paragraph.text.strip() for paragraph in row.cells[1].paragraphs[:2])
+        assert all(paragraph.text.strip() for paragraph in row.cells[2].paragraphs[:3])
+
+
+def test_docx_adds_week_page_breaks_without_forcing_known_blank_pages(tmp_path: Path) -> None:
+    output = tmp_path / "roadmap.docx"
+    build(output)
+    document = Document(output)
+    week_headings = [
+        paragraph for paragraph in document.paragraphs if re.match(r"^Tuần \d{2} - ", paragraph.text)
+    ]
+    assert len(week_headings) == 24
+    for week, paragraph in enumerate(week_headings, start=1):
+        assert paragraph.paragraph_format.page_break_before is (week not in {1, 22})

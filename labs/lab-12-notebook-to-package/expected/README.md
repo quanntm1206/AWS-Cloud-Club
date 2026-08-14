@@ -13,8 +13,11 @@ Run from a clean shell. The notebook calls the package and does not copy trainin
 
 ## Terminology oracle
 
-- The package and CLI use clear configuration. The same config gives equivalent output, and the notebook keeps no hidden logic.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** The refactor succeeds when the notebook and CLI call one implementation with explicit configuration and produce equivalent outputs.
+
+**Evidence mapping:** The configuration keys record the run inputs, and `notebook_state_required=false` shows that a clean shell can run the code. Compare the metrics and checksums from both entry points.
+
+**Misconception check:** Copying logic into both the notebook and module creates two sources of truth. The starter status does not prove that the refactor preserved behavior.
 
 ## If your result differs
 

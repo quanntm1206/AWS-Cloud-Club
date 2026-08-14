@@ -24,7 +24,37 @@ Một lần chia dữ liệu có thể may hoặc rủi. Cross-validation giúp 
 
 **Ôn lại:** `data split`, `pipeline`, `metric`
 
-**Áp dụng:** Đặt toàn bộ pipeline trong `cross-validation`; đọc từng `fold`, mean/std và learning curve để phân biệt overfitting với bias / variance; giữ metric và data split nhất quán.
+**Áp dụng:** Đặt toàn bộ `pipeline` trong `cross-validation`; đọc từng `fold`, mean, standard deviation và learning curve để phân biệt `overfitting` với `bias / variance`, trong khi giữ cố định `metric` và `data split`.
+
+## Giải thích khái niệm
+
+### Luân phiên vai trò validation
+
+**Cách hình dung:** `cross-validation`: Đánh giá lặp qua nhiều fold để ước lượng độ ổn định của model. Mỗi sample làm validation ở một fold và làm training ở các fold còn lại. `fold`: Một phần dữ liệu lần lượt làm validation trong cross-validation. Fold nên giữ cấu trúc quan trọng như class balance hoặc customer group.
+
+**Vì sao quan trọng:** Cross-validation cho biết kết quả có ổn định qua nhiều fold hợp lý hay chỉ may mắn ở một split.
+
+**Ví dụ xuyên suốt:** `cross-validation`: 3-fold CV tạo ba validation score. `fold`: Ở fold 2, nhóm thứ hai được giữ lại để đánh giá.
+
+**Dễ nhầm với:** Cross-validation ước lượng độ dao động, không tạo thêm independent data. Fold là tập con trong cross-validation, không phải test set cuối.
+
+**Tự kiểm tra:** Độ biến thiên giữa các `fold` cho biết gì mà mean `cross-validation` che đi?
+
+### Overfitting qua bias và variance
+
+**Cách hình dung:** `overfitting`: Model nhớ training data nhưng hoạt động kém trên dữ liệu mới. Nó xuất hiện dưới dạng khoảng cách giữa performance trên training và data chưa thấy. `bias / variance`: Bias cao thường do model quá đơn giản; variance cao do model quá nhạy với training data. Bias gây underfitting có hệ thống, còn variance làm model thiếu ổn định giữa các dataset.
+
+**Vì sao quan trọng:** Khoảng cách và độ biến thiên giữa các fold giúp phân biệt overfitting với model có bias quá lớn.
+
+**Ví dụ xuyên suốt:** `overfitting`: Train score tăng còn validation score giảm. `bias / variance`: Learning curve có cả train và validation thấp gợi ý bias cao.
+
+**Dễ nhầm với:** Overfitting là generalization gap, không chỉ là model có nhiều parameter. Bias và variance là xu hướng lỗi, không phải demographic bias của protected attribute.
+
+**Tự kiểm tra:** Pattern nào trên learning curve gợi ý `overfitting`, bias cao hoặc variance cao?
+
+## Kết nối kiến thức cũ
+
+Giữ nguyên `data split`, `pipeline` và `metric` trong khi các fold luân phiên vai trò validation. Score của từng fold và độ phân tán cho thấy độ ổn định mà một split không thể hiện được.
 
 ## Lịch 8-10 giờ
 

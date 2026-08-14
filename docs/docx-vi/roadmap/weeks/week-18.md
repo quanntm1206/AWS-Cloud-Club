@@ -25,7 +25,37 @@ Transfer learning tận dụng biểu diễn đã học để giảm dữ liệu
 
 **Ôn lại:** `tensor`, `batch`, `epoch`, `device`, `overfitting`
 
-**Áp dụng:** Dùng `augmentation` chỉ cho training `batch`, giữ validation transform deterministic; tải `backbone` pretrained lên đúng `device`, `freeze` parameter rồi chạy `transfer learning` trên tensor, theo dõi epoch/loss để phát hiện overfitting.
+**Áp dụng:** Chỉ dùng `augmentation` cho từng training `batch` và giữ validation transform deterministic; đặt pretrained `backbone` lên đúng `device`, `freeze` parameter, rồi chạy `transfer learning` trong khi theo dõi epoch loss để phát hiện `overfitting`.
+
+## Giải thích khái niệm
+
+### Augmentation và backbone
+
+**Cách hình dung:** `augmentation`: Biến đổi ngẫu nhiên hợp lý trên training sample để tăng độ đa dạng mà không đổi label. Biến đổi phải giữ nguyên task label và thường chỉ random trên training data. `backbone`: Phần mạng chính trích xuất đặc trưng trước classifier head. Classifier head nhỏ sẽ đổi các feature đó thành score cho class mới.
+
+**Vì sao quan trọng:** Augmentation đổi training view nhưng không đổi label; backbone biến các view đó thành representation có thể dùng lại.
+
+**Ví dụ xuyên suốt:** `augmentation`: Lật ngang ảnh training; resize ảnh validation theo cách deterministic. `backbone`: ResNet18 pretrained làm backbone.
+
+**Dễ nhầm với:** Augmentation đổi training example; preprocessing còn chuẩn bị validation và inference input. Backbone trích xuất feature; classifier head ánh xạ chúng sang task label.
+
+**Tự kiểm tra:** `augmentation` nào giữ nguyên label, và representation nào đến từ `backbone`?
+
+### Freeze và transfer learning
+
+**Cách hình dung:** `freeze`: Tạm không cập nhật parameter của một phần model trong training. Frozen parameter vẫn tham gia forward pass nhưng không nhận optimizer update. `transfer learning`: Tái sử dụng kiến thức từ model pretrained cho bài toán mới. Có thể train classifier head trước trong khi giữ pretrained backbone ở trạng thái freeze.
+
+**Vì sao quan trọng:** Freeze bảo vệ pretrained weight và giảm compute; transfer learning thích nghi các layer còn trainable cho task mới.
+
+**Ví dụ xuyên suốt:** `freeze`: Đặt requires_grad=False cho backbone. `transfer learning`: Giữ ResNet18 backbone và thay classifier head.
+
+**Dễ nhầm với:** Freeze ngừng cập nhật parameter nhưng data vẫn đi qua layer. Transfer learning là chiến lược reuse tổng thể; fine-tuning là một giai đoạn training sau.
+
+**Tự kiểm tra:** Phần nào không đổi khi `freeze` backbone trong `transfer learning`?
+
+## Kết nối kiến thức cũ
+
+`tensor` và mỗi `batch` phải nằm trên đúng `device`; validation result qua từng `epoch` cho thấy `overfitting`. Các check đó cung cấp evidence để quyết định augmentation và transfer learning có hữu ích hay không.
 
 ## Lịch 8-10 giờ
 

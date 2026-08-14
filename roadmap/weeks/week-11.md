@@ -24,7 +24,37 @@ The average good model can still be bad for a small group. Error analysis turns 
 
 **Review:** `metric`, `validation set`, `feature engineering`
 
-**Use:** Run `error analysis` for each `slice`, always recording sample count; Create `failure taxonomy` from wrong prediction, contact feature engineering and metrics on validation set.
+**Use:** Run `error analysis` for each `slice` and record its sample count; build a `failure taxonomy` from incorrect predictions, then relate each category to `feature engineering` and the `metric` on the `validation set`.
+
+## Concept walkthrough
+
+### From score to failure slice
+
+**Mental model:** `error analysis`: Error analysis studies incorrect predictions systematically to form hypotheses and plan further tests. The analyst inspects false positives and false negatives across examples and groups. `slice`: A slice is a group of samples with a shared characteristic that is evaluated separately. Slice results should be compared with overall results and reported with support.
+
+**Why it matters:** Error analysis makes an aggregate metric actionable by locating the slices where failures concentrate.
+
+**Worked example:** `error analysis`: Review false negatives by contract type. `slice`: The new-customer slice contains customers with tenure below three months.
+
+**Easy to confuse:** Error analysis studies observed failures; a metric only summarizes them. A slice is a meaningful subgroup; a data split assigns training or evaluation roles.
+
+**Check yourself:** Which `slice` concentrates the errors found during `error analysis`?
+
+### Naming failure patterns
+
+**Mental model:** `failure taxonomy`: A failure taxonomy groups errors by observable cause instead of treating every mistake as the same. Useful categories are specific enough to count and connect to a possible remedy.
+
+**Why it matters:** A failure taxonomy turns recurring symptoms into named categories that can be counted, prioritized, and retested.
+
+**Worked example:** `failure taxonomy`: Classify each error as data, boundary, missing signal, or label noise.
+
+**Easy to confuse:** A failure taxonomy names error groups; a confusion matrix groups errors only by class labels.
+
+**Check yourself:** Can every observed failure be assigned to one actionable `failure taxonomy` category?
+
+## Connect earlier terms
+
+An aggregate `metric` on the `validation set` now leads to individual failures and slices. Linking each category back to `feature engineering` turns observed errors into testable changes rather than guesses.
 
 ## 8-10 hour schedule
 

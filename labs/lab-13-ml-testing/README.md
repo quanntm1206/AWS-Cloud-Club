@@ -14,6 +14,37 @@ ML tests must check data and artifacts, not only whether a function returns the 
 
 **Explain it yourself:** How is a data contract more than a schema? How does parity protect an artifact?
 
+
+## Apply the concepts
+
+### Accepted data boundary
+
+**Terms:** `data contract`, `schema`, `pipeline`
+
+**What they mean here:** The `schema` covers columns and data types. The `data contract` also defines rules for missing values, finite numbers, empty input, and errors before data enters the `pipeline`.
+
+**Where you will see them:** Valid data plus missing-column, dtype, NaN/Inf, empty, and unseen-category cases exercise the boundary.
+
+**Common mistake:** Calling a dtype check a complete contract.
+
+**Evidence to keep:** Keep every case, rule, expected result, error, and pipeline entry point.
+
+**Explain after the lab:** Name one rule beyond the schema and the negative test that proves the rule is enforced.
+
+### Saved behavior
+
+**Terms:** `parity`, `artifact`, `reproducibility`
+
+**What they mean here:** `parity` means predictions before and after loading the `artifact` agree within tolerance; seeded tests make the `reproducibility` check useful.
+
+**Where you will see them:** Fit-save-load-predict ends at `artifact_reload_parity=true`, with a synthetic-signal baseline gate.
+
+**Common mistake:** Accepting a file that loads without comparing outputs, or demanding brittle exact floats.
+
+**Evidence to keep:** Keep prediction arrays, tolerance, checksum, seed, and baseline result.
+
+**Explain after the lab:** Explain what reload parity catches and which tests it cannot replace.
+
 ## Before you start
 
 Read `roadmap/weeks/week-14.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.

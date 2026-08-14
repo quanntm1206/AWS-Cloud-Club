@@ -23,7 +23,49 @@ Preprocessing cũng học từ dữ liệu. Đặt nó trong pipeline giữ ranh
 
 **Ôn lại:** `data split`, `training set`, `validation set`, `test set`, `schema`
 
-**Áp dụng:** Chia bằng `data split` trước, fit từng bước `preprocessing`/`transform` chỉ trên `training set`, ghép thành `pipeline`; dùng schema để chứng minh không có `data leakage` sang validation set/test set.
+**Áp dụng:** Tạo `data split` trước, chỉ fit từng bước `preprocessing` và `transform` trên `training set`, rồi ghép thành `pipeline`; dùng `schema` và split lineage để loại trừ `data leakage` sang validation hoặc test data.
+
+## Giải thích khái niệm
+
+### Học một transformation
+
+**Cách hình dung:** `preprocessing`: Các bước chuẩn bị dữ liệu trước model như điền thiếu, scale hoặc encode. Có bước cố định, có bước học median, danh sách category hoặc scaling statistic. `transform`: Phép biến đổi input; một số transform phải học trạng thái chỉ từ training set. Sau đó phải dùng lại cùng fitted transform cho validation, test và inference data.
+
+**Vì sao quan trọng:** Mọi preprocessing rule có học statistic chỉ được học từ training data.
+
+**Ví dụ xuyên suốt:** `preprocessing`: Điền median rồi one-hot encode cột hợp đồng. `transform`: StandardScaler học mean và std từ train rồi áp sang validation.
+
+**Dễ nhầm với:** Preprocessing có thể học trạng thái nên không phải lúc nào cũng là cleanup cố định vô hại. transform áp quy tắc; fit học trạng thái mà quy tắc cần.
+
+**Tự kiểm tra:** `preprocessing` có thể học state nào, và cùng `transform` phải được áp dụng ra sao cho dữ liệu sau?
+
+### Thứ tự pipeline và leakage
+
+**Cách hình dung:** `pipeline`: Chuỗi preprocessing và model chạy theo thứ tự cố định để giảm lỗi và leakage. Khi fit pipeline, mỗi bước preprocessing cần học chỉ được thấy training data. `data leakage`: Thông tin không hợp lệ từ validation, test hoặc tương lai lọt vào training. Leakage có thể đến từ future data, feature suy ra từ target, khách trùng hoặc preprocessing trước split.
+
+**Vì sao quan trọng:** Pipeline giữ đúng thứ tự operation; boundary đó ngăn thông tin từ validation hoặc test data bị leakage.
+
+**Ví dụ xuyên suốt:** `pipeline`: ColumnTransformer nối với logistic regression trong một Pipeline. `data leakage`: Fit scaler trên toàn dataset trước split làm rò thông tin test.
+
+**Dễ nhầm với:** Pipeline là container theo thứ tự; preprocessing chỉ là phần chuẩn bị dữ liệu. Leakage có thể xảy ra mà không có row trùng, như fit scaler trước split.
+
+**Tự kiểm tra:** `data leakage` có thể lọt vào đâu khi `pipeline` được fit sai thứ tự?
+
+### Fit học state
+
+**Cách hình dung:** `fit`: Bước học parameter hoặc trạng thái transform từ training data. Với scaler, fit học statistic; với model, fit học predictive parameter.
+
+**Vì sao quan trọng:** Fit làm thay đổi state của object, nên phải ghi rõ fit cái gì và trên những dòng nào để bảo đảm reproducibility.
+
+**Ví dụ xuyên suốt:** `fit`: Gọi pipeline.fit(X_train, y_train).
+
+**Dễ nhầm với:** Fit học state; transform áp dụng transformation cố định hoặc đã học.
+
+**Tự kiểm tra:** Những dòng nào được phép ảnh hưởng state trong lúc `fit`?
+
+## Kết nối kiến thức cũ
+
+`data split`, `training set`, `validation set`, `test set` và `schema` xác định nơi preprocessing được phép học state. Metadata của fitted state và các dòng held-out không đổi cho thấy pipeline giữ đúng boundary.
 
 ## Lịch 8-10 giờ
 

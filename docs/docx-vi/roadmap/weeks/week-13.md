@@ -23,7 +23,37 @@ Notebook giúp khám phá nhanh; package giúp logic có đầu vào rõ, tái s
 
 **Ôn lại:** `reproducibility`, `pipeline`, `artifact`
 
-**Áp dụng:** Tách pipeline thành `package`; đưa seed và hyperparameter vào `configuration`, chạy lại để giữ reproducibility, artifact và inference không phụ thuộc notebook state.
+**Áp dụng:** Đưa `pipeline` vào `package` dùng lại được; lưu seed và hyperparameter trong `configuration`, rồi chạy lại để chứng minh `reproducibility`, `artifact` và inference không còn phụ thuộc notebook state.
+
+## Giải thích khái niệm
+
+### Code thành package
+
+**Cách hình dung:** `package`: Mã Python được tổ chức thành module có thể import, kiểm thử và gọi từ CLI. Package cài được giúp tránh copy logic quan trọng giữa nhiều notebook.
+
+**Vì sao quan trọng:** Package cho production path import và entry point rõ ràng thay vì notebook state ẩn.
+
+**Ví dụ xuyên suốt:** `package`: Đưa logic train vào src/ml_roadmap thay vì copy giữa notebook.
+
+**Dễ nhầm với:** Package tổ chức code; container đóng gói cả runtime environment.
+
+**Tự kiểm tra:** `Package` có import và test được mà không chạy notebook không?
+
+### Behavior qua configuration
+
+**Cách hình dung:** `configuration`: Các giá trị điều khiển một run, được lưu riêng để chạy lại và so sánh. Nên tách configuration khỏi reusable code để đổi setting mà không sửa program logic.
+
+**Vì sao quan trọng:** Configuration làm behavior dễ review và lặp lại mà không phải sửa source code cho từng lần chạy.
+
+**Ví dụ xuyên suốt:** `configuration`: Config YAML ghi seed, feature và threshold.
+
+**Dễ nhầm với:** Configuration điều khiển run; parameter đã học là model state.
+
+**Tự kiểm tra:** Giá trị nào thuộc `configuration` thay vì source code hoặc model state đã học?
+
+## Kết nối kiến thức cũ
+
+Yêu cầu về `reproducibility`, `pipeline` và `artifact` giờ vượt ra ngoài notebook state. Một clean CLI rerun từ configuration đã lưu cung cấp evidence mới.
 
 ## Lịch 8-10 giờ
 

@@ -13,8 +13,11 @@ The smoke demo uses NumPy on CPU. Then write and run the small PyTorch loop from
 
 ## Terminology oracle
 
-- The receipt records tensor shapes, batch, epoch, optimizer, and device. Loss decreases, and the parameter count is correct.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** Tensor shapes and devices must match through the loss calculation. Training follows zero-grad, forward, backward, and step, while validation changes no parameters.
+
+**Evidence mapping:** The printed shapes, dtypes, device, and parameter count describe the tensor path. The loss history and gradient-reset comparison show training behavior, while `eval()` and `no_grad()` show validation behavior.
+
+**Misconception check:** A decreasing loss in a tiny seeded demo does not prove generalization. The starter status is smoke evidence only.
 
 ## If your result differs
 

@@ -23,7 +23,37 @@ It's reproducible, the limits are stated, the demo has fallbacks, and the system
 
 **Review:** `artifact`, `inference`, `residual scan`
 
-**Use:** Demonstrate `idempotent cleanup`, reread `budget alert`, compare `manifest`; Review artifact, inference and residual scan in the final demo.
+**Use:** Demonstrate `idempotent cleanup`, review the `budget alert`, and verify the final `manifest`; include the `artifact`, `inference`, and `residual scan` evidence in the closing demo.
+
+## Concept walkthrough
+
+### Repeatable cleanup and budget signals
+
+**Mental model:** `idempotent cleanup`: Idempotent cleanup can run repeatedly and still move toward the same clean state. It treats already-absent resources as a successful state rather than a fatal error. `budget alert`: A budget alert sends a notification when actual or forecast AWS cost reaches a threshold. It can watch actual and forecast spending, but AWS resources continue running until something stops them.
+
+**Why it matters:** Idempotent cleanup proves repeatability of the technical state; a budget alert remains a separate delayed cost signal, not proof of deletion.
+
+**Worked example:** `idempotent cleanup`: Delete resources with the exact project ID, then scan again. `budget alert`: An AWS Budget emails alerts for Actual and Forecasted spending.
+
+**Easy to confuse:** Idempotent cleanup is safe to repeat; a one-shot delete may fail when partly completed. A budget alert sends a warning; it does not automatically stop AWS spending.
+
+**Check yourself:** Why are `idempotent cleanup` evidence and a `budget alert` two separate safety signals?
+
+### Manifest for the final handoff
+
+**Mental model:** `manifest`: A manifest lists an artifact's contents, versions, checksums, and origin. Checksums help detect changed files, while metadata explains how those files were created.
+
+**Why it matters:** The manifest ties the final artifact, schema, threshold, checksum, and source run into one auditable handoff.
+
+**Worked example:** `manifest`: The manifest records the seed, feature order, and SHA-256 checksum.
+
+**Easy to confuse:** A manifest describes files and provenance; the artifact contains the actual files.
+
+**Check yourself:** Can the `manifest` identify the final artifact, schema, threshold, checksum, and source run?
+
+## Connect earlier terms
+
+The final `artifact` and its `inference` evidence are accepted only after the `residual scan` reports a clean technical state. The manifest and delayed budget review preserve separate provenance and cost evidence for the handoff.
 
 ## 8-10 hour schedule
 

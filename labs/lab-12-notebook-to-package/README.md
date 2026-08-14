@@ -14,6 +14,37 @@ Move training logic out of the notebook without changing behavior. The goal is n
 
 **Explain it yourself:** How do a package and configuration remove hidden notebook state?
 
+
+## Apply the concepts
+
+### One source of logic
+
+**Terms:** `package`, `pipeline`
+
+**What they mean here:** The `package` owns reusable training and artifact I/O; notebook and CLI call the same `pipeline`.
+
+**Where you will see them:** Notebook cells become imports/calls while a clean shell reaches the same module.
+
+**Common mistake:** Copying logic into a module while leaving the old notebook implementation active.
+
+**Evidence to keep:** Keep module entry point, thin notebook call, CLI command, and invalid-input error.
+
+**Explain after the lab:** Identify the single implementation and how both interfaces reach it.
+
+### Explicit run state
+
+**Terms:** `configuration`, `reproducibility`, `artifact`
+
+**What they mean here:** The `configuration` records the seed, hyperparameters, data path, and output path. Making these inputs explicit supports `reproducibility` and determines which `artifact` is created.
+
+**Where you will see them:** Config keys and `notebook_state_required=false` lead to metric and artifact comparisons.
+
+**Common mistake:** Still depending on an earlier unrecorded cell variable.
+
+**Evidence to keep:** Keep config, both commands, output checksums, tolerance, and runtime.
+
+**Explain after the lab:** Name one formerly hidden value and the clean-shell evidence that exposes it.
+
 ## Before you start
 
 Read `roadmap/weeks/week-13.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.

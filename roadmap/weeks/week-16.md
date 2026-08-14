@@ -24,7 +24,37 @@ Docker encapsulates the runtime; CI checks the rules every time the code changes
 
 **Review:** `API contract`, `artifact`, `reproducibility`, `latency`
 
-**Use:** Pack the package/API contract into `container`, use `CI` to run data validation, parity and test artifact; Measure low latency and then cleanup the container to maintain reproducibility.
+**Use:** Package the service and its `API contract` in a `container`; use `CI` to run data validation, parity, and artifact tests, measure `latency`, then remove the container while retaining reproducibility evidence.
+
+## Concept walkthrough
+
+### Environment in a container
+
+**Mental model:** `container`: A container bundles an application with its dependencies and runtime configuration in an isolated environment. Its image should contain only what the service needs and should run as a non-root user.
+
+**Why it matters:** A container fixes the runtime boundary, but it still needs a small image, a non-root user, and an explicit health check.
+
+**Worked example:** `container`: A Docker image runs the API as a non-root user.
+
+**Easy to confuse:** A container is a runnable package, not a full virtual machine.
+
+**Check yourself:** What runtime assumptions does the `container` fix, and which risks remain outside it?
+
+### CI as repeatable judgment
+
+**Mental model:** `CI`: Continuous integration (CI) automatically runs checks and tests when code changes. Typical CI checks include tests, linting, and type checking, but not an automatic production deployment.
+
+**Why it matters:** CI reruns agreed checks from a clean state so a build is judged by evidence rather than by one developer's machine.
+
+**Worked example:** `CI`: A CI pipeline runs pytest, Ruff, and mypy without deploying to AWS.
+
+**Easy to confuse:** CI validates changes; deployment releases them to an environment.
+
+**Check yourself:** Which clean-state checks must `CI` repeat before accepting a change?
+
+## Connect earlier terms
+
+The existing `API contract`, `artifact`, `reproducibility`, and `latency` expectations now run inside a clean container. CI output and a fresh container test prove that the result is not tied to one workstation.
 
 ## 8-10 hour schedule
 

@@ -13,8 +13,11 @@ Keep the same split and metric. Explain whether the model beats the baseline.
 
 ## Terminology oracle
 
-- The receipt records the `data split` and training, validation, and test sets. The baseline and model use the same metric; the confusion matrix and precision / recall / F1 support model validation.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** Logistic regression beats the dummy baseline only if both models use the same independent split, threshold, and evaluation metric.
+
+**Evidence mapping:** The partition sizes and overlap checks show that training, validation, and test samples are separate. `dummy_f1`, `logistic_f1`, and both confusion matrices provide the model-comparison evidence.
+
+**Misconception check:** A higher F1 after tuning on the test set is not independent evidence. The starter status does not prove that you completed the fair practical comparison.
 
 ## If your result differs
 

@@ -23,7 +23,37 @@ EDA is not a drawing contest. This is when you find out if the data is reliable 
 
 **Review:** `dataset`, `sample`, `feature`, `label / target`
 
-**Use:** Run `data validation` on `dataset`: check `schema`, `missing value`, `outlier`; Use EDA to describe features and labels/targets at the sample level.
+**Use:** Run `data validation` on the `dataset` against its `schema`, including `missing value` and `outlier` checks; use `EDA` to describe each `feature` and `label / target` at sample level.
+
+## Concept walkthrough
+
+### Trust before modeling
+
+**Mental model:** `data validation`: Checking that data follows the schema and quality rules before use. Checks can reject or report invalid rows before those rows enter the workflow. `EDA`: Exploring data with statistics and plots to understand quality, distributions, and follow-up questions. It begins with questions, then uses summaries and plots to investigate them.
+
+**Why it matters:** Data validation enforces known rules, while EDA looks for distributions and patterns that may require new rules.
+
+**Worked example:** `data validation`: Find duplicate IDs, negative ages, or a missing target. `EDA`: Compare the overall churn rate with the rate for each contract group.
+
+**Easy to confuse:** Data validation enforces known rules; EDA searches for patterns and new questions. EDA explores and forms hypotheses; model validation evaluates model choices.
+
+**Check yourself:** Which checks belong to `data validation`, and which questions require `EDA`?
+
+### Missingness and unusual values
+
+**Mental model:** `missing value`: A value that is absent or not recorded in the dataset. It may be represented by null, NaN, or another agreed marker, depending on the schema. `outlier`: An observation far from most of the data; investigate it before deleting or changing it. Its cause should be checked with domain knowledge before it is removed or capped.
+
+**Why it matters:** Missing values and outliers can be errors or real signal, so investigate their mechanism before changing them.
+
+**Worked example:** `missing value`: Some samples have no monthly_charges value. `outlier`: An unusually high bill may be an error or a real business customer.
+
+**Easy to confuse:** A missing value is absent; zero can be a valid recorded value. An outlier is unusual, not automatically incorrect.
+
+**Check yourself:** How would you decide whether a `missing value` or `outlier` is an error or useful signal?
+
+## Connect earlier terms
+
+A `dataset` is trustworthy only when each `sample`, `feature`, and `label / target` passes explicit quality checks. Validation results and EDA summaries now provide that evidence instead of relying on row counts alone.
 
 ## 8-10 hour schedule
 

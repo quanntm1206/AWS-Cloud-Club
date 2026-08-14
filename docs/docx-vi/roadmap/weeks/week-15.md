@@ -23,7 +23,37 @@ Inference API là ranh giới giữa model và sản phẩm. Contract tốt giú
 
 **Ôn lại:** `data contract`, `artifact`, `inference`, `schema`
 
-**Áp dụng:** Định nghĩa `API contract`, đo `latency`, gửi sample hợp lệ/sai qua inference; data contract chặn schema lỗi trước artifact và response không lộ raw feature.
+**Áp dụng:** Định nghĩa `API contract`, đo `latency`, rồi gửi sample hợp lệ và sai qua `inference`; thực thi `data contract` trước khi load `artifact` và không đưa raw feature vào response.
+
+## Giải thích khái niệm
+
+### Request và response
+
+**Cách hình dung:** `API contract`: Quy ước rõ về input, output, status code và lỗi của inference service. Client và server cùng dựa vào contract để trao đổi data hợp lệ.
+
+**Vì sao quan trọng:** API contract tách caller error khỏi service failure bằng request, response và error shape ổn định.
+
+**Ví dụ xuyên suốt:** `API contract`: Payload thiếu tenure trả về 422 thay vì 500.
+
+**Dễ nhầm với:** API contract mô tả hành vi; data contract tập trung vào quy tắc input data.
+
+**Tự kiểm tra:** Request, response và error case nào phải được `API contract` giữ ổn định?
+
+### Latency là một distribution
+
+**Cách hình dung:** `latency`: Thời gian từ khi nhận request đến khi trả response. Cần đo trong điều kiện được nêu rõ như trạng thái warm-up và batch size.
+
+**Vì sao quan trọng:** Latency quyết định inference có đáp ứng product deadline hay không; percentile hữu ích hơn một request nhanh đơn lẻ.
+
+**Ví dụ xuyên suốt:** `latency`: Đo warm latency cho mini-batch gồm 16 sample.
+
+**Dễ nhầm với:** Latency đo thời gian; throughput đo lượng công việc hoàn tất mỗi đơn vị thời gian.
+
+**Tự kiểm tra:** Latency percentile nào phản ánh product deadline tốt hơn một request nhanh đơn lẻ?
+
+## Kết nối kiến thức cũ
+
+`data contract` và `schema` bảo vệ request trước khi `artifact` thực hiện `inference`. Status code ổn định cùng latency đã đo cho thấy serving boundary hoạt động đúng contract.
 
 ## Lịch 8-10 giờ
 

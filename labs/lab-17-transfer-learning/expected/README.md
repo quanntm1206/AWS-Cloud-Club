@@ -13,8 +13,11 @@ Choose exactly one Colab or Kaggle notebook. Run `cpu-mini` before using a GPU, 
 
 ## Terminology oracle
 
-- The receipt records augmentation, the pretrained backbone, frozen parameters, the device, and a checkpoint. The training history can be checked for overfitting.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** A real transfer-learning run verifies the pretrained weights and normalization, freezes the backbone, trains the new head, and exports the results.
+
+**Evidence mapping:** The weight source, device, `requires_grad` values, and parameter counts support the backbone claims. The transforms and metric history describe training, while the manifest and checksum identify the checkpoint.
+
+**Misconception check:** The local frozen-layer dictionary is not completed training, and random validation augmentation would weaken the comparison. The starter status remains smoke-only.
 
 ## If your result differs
 

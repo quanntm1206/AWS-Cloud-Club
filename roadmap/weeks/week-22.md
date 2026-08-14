@@ -25,7 +25,37 @@ need to open the endpoint to the Internet.
 
 **Review:** `IAM`, `S3`, `budget alert`
 
-**Use:** Use `Lambda` to perform inference according to `API contract`, check `CloudWatch Logs` does not reveal sensitive samples; review IAM and S3 from last week.
+**Use:** Run `inference` in `Lambda` under the `API contract`, verify that `CloudWatch Logs` contain no sensitive samples, then review the `IAM`, `S3`, and `budget alert` controls from the previous week.
+
+## Concept walkthrough
+
+### Lambda execution and logs
+
+**Mental model:** `Lambda`: AWS Lambda runs functions on request without requiring users to manage servers. AWS provisions the execution environment and charges for the resources used by each invocation. `CloudWatch Logs`: CloudWatch Logs stores runtime logs on AWS, where sensitive data and retention require deliberate controls. Log groups need explicit retention, access control, and rules that prevent sensitive values from being written.
+
+**Why it matters:** Lambda needs explicit inputs and outputs, while CloudWatch Logs show which version ran and why a request failed.
+
+**Worked example:** `Lambda`: Use a private invoke to run tabular inference. `CloudWatch Logs`: Set the Lambda log group retention to one day.
+
+**Easy to confuse:** Lambda is compute; S3 is object storage. CloudWatch Logs stores runtime logs; CloudWatch metrics store numeric measurements.
+
+**Check yourself:** Which `Lambda` result and `CloudWatch Logs` fields prove that the intended model version ran?
+
+### API contract at the boundary
+
+**Mental model:** `API contract`: An API contract defines an inference service's inputs, outputs, status codes, and errors. Both client and server rely on the same contract to exchange valid data.
+
+**Why it matters:** The API contract keeps the cloud invocation compatible with the local caller and makes errors diagnosable.
+
+**Worked example:** `API contract`: A payload missing tenure returns 422 instead of 500.
+
+**Easy to confuse:** An API contract describes behavior; a data contract focuses on input data rules.
+
+**Check yourself:** Does the cloud response still satisfy the same `API contract` as the local caller?
+
+## Connect earlier terms
+
+The prior `IAM`, `S3`, and `budget alert` controls remain active while `Lambda` serves the request. The response and redacted log entry show that access, storage, and cost guardrails still surround the deployment.
 
 ## 8-10 hour schedule
 

@@ -13,8 +13,11 @@ Run it twice; the row count, schema, and seed must match.
 
 ## Terminology oracle
 
-- Both environment reports have the same `schema`, `seed`, and number of `sample` rows. The learning log identifies the `dataset` and explains the limits of `reproducibility`.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** The two runs should have the same `rows`, `dtypes`, and `seed`. This supports a limited reproducibility claim for the recorded input and environment.
+
+**Evidence mapping:** In each report, `rows` counts the samples, `dtypes` describes the schema, and `seed` records the random setting. Read these fields together with the Python, dependency, and operating-system versions.
+
+**Misconception check:** `status=starter-example-completed` only means that the smoke example ran. The same seed cannot guarantee identical results when the data, software, or hardware changes.
 
 ## If your result differs
 

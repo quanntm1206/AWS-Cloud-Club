@@ -25,7 +25,37 @@ Transfer learning leverages learned representations for data reduction and compu
 
 **Review:** `tensor`, `batch`, `epoch`, `device`, `overfitting`
 
-**Use:** Use `augmentation` only for training `batch`, keep validation transform deterministic; upload the pretrained `backbone` to the correct `device`, `freeze` parameters and then run `transfer learning` on the tensor, monitoring epoch/loss to detect overfitting.
+**Use:** Apply `augmentation` only to each training `batch` and keep validation transforms deterministic; place the pretrained `backbone` on the correct `device`, `freeze` its parameters, then run `transfer learning` while monitoring epoch loss for `overfitting`.
+
+## Concept walkthrough
+
+### Augmentation and backbone
+
+**Mental model:** `augmentation`: Augmentation applies valid random changes to training samples to add diversity without changing their labels. The transformation must preserve the task label and is normally random only for training. `backbone`: A backbone is the main network section that extracts features before the task-specific classifier head. A small classifier head converts those features into scores for the new classes.
+
+**Why it matters:** Augmentation changes training views without changing the label; the backbone turns those views into reusable representations.
+
+**Worked example:** `augmentation`: Flip training images horizontally; resize validation images deterministically. `backbone`: Use a pretrained ResNet18 as the backbone.
+
+**Easy to confuse:** Augmentation changes training examples; preprocessing also prepares validation and inference inputs. The backbone extracts features; the classifier head maps them to task labels.
+
+**Check yourself:** Which `augmentation` preserves the label, and which representation comes from the `backbone`?
+
+### Freeze and transfer learning
+
+**Mental model:** `freeze`: To freeze a model section means temporarily preventing its parameters from being updated during training. Frozen parameters still take part in the forward pass but receive no optimizer updates. `transfer learning`: Transfer learning reuses knowledge from a pretrained model for a new problem. The classifier head can be trained first while the pretrained backbone remains frozen.
+
+**Why it matters:** Freezing protects pretrained weights and lowers compute, while transfer learning adapts the remaining trainable layers to the task.
+
+**Worked example:** `freeze`: Set requires_grad=False for backbone. `transfer learning`: Keep the ResNet18 backbone and replace the classifier head.
+
+**Easy to confuse:** Freeze stops parameter updates but still allows data to pass through the layer. Transfer learning is the overall reuse strategy; fine-tuning is one later training stage.
+
+**Check yourself:** What stays unchanged when you `freeze` the backbone during `transfer learning`?
+
+## Connect earlier terms
+
+The `tensor` and every `batch` must remain on the correct `device`, while validation results across each `epoch` expose `overfitting`. Those checks provide the evidence for deciding whether augmentation and transfer learning help.
 
 ## 8-10 hour schedule
 

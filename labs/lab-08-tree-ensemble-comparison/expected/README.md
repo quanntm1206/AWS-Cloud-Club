@@ -13,8 +13,11 @@ Every candidate uses the same split, metric, and runtime budget. Open the test s
 
 ## Terminology oracle
 
-- The ensemble comparison keeps the same baseline, metric, and budget. It changes one hyperparameter and explains bagging / boosting.
-- Answer the `Explain it yourself` question in your own words and point to the evidence. Do not only copy a glossary.
+**Expected reasoning:** A fair comparison keeps the data, metric, and compute budget fixed. Select the candidate on validation results, then use the test set once.
+
+**Evidence mapping:** Validation AUC, runtime, and model size describe the shared comparison. The random forest represents bagging, gradient boosting represents boosting, and the chosen candidate produces the final test AUC.
+
+**Misconception check:** Giving one candidate more tuning or compute makes the result unfair. The starter status does not prove that the complete comparison followed the fixed rules.
 
 ## If your result differs
 

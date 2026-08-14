@@ -14,6 +14,37 @@ This local lab exposes the neural-network training loop without depending on a G
 
 **Explain it yourself:** How do batch, epoch, loss, and optimizer form one training loop?
 
+
+## Apply the concepts
+
+### Tensor path
+
+**Terms:** `tensor`, `batch`, `device`
+
+**What they mean here:** A `tensor` carries values together with a shape, dtype, and `device`. A `batch` is the group of samples used in one forward and backward pass.
+
+**Where you will see them:** Input, hidden, logits, and target shapes appear with dtype, device, and parameter count.
+
+**Common mistake:** Moving the model but not inputs, or overlooking broadcasting.
+
+**Evidence to keep:** Keep shapes, dtypes, device, batch size, and predicted/reported parameter counts.
+
+**Explain after the lab:** Trace one batch and show where incompatibility appears.
+
+### Training transition
+
+**Terms:** `parameter`, `gradient`, `loss`, `optimizer`, `epoch`, `validation set`
+
+**What they mean here:** `loss` produces a `gradient` for each `parameter`; the `optimizer` updates it, an `epoch` covers training once, and validation performs no updates.
+
+**Where you will see them:** Loss history, omitted/restored gradient reset, optimizer step, `eval()`, and `no_grad()` expose each stage.
+
+**Common mistake:** Accumulating gradients unintentionally or updating during validation.
+
+**Evidence to keep:** Keep loss sequence, gradient comparison, optimizer settings, epoch, and validation output.
+
+**Explain after the lab:** Explain zero-grad, forward, backward, step, and validation in order.
+
 ## Before you start
 
 Read `roadmap/weeks/week-17.md`, work from the repository root, and prepare a local place for evidence. Do not put credentials, personal data, or large artifacts in Git.

@@ -23,7 +23,37 @@ Inference API is the boundary between model and product. Good contracts help cli
 
 **Review:** `data contract`, `artifact`, `inference`, `schema`
 
-**Use:** Define `API contract`, measure `latency`, send valid/incorrect samples via inference; The data contract prevents schema errors before artifacts and responses do not expose raw features.
+**Use:** Define the `API contract`, measure `latency`, and send valid and invalid samples through `inference`; enforce the `data contract` before loading the `artifact`, and keep raw features out of responses.
+
+## Concept walkthrough
+
+### Requests and responses
+
+**Mental model:** `API contract`: An API contract defines an inference service's inputs, outputs, status codes, and errors. Both client and server rely on the same contract to exchange valid data.
+
+**Why it matters:** An API contract separates caller errors from service failures through stable request, response, and error shapes.
+
+**Worked example:** `API contract`: A payload missing tenure returns 422 instead of 500.
+
+**Easy to confuse:** An API contract describes behavior; a data contract focuses on input data rules.
+
+**Check yourself:** Which request, response, and error cases must the `API contract` keep stable?
+
+### Latency as a distribution
+
+**Mental model:** `latency`: Latency is the elapsed time between receiving a request and returning its response. It should be measured under stated conditions such as warm-up state and batch size.
+
+**Why it matters:** Latency determines whether inference can serve the product deadline; a percentile is more informative than one fast request.
+
+**Worked example:** `latency`: Measure warm latency for a mini-batch of 16 samples.
+
+**Easy to confuse:** Latency measures elapsed time; throughput measures how much work finishes per unit time.
+
+**Check yourself:** Which latency percentile represents the product deadline better than one fast request?
+
+## Connect earlier terms
+
+The `data contract` and `schema` now protect requests before the `artifact` performs `inference`. Stable status codes plus measured latency show that the serving boundary behaves as specified.
 
 ## 8-10 hour schedule
 
